@@ -1,5 +1,7 @@
 # Gest
 
+![Gest](docs/images/gest.png "Gest")
+
 Progetto iniziato mercoledì 11 dicembre 2019.
 
 ## Componenti del gruppo
