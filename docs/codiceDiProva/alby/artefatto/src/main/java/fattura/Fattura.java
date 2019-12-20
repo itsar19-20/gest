@@ -34,7 +34,7 @@ public class Fattura {
 		this.scadenza = scadenza;
 		this.importo = importo;
 		this.mittente = mittente;
-		this.destinatario = idPersona;
+		//	this.destinatario = idPersona;
 		this.nota = nota;
 		this.descrizione = descrizione;
 		this.idCassa = idCassa;
@@ -45,7 +45,7 @@ public class Fattura {
 		this.data = data;
 		this.scadenza = scadenza;
 		this.importo = importo;
-		this.mittente = idPersona;
+		//	this.mittente = idPersona;
 		this.destinatario = destinatario;
 		this.nota = nota;
 		this.descrizione = descrizione;
