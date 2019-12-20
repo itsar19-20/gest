@@ -3,7 +3,7 @@ package fattura;
 import java.sql.Date;
 import java.util.List;
 
-public class Fattura {
+public class Fattura extends Console {
 	
 	private String idFattura;
 	private Date data;
@@ -29,7 +29,7 @@ public class Fattura {
 		this.idCassa = idCassa;
 	}
 	
-	public Fattura fatturaCliente(Date data, Integer scadenza, float importo, String mittente, String nota, List<Descrizione> descrizione, String idCassa) {
+	public Fattura immettiFCliente(Date data, Integer scadenza, float importo, String mittente, String nota, List<Descrizione> descrizione, String idCassa) {
 		this.data = data;
 		this.scadenza = scadenza;
 		this.importo = importo;
@@ -41,7 +41,7 @@ public class Fattura {
 		return null;
 	}
 	
-	public Fattura fatturaFornitore(Date data, Integer scadenza, float importo, String destinatario, String nota, List<Descrizione> descrizione, String idCassa) {
+	public Fattura immettiFFornitore(Date data, Integer scadenza, float importo, String destinatario, String nota, List<Descrizione> descrizione, String idCassa) {
 		this.data = data;
 		this.scadenza = scadenza;
 		this.importo = importo;
@@ -53,8 +53,15 @@ public class Fattura {
 		return null;
 	}
 	
-	public void fatturaFornitore() {
-		
+	public Fattura immettiFattura(String str) {
+		//	String fat = (str == "c") ? p("cliente") : p("fornitore");
+		p("Crazione fattura ");	if (str == "c") p("cliente"); else p("fornitore"); p(" ..."); l();
+		p("importo"); in(); this.importo = input;
+		return null;
+	}
+
+	public static void immettiFFornitore() {
+		// TODO Auto-generated method stub		
 	}
 	
 	public String getIdFattura() {
@@ -110,6 +117,13 @@ public class Fattura {
 	}
 	public void setScadenza(Integer scadenza) {
 		this.scadenza = scadenza;
+	}
+
+	@Override
+	public String toString() {
+		return "Fattura [idFattura=" + idFattura + ", data=" + data + ", scadenza=" + scadenza + ", importo=" + importo
+				+ ", mittente=" + mittente + ", destinatario=" + destinatario + ", nota=" + nota + ", descrizione="
+				+ descrizione + ", idCassa=" + idCassa + "]";
 	}
 	
 }
