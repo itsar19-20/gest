@@ -15,6 +15,48 @@ public class Fattura {
 	private List<Descrizione> descrizione;
 	private String idCassa;
 	
+	public Fattura(String idFattura, Date data, Integer scadenza, float importo, String mittente, String destinatario,
+			String nota, List<Descrizione> descrizione, String idCassa) {
+		super();
+		this.idFattura = idFattura;
+		this.data = data;
+		this.scadenza = scadenza;
+		this.importo = importo;
+		this.mittente = mittente;
+		this.destinatario = destinatario;
+		this.nota = nota;
+		this.descrizione = descrizione;
+		this.idCassa = idCassa;
+	}
+	
+	public Fattura fatturaCliente(Date data, Integer scadenza, float importo, String mittente, String nota, List<Descrizione> descrizione, String idCassa) {
+		this.data = data;
+		this.scadenza = scadenza;
+		this.importo = importo;
+		this.mittente = mittente;
+		this.destinatario = idPersona;
+		this.nota = nota;
+		this.descrizione = descrizione;
+		this.idCassa = idCassa;
+		return null;
+	}
+	
+	public Fattura fatturaFornitore(Date data, Integer scadenza, float importo, String destinatario, String nota, List<Descrizione> descrizione, String idCassa) {
+		this.data = data;
+		this.scadenza = scadenza;
+		this.importo = importo;
+		this.mittente = idPersona;
+		this.destinatario = destinatario;
+		this.nota = nota;
+		this.descrizione = descrizione;
+		this.idCassa = idCassa;
+		return null;
+	}
+	
+	public void fatturaFornitore() {
+		
+	}
+	
 	public String getIdFattura() {
 		return idFattura;
 	}
