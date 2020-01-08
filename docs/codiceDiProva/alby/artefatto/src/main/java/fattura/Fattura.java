@@ -3,8 +3,10 @@ package fattura;
 import java.sql.Date;
 import java.util.List;
 
+@Entity
 public class Fattura extends Console {
 	
+	@Id
 	private String idFattura;
 	private Date data;
 	private Integer scadenza = 0;

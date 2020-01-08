@@ -1,4 +1,4 @@
-package fattura;
+                                                  package fattura;
 
 import java.sql.SQLException;
 

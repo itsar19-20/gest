@@ -16,6 +16,7 @@ public class App {
         // stampare una fattura in base all'id
     }
    
+    /*
     protected static void cliente() {
 		// TODO Auto-generated method stub		
 	}
@@ -23,5 +24,6 @@ public class App {
 	protected static void fornitore() {
 		// TODO Auto-generated method stub		
 	}
+    */
     
 }
