@@ -1,0 +1,2 @@
+module Fatturo.io.java {
+}
