@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="docs/codiceDiProva/alby/artefatto/src/main/java"/>
+	<classpathentry kind="src" path="docs/codiceDiProva/alby/artefatto/src/test/java"/>
+	<classpathentry kind="src" path="docs/codiceDiProva/clode/clode-20191218/src"/>
+	<classpathentry kind="src" path="docs/codiceDiProva/mirko/Fatturo.io.java/src"/>
+	<classpathentry kind="output" path="docs/codiceDiProva/clode/clode-20191218/bin"/>
+</classpath>
