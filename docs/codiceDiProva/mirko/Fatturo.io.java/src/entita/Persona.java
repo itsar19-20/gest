@@ -57,28 +57,28 @@ public class Persona {
 	}
 	public Persona(int idPersona, String nome, String cognome, String pIVA, String mail, String indirizzo,String telefono) {
 		this.idPersona = idPersona;
-		this.nome = nome.toLowerCase();
-		this.cognome = cognome.toLowerCase();
+		this.nome = (nome == null ? null : nome.toLowerCase());
+		this.cognome = (cognome == null ? null : cognome.toLowerCase());
 		this.pIVA = pIVA;
 		this.mail = mail;
 		this.indirizzo = indirizzo;
 		this.telefono = telefono;
 	}
-	public void ModificaPersona(String nome, String cognome, String pIVA, String mail, String indirizzo,String telefono) {
-		if(this.nome != nome.toLowerCase())
+	public void modificaPersona(String nome, String cognome, String pIVA, String mail, String indirizzo,String telefono) {
+		if(this.nome.toLowerCase().contentEquals(nome.toLowerCase()))
 			this.nome = nome.toLowerCase();
-		if(this.cognome != cognome.toLowerCase())
+		if(this.cognome.toLowerCase().contentEquals(cognome.toLowerCase()))
 			this.cognome = cognome.toLowerCase();
-		if(this.pIVA != pIVA)
+		if(this.pIVA.contentEquals(pIVA))
 			this.pIVA = pIVA;
-		if(this.mail != mail)
+		if(this.mail.contentEquals(mail))
 			this.mail = mail;
-		if(this.indirizzo != indirizzo)
+		if(this.indirizzo.contentEquals(indirizzo))
 			this.indirizzo = indirizzo;
-		if(this.telefono != telefono)
+		if(this.telefono.contentEquals(telefono))
 			this.telefono = telefono;
 	}
-	public void EliminaPersona(int idPersona) {
+	public void eliminaPersona(int idPersona) {
 //		query delete persona idPersona
 	}
 
