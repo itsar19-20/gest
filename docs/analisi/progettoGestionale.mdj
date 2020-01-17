@@ -14349,7 +14349,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFu+tMaSLlCi+Y="
 							},
-							"name": "articolo",
+							"name": "articoli",
 							"type": "List<Articolo>"
 						},
 						{
