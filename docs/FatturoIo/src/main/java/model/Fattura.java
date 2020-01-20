@@ -1,17 +1,30 @@
-package Fattura;
+package model;
 
 import java.sql.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Fattura {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idFattura;
 	private Date data;
 	private Integer scadenza;
+	/*	Uilizzare solo l'attributo persona e ricavare se e' il mittente o il destinatario 
+		della selezione di fattura cliente oppure fornitore
+
 	private Persona mittente;
 	private Persona destinatario;
+	*/
+	private boolean fatturaCliente;	//	true per cliente, false per fornitore
+	private Persona persona;
 	private String nota;
 	private List<Articolo> articolo;
 	private Conto conto;
@@ -37,6 +50,7 @@ public class Fattura {
 		this.saldoDovuto = saldoDovuto;
 		this.metodoDiPagamento = metodoDiPagamento;
 	}
+
 	
 	public void immettiFattura() {
 		

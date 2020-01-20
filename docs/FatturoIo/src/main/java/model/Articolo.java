@@ -4,6 +4,7 @@ package model;
 public class Articolo {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idArticolo;
 	private String descrizione;
 	private Integer quantita;
