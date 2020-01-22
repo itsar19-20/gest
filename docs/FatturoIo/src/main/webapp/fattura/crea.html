@@ -1,18 +1,30 @@
-<html>
+<!doctype html>
+<html lang="it">
     <head>
+    
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta name="description" content="Form per creare una nuova fattura">
+    	<meta name="author" content="Alberto Sormani">
+    	<meta name="generator" content="FatturoloIo v0.1">
+    	<title>Fattura · Fatturo.io</title>
+    
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet" type="text/css">
+        <link href="../style.css" rel="stylesheet" type="text/css">
+        
     </head>
-    <body style="text-align: center;">
+    <body>
         <a href="index.html" class="logo-text"><h1>Fatturo.io</h1 class="logo-text"></a>
         <h3>Fattura cliente</h3>
-        <form action="">
+
+        <div class="my-div">
+        <form class="" action="crea-fattura" method="post">
             Fattura
             <select name="invoice-type">
                 <option value="cliente">cliente</option>
                 <option value="fornitore">fornitore</option>
             </select><br><br>
-            <input list="persona" name="persona">
+            <input list="persona" name="persona" required autofocus="autofocus" placeholder="Persona">
             <datalist id="persona">
                 <option value="Persona 1">
                 <option value="Persona 2">
@@ -21,7 +33,7 @@
             </datalist>
             <button type="button" name="aggiungiPersona">Nuova persona</button><br><br>
             Data<br>
-            <input type="date" name="date"><br><br>
+            <input type="date" name="date" required><br><br>
             Scadenza in giorni<br>
 			<select name="deadline">
                 <option value="0" selected>0</option>
@@ -31,19 +43,31 @@
             </select><br><br>
             Importo<br>
             <input type="number" name="amount" value="100" min="0">€<br><br>
-            Note<br>
-            <textarea name="note" class="note_invoice">Vendita di due pizze.</textarea><br><br>
-            <div style="background-color: darkgoldenrod;">
+            
+            <div id="articoli" style="background-color: darkgoldenrod;">
                 <p>Articoli</p>
-                <input type="text" name="descrizione" placeholder="Descrizione articolo" alt="Inserire la descrizione dell'articolo">
+
+                <div class="articolo">
+                <input list="prodotti" name="prodotto" required placeholder="Prodotto">
+                <datalist id="prodotti">
+                    <option value="Pizza margherita">
+                    <option value="Pizza diavola">
+                    <option value="Pizza bufalina"></option>
+                    </datalist>
                 <input type="number" name="quantita" min="1" value="1" alt="Inserisci la quantita di questo articolo">
                 <input type="number" name="prezzo" min="0" value="10"   alt="Inserisci il prezzo dell'articolo">
                 <button type="button" name="aggiungiRimuoviArticolo">+</button>
+                </div>
+
             </div>
+
+            Note<br>
+            <textarea name="note" class="note_invoice">Vendita di due pizze.</textarea><br><br>
+
             <br>
             <input type="submit" value="Salva" onclick="">
         </form>
-
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

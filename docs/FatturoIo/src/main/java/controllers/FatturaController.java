@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FatturaController
  */
-@WebServlet("/fatturasss")
+@WebServlet("/crea-fattura")
 public class FatturaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

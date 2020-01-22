@@ -13,26 +13,13 @@ import utils.JPAUtil;
 
 public class EditFattura {
 
-	public Utente login(String username, String password) {
-		Utente _return = null;
-		// cerco l'utente nel DB
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		
-		_return = em.find(Utente.class, username);
-		if (_return != null) {
-			// utente trovato; controllo la password
-			if (!password.contentEquals(_return.getPassword())) {
-				_return = null;
-			}
-		} 
-		em.close();
-		return _return;
-	}
-	
-	public void crea(Date data, Integer scadenza, boolean clienteFornitore, Persona persona, String nota, 
+	public Fattura crea(Date data, Integer scadenza, boolean clienteFornitore, Persona persona, String nota, 
 						String articoloDescrizione, Integer articoloQuantita, Integer artioloPrezzo) {
-		
+	
+		Fattura _return = null;
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		
+		_return = em.
 		
 		/*
 		em.getTransaction().begin();
@@ -46,6 +33,14 @@ public class EditFattura {
 		*/
 		
 		return f;
+	}
+	
+	public Fattura leggi(Integer id) {
+		Fattura _return = null;
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		_return = em.find(Fattura.class, id);
+		if (_return != null) return _return;
+		else return _return;
 	}
 	
 }
