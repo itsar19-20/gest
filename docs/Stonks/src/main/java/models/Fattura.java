@@ -20,7 +20,7 @@ public class Fattura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idFattura;
+	private Integer id;
 	private Date data;
 	private Integer scadenza;
 	/*	Uilizzare solo l'attributo persona e ricavare se e' il mittente o il destinatario 
@@ -35,8 +35,8 @@ public class Fattura {
 	private List<Articolo> articolo;
 	private Conto conto;
 	private String numeroFattura;
-	private float iva;
-	private float saldoDovuto;
+	private float iva = 0.22F;
+	private float lordo;
 	private MetodoDiPagamento metodoDiPagamento;
 	
 	public Fattura(Integer idFattura, Date data, Integer scadenza, Persona mittente, Persona destinatario, String nota,
@@ -61,15 +61,15 @@ public class Fattura {
 		
 	}
 	public Integer sommaParzialeArticoli() {
-		return idFattura;
+		return id;
 		
 	}
 	
 	public Integer getIdFattura() {
-		return idFattura;
+		return id;
 	}
 	public void setIdFattura(Integer idFattura) {
-		this.idFattura = idFattura;
+		this.id = idFattura;
 	}
 	public Date getData() {
 		return data;
@@ -114,10 +114,10 @@ public class Fattura {
 		this.iva = iva;
 	}
 	public float getSaldoDovuto() {
-		return saldoDovuto;
+		return lordo;
 	}
 	public void setSaldoDovuto(float saldoDovuto) {
-		this.saldoDovuto = saldoDovuto;
+		this.lordo = saldoDovuto;
 	}
 	public MetodoDiPagamento getMetodoDiPagamento() {
 		return metodoDiPagamento;
