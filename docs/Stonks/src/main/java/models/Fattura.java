@@ -3,15 +3,17 @@ package models;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Table;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
+@Table(name = "fattura")
 public class Fattura {
 	
 	public Fattura() {
@@ -20,7 +22,10 @@ public class Fattura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer id;
+	
+//	@Temporal(TemporalType.DATE)
 	private Date data;
 	private Integer scadenza;
 	/*	Uilizzare solo l'attributo persona e ricavare se e' il mittente o il destinatario 

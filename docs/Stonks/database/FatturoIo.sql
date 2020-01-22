@@ -82,7 +82,7 @@ INSERT INTO `conto` (`id`, `saldoDisponibile`, `saldoUtile`, `metodo_di_pagament
 DROP TABLE IF EXISTS `fattura`;
 CREATE TABLE IF NOT EXISTS `fattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dataFattura` varchar(255) NOT NULL,
+  `data` varchar(255) NOT NULL,
   `importo` double NOT NULL,
   `nota` varchar(255) DEFAULT NULL,
   `numeroFattura` varchar(255) NOT NULL,
