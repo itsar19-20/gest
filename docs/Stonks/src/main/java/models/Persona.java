@@ -1,4 +1,4 @@
-package model;
+package models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +18,10 @@ public class Persona {
 	private String mail;
 	private String indirizzo;
 	private String telefono;
+	
+	public Persona() {
+		
+	}
 	
 	public Persona( String nome, String cognome, String pIVA, String mail, String indirizzo,String telefono) {
 		this.nome = (nome == null ? null : nome.toLowerCase());

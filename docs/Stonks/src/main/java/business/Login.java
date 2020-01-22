@@ -2,7 +2,7 @@ package business;
 
 import javax.persistence.EntityManager;
 
-import model.Utente;
+import models.Utente;
 import utils.JPAUtil;
 
 public class Login {

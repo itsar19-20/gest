@@ -1,6 +1,6 @@
-package model;
+package models;
 
-import model.Users;
+import models.Users;
 
 public class Utente extends Users {
 	

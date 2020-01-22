@@ -1,6 +1,6 @@
-package model;
+package models;
 
-import model.Users;
+import models.Users;
 
 public class Admin extends Users {
 
@@ -25,10 +25,10 @@ public class Admin extends Users {
 					System.out.println("I due codici nuovi non corrispondo.");
 				}
 			} else {
-				System.out.println("La Password è errata.");
+				System.out.println("La Password ï¿½ errata.");
 			}
 		} else {
-			System.out.println("Il codice admin non è corretto.");
+			System.out.println("Il codice admin non ï¿½ corretto.");
 		}
 	}
 }

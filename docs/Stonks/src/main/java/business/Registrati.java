@@ -3,7 +3,7 @@ package business;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
-import model.Utente;
+import models.Utente;
 import utils.JPAUtil;
 
 public class Registrati {

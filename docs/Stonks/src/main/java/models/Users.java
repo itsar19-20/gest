@@ -1,20 +1,16 @@
-package model;
+package models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import models.Persona;
 
-import model.Persona;
-
-@Entity
 public class Users extends Persona{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String username;
 	
 	private String password;
+	
+	public Users() {
+		
+	}
 
 	public Users( String nome, String cognome, String pIVA, String mail, String indirizzo, 
 				String telefono, String username, String password) {
@@ -29,7 +25,7 @@ public class Users extends Persona{
 				this.password = pass1;
 			}else {System.out.println("Le due password non corrispondono");}
 				
-		}else{System.out.println("La vecchia password è errata, riprova");}
+		}else{System.out.println("La vecchia password ï¿½ errata, riprova");}
 			
 	}
 	
