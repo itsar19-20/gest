@@ -18,7 +18,7 @@ import utils.JPAUtil;
 /**
  * Servlet implementation class FatturaController
  */
-@WebServlet("/fattura/guarda")
+@WebServlet("/fattura/crea")
 public class FatturaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

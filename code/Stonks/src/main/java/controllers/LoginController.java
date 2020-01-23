@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import business.AuthenticationManager;
-import models.ProfUtente;
+import models.Utente;
 
 /**
  * Servlet implementation class LoginController

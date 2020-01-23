@@ -1,26 +1,14 @@
 body {
-    /* background-color: deepskyblue; */
+    background-color: deepskyblue;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-    background-color: deepskyblue;
-}
-
-#index-iframe {
-    border: none;
-    background-color: red;
-}
-
-footer {
-    background-color: yellow;
-}
-
 h3 {
-    background-color: rgb(0, 255, 200);
+    background-color: white;
     padding: 5px;
 }
+
 .note_invoice {
     width: 250px;
     height: 50px;

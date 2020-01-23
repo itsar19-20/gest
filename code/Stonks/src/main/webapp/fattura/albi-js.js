@@ -17,15 +17,15 @@ $(document).ready(function() {
                 data: listaFatture,
                 columns: [
                     {title: 'ID', data: 'id'},
-//                    {title: 'Data', data: 'data'},
-//                    {title: 'Scadenza', data: 'scadenza'},
-//                    {title: 'Fattura cliente', data: 'fatturaCliente'},
-//                    {title: 'Persona', data: 'persona'},
-//                    {title: 'Nota', data: 'nota'},
-//                    {title: 'Conto', data: 'conto'},
-//                    {title: 'IVA', data: 'iva'},
-//                    {title: 'Lordo', data: 'lordo'},
-//                    {title: 'Metodo di pagamento', data: 'metodoDiPagamento'},
+                    {title: 'Data', data: 'data'},
+                    {title: 'Scadenza', data: 'scadenza'},
+                    {title: 'Fattura cliente', data: 'fatturaCliente'},
+                    {title: 'Persona', data: 'persona'},
+                    {title: 'Nota', data: 'nota'},
+                    {title: 'Conto', data: 'conto'},
+                    {title: 'IVA', data: 'iva'},
+                    {title: 'Lordo', data: 'lordo'},
+                    {title: 'Metodo di pagamento', data: 'metodoDiPagamento'},
                 ]
             });
         })
