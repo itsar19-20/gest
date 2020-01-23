@@ -1,6 +1,6 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,10 +22,10 @@ public class Fattura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "id", length = 11)
 	private Integer id;
 	
-//	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date data;
 	private Integer scadenza;
 	/*	Uilizzare solo l'attributo persona e ricavare se e' il mittente o il destinatario 

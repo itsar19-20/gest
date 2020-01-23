@@ -7,7 +7,7 @@
 		<class>models.Corso</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.7:3306/stonks?serverTimezone=GMT"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.7:3306/stonks?serverTimezone=Europe/Rome"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value=""/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
