@@ -1,10 +1,8 @@
 package models;
 
-<<<<<<< HEAD
+
 import java.util.Date;
-=======
 import javax.persistence.Entity;
->>>>>>> 716088c9c768e2cc5a59bcb2b7cb318b3269310f
 
 import models.Persona;
 
