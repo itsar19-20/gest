@@ -1,8 +1,15 @@
 package models;
 
+import javax.persistence.Entity;
+
 import models.Users;
 
+@Entity
 public class Utente extends Users {
+	
+	public Utente() {
+		
+	}
 	
 	private String metodoDiRegistrazione;
 	

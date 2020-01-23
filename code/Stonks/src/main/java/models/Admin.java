@@ -1,10 +1,17 @@
 package models;
 
+import javax.persistence.Entity;
+
 import models.Users;
 
+@Entity
 public class Admin extends Users {
 
 	private String codiceAdmin;
+	
+	public Admin() {
+		
+	}
 
 	public Admin( String nome, String cognome, String pIVA, String mail, String indirizzo,
 			String telefono, String username, String password, String codiceAdmin) {
