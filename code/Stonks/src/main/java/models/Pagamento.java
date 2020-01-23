@@ -1,15 +1,24 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Pagamento {
 
+	@Id
 	private Integer idPagamento;
 	private Fattura fattura;
 	private Date data;
 	private float mancante;
 	private boolean pagato = false;
 
+	public Pagamento() {
+		
+	}
+	
 	public Pagamento(Integer idPagamento, Fattura fattura, Date data, float mancante, boolean pagato) {
 		super();
 		this.idPagamento = idPagamento;

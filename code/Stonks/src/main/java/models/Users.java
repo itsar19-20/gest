@@ -1,7 +1,10 @@
 package models;
 
+import javax.persistence.Entity;
+
 import models.Persona;
 
+@Entity
 public class Users extends Persona{
 	
 	private String username;
