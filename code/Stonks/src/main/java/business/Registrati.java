@@ -30,6 +30,10 @@ public class Registrati {
 		u.setPassword(s.nextLine());
 		System.out.println("Inserire il Metodo di Registrazione");
 		u.setMetodoDiRegistrazione(s.nextLine());
+		
+		
+		em.persist(u);
+		em.getTransaction().commit();
 	
 	return u;
 	}
