@@ -8,17 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import business.AuthenticationManager;
-import models.ProfUtente;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import business.Login;
+import models.Utente;
 
 /**
  * Servlet implementation class LoginController
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-	
-	
-	
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -29,29 +28,21 @@ public class LoginController extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		AuthenticationManager am = new AuthenticationManager();
-		Utente u = am.login(request.getParameter("username"), request.getParameter("password"));
-		if (u == null) {
-			//	request.getRequestDispatcher("/").forward(request, response);
-			request.getRequestDispatcher("/prof-index.html").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/prof-ok.html").forward(request, response);
-		}
-		*/
-	}
-    
-    /*
-	
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		if (username == null || password == null) {
+			response.sendError(400, "username e password sono obbligatorie!!");
+			return;
+		}
+		Login lm = new Login();
+		Utente u = lm.login(username, password);
+		request.getSession().setAttribute("user", u);
+		ObjectMapper om = new ObjectMapper();
+		response.setContentType("application/json");
+		response.getWriter().append(om.writeValueAsString(u));
 	}
-	
+
 }

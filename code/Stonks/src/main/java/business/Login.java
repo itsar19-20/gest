@@ -1,5 +1,7 @@
 package business;
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 
 import models.Utente;
@@ -13,6 +15,11 @@ public class Login {
 			
 			_return = em.find(Utente.class, username);
 			if (_return != null) {
+				
+				em.getTransaction().begin();
+				_return.setDataOraUltimoLogin(new Date());
+				em.getTransaction().commit();
+				
 				if (!password.contentEquals(_return.getPassword())) {
 					_return = null;
 				}
