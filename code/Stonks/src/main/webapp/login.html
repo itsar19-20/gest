@@ -26,24 +26,30 @@
     
     <body>
         <div class="form-signin">
-            <img class="mb-4" href="https://www.comune.gallio.vi.it/po/immagine_news.php?news=25&id=13&size=original" alt="" width="72" height="72">
+            <img class="mb-4" src="../images/fatturoIO.png" alt="" width="72" height="72">
+
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
             <label for="inputUsername" class="sr-only">Nome utente</label>
             <input type="text" id="inputUsername" class="form-control" 
             placeholder="Username" required autofocus name="username">
+
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" 
             class="form-control" placeholder="Password" required name="password">
+
             <div class="checkbox mb-3">
               <label>
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
             </div>
+
             <button id="btnLogin" class="btn btn-lg btn-primary btn-block" 
                 type="button">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
-            <button id="btnLogin" class="btn btn-lg btn-primary btn-block" 
-                type="button">Registrati</button>
+           
+            <button id="btnRegistrati" class="btn btn-lg btn-primary btn-block" 
+                type="button" onclick="location.href = 'Registrati.html';">Registrati</button>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
         </div>
           
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
