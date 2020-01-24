@@ -3,25 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
-<<<<<<< HEAD
 	<persistence-unit name="bella" transaction-type="RESOURCE_LOCAL">
-=======
-	<persistence-unit name="bella"><!-- transaction-type="RESOURCE_LOCAL" -->
 		<class>models.Admin</class>
 		<class>models.Articolo</class>
 		<class>models.Conto</class>
->>>>>>> 716088c9c768e2cc5a59bcb2b7cb318b3269310f
 		<class>models.Corso</class>
 		<class>models.Fattura</class>
 		<class>models.MetodoDiPagamento</class>
 		<class>models.Pagamento</class>
 		<class>models.Persona</class>
-		<class>models.ProfUtente</class>
 		<class>models.Users</class>
 		<class>models.Utente</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/stonks?serverTimezone=Europe/Rome"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.7:3306/stonks?serverTimezone=Europe/Rome"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value=""/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

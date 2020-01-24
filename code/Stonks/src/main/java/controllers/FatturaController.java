@@ -36,6 +36,7 @@ public class FatturaController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		//		cm.createQuery utilizza il linguaggio JPQL
 		List<Fattura> fatture = em.createQuery("select c from fattura c", Fattura.class).getResultList();
 		ObjectMapper om = new ObjectMapper();
 		response.getWriter().append(om.writeValueAsString(fatture));

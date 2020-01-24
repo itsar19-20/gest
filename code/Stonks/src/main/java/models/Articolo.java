@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Articolo {
@@ -15,6 +16,9 @@ public class Articolo {
 	private Integer quantita;
 	private float importoParziale;
 	private float iva = 0.22f;
+	
+	@ManyToOne
+	private Fattura fattura;
 	
 	public Articolo() {
 		
@@ -65,6 +69,12 @@ public class Articolo {
 	}
 	public void setIva(float iva) {
 		this.iva = iva;
+	}
+	public Fattura getFattura() {
+		return fattura;
+	}
+	public void setFattura(Fattura fattura) {
+		this.fattura = fattura;
 	}
 	
 }
