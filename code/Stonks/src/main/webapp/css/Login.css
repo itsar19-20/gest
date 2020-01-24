@@ -1,0 +1,17 @@
+body{
+    background-color: cyan;
+}
+
+#btnLogin{
+    background-color: green;
+}
+
+#btnRegistrati{
+    background-color: orange;
+}
+
+.form-signin{
+    position: absolute;
+    top: 25%;
+    left: 43%;
+}
