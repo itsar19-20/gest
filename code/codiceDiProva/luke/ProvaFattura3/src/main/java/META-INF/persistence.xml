@@ -5,7 +5,6 @@
 		<class>model.Articolo</class>
 		<class>model.Conto</class>
 		<class>model.Fattura</class>
-		<class>model.FornitoreCliente</class>
 		<class>model.MetodoDiPagamento</class>
 		<class>model.Pagamento</class>
 		<class>model.Persona</class>
