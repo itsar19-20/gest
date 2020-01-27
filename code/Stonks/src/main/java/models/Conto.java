@@ -15,6 +15,11 @@ public class Conto {
 	@OneToMany(mappedBy = "conto")
 	private List<Fattura> fatture;
 	
+	private float saldoDisponibile = 0f;
+	private float saldoUtile = 0f;
+	
+	private Utente utente = utente;
+	
 	public Integer getId() {
 		return id;
 	}
