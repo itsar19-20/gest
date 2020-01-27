@@ -43,7 +43,6 @@ public class Fattura {
 	//	1 = true
 	
 	@ManyToOne
-	@Column(name = "persona")
 	private Persona persona;
 	
 	@Column(name = "nota")
