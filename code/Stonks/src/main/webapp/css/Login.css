@@ -1,0 +1,29 @@
+body{
+    background-color: cyan;
+}
+
+#immagine{
+    position: absolute;
+    height: 20%;
+    left: 45%;
+}
+
+#img-fatturo{
+    width: 80%;
+    height: 100%;
+}
+
+.form-signin{
+    position: absolute;
+    top: 25%;
+    left: 45%;
+}
+
+#btnLogin{
+    background-color: green;
+}
+
+#btnRegistrati{
+    background-color: orange;
+}
+

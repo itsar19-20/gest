@@ -14,8 +14,12 @@ public class Persona {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
 	@Column(name = "id")
 	private int idPersona;
+=======
+	protected int idPersona;
+>>>>>>> refs/remotes/origin/master
 	
 	private String nome;
 	private String cognome;

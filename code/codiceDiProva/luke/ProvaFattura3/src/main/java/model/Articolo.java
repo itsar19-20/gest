@@ -26,6 +26,12 @@ public class Articolo {
 	@JoinColumn(name="fattura_id", insertable = false, updatable = false)
 	private Fattura fattura;
 	
+	private String descrizione;
+	private int quantita;
+	private double importoParziale;
+	
+	private float iva;
+	
 	
 	public Integer getIdArticolo() {
 		return idArticolo;
@@ -67,10 +73,6 @@ public class Articolo {
 		this.iva = iva;
 	}
 
-	private String descrizione;
-	private int quantita;
-	private double importoParziale;
 	
-	private float iva;
 
 }

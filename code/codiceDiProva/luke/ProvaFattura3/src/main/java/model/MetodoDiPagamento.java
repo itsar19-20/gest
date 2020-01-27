@@ -1,11 +1,13 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,6 +22,9 @@ public class MetodoDiPagamento  {
 	private String destinazione;
 	@OneToOne(mappedBy = "metodoDiPagamento")
 	private Conto conto;
+	
+	@OneToMany(mappedBy="metodoDiPagamento")
+	private List<Fattura> fattura;
 	
 	public String getMetodo() {
 		return metodo;

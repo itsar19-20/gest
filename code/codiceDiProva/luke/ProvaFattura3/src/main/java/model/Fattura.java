@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,24 +27,29 @@ public class Fattura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name="id")
 	private Integer idFattura;
-	private String dataFattura;
-	private double importo;
+	
+	private Date data;
+	private boolean fatturaCliente;
 	private Integer scadenza;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "destinatario_id", referencedColumnName = "id")
-	private FornitoreCliente destinatario;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "mittente_id", referencedColumnName = "id")
-	private FornitoreCliente mittente;
+	
+	@ManyToOne
+	@JoinColumn(name = "metodo_pagamento", nullable =false)
+	private MetodoDiPagamento metodoDiPagamento;
+	
+	@ManyToOne
+	@JoinColumn(name="fattura_cliente", nullable=false)
+	private Persona persona;
 	private String nota;
 	@OneToMany
 	@JoinColumn(name="fattura_id")
 	private List<Articolo> articolo;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "conto_id", referencedColumnName = "id")
+	//@OneToOne(cascade = CascadeType.ALL)
+	//@JoinColumn(name = "conto_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name="conto_id",nullable=false)
 	private Conto conto;
 	private float IVA;
-	private float saldoDovuto;
+	private double lordo;
 	private String numeroFattura;
 	@OneToOne(mappedBy = "fattura")
 	private Pagamento pagamento;
@@ -53,36 +60,15 @@ public class Fattura {
 	public void setIdFattura(Integer idFattura) {
 		this.idFattura = idFattura;
 	}
-	public String getDataFattura() {
-		return dataFattura;
-	}
-	public void setDataFattura(String data) {
-		this.dataFattura = data;
-	}
-	public double getImporto() {
-		return importo;
-	}
-	public void setImporto(double importo) {
-		this.importo = importo;
-	}
+	
+	
 	public Integer getScadenza() {
 		return scadenza;
 	}
 	public void setScadenza(Integer scadenza) {
 		this.scadenza = scadenza;
 	}
-	public FornitoreCliente getDestinatario() {
-		return destinatario;
-	}
-	public void setDestinatario(FornitoreCliente destinatario) {
-		this.destinatario = destinatario;
-	}
-	public FornitoreCliente  getMittente() {
-		return mittente;
-	}
-	public void setMittente(FornitoreCliente mittente) {
-		this.mittente = mittente;
-	}
+	
 	public String getNota() {
 		return nota;
 	}
@@ -107,17 +93,43 @@ public class Fattura {
 	public void setIVA(float iVA) {
 		IVA = iVA;
 	}
-	public float getSaldoDovuto() {
-		return saldoDovuto;
+	public double getLordo() {
+		return lordo;
 	}
-	public void setSaldoDovuto(float saldoDovuto) {
-		this.saldoDovuto = saldoDovuto;
+	public void setLordo(double lordo) {
+		this.lordo = lordo;
 	}
 	public String getNumeroFattura() {
 		return numeroFattura;
 	}
 	public void setNumeroFattura(String numeroFattura) {
 		this.numeroFattura = numeroFattura;
+	}
+	public boolean isFatturaCliente() {
+		return fatturaCliente;
+	}
+	public void setFatturaCliente(boolean fatturaCliente) {
+		this.fatturaCliente = fatturaCliente;
+	}
+	
+	public Persona getPersona() {
+		return persona;
+	}
+	
+	public void setPersona(Persona persona) {
+		this.persona=persona;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
+	public MetodoDiPagamento getMetodoDiPagamento() {
+		return metodoDiPagamento;
+	}
+	public void setMetodoDiPagamento(MetodoDiPagamento metodoDiPagamento) {
+		this.metodoDiPagamento = metodoDiPagamento;
 	}
 	
 

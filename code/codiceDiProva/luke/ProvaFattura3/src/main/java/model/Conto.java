@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,8 +36,11 @@ public class Conto {
 	@JoinColumn(name = "metodo_di_pagamento_id", referencedColumnName = "id")
 	private MetodoDiPagamento metodoDiPagamento;
 	
-	@OneToOne(mappedBy = "conto")
-	private Fattura fattura;
+	//@OneToOne(mappedBy = "conto")
+	
+	@OneToMany(mappedBy="conto")
+	//private Fattura fattura;
+	private List<Fattura> fattura;
 	
 	public Integer getIdConto() {
 		return idConto;

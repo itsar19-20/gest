@@ -5,7 +5,12 @@
 	version="2.1">
 	
 	<persistence-unit name="bella" transaction-type="RESOURCE_LOCAL">
+<<<<<<< HEAD
 	
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> refs/remotes/origin/master
 		<class>models.Admin</class>
 		<class>models.Articolo</class>
 		<class>models.Conto</class>
@@ -15,7 +20,11 @@
 		<class>models.Persona</class>
 		<class>models.Users</class>
 		<class>models.Utente</class>
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'master' of https://github.com/itsar19-20/gest.git
+>>>>>>> refs/remotes/origin/master
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 																		<!-- 192.168.203.7		computer scuola	 -->
@@ -27,5 +36,25 @@
 		</properties>
 		
 	</persistence-unit>
+<<<<<<< HEAD
 	
+=======
+	<class>models.Utente</class>
+	<class>models.Users</class>
+	<class>models.Persona</class>
+	<class>models.Admin</class>
+	<class>business.Login</class>
+	<class>controllers.LoginController</class>
+	<class>business.Registrati</class>
+	<class>business.EditFattura</class>
+	<class>controllers.AjaxController</class>
+	<class>controllers.FatturaController</class>
+	<class>models.Fattura</class>
+	<class>controllers.FatturaControllerTest</class>
+	<class>models.Articolo</class>
+	<class>models.Conto</class>
+	<class>models.MetodoDiPagamento</class>
+	<class>utils.JPAUtil</class>
+	<class>util.JPAUtilTest</class>
+>>>>>>> refs/remotes/origin/master
 </persistence>
