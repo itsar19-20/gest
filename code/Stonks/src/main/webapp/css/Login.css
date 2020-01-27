@@ -13,16 +13,17 @@ body{
     height: 100%;
 }
 
-#registrazione{
-    
-}
-
-#btnRegistrati{
-    background-color: green;
-}
-
 .form-signin{
     position: absolute;
     top: 25%;
-    left: 33%;
+    left: 45%;
 }
+
+#btnLogin{
+    background-color: green;
+}
+
+#btnRegistrati{
+    background-color: orange;
+}
+

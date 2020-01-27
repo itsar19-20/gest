@@ -4,6 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 	<persistence-unit name="bella" transaction-type="RESOURCE_LOCAL">
+<<<<<<< HEAD
+=======
 		<class>models.Admin</class>
 		<class>models.Articolo</class>
 		<class>models.Conto</class>
@@ -14,6 +16,7 @@
 		<class>models.Persona</class>
 		<class>models.Users</class>
 		<class>models.Utente</class>
+>>>>>>> branch 'master' of https://github.com/itsar19-20/gest.git
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.7:3306/stonks?serverTimezone=Europe/Rome"/>
@@ -22,4 +25,21 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 		</properties>
 	</persistence-unit>
+	<class>models.Utente</class>
+	<class>models.Users</class>
+	<class>models.Persona</class>
+	<class>models.Admin</class>
+	<class>business.Login</class>
+	<class>controllers.LoginController</class>
+	<class>business.Registrati</class>
+	<class>business.EditFattura</class>
+	<class>controllers.AjaxController</class>
+	<class>controllers.FatturaController</class>
+	<class>models.Fattura</class>
+	<class>controllers.FatturaControllerTest</class>
+	<class>models.Articolo</class>
+	<class>models.Conto</class>
+	<class>models.MetodoDiPagamento</class>
+	<class>utils.JPAUtil</class>
+	<class>util.JPAUtilTest</class>
 </persistence>
