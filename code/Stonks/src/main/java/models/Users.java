@@ -3,10 +3,12 @@ package models;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import models.Persona;
 
 @Entity
+@Table(name = "user")
 public class Users extends Persona{
 	
 	private String username;

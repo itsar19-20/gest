@@ -2,10 +2,8 @@ package models;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,7 +13,6 @@ public class Pagamento {
 	private Integer idPagamento;
 	
 	@OneToOne	//(mappedBy = "pagamento")
-	@JoinColumn(name = "fattura_id")
 	private Fattura fattura;
 	
 	private Date data;

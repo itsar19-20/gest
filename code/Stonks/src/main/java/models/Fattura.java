@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,11 +50,6 @@ public class Fattura {
 	@OneToMany(mappedBy = "fattura")
 	private List<Articolo> articolo;
 	
-	/*
-	@ManyToOne
-	private Conto conto;
-	*/
-	
 	@Column(name = "numero_fattura")
 	private String numeroFattura;
 	
@@ -64,14 +58,10 @@ public class Fattura {
 	
 	@Column(name = "lordo")
 	private float lordo = 0;
-
-	/*
-	@ManyToOne
-	private MetodoDiPagamento metodoDiPagamento;
 	
-	@OneToOne
-	private Pagamento pagamento;
-	*/
+	@Column(name = "pagata")
+	private boolean pagata = false;
+	
 	
 	public Integer getIdFattura() {
 		return id;
@@ -104,15 +94,6 @@ public class Fattura {
 		this.articolo = articolo;
 	}
 	
-	/*
-	public Conto getConto() {
-		return conto;
-	}
-	public void setConto(Conto conto) {
-		this.conto = conto;
-	}
-	*/
-	
 	public String getNumeroFattura() {
 		return numeroFattura;
 	}
@@ -124,12 +105,6 @@ public class Fattura {
 	}
 	public void setIva(float iva) {
 		this.iva = iva;
-	}
-	public float getSaldoDovuto() {
-		return lordo;
-	}
-	public void setSaldoDovuto(float saldoDovuto) {
-		this.lordo = saldoDovuto;
 	}
 	public Integer getId() {
 		return id;
@@ -155,21 +130,5 @@ public class Fattura {
 	public void setLordo(float lordo) {
 		this.lordo = lordo;
 	}
-	
-	/*
-	public MetodoDiPagamento getMetodoDiPagamento() {
-		return metodoDiPagamento;
-	}
-	public void setMetodoDiPagamento(MetodoDiPagamento metodoDiPagamento) {
-		this.metodoDiPagamento = metodoDiPagamento;
-	}
-	
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
-	*/
 	
 }
