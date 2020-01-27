@@ -3,19 +3,29 @@ body{
 }
 
 #immagine{
-    position: relative;
+    position: absolute;
     display: block;
     top: 3%;
-    width: 13.4%;
     height: 20%;
-    left: 45%;
+    left: 37.5%;
+    right: 37.5%;
 }
 
 #img-fatturo{
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    left: 37%;
+    right: 37%;
     display: block;
-    position: relative;
-    width: 80%;
-    height: 100%;
+}
+
+.form-signin{
+    position: absolute;
+    display: block;
+    top: 28%;
+    left: 35%;
+    right: 35%;
 }
 
 #btnRegistrati{
@@ -24,11 +34,4 @@ body{
     background-color: green;
     width: 70%;
     left: 15%;
-}
-
-.form-signin{
-    position: absolute;
-    display: block;
-    top: 28%;
-    left: 35%;
 }

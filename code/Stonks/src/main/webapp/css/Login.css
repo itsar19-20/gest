@@ -5,30 +5,34 @@ body{
 #immagine{
     position: absolute;
     display: block;
-    top: 3%;
-    height: 20%;
-    left: 45%;
+    top: 25px;
+    height: 125px;
+    width: 125px;
+    left: 47%;
+    right: 47%;
 }
 
 #img-fatturo{
+    position: absolute;
     display: block;
-    width: 80%;
-    height: 100%;
+    width: 125px;
+    height: 125px;
 }
 
 .form-signin{
     position: absolute;
     display: block;
-    width: 20%;
-    top: 28%;
+    width: 384px;
+    top: 180px;
     left: 40%;
+    right: 40%;
 }
 
 #btnLogin{
     position: relative;
     display: block;
     background-color: green;
-    width: 70%;
+    width: 269px;
     left: 15%;
 }
 
@@ -36,7 +40,7 @@ body{
     position: relative;
     display: block;
     background-color: orange;
-    width: 70%;
+    width: 269px;
     left: 15%;
 }
 
