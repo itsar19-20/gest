@@ -18,14 +18,10 @@ public class Conto {
 		
 	}
 	
-	/*
 	@OneToMany(mappedBy = "conto")
 	private List<Fattura> fatture;
-<<<<<<< HEAD
+
 	private Integer idFatture = 0;
-=======
-	*/
->>>>>>> branch 'master' of https://github.com/itsar19-20/gest.git
 	
 	@OneToMany(mappedBy = "conto")
 	private List<Pagamento> pagamenti;
@@ -79,13 +75,11 @@ public class Conto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	/*
 	public List<Fattura> getFatture() {
 		return fatture;
 	}
 	public void setFatture(List<Fattura> fatture) {
 		this.fatture = fatture;
 	}
-	*/
 	
 }
