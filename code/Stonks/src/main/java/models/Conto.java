@@ -31,7 +31,7 @@ public class Conto {
 	private float saldoUtile = 0f;
 	
 	@OneToOne(mappedBy = "conto")
-	private int utente = new Utente().getUtente();
+	private Integer utente = new Utente().getIdPersona();
 	
 	public Integer getIdFatture() {
 		return idFatture;
