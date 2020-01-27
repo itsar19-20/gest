@@ -14,7 +14,7 @@ import model.Pagamento;
 import model.Persona;
 import model.Utente;
 
-public class JPAUtils {
+public class JPALuke {
 	
 	//private List<Pagamento> listPagamento;
 	

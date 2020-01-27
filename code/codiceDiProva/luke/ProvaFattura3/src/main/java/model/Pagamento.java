@@ -26,9 +26,9 @@ public class Pagamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column( name="id")
 	private Integer idPagamento;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "fattura_id", referencedColumnName = "id")
-	
 	private Fattura fattura;
 	private Date dataPagamento;
 	private double giaPagato;
