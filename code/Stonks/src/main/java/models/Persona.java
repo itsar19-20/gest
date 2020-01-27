@@ -13,7 +13,7 @@ public class Persona {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPersona;
+	protected int idPersona;
 	
 	private String nome;
 	private String cognome;

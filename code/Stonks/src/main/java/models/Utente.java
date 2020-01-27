@@ -20,8 +20,9 @@ public class Utente extends Users {
 		this.metodoDiRegistrazione = metodoDiRegistrazione;
 	}
 	
-	
-	
+	public int getUtente() {
+		return idPersona;
+	}
 	
 
 	public String getMetodoDiRegistrazione() {
