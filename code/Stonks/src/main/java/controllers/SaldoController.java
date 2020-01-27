@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import business.Login;
-import models.Utente;
+import business.Saldo;
+import models.Conto;
 
 /**
  * Servlet implementation class LoginController
@@ -32,12 +31,13 @@ public class SaldoController extends HttpServlet {
 	 */
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	Conto c = new Conto();
+    	request.getSession().getAttribute("conto");
 		Saldo s = new Saldo();
-		Utente u = lm.login(username, password);
-		request.getSession().setAttribute("user", u);
+		request.getSession().setAttribute("conto", c);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
-		response.getWriter().append(om.writeValueAsString(u));
+		response.getWriter().append(om.writeValueAsString(c));
 	}
 
 }
