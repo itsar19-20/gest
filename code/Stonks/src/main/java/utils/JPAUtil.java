@@ -12,10 +12,11 @@ public class JPAUtil {
 	/**
 	 * singleton che mette a disposizione dell'applicazione l'EntityManagerFactory
 	 */
+	
 	private JPAUtil() {
 		this.emf = Persistence.createEntityManagerFactory("bella");
 	}
-
+	
 	public static JPAUtil getInstance() {
 		if (instance == null)
 			instance = new JPAUtil();

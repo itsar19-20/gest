@@ -18,7 +18,7 @@ import utils.JPAUtil;
 /**
  * Servlet implementation class FatturaController
  */
-@WebServlet("/fattura/crea")
+@WebServlet("/fattura/guarda")
 public class FatturaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,11 +34,14 @@ public class FatturaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		//		cm.createQuery utilizza il linguaggio JPQL
-		List<Fattura> fatture = em.createQuery("select c from fattura c", Fattura.class).getResultList();
+		//	cm.createQuery utilizza il linguaggio JPQL
+		List<Fattura> fatture = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
 		ObjectMapper om = new ObjectMapper();
+		
+		System.out.println(om.writeValueAsString(fatture));
+		
+		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
 	}
 
