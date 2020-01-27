@@ -3,26 +3,32 @@ body{
 }
 
 #immagine{
-    position: absolute;
+    position: relative;
+    display: block;
+    top: 3%;
+    width: 13.4%;
     height: 20%;
     left: 45%;
 }
 
 #img-fatturo{
+    display: block;
+    position: relative;
     width: 80%;
     height: 100%;
 }
 
-#registrazione{
-    
-}
-
 #btnRegistrati{
+    position: relative;
+    display: block;
     background-color: green;
+    width: 70%;
+    left: 15%;
 }
 
 .form-signin{
     position: absolute;
-    top: 25%;
-    left: 33%;
+    display: block;
+    top: 28%;
+    left: 35%;
 }
