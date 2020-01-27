@@ -3,12 +3,12 @@ package business;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Conto;
-import model.Pagamento;
-import model.Persona;
-import model.Utente;
+import models.Conto;
+import models.Pagamento;
+import models.Persona;
+import models.Utente;
 import utils.DateUtil;
-import utils.JPAUtils;
+import utils.JPALuke;
 
 public class Scadenziario {
 	
@@ -43,10 +43,10 @@ public class Scadenziario {
 	
 	
 	public static void showEntrataDaConcludere(Persona pers) {
-		List<Pagamento> entrataDaConcludere=JPAUtils.selectParziale(pers,true);
+		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,true);
 		for(Pagamento p:entrataDaConcludere) {
 			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
-					"\nEntrata: "+p.getFattura().isFatturaCliente()+
+					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
 					"\nSaldo Dovuto: "+p.getFattura().getLordo());
 		
 		}
@@ -59,10 +59,10 @@ public class Scadenziario {
 	
 
 	public static void  showUscitaDaConcludere(Persona pers) {
-		List<Pagamento> entrataDaConcludere=JPAUtils.selectParziale(pers,false);
+		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,false);
 		for(Pagamento p:entrataDaConcludere) {
 			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
-					"\nEntrata: "+p.getFattura().isFatturaCliente()+
+					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
 					"\nSaldo Dovuto: "+p.getFattura().getLordo());
 		
 		}
@@ -72,7 +72,7 @@ public class Scadenziario {
 	
 	//   metodo provvisorio per provare la ricerca del mese
 	public static void mesePagamento(Integer mese) {
-		List<Pagamento> scadenzaMese=JPAUtils.
+		//	List<Pagamento> scadenzaMese=JPALuke.
 	}
 	
 	
@@ -88,10 +88,10 @@ public class Scadenziario {
 	
 	public static void showFullScadenziario(Persona persona) {
 		
-		List<Pagamento> pagamentiDaConcludere=JPAUtils.selectPagamenti(persona);
+		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(persona);
 		for(Pagamento p:pagamentiDaConcludere) {
 			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
-					"\nEntrata: "+p.getFattura().isFatturaCliente()+
+					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
 					"\nSaldo Dovuto: "+p.getFattura().getLordo());
 		
 		}

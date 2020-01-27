@@ -16,8 +16,9 @@ public class MetodoDiPagamento {
 	@Id
 	private Integer id;
 	
-	@OneToMany(mappedBy = "metodoDiPagamento")
+	@OneToMany	//(mappedBy = "metodoDiPagamento")
 	private List<Fattura> fattura;
+	
 
 	public Integer getId() {
 		return id;
@@ -27,14 +28,13 @@ public class MetodoDiPagamento {
 		this.id = id;
 	}
 
+	/*
 	public List<Fattura> getFattura() {
 		return fattura;
 	}
-
 	public void setFattura(List<Fattura> fattura) {
 		this.fattura = fattura;
 	}
-	
-	
+	*/
 	
 }

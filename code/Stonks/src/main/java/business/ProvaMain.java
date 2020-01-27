@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import utils.JPAUtils;
+import utils.JPAUtil;
+import utils.JPALuke;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import model.Admin;
+import models.Admin;
 
-import model.Articolo;
-import model.Conto;
-import model.Fattura;
+import models.Articolo;
+import models.Conto;
+import models.Fattura;
 
-import model.MetodoDiPagamento;
-import model.Pagamento;
-import model.Persona;
-import model.User;
-import model.Utente;
-import utils.SingletonEMF;
+import models.MetodoDiPagamento;
+import models.Pagamento;
+import models.Persona;
+import models.Users;
+import models.Utente;
 
 public class ProvaMain {
 
@@ -33,7 +33,7 @@ public class ProvaMain {
 		
 		
 	
-		EntityManager em=SingletonEMF.getInstance().getEmf().createEntityManager();
+		EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		
 		Utente u=em.find(Utente.class, 1);
 		em.close();

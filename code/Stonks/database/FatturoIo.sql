@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
+-- Host:                         192.168.203.209
 -- Server version:               10.4.11-MariaDB - Source distribution
 -- Server OS:                    Linux
 -- HeidiSQL Version:             10.3.0.5771
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   CONSTRAINT `FKcw6wu58wd86r5yw55wrxf6870` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.admin: ~1 rows (approximately)
+-- Dumping data for table stonks.admin: ~0 rows (approximately)
 DELETE FROM `admin`;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` (`codiceAdmin`, `id`) VALUES
@@ -44,10 +44,10 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   `fattura_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
-  CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
+  CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `OLDfattura` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~3 rows (approximately)
+-- Dumping data for table stonks.articolo: ~4 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `importoParziale`, `iva`, `quantita`, `fattura_id`) VALUES
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `conto` (
   CONSTRAINT `FKijchw6mbp43uml7gwtxf60hv3` FOREIGN KEY (`metodo_di_pagamento_id`) REFERENCES `metodo_di_pagamento` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.conto: ~1 rows (approximately)
+-- Dumping data for table stonks.conto: ~0 rows (approximately)
 DELETE FROM `conto`;
 /*!40000 ALTER TABLE `conto` DISABLE KEYS */;
 INSERT INTO `conto` (`id`, `saldoDisponibile`, `saldoUtile`, `metodo_di_pagamento_id`, `persona_id`) VALUES
@@ -82,31 +82,23 @@ INSERT INTO `conto` (`id`, `saldoDisponibile`, `saldoUtile`, `metodo_di_pagament
 DROP TABLE IF EXISTS `fattura`;
 CREATE TABLE IF NOT EXISTS `fattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data` varchar(255) NOT NULL,
-  `importo` double NOT NULL,
-  `nota` varchar(255) DEFAULT NULL,
-  `numeroFattura` varchar(255) NOT NULL,
-  `saldoDovuto` float NOT NULL,
-  `scadenza` int(11) DEFAULT NULL,
-  `conto_id` int(11) DEFAULT NULL,
-  `destinatario_id` int(11) DEFAULT NULL,
-  `mittente_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKolxar4dr0xl2xw3khfinied1j` (`conto_id`),
-  KEY `FKgra11xpme91hur1mrx5utshcw` (`destinatario_id`),
-  KEY `FKmb9vx00a7hlubj1eo14fki1j5` (`mittente_id`),
-  CONSTRAINT `FKgra11xpme91hur1mrx5utshcw` FOREIGN KEY (`destinatario_id`) REFERENCES `fornitore_cliente` (`id`),
-  CONSTRAINT `FKmb9vx00a7hlubj1eo14fki1j5` FOREIGN KEY (`mittente_id`) REFERENCES `fornitore_cliente` (`id`),
-  CONSTRAINT `FKolxar4dr0xl2xw3khfinied1j` FOREIGN KEY (`conto_id`) REFERENCES `conto` (`id`)
+  `data` date NOT NULL,
+  `scadenza` int(3) NOT NULL DEFAULT 0,
+  `e_una_fattura_cliente` bit(1) NOT NULL,
+  `persona` int(11) NOT NULL,
+  `nota` varchar(256) DEFAULT NULL,
+  `numero_fattura` varchar(64) NOT NULL,
+  `lordo` float NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.fattura: ~3 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
-INSERT INTO `fattura` (`id`, `dataFattura`, `importo`, `nota`, `numeroFattura`, `saldoDovuto`, `scadenza`, `conto_id`, `destinatario_id`, `mittente_id`) VALUES
-	(1, '12/12/2000', 34.5, 'nota1', 'numero fattura', 23, 3, 1, 5, 6),
-	(2, '22/01/2020', 100, 'jidfsjisdfgjibgsffg', 'fat02', 122, 30, 1, 6, 6),
-	(3, '06/07/1999', 5, 'menu kebab', 'Fat-03', 5, 0, 1, 5, 6);
+INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona`, `nota`, `numero_fattura`, `lordo`) VALUES
+	(1, '2020-01-24', 0, b'1', 13, 'ciao', '25', 12),
+	(2, '2020-01-24', 30, b'1', 1556, 'bjsvdbjdqgbji57', '2', 1234),
+	(3, '2020-01-24', 30, b'0', 13, '', '12s', 323);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.fornitore_cliente
@@ -134,12 +126,45 @@ CREATE TABLE IF NOT EXISTS `metodo_di_pagamento` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.metodo_di_pagamento: ~1 rows (approximately)
+-- Dumping data for table stonks.metodo_di_pagamento: ~0 rows (approximately)
 DELETE FROM `metodo_di_pagamento`;
 /*!40000 ALTER TABLE `metodo_di_pagamento` DISABLE KEYS */;
 INSERT INTO `metodo_di_pagamento` (`id`, `destinazione`, `nome`) VALUES
 	('m1', 'destinazione1', 'metodo1');
 /*!40000 ALTER TABLE `metodo_di_pagamento` ENABLE KEYS */;
+
+-- Dumping structure for table stonks.OLDfattura
+DROP TABLE IF EXISTS `OLDfattura`;
+CREATE TABLE IF NOT EXISTS `OLDfattura` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `persona` int(11) NOT NULL DEFAULT 0,
+  `eUnaFatturaCliente` bit(1) NOT NULL DEFAULT b'0',
+  `dataFattura` varchar(255) NOT NULL,
+  `importo` double NOT NULL,
+  `nota` varchar(255) DEFAULT NULL,
+  `numeroFattura` varchar(255) NOT NULL,
+  `saldoDovuto` float NOT NULL,
+  `scadenza` int(11) DEFAULT NULL,
+  `conto_id` int(11) DEFAULT NULL,
+  `destinatario_id` int(11) DEFAULT NULL,
+  `mittente_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKolxar4dr0xl2xw3khfinied1j` (`conto_id`),
+  KEY `FKgra11xpme91hur1mrx5utshcw` (`destinatario_id`),
+  KEY `FKmb9vx00a7hlubj1eo14fki1j5` (`mittente_id`),
+  CONSTRAINT `FKgra11xpme91hur1mrx5utshcw` FOREIGN KEY (`destinatario_id`) REFERENCES `fornitore_cliente` (`id`),
+  CONSTRAINT `FKmb9vx00a7hlubj1eo14fki1j5` FOREIGN KEY (`mittente_id`) REFERENCES `fornitore_cliente` (`id`),
+  CONSTRAINT `FKolxar4dr0xl2xw3khfinied1j` FOREIGN KEY (`conto_id`) REFERENCES `conto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table stonks.OLDfattura: ~3 rows (approximately)
+DELETE FROM `OLDfattura`;
+/*!40000 ALTER TABLE `OLDfattura` DISABLE KEYS */;
+INSERT INTO `OLDfattura` (`id`, `persona`, `eUnaFatturaCliente`, `dataFattura`, `importo`, `nota`, `numeroFattura`, `saldoDovuto`, `scadenza`, `conto_id`, `destinatario_id`, `mittente_id`) VALUES
+	(1, 0, b'0', '12/12/2000', 34.5, 'nota1', 'numero fattura', 23, 3, 1, 5, 6),
+	(2, 0, b'1', '22/01/2020', 100, 'jidfsjisdfgjibgsffg', 'fat02', 122, 30, 1, 6, 6),
+	(3, 0, b'0', '06/07/1999', 5, 'menu kebab', 'Fat-03', 5, 0, 1, 5, 6);
+/*!40000 ALTER TABLE `OLDfattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.pagamento
 DROP TABLE IF EXISTS `pagamento`;
@@ -151,10 +176,10 @@ CREATE TABLE IF NOT EXISTS `pagamento` (
   `fattura_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKoshl8ca41ee2jcc7bgfnv3lvo` (`fattura_id`),
-  CONSTRAINT `FKoshl8ca41ee2jcc7bgfnv3lvo` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
+  CONSTRAINT `FKoshl8ca41ee2jcc7bgfnv3lvo` FOREIGN KEY (`fattura_id`) REFERENCES `OLDfattura` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.pagamento: ~1 rows (approximately)
+-- Dumping data for table stonks.pagamento: ~0 rows (approximately)
 DELETE FROM `pagamento`;
 /*!40000 ALTER TABLE `pagamento` DISABLE KEYS */;
 INSERT INTO `pagamento` (`id`, `dataPagamento`, `mancante`, `pagato`, `fattura_id`) VALUES
@@ -174,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.persona: ~7 rows (approximately)
+-- Dumping data for table stonks.persona: ~6 rows (approximately)
 DELETE FROM `persona`;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
 INSERT INTO `persona` (`id`, `cognome`, `indirizzo`, `mail`, `nome`, `pIVA`, `telefono`) VALUES
@@ -215,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
   CONSTRAINT `FKprrorkdeifpg2wxymqtnhxsqy` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.utente: ~1 rows (approximately)
+-- Dumping data for table stonks.utente: ~0 rows (approximately)
 DELETE FROM `utente`;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
 INSERT INTO `utente` (`metodoRegistrazione`, `id`) VALUES

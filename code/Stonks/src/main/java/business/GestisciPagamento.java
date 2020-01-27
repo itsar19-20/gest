@@ -3,10 +3,10 @@ package business;
 
 import javax.persistence.EntityManager;
 
-import model.Fattura;
-import model.Pagamento;
-import model.Utente;
-import utils.JPAUtils;
+import models.Fattura;
+import models.Pagamento;
+import models.Utente;
+import utils.JPALuke;
 
 
 public class GestisciPagamento {
@@ -17,9 +17,9 @@ public class GestisciPagamento {
 		if(p.isPagato()==false) {
 			
 			if(p.getGiaPagato()+ valoreEntrata <p.getFattura().getLordo()) {
-				JPAUtils.aggiornaGiaPagato(p,valoreEntrata,em);
+				JPALuke.aggiornaGiaPagato(p,valoreEntrata,em);
 			}else {
-				JPAUtils.setCompletato(p,em);
+				JPALuke.setCompletato(p,em);
 				
 				
 				
@@ -34,7 +34,7 @@ public class GestisciPagamento {
 		
 		
 	public static void addNewPagamento(Pagamento p) {
-		JPAUtils.persistPagamento(p);
+		JPALuke.persistPagamento(p);
 		
 		
 	}

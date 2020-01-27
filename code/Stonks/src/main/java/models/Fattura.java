@@ -10,10 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "fattura")
@@ -29,15 +29,15 @@ public class Fattura {
 	private Integer id;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "dataFattura")
+	@Column(name = "data")
 	private Date data;
 	
 	@Column(name = "scadenza")
 	private Integer scadenza;
 	
-	@Column(name = "eUnaFatturaCliente")
+	@Column(name = "e_una_fattura_cliente")
 	private boolean eUnaFatturaCliente;
-	//	ne DB usiamo un dato di tipo BIT'
+	//	ne DB usiamo un dato di tipo 'BIT'
 	//	0 = false
 	//	1 = true
 	
@@ -50,40 +50,18 @@ public class Fattura {
 	@OneToMany(mappedBy = "fattura")
 	private List<Articolo> articolo;
 	
-	@ManyToOne
-	private Conto conto;
-	
-	@Column(name = "numeroFattura")
+	@Column(name = "numero_fattura")
 	private String numeroFattura;
 	
+	@Transient
 	private float iva = 0.22F;
-	private float lordo;
 	
-	@ManyToOne
-	private MetodoDiPagamento metodoDiPagamento;
+	@Column(name = "lordo")
+	private float lordo = 0;
 	
-	@OneToOne
-	private Pagamento pagamento;
+	@Column(name = "pagata")
+	private boolean pagata = false;
 	
-	/*
-	public void immettiFattura() {
-		
-	}
-	public List<Fattura> mostraFattura() {
-		return null;
-		
-	}
-	public void modificaFattura() {
-		
-	}
-	public void immettiNotaDiCredito() {
-		
-	}
-	public Integer sommaParzialeArticoli() {
-		return id;
-		
-	}
-	*/
 	
 	public Integer getIdFattura() {
 		return id;
@@ -115,12 +93,7 @@ public class Fattura {
 	public void setArticolo(List<Articolo> articolo) {
 		this.articolo = articolo;
 	}
-	public Conto getConto() {
-		return conto;
-	}
-	public void setConto(Conto conto) {
-		this.conto = conto;
-	}
+	
 	public String getNumeroFattura() {
 		return numeroFattura;
 	}
@@ -132,18 +105,6 @@ public class Fattura {
 	}
 	public void setIva(float iva) {
 		this.iva = iva;
-	}
-	public float getSaldoDovuto() {
-		return lordo;
-	}
-	public void setSaldoDovuto(float saldoDovuto) {
-		this.lordo = saldoDovuto;
-	}
-	public MetodoDiPagamento getMetodoDiPagamento() {
-		return metodoDiPagamento;
-	}
-	public void setMetodoDiPagamento(MetodoDiPagamento metodoDiPagamento) {
-		this.metodoDiPagamento = metodoDiPagamento;
 	}
 	public Integer getId() {
 		return id;
@@ -169,10 +130,5 @@ public class Fattura {
 	public void setLordo(float lordo) {
 		this.lordo = lordo;
 	}
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
+	
 }

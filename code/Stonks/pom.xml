@@ -50,8 +50,12 @@
 				<configuration>
 					<!-- intervallo di restart server automantico in secondi -->
 					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<webApp>
+						<_initParams>
+							<org.eclipse.jetty.servlet.Default.useFileMappedBuffer>false</org.eclipse.jetty.servlet.Default.useFileMappedBuffer>
+						</_initParams>
+					</webApp>
 				</configuration>
-				<!-- add webApp stuff -->
 			</plugin>
 		</plugins>
 	</build>
