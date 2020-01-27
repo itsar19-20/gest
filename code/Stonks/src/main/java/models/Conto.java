@@ -18,12 +18,12 @@ public class Conto {
 		
 	}
 	
-	@OneToMany(mappedBy = "conto")
+	@OneToMany
 	private List<Fattura> fatture;
 
 	private Integer idFatture = 0;
 	
-	@OneToMany(mappedBy = "conto")
+	@OneToMany
 	private List<Pagamento> pagamenti;
 	private Integer idPagamenti = 0;
 	
