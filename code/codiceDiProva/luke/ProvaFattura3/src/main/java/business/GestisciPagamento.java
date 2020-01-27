@@ -12,7 +12,7 @@ import utils.JPAUtils;
 public class GestisciPagamento {
 	
 	
-	public static void segnalaPagamento(Pagamento p, double valoreEntrata, EntityManager em,Scadenziario s) {
+	public static void segnalaPagamento(Pagamento p, double valoreEntrata, EntityManager em) {
 		
 		if(p.isPagato()==false) {
 			
@@ -22,7 +22,7 @@ public class GestisciPagamento {
 				JPAUtils.setCompletato(p,em);
 				
 				
-				s.removePagamento(p);
+				
 			
 				
 				}
@@ -33,10 +33,10 @@ public class GestisciPagamento {
 		}
 		
 		
-	public static void addNewPagamento(Pagamento p,Scadenziario s) {
+	public static void addNewPagamento(Pagamento p) {
 		JPAUtils.persistPagamento(p);
 		
-		s.addPagamento(p);
+		
 	}
 	
 

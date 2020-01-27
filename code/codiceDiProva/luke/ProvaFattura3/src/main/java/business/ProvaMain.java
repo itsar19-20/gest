@@ -38,26 +38,30 @@ public class ProvaMain {
 		Utente u=em.find(Utente.class, 1);
 		em.close();
 		
-		Scadenziario s=new Scadenziario(u);
+		//Scadenziario s=new Scadenziario(u);
 		//u.setScadenziario(s);
+		//Scadenziario.showFullScadenziario(u);
 		
-		s.showFullScadenziario();
 		
+		Scadenziario.showEntrataDaConcludere(u);
+		
+		Scadenziario.showUscitaDaConcludere(u);
+		/*
 		EntityManager em2=SingletonEMF.getInstance().getEmf().createEntityManager();
 		
 		Pagamento p= em2.find(Pagamento.class, 3);
 		
-		GestisciPagamento.segnalaPagamento(p, 100, em2,s);
+		GestisciPagamento.segnalaPagamento(p, 100, em2);
 		
 		em2.close();
-		s.showFullScadenziario();
+		Scadenziario.showFullScadenziario(u);
 		
 		EntityManager em3=SingletonEMF.getInstance().getEmf().createEntityManager();
 		Conto c=em3.find(Conto.class, 1);
 		em3.close();
-		
+		*/
 		//EntityManager em4=SingletonEMF.getInstance().getEmf().createEntityManager();
-		Fattura f=new Fattura();
+		/*Fattura f=new Fattura();
 		f.setConto(c);
 		f.setPersona(u);
 		f.setData(new Date());
@@ -73,12 +77,12 @@ public class ProvaMain {
 		//em4.close();
 		
 		Pagamento p2=new Pagamento(f);
-		GestisciPagamento.addNewPagamento(p2, s);
+		GestisciPagamento.addNewPagamento(p2);
 		
 		
-		s.showFullScadenziario();
+		Scadenziario.showFullScadenziario(u);
 		
-	
+		*/
 		
 		
 		

@@ -12,11 +12,11 @@ import utils.JPAUtils;
 
 public class Scadenziario {
 	
-	private List<Pagamento> pagamentiDaConcludere;
+	//private List<Pagamento> pagamentiDaConcludere;
 	
-	private List<Pagamento> entrataDaConcludere;
+	//private List<Pagamento> entrataDaConcludere;
 	
-	private List<Pagamento> uscitaDaConcludere;
+	//private List<Pagamento> uscitaDaConcludere;
 	
 	private int anticipoNotifica;
 	
@@ -25,77 +25,76 @@ public class Scadenziario {
 	
 	
 	
-	public Scadenziario(Persona persona) {
+	public Scadenziario() {
 		
 		
-		this.pagamentiDaConcludere=JPAUtils.selectPagamenti(persona);
-		this.setAnticipoNotifica(10);
 		
-		this.uscitaDaConcludere=new ArrayList<Pagamento>();
-		this.entrataDaConcludere=new ArrayList<Pagamento>();
 		
 		
 	}
 	
-	public void addPagamento(Pagamento pagamento) {
-		this.getPagamentiDaConcludere().add(pagamento);
-	}
 	
-	public void removePagamento(Pagamento pagamento) {
-		for(int i=0;i<this.getPagamentiDaConcludere().size();i++) {
-			if(this.getPagamentiDaConcludere().get(i).getIdPagamento().equals(pagamento.getIdPagamento())) {
-				this.getPagamentiDaConcludere().remove(i);
-				break;
-			}
-			
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void showEntrataDaConcludere(Persona pers) {
+		List<Pagamento> entrataDaConcludere=JPAUtils.selectParziale(pers,true);
+		for(Pagamento p:entrataDaConcludere) {
+			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
+					"\nEntrata: "+p.getFattura().isFatturaCliente()+
+					"\nSaldo Dovuto: "+p.getFattura().getLordo());
+		
 		}
 		
 		
 		
+		
+	}
+
+	
+
+	public static void  showUscitaDaConcludere(Persona pers) {
+		List<Pagamento> entrataDaConcludere=JPAUtils.selectParziale(pers,false);
+		for(Pagamento p:entrataDaConcludere) {
+			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
+					"\nEntrata: "+p.getFattura().isFatturaCliente()+
+					"\nSaldo Dovuto: "+p.getFattura().getLordo());
+		
+		}
+		
+		
+	}
+	
+	//   metodo provvisorio per provare la ricerca del mese
+	public static void mesePagamento(Integer mese) {
+		List<Pagamento> scadenzaMese=JPAUtils.
 	}
 	
 	
-	public List<Pagamento> getPagamentiDaConcludere() {
-		return this.pagamentiDaConcludere;
-	}
-
-	public void setPagamentiDaConcludere(List<Pagamento> pagamentiDaConcludere) {
-		this.pagamentiDaConcludere = pagamentiDaConcludere;
-	} 
-	
-	
-	public List<Pagamento> getEntrataDaConcludere() {
-		return entrataDaConcludere;
-	}
-
-	public void setEntrataDaConcludere(List<Pagamento> entrataDaConcludere) {
-		this.entrataDaConcludere = entrataDaConcludere;
-	}
-
-	public List<Pagamento> getUscitaDaConcludere() {
-		return uscitaDaConcludere;
-	}
-
-	public void setUscitaDaConcludere(List<Pagamento> uscitaDaConcludere) {
-		this.uscitaDaConcludere = uscitaDaConcludere;
-	}
 
 	public int getAnticipoNotifica() {
-		return anticipoNotifica;
+		return 5;
 	}
 
 
 	public void setAnticipoNotifica(int anticipoNotifica) {
-		this.anticipoNotifica = anticipoNotifica;
+		
 	}
 	
-	public void showFullScadenziario() {
-		for(Pagamento p:this.getPagamentiDaConcludere()) {
+	public static void showFullScadenziario(Persona persona) {
+		
+		List<Pagamento> pagamentiDaConcludere=JPAUtils.selectPagamenti(persona);
+		for(Pagamento p:pagamentiDaConcludere) {
 			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
 					"\nEntrata: "+p.getFattura().isFatturaCliente()+
 					"\nSaldo Dovuto: "+p.getFattura().getLordo());
-		}
 		
+		}
 	}
 	
 	public void showScadenziarioMese() {
