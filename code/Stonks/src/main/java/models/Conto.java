@@ -30,8 +30,8 @@ public class Conto {
 	private float saldoDisponibile = 0f;
 	private float saldoUtile = 0f;
 	
-	@OneToOne(mappedBy = "conto")
-	private Integer utente = new Utente().getIdPersona();
+	@OneToOne
+	private Utente utente = new Utente();
 	
 	public Integer getIdFatture() {
 		return idFatture;
@@ -51,10 +51,10 @@ public class Conto {
 	public void setIdPagamenti(Integer idPagamenti) {
 		this.idPagamenti = idPagamenti;
 	}
-	public int getUtente() {
+	public Utente getUtente() {
 		return utente;
 	}
-	public void setUtente(int utente) {
+	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
 	public float getSaldoDisponibile() {
