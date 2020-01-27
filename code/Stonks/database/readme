@@ -1,0 +1,21 @@
+
+Come usare il DataBase da casa:
+
+1. Lanziare xampp
+2. Accendere il server MySQL
+3. Lanciare HeidiSQL
+
+4. Modoficare temporaneamente il Persistence.xml
+	usare 'localhost' invece di '192.168.203.209'
+
+5. Importare il file FatturoIo.sql in HeidiSQL
+	.git/gest/code/Stonks/database/FatturoIo.sql
+
+
+( Se vengono effettuate modifiche )
+
+Esportare in SQL (con anche i records), nella stessa cartella ma con nome diverso (per non rischiare di perderlo).
+Git commit and push.
+
+
+albi - 27/01/2020

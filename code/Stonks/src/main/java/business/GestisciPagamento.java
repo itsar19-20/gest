@@ -12,7 +12,7 @@ import utils.JPALuke;
 public class GestisciPagamento {
 	
 	
-	public static void segnalaPagamento(Pagamento p, double valoreEntrata, EntityManager em) {
+	public static void segnalaPagamento(Pagamento p, float valoreEntrata, EntityManager em) {
 		
 		if(p.isPagato()==false) {
 			
