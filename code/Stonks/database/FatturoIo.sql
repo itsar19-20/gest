@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         192.168.203.209
+-- Host:                         192.168.203.215
 -- Server version:               10.4.11-MariaDB - Source distribution
 -- Server OS:                    Linux
 -- HeidiSQL Version:             10.3.0.5771
@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `articolo`;
 CREATE TABLE IF NOT EXISTS `articolo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descrizione` varchar(255) DEFAULT NULL,
-  `importoParziale` double NOT NULL,
+  `importoParziale` float NOT NULL DEFAULT 0,
   `iva` float NOT NULL,
   `quantita` int(11) NOT NULL,
   `fattura_id` int(11) DEFAULT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `OLDfattura` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~4 rows (approximately)
+-- Dumping data for table stonks.articolo: ~3 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `importoParziale`, `iva`, `quantita`, `fattura_id`) VALUES
@@ -60,8 +60,8 @@ INSERT INTO `articolo` (`id`, `descrizione`, `importoParziale`, `iva`, `quantita
 DROP TABLE IF EXISTS `conto`;
 CREATE TABLE IF NOT EXISTS `conto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `saldoDisponibile` double NOT NULL,
-  `saldoUtile` double NOT NULL,
+  `saldoDisponibile` float NOT NULL DEFAULT 0,
+  `saldoUtile` float NOT NULL DEFAULT 0,
   `metodo_di_pagamento_id` varchar(255) DEFAULT NULL,
   `persona_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -85,37 +85,22 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `data` date NOT NULL,
   `scadenza` int(3) NOT NULL DEFAULT 0,
   `e_una_fattura_cliente` bit(1) NOT NULL,
-  `persona` int(11) NOT NULL,
+  `persona_id` int(11) NOT NULL,
   `nota` varchar(256) DEFAULT NULL,
   `numero_fattura` varchar(64) NOT NULL,
   `lordo` float NOT NULL DEFAULT 0,
+  `pagata` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.fattura: ~3 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
-INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona`, `nota`, `numero_fattura`, `lordo`) VALUES
-	(1, '2020-01-24', 0, b'1', 13, 'ciao', '25', 12),
-	(2, '2020-01-24', 30, b'1', 1556, 'bjsvdbjdqgbji57', '2', 1234),
-	(3, '2020-01-24', 30, b'0', 13, '', '12s', 323);
+INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`) VALUES
+	(1, '2020-01-24', 0, b'1', 1, 'ciao', '25', 12, b'0'),
+	(2, '2020-01-24', 30, b'1', 4, 'bjsvdbjdqgbji57', '2', 1234, b'0'),
+	(3, '2020-01-24', 30, b'0', 5, '', '12s', 323, b'0');
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
-
--- Dumping structure for table stonks.fornitore_cliente
-DROP TABLE IF EXISTS `fornitore_cliente`;
-CREATE TABLE IF NOT EXISTS `fornitore_cliente` (
-  `id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FKh7m3snmwducfcjukanoo3plq2` FOREIGN KEY (`id`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Dumping data for table stonks.fornitore_cliente: ~2 rows (approximately)
-DELETE FROM `fornitore_cliente`;
-/*!40000 ALTER TABLE `fornitore_cliente` DISABLE KEYS */;
-INSERT INTO `fornitore_cliente` (`id`) VALUES
-	(5),
-	(6);
-/*!40000 ALTER TABLE `fornitore_cliente` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento
 DROP TABLE IF EXISTS `metodo_di_pagamento`;
@@ -140,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `OLDfattura` (
   `persona` int(11) NOT NULL DEFAULT 0,
   `eUnaFatturaCliente` bit(1) NOT NULL DEFAULT b'0',
   `dataFattura` varchar(255) NOT NULL,
-  `importo` double NOT NULL,
+  `importo` float NOT NULL DEFAULT 0,
   `nota` varchar(255) DEFAULT NULL,
   `numeroFattura` varchar(255) NOT NULL,
   `saldoDovuto` float NOT NULL,
@@ -157,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `OLDfattura` (
   CONSTRAINT `FKolxar4dr0xl2xw3khfinied1j` FOREIGN KEY (`conto_id`) REFERENCES `conto` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.OLDfattura: ~3 rows (approximately)
+-- Dumping data for table stonks.OLDfattura: ~2 rows (approximately)
 DELETE FROM `OLDfattura`;
 /*!40000 ALTER TABLE `OLDfattura` DISABLE KEYS */;
 INSERT INTO `OLDfattura` (`id`, `persona`, `eUnaFatturaCliente`, `dataFattura`, `importo`, `nota`, `numeroFattura`, `saldoDovuto`, `scadenza`, `conto_id`, `destinatario_id`, `mittente_id`) VALUES
@@ -218,6 +203,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,
+  `dataOraUltimoLogin` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FKfyoya0v2f2ecp7sl83vnfl0lq` FOREIGN KEY (`id`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -225,16 +211,16 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table stonks.user: ~3 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`password`, `username`, `id`) VALUES
-	('Pippo123', 'UserPippo2', 1),
-	('admin_pass', 'AdminUser', 3),
-	('Pippo123u', 'UserPippo2u', 4);
+INSERT INTO `user` (`password`, `username`, `id`, `dataOraUltimoLogin`) VALUES
+	('Pippo123', 'UserPippo2', 1, NULL),
+	('admin_pass', 'AdminUser', 3, NULL),
+	('Pippo123u', 'UserPippo2u', 4, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.utente
 DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
-  `metodoRegistrazione` varchar(255) DEFAULT NULL,
+  `metodoDiRegistrazione` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FKprrorkdeifpg2wxymqtnhxsqy` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
@@ -243,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
 -- Dumping data for table stonks.utente: ~0 rows (approximately)
 DELETE FROM `utente`;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
-INSERT INTO `utente` (`metodoRegistrazione`, `id`) VALUES
+INSERT INTO `utente` (`metodoDiRegistrazione`, `id`) VALUES
 	('metodo1', 4);
 /*!40000 ALTER TABLE `utente` ENABLE KEYS */;
 

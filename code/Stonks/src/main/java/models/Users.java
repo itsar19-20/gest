@@ -3,11 +3,14 @@ package models;
 
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import models.Persona;
 
 @Entity
+// @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user")
 public class Users extends Persona{
 	
