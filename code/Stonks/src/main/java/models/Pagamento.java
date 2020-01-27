@@ -31,7 +31,7 @@ public class Pagamento {
 	private Fattura fattura;
 	
 	private Date dataPagamento;
-	private double giaPagato;
+	private float giaPagato;
 	private boolean pagato;
 	//private Scadenziario scadenziario;
 	
@@ -74,10 +74,10 @@ public class Pagamento {
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
-	public double getGiaPagato() {
+	public float getGiaPagato() {
 		return giaPagato;
 	}
-	public void setGiaPagato(double mancante) {
+	public void setGiaPagato(float mancante) {
 		this.giaPagato = mancante;
 	}
 	
