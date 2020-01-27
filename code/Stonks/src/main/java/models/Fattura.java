@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,36 +25,47 @@ public class Fattura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", length = 11)
+	@Column(name = "id")
 	private Integer id;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name = "dataFattura")
 	private Date data;
+	
+	@Column(name = "scadenza")
 	private Integer scadenza;
-	/*	Uilizzare solo l'attributo persona e ricavare se e' il mittente o il destinatario 
-		della selezione di fattura cliente oppure fornitore
-
-	private Persona mittente;
-	private Persona destinatario;
-	*/
-	private boolean fatturaCliente;	//	true per cliente, false per fornitore
+	
+	@Column(name = "eUnaFatturaCliente")
+	private boolean eUnaFatturaCliente;
+	//	ne DB usiamo un dato di tipo BIT'
+	//	0 = false
+	//	1 = true
+	
+	@ManyToOne
 	private Persona persona;
+	
+	@Column(name = "nota")
 	private String nota;
+	
+	@OneToMany(mappedBy = "fattura")
 	private List<Articolo> articolo;
+	
+	@ManyToOne
 	private Conto conto;
+	
+	@Column(name = "numeroFattura")
 	private String numeroFattura;
+	
 	private float iva = 0.22F;
 	private float lordo;
+	
+	@ManyToOne
 	private MetodoDiPagamento metodoDiPagamento;
 	
-	public Fattura(Integer idFattura, Date data, Integer scadenza, Persona mittente, Persona destinatario, String nota,
-			List<Articolo> articolo, Conto conto, String numeroFattura, float iva, float saldoDovuto,
-			MetodoDiPagamento metodoDiPagamento) {
-		super();
-
-	}
-
+	@OneToOne
+	private Pagamento pagamento;
 	
+	/*
 	public void immettiFattura() {
 		
 	}
@@ -69,6 +83,7 @@ public class Fattura {
 		return id;
 		
 	}
+	*/
 	
 	public Integer getIdFattura() {
 		return id;
@@ -129,5 +144,35 @@ public class Fattura {
 	}
 	public void setMetodoDiPagamento(MetodoDiPagamento metodoDiPagamento) {
 		this.metodoDiPagamento = metodoDiPagamento;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public boolean iseUnaFatturaCliente() {
+		return eUnaFatturaCliente;
+	}
+	public void seteUnaFatturaCliente(boolean eUnaFatturaCliente) {
+		this.eUnaFatturaCliente = eUnaFatturaCliente;
+	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
+	public float getLordo() {
+		return lordo;
+	}
+	public void setLordo(float lordo) {
+		this.lordo = lordo;
+	}
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 }

@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pagamento {
 
 	@Id
 	private Integer idPagamento;
+	
+	@OneToOne(mappedBy = "pagamento")
 	private Fattura fattura;
 	private Date data;
 	private float mancante;

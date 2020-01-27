@@ -1,9 +1,12 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Persona {
@@ -18,6 +21,9 @@ public class Persona {
 	private String mail;
 	private String indirizzo;
 	private String telefono;
+	
+	@OneToMany(mappedBy = "persona")
+	private List<Fattura> fatture;
 	
 	public Persona() {
 		
@@ -92,6 +98,14 @@ public class Persona {
 	}
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public List<Fattura> getFatture() {
+		return fatture;
+	}
+
+	public void setFatture(List<Fattura> fatture) {
+		this.fatture = fatture;
 	}
 
 }
