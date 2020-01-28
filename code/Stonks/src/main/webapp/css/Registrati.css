@@ -40,3 +40,7 @@ body{
     width: 70%;
     left: 15%;
 }
+
+#btnRegistrati:hover{
+    background-color: darkgreen;
+}
