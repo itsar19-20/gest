@@ -119,9 +119,9 @@ public class Scadenziario {
 			
 			calFattura.setTime(pag.getFattura().getData());
 			Calendar calCorrente=(Calendar) cal.clone();
-			
+			//
 			// l'anticipo notifica va memorizzato nel local Storage, per ora uso 5
-			calCorrente.add(Calendar.DAY_OF_YEAR, +5 );
+			calCorrente.add(Calendar.DAY_OF_YEAR, +5 ); 
 			calFattura.add(Calendar.DAY_OF_YEAR, +pag.getFattura().getScadenza());
 			if(calCorrente.getTime().after(calFattura.getTime())) {
 				System.out.println("La fattura di id: "+pag.getFattura().getIdFattura()+" sta per scadere");
