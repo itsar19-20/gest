@@ -37,15 +37,16 @@ public class ProvaMain {
 		
 		Utente u=em.find(Utente.class, 1);
 		em.close();
+		Scadenziario.showScadenziarioMese(u, 2);
 		
 		//Scadenziario s=new Scadenziario(u);
 		//u.setScadenziario(s);
 		//Scadenziario.showFullScadenziario(u);
 		
 		
-		Scadenziario.showEntrataDaConcludere(u);
+		//Scadenziario.showEntrataDaConcludere(u);
 		
-		Scadenziario.showUscitaDaConcludere(u);
+		//Scadenziario.showUscitaDaConcludere(u);
 		/*
 		EntityManager em2=SingletonEMF.getInstance().getEmf().createEntityManager();
 		
