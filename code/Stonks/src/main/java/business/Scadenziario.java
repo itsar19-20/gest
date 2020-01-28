@@ -1,7 +1,11 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import models.Conto;
 import models.Pagamento;
@@ -9,6 +13,7 @@ import models.Persona;
 import models.Utente;
 import utils.DateUtil;
 import utils.JPALuke;
+
 
 public class Scadenziario {
 	
@@ -70,9 +75,9 @@ public class Scadenziario {
 		
 	}
 	
-	//   metodo provvisorio per provare la ricerca del mese
+	//   
 	public static void mesePagamento(Integer mese) {
-		//	List<Pagamento> scadenzaMese=JPALuke.
+		
 	}
 	
 	
@@ -97,7 +102,43 @@ public class Scadenziario {
 		}
 	}
 	
-	public void showScadenziarioMese() {
+	public void showScadenziarioMese(Persona pers,Integer mese) {
+		//select tutti i pagamenti dell'utnte non ancora completati
+				List<Pagamento> scadenzaMese=JPALuke.selectPagamenti(pers);
+				Date dataCorrente=new Date();
+				Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+				cal.setTime(dataCorrente);
+				
+				// ricerca in base a N mesi successivi a quello corrente delle scadenze fatture
+				for(Pagamento pag:scadenzaMese) {
+					Date dataFattura=pag.getFattura().getData();
+					int scadenza=pag.getFattura().getScadenza();
+					Calendar c=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+					c.setTime(dataFattura);
+					
+					Calendar d=(Calendar) cal.clone();
+					c.add(Calendar.DAY_OF_YEAR,+scadenza );
+					d.add(Calendar.MONTH , +mese);
+					
+					if(c.get(Calendar.MONTH)==d.get(Calendar.MONTH)) {
+						System.out.println("id: "+pag.getIdPagamento()+"\nData Fattura: "+pag.getFattura().getData()+
+								"\nScadenza fattura: "+ pag.getFattura().getScadenza());
+					}
+					
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		
 		
 	}
 	
