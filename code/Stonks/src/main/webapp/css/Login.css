@@ -6,15 +6,16 @@ body{
     position: absolute;
     display: block;
     top: 25px;
+    width: 384px;
     height: 125px;
-    width: 125px;
-    left: 47%;
-    right: 47%;
+    left: 40%;
+    right: 40%;
 }
 
 #img-fatturo{
     position: absolute;
     display: block;
+    left: 129.5px;
     width: 125px;
     height: 125px;
 }
@@ -23,7 +24,7 @@ body{
     position: absolute;
     display: block;
     width: 384px;
-    top: 180px;
+    top: 200px;
     left: 40%;
     right: 40%;
 }
