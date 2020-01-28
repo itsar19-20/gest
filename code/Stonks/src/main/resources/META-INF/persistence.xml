@@ -21,7 +21,8 @@
 																		<!-- 192.168.203.7		computer scuola	 -->
 																		<!-- 192.168.203.209	computer scuola	 -->
 																		<!-- 192.168.203.215	computer scuola	 -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.215:3306/stonks?serverTimezone=Europe/Rome"/>
+																		<!-- 192.168.203.218	computer scuola	 -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.203.218:3306/stonks?serverTimezone=Europe/Rome"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value=""/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

@@ -20,32 +20,30 @@ $(document).ready(function() {
             /*
             // Unordered List
             $('#ul-fatture').empty();
-            console.log('sono arrivato alla UL');
             listaFatture.forEach(element => {
-                $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);              
-                console.log('ho aggiunto un list item');
+                $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);
             });
             console.log('ho terminato la UL');
             */
 
+
             //  DataTable
-            /*
             $('#tbl-fatture').DataTable({
                 data: listaFatture,
                 columns: [
                     {title: 'ID', data: 'id'},
-//                    {title: 'Data', data: 'data'},
-//                    {title: 'Scadenza', data: 'scadenza'},
-//                    {title: 'Fattura cliente', data: 'fatturaCliente'},
-//                    {title: 'Persona', data: 'persona'},
-//                    {title: 'Nota', data: 'nota'},
-//                    {title: 'Conto', data: 'conto'},
-//                    {title: 'IVA', data: 'iva'},
-//                    {title: 'Lordo', data: 'lordo'},
-//                    {title: 'Metodo di pagamento', data: 'metodoDiPagamento'},
+                    {title: 'Data', data: 'data'},
+                    {title: 'Scadenza', data: 'scadenza'},
+                    {title: 'Fattura cliente', data: 'fatturaCliente'},
+                    {title: 'Persona', data: 'persona'},
+                    {title: 'Nota', data: 'nota'},
+                    {title: 'Conto', data: 'conto'},
+                    {title: 'IVA', data: 'iva'},
+                    {title: 'Lordo', data: 'lordo'},
                 ]
             });
-            */
+            
+
         })
         .fail(function() {
             console.log('#btn-guarda-fatture.fail');

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,6 +21,7 @@ public class Articolo {
 	private float iva = 0.22f;
 	
 	@ManyToOne
+	@JoinColumn(name = "fattura_id")
 	private Fattura fattura;
 	
 	public Articolo() {

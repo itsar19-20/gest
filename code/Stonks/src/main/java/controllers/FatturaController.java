@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.Fattura;
@@ -37,10 +38,11 @@ public class FatturaController extends HttpServlet {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		//	em.createQuery utilizza il linguaggio JPQL
 		List<Fattura> fatture = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
-		ObjectMapper om = new ObjectMapper();
+		ObjectMapper om = new ObjectMapper()/*.setSerializationInclusion(Include.NON_NULL)*/;
 		
-		System.out.println(om.writeValueAsString(fatture/*.toString()*/));
-		
+		for (Fattura fattura : fatture) {
+			System.out.println(om.writeValueAsString(fattura));
+		}
 		
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));

@@ -3,13 +3,14 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -39,26 +40,22 @@ public class Fattura {
 	
 	@Column(name = "e_una_fattura_cliente")
 	private boolean eUnaFatturaCliente;
-	//	ne DB usiamo un dato di tipo 'BIT'
+	//	nel DB usiamo un dato di tipo 'BIT'
 	//	0 = false
 	//	1 = true
 	
-	/*
 	@ManyToOne
-	//@JoinColumn(name = "persona_id")
+	@JoinColumn(name = "persona_id")
 	private Persona persona;
-	*/
-
-	private Integer persona = new Persona().getIdPersona();
-	
 	
 	@Column(name = "nota")
 	private String nota;
 	
-	/*
-	@OneToMany(mappedBy = "fattura")
-	private List<Articolo> articolo;
-	*/
+	//	DA RISOLVERE AL PIU' PRESTO
+	
+	//	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL)
+	@Transient
+	private List<Articolo> articoli;
 	
 	@Column(name = "numero_fattura")
 	private String numeroFattura;
@@ -97,13 +94,14 @@ public class Fattura {
 	public void setNota(String nota) {
 		this.nota = nota;
 	}
+
 	public List<Articolo> getArticolo() {
-		return articolo;
+		return articoli;
 	}
 	public void setArticolo(List<Articolo> articolo) {
-		this.articolo = articolo;
+		this.articoli = articolo;
 	}
-	
+
 	public String getNumeroFattura() {
 		return numeroFattura;
 	}
