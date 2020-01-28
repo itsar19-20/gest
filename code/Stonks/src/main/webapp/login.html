@@ -12,12 +12,14 @@
     
     <body>
         <div id="immagine">
-            <img id="img-fatturo" class="mb-4" src="../images/fatturoIO.png" alt="">
+            <a href="homepage.html">
+                <img id="img-fatturo" class="mb-4" src="../images/fatturoIO.png" alt="">
+            </a>
         </div>
 
         <div class="form-signin">
-            
-            <h1 class="h3 mb-3 font-weight-normal"><b>Please sign in</b></h1><br/>
+
+            <h1 id="loggare" class="h3 mb-3 font-weight-normal"><b>Please sign in</b></h1><br/>
 
             <label for="inputUsername" class="sr-only">Nome utente</label>
             <input type="text" id="inputUsername" class="form-control" 
@@ -38,8 +40,9 @@
            
             <button id="btnRegistrati" class="btn btn-lg btn-primary btn-block" 
                 type="button" onclick="location.href = 'Registrati.html';">Registrati</button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
         </div>
+
+        <footer></footer>
           
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
@@ -50,6 +53,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+        <script src="js/index.js"></script>
         <script src="js/login.js"></script>
     </body>
 

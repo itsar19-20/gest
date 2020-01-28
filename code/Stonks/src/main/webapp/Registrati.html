@@ -28,19 +28,21 @@
 
     <body>
         <div id="immagine">
-          <img id="img-fatturo" class="mb-4" src="../images/fatturoIO.png" alt="">
+          <a href="homepage.html">
+            <img id="img-fatturo" class="mb-4" src="../images/fatturoIO.png" alt="">
+          </a>
         </div>
 
         <div class="form-signin">
           
-            <h1 id="registrazione" class="h3 mb-3 font-weight-normal"><b>Registrati</b></h1><br/>
+            <h1 id="registrazione" class="h3 mb-3 font-weight-normal"><b>Registrati</b></h1>
 
             <h6>Inserire un Username valido</h6>
             <label for="inputUsername" class="sr-only">Nome utente</label>
             <input type="text" id="inputUsername" class="form-control" 
             placeholder="Username" required autofocus name="username"><br/>
 
-            <h6>Inserire password di almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero</h6>
+            <h6>Inserire password di almeno 8 caratteri, che contenga almeno una lettera maiuscola, una minuscola e un numero</h6>
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" 
             class="form-control" placeholder="Password" required name="password"><br/>
@@ -75,6 +77,8 @@
             <label for="inputPIVA" class="sr-only">Partita IVA</label>
             <input type="text" id="inputPIVA" class="form-control" 
             placeholder="Partita IVA" required autofocus name="piva"><br/>
+
+            <input type="checkbox" value="privacy"> Accetto le <a href="condizioni d'uso.html"> condizioni d'uso</a> e ho letto e accettato la <a href="privacy.html">politica sulla privacy</a> <br/><br/>
 
             <button id="btnRegistrati" class="btn btn-lg btn-primary btn-block" 
                 type="button">Registrati</button>
