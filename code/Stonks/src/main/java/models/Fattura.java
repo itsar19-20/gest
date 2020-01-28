@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,14 +43,22 @@ public class Fattura {
 	//	0 = false
 	//	1 = true
 	
+	/*
 	@ManyToOne
+	//@JoinColumn(name = "persona_id")
 	private Persona persona;
+	*/
+
+	private Integer persona = new Persona().getIdPersona();
+	
 	
 	@Column(name = "nota")
 	private String nota;
 	
+	/*
 	@OneToMany(mappedBy = "fattura")
 	private List<Articolo> articolo;
+	*/
 	
 	@Column(name = "numero_fattura")
 	private String numeroFattura;

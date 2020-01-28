@@ -35,14 +35,16 @@ public class FatturaController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		//	cm.createQuery utilizza il linguaggio JPQL
+		//	em.createQuery utilizza il linguaggio JPQL
 		List<Fattura> fatture = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
 		ObjectMapper om = new ObjectMapper();
 		
-		System.out.println(om.writeValueAsString(fatture));
+		System.out.println(om.writeValueAsString(fatture/*.toString()*/));
+		
 		
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
+
 	}
 
 	/**

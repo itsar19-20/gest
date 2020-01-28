@@ -1,10 +1,12 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import models.Users;
 
 @Entity
+@Table(name = "admin")
 public class Admin extends Users {
 
 	private String codiceAdmin;

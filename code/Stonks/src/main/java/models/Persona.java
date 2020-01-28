@@ -7,17 +7,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "persona")
 public class Persona {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	protected int idPersona;
+	protected Integer idPersona;
 	
 	private String nome;
 	private String cognome;
@@ -26,7 +29,7 @@ public class Persona {
 	private String indirizzo;
 	private String telefono;
 	
-	@OneToMany(mappedBy = "persona")
+	@OneToMany	//(mappedBy = "persona")
 	private List<Fattura> fatture;
 	
 	public Persona() {
@@ -60,17 +63,16 @@ public class Persona {
 	}
 
 
-	
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getIdPersona() {
+	public Integer getIdPersona() {
 		return idPersona;
 	}
-	public void setIdPersona(int idPersona) {
+	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 	public String getCognome() {
