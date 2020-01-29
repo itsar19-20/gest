@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-
-<div class="articolo">
+<div id="articolo-list-item-§numero§" class="articolo">
     <!--
     <input list="prodotti" name="prodotto" required placeholder="Prodotto">
     <datalist id="prodotti">
@@ -9,8 +7,8 @@
         <option value="Pizza bufalina"></option>
     </datalist>
     -->
-    <input type="number" name="descrizione" value="Descrizione" minlength="1" maxlength="144" alt="Inserisci la descrizione dell'articolo">
+    <input type="text" name="descrizione" placeholder="Descrizione" minlength="1" maxlength="144" alt="Inserisci la descrizione dell'articolo">
     <input type="number" name="quantita" min="1" value="1" alt="Inserisci la quantita di questo articolo">
-    <input type="number" name="prezzo" min="0" value="10" alt="Inserisci il prezzo dell'articolo">
-    <button id="btn-add-articol" type="button" name="aggiungiRimuoviArticolo">+</button>
+    <input type="number" name="prezzo" min="0" value="0" alt="Inserisci il prezzo dell'articolo">
+    <button id="btn-articol-§numero§" type="button" name="aggiungiRimuoviArticolo" onclick="§click§">§btn-text§</button>
 </div>
