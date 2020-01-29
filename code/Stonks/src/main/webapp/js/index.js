@@ -11,7 +11,6 @@ $(() => {
     })
     .done((html) => {
         $('header').html(html);
-
         /*
         //  meccanismo per nascondere e mostrare i menu sulla nav bar
         if (localStorage.getItem('user')) {
@@ -26,7 +25,6 @@ $(() => {
             $('#mnuLogout').hide();
         }
         */
-
     });
 
     //  load the footer
