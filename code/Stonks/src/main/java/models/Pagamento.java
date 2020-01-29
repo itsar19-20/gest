@@ -26,7 +26,7 @@ public class Pagamento {
 	@Column( name="id")
 	private Integer idPagamento;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fattura_id", referencedColumnName = "id")
 	private Fattura fattura;
 	

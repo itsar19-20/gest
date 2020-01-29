@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,12 +9,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "articolo")
 public class Articolo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Integer idArticolo;
 	private String descrizione;
 	private Integer quantita;
@@ -22,6 +26,7 @@ public class Articolo {
 	
 	@ManyToOne
 	@JoinColumn(name = "fattura_id")
+	@JsonIgnore
 	private Fattura fattura;
 	
 	public Articolo() {

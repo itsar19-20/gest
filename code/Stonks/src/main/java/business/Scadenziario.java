@@ -15,6 +15,7 @@ import utils.DateUtil;
 import utils.JPALuke;
 
 
+
 public class Scadenziario {
 	
 	//private List<Pagamento> pagamentiDaConcludere;
@@ -29,36 +30,7 @@ public class Scadenziario {
 		
 	}
 	
-	public static void showEntrataDaConcludere(Persona pers) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,true);
-		for(Pagamento p:entrataDaConcludere) {
-			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
-					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
-					"\nSaldo Dovuto: "+p.getFattura().getLordo());
-		
-		}
-	}
 
-	public static void  showUscitaDaConcludere(Persona pers) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,false);
-		for(Pagamento p:entrataDaConcludere) {
-			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
-					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
-					"\nSaldo Dovuto: "+p.getFattura().getLordo());
-		
-		}
-	}
-	
-	public static void showMeseUscita(Persona pers, Integer mese) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,false);
-		Scadenziario.searchByMese(mese, entrataDaConcludere);
-	}
-	
-	public static void showMeseEntrata(Persona pers,Integer mese) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,true);
-		Scadenziario.searchByMese(mese, entrataDaConcludere);
-		
-	}
 	
 	public int getAnticipoNotifica() {
 		return 5;
@@ -67,17 +39,31 @@ public class Scadenziario {
 	public void setAnticipoNotifica(int anticipoNotifica) {
 		
 	}
-	
-	public static void showFullScadenziario(Persona persona) {
+	public static List<Pagamento> showFullScadenziario(Persona persona) {
 		
 		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(persona);
-		for(Pagamento p:pagamentiDaConcludere) {
+		/*for(Pagamento p:pagamentiDaConcludere) {
 			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
 					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
 					"\nSaldo Dovuto: "+p.getFattura().getLordo());
 		
-		}
+		}*/
+		return pagamentiDaConcludere;
 	}
+	
+	public static List<Pagamento> showEntrataDaConcludere(Persona pers, boolean bol) {
+		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,bol);
+		/*for(Pagamento p:entrataDaConcludere) {
+			System.out.println("Id: "+p.getIdPagamento()+"\nScadenza: "+p.getFattura().getData()+
+					"\nEntrata: "+p.getFattura().iseUnaFatturaCliente()+
+					"\nSaldo Dovuto: "+p.getFattura().getLordo());		
+		}*/
+		return entrataDaConcludere;
+	}
+	
+	
+	
+	
 	
 	public static void showScadenziarioMese(Persona pers,Integer mese) {
 		//select tutti i pagamenti dell'utnte non ancora completati
@@ -86,10 +72,33 @@ public class Scadenziario {
 				
 	}
 	
+	
+	
+	public static void showScadenziarioSettimana(Persona pers,Integer settimana) {
+		List<Pagamento> scadenzaSettimana= JPALuke.selectPagamenti(pers);
+		Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
+		
+	}
+	
+	public static void showMeseEntrata(Persona pers,Integer mese,boolean bol) {
+		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,bol);
+		Scadenziario.searchByMese(mese, entrataDaConcludere);
+		
+	}
+	
+	public static void showSettimanaEntrata(Persona pers, Integer settimana,boolean bol) {
+		List<Pagamento> scadenzaSettimana=JPALuke.selectParziale(pers,bol);
+		Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
+		
+	}
+	
+	
+	
 	private static void searchByMese(Integer mese, List<Pagamento> scadenzaMese) {
 		Date dataCorrente=new Date();
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataCorrente);
+		List<Pagamento> result=new ArrayList<>();
 		
 		// ricerca in base a N mesi successivi a quello corrente delle scadenze fatture
 		for(Pagamento pag:scadenzaMese) {
@@ -99,14 +108,43 @@ public class Scadenziario {
 			
 			Calendar d=(Calendar) cal.clone();
 			c.add(Calendar.DAY_OF_YEAR,+pag.getFattura().getScadenza() );
-			d.add(Calendar.MONTH , +mese);
-			
-			if(c.get(Calendar.MONTH)==d.get(Calendar.MONTH)) {
-				System.out.println("id: "+pag.getIdPagamento()+"\nData Fattura: "+pag.getFattura().getData()+
-						"\nScadenza fattura: "+ pag.getFattura().getScadenza());
-			}
+			Scadenziario.calcolaMese(c, d, mese, pag);
 		}
 	}
+	
+	private static void searchBySettimana(Integer settimana,List<Pagamento> scadenzaSettimana) {
+		Date dataCorrente=new Date();
+		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+		cal.setTime(dataCorrente);
+		for(Pagamento pag:scadenzaSettimana) {
+			Calendar c=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
+			c.setTime(pag.getFattura().getData());
+			Calendar d=(Calendar) cal.clone();
+			c.add(Calendar.DAY_OF_YEAR, +pag.getFattura().getScadenza());
+			Scadenziario.calcolaSettimana(c, d, settimana, pag);
+		}
+		
+	}
+	
+	
+	private static void calcolaMese(Calendar c, Calendar d,Integer mese, Pagamento pag) {
+		d.add(Calendar.MONTH , +mese);
+		
+		if(c.get(Calendar.MONTH)==d.get(Calendar.MONTH)) {
+			System.out.println("id: "+pag.getIdPagamento()+"\nData Fattura: "+pag.getFattura().getData()+
+					"\nScadenza fattura: "+ pag.getFattura().getScadenza());
+		}	
+	}
+	
+	private static void calcolaSettimana(Calendar c,Calendar d, Integer settimana,Pagamento pag) {
+		d.add(Calendar.WEEK_OF_YEAR, +settimana);
+		if(c.get(Calendar.WEEK_OF_YEAR)==d.get(Calendar.WEEK_OF_YEAR)) {
+			System.out.println("id: "+pag.getIdPagamento()+"\nData Fattura: "+pag.getFattura().getData()+
+					"\nScadenza fattura: "+ pag.getFattura().getScadenza());
+			
+		}
+	}
+	
 	
 	private static void searchForNotifica(List<Pagamento> pagamentiDaConcludere) {
 
@@ -130,12 +168,17 @@ public class Scadenziario {
 	}
 	
 	
+	
+	
 	public static void checkNotifica(Persona pers) {
+		System.out.println("Entro dove non chiede boolean");
 		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(pers);
 		Scadenziario.searchForNotifica(pagamentiDaConcludere);	
+		
 		}
 	
 		public static void checkNotifica(Persona pers ,boolean entrataUscita) {
+			System.out.println("Entro dove chiede boolean");
 			List<Pagamento> listaPagamento=JPALuke.selectParziale(pers,entrataUscita);
 			Scadenziario.searchForNotifica(listaPagamento);			
 		}
