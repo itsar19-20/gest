@@ -13,6 +13,7 @@ public class Conto {
 
 	@Id
 	private Integer id;
+	private String nome;
 	
 	public Conto() {
 		
@@ -20,7 +21,6 @@ public class Conto {
 	
 	@OneToMany
 	private List<Fattura> fatture;
-
 	private Integer idFatture = 0;
 	
 	@OneToMany
@@ -80,6 +80,12 @@ public class Conto {
 	}
 	public void setFatture(List<Fattura> fatture) {
 		this.fatture = fatture;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	
 }
