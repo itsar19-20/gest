@@ -51,10 +51,7 @@ public class Fattura {
 	@Column(name = "nota")
 	private String nota;
 	
-	//	DA RISOLVERE AL PIU' PRESTO
-	
-	//	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL)
-	@Transient
+	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL)
 	private List<Articolo> articoli;
 	
 	@Column(name = "numero_fattura")

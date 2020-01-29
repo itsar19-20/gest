@@ -1,14 +1,17 @@
 // wait for the page to load
-$(document).ready(function() {
+//  $(document).ready(function() {
+$(() => {
 
+    //  button guarda fatture
     $('#btn-guarda-fatture').click(function() {
-        console.log('#btn-guarda-fatture.click');
+        var btn = 'button guarda fatture '
+        console.log(btn, '.click');
         $.ajax({
             url: '/fattura/guarda',
             method: 'get'
         })
         .done(function(listaFatture) {
-            console.log('#btn-guarda-fatture.done', listaFatture);
+            console.log(btn, '.done', listaFatture);
             
             /*
             listaFatture.forEach(element => {
@@ -46,12 +49,12 @@ $(document).ready(function() {
 
         })
         .fail(function() {
-            console.log('#btn-guarda-fatture.fail');
+            console.log(btn, '.fail');
         })
         .always(function() {
-            console.log('#btn-guarda-fatture.always', listaFatture);
+            console.log(btn, '.always', listaFatture);
         });
-        console.log('#btn-guarda-fatture.clickEnd');
+        console.log(btn, '.EndClick');
     });
 
 })
