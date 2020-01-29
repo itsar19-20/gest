@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import models.Conto;
+import models.Fattura;
 import models.Pagamento;
 import models.Persona;
 import models.Utente;
@@ -75,6 +76,12 @@ public class JPALuke {
 		em.persist(p);
 		em.getTransaction().commit();
 		
+	}
+	public static Fattura searchFattura(Integer idFattura) {
+		EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
+		Fattura f= em.find(Fattura.class, idFattura);
+		
+		return f;
 	}
 	
 

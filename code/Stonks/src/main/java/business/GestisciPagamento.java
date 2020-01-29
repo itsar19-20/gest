@@ -33,7 +33,9 @@ public class GestisciPagamento {
 		}
 		
 		
-	public static void addNewPagamento(Pagamento p) {
+	public static void addNewPagamento(Integer idFattura) {
+		Fattura f=JPALuke.searchFattura(idFattura);
+		Pagamento p=new Pagamento(f);
 		JPALuke.persistPagamento(p);
 		
 		
