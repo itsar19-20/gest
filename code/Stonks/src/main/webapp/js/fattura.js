@@ -34,10 +34,10 @@ $(() => {
                     {title: 'ID', data: 'id'},
                     {title: 'Data', data: 'data'},
                     {title: 'Scadenza', data: 'scadenza'},
-                    {title: 'Fattura cliente', data: 'fatturaCliente'},
+//                    {title: 'Fattura cliente', data: 'fatturaCliente'},
                     {title: 'Persona', data: 'persona'},
                     {title: 'Nota', data: 'nota'},
-                    {title: 'Conto', data: 'conto'},
+//                    {title: 'Conto', data: 'conto'},
                     {title: 'IVA', data: 'iva'},
                     {title: 'Lordo', data: 'lordo'},
                 ]
@@ -60,27 +60,65 @@ $(() => {
         method: 'get'
     })
     .done((html) => {
-        var numeroArticoli = 'add-new';
-        $('#ol-articoli').append(html.replace('§numero§', numeroArticoli).replace('§numero§', numeroArticoli).replace('§btn-text§', '+'));
-        numeroArticoli = 1;
-        console.log(numeroArticoli);
+        var numeroArticoli = 1;
+        $('#articoli').append(html
+            .replace('§numero§', numeroArticoli)
+            .replace('§numero§', numeroArticoli)
+            .replace('§btn-text§', '+'));
+        
 
         // add another articol
-        $('#btn-articol-add-new').click(() => {
+        $('#btn-articol-1').click(() => {
             numeroArticoli++;
-            console.log(numeroArticoli)
+            
 
             $.ajax({
                 url: '/parts/articolo.html',
                 method: 'get'
             })
             .done((html) => {
-                var rimuoviDiv = $('#articoli').remove( $('#articolo-list-item-' + `${numeroArticoli}`) );
-                $('#ol-articoli').append(html.replace('§numero§', numeroArticoli).replace('§numero§', numeroArticoli).replace('§btn-text§', '-').replace('§click§', 'alert(\'pippo\', \`${rimuoviDiv}\`);'));
+
+
+
+                $('#articoli').append(html
+                    .replace('§numero§', numeroArticoli)
+                    .replace('§numero§', numeroArticoli)
+                    .replace('§btn-text§', '-')
+                    //.replace('§click§', 'alert(\'pippo\', \`${rimuoviDiv}\`);')
+                    //.replace('§click§', 'console.log(rimuoviDiv, \'click\')')
+                );
 
                 // remove an articol
-
+                $('#btn-articol-' + numeroArticoli).click(() =>{
+                    console.log('hai premuto il bottone dell\'artiolo', numeroArticoli);
+                    $('#articolo-list-item-' + numeroArticoli).remove();
+                    
+                });
             });
+        });
+    });
+
+    // submit (crea fattura)
+    $('#btn-submit').click(() => {
+        $.ajax({
+            url: '/fattura/crea',
+            method: 'post',
+            data: {
+                eUnaFatturaCliente: $('#input-tipo-fattura').val(),
+                conto: $('#input-conto').val(),
+                persona: $('#input-persona').val(),
+                data: $('#input-data').val(),
+                scadenza: $('#input-scadenza').val(),
+                //  articoli
+                note: $('#input-note').val(),
+            }
+        })
+        .done((fattura) => {
+            console.log('fattura creata');
+            console.log(fattura);
+        })
+        .fail((fattura) => {
+            console.log('fattura non creata');
         });
     });
 

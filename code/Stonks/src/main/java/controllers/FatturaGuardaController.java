@@ -3,6 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,13 +21,13 @@ import utils.JPAUtil;
  * Servlet implementation class FatturaController
  */
 @WebServlet("/fattura/guarda")
-public class FatturaController extends HttpServlet {
+public class FatturaGuardaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FatturaController() {
+    public FatturaGuardaController() {
         super();
         // TODO Auto-generated constructor stub
     }

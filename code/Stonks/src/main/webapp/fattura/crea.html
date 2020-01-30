@@ -10,7 +10,7 @@
     	<title>Fattura · Fatturo.io</title>
     
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="../style.css" rel="stylesheet" type="text/css">
+        <link href="/css/index.css" rel="stylesheet" type="text/css">
         
     </head>
     <body>
@@ -21,16 +21,23 @@
 
         <!-- form fattura -->
         <div id="form-fattura" class="">
+
+            <!-- scegliere la propria azienda (alisa conto) -->
+            Azienda (Conto)
+            <select id="input-conto" name="conto">
+                <option value="io mio conto">il mio conto</option>
+                <option value="l'altro mio conto">l'altro mio conto</option>
+            </select><br><br>
         
             <!-- fattura cliente o fornitore? -->
             Fattura
-            <select name="invoice-type">
+            <select id="input-tipo-fattura" name="invoice-type">
                 <option value="cliente">cliente</option>
                 <option value="fornitore">fornitore</option>
             </select><br><br>
 
             <!-- persona, che sia o il fornitore o il clente -->
-            <input list="persona" name="persona" required autofocus="autofocus" placeholder="Persona">
+            <input id="input-persona" list="persona" name="persona" required autofocus="autofocus" placeholder="Persona">
             <datalist id="persona">
                 <option value="Persona 1">
                 <option value="Persona 2">
@@ -43,11 +50,11 @@
             Data<br>
 
             <!-- data della fattura -->
-            <input type="date" name="date" required><br><br>
+            <input id="input-data" type="date" name="date" required><br><br>
 
             <!-- scadenza della fattura in giorni -->
             Scadenza in giorni<br>
-			<select name="deadline">
+			<select id="input-scadenza" name="deadline">
                 <option value="0" selected>0</option>
                 <option value="30">30</option>
 				<option value="60">60</option>
@@ -58,14 +65,12 @@
             <div id="articoli" style="background-color: darkgoldenrod;">
                 Articoli<br>
                 Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Prezzo (netto)
-                <ol id="ol-articoli">
 
-                </ol>
             </div>
 
             <!-- breve descrizione facoltativa -->
             Note<br>
-            <textarea name="note" class="note_invoice">Vendita di due pizze.</textarea><br><br>
+            <textarea id="input-note" name="note" class="note_invoice">Vendita di due pizze.</textarea><br><br>
 
             <!-- button to save the new invoice-->
             <br>

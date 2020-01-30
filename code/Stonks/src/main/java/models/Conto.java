@@ -1,11 +1,14 @@
 package models;
 
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "conto")
@@ -19,12 +22,16 @@ public class Conto {
 		
 	}
 	
-	@OneToMany
+	@OneToMany(mappedBy = "conto")
+	@Transient
 	private List<Fattura> fatture;
+	
+	@Transient
 	private Integer idFatture = 0;
 	
 	@OneToMany
 	private List<Pagamento> pagamenti;
+	@Transient
 	private Integer idPagamenti = 0;
 	
 	private float saldoDisponibile = 0f;
@@ -32,6 +39,7 @@ public class Conto {
 	
 	@OneToOne
 	private Utente utente = new Utente();
+	
 	
 	public Integer getIdFatture() {
 		return idFatture;

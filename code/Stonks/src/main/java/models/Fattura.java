@@ -66,6 +66,9 @@ public class Fattura {
 	@Column(name = "pagata")
 	private boolean pagata = false;
 	
+	@ManyToOne
+	private Conto conto;
+	
 	
 	public Integer getIdFattura() {
 		return id;
