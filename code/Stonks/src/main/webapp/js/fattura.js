@@ -89,10 +89,12 @@ $(() => {
                 );
 
                 // remove an articol
+                var idArticoloListItem = '#articolo-list-item-' + numeroArticoli;
                 $('#btn-articol-' + numeroArticoli).click(() =>{
                     console.log('hai premuto il bottone dell\'artiolo', numeroArticoli);
-                    $('#articolo-list-item-' + numeroArticoli).remove();
-                    
+                    $(idArticoloListItem).remove();
+                    numeroArticoli--;
+                    console.log('un articolo è statorimosso, ora sono', numeroArticoli);
                 });
             });
         });
@@ -104,7 +106,7 @@ $(() => {
             url: '/fattura/crea',
             method: 'post',
             data: {
-                eUnaFatturaCliente: $('#input-tipo-fattura').val(),
+                tipoFattura: $('#input-tipo-fattura').val(),
                 conto: $('#input-conto').val(),
                 persona: $('#input-persona').val(),
                 data: $('#input-data').val(),

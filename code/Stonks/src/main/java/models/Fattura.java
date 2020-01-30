@@ -70,6 +70,24 @@ public class Fattura {
 	private Conto conto;
 	
 	
+	public Fattura(Integer id, Date data, Integer scadenza, boolean eUnaFatturaCliente, Persona persona, String nota,
+			List<Articolo> articoli, String numeroFattura, float iva, float lordo, boolean pagata, Conto conto) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.scadenza = scadenza;
+		this.eUnaFatturaCliente = eUnaFatturaCliente;
+		this.persona = persona;
+		this.nota = nota;
+		this.articoli = articoli;
+		this.numeroFattura = numeroFattura;
+		this.iva = iva;
+		this.lordo = lordo;
+		this.pagata = pagata;
+		this.conto = conto;
+	}
+	
+	
 	public Integer getIdFattura() {
 		return id;
 	}

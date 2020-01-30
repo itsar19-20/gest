@@ -25,8 +25,8 @@
             <!-- scegliere la propria azienda (alisa conto) -->
             Azienda (Conto)
             <select id="input-conto" name="conto">
-                <option value="io mio conto">il mio conto</option>
-                <option value="l'altro mio conto">l'altro mio conto</option>
+                <option value="1">il mio conto</option>
+                <option value="2">l'altro mio conto</option>
             </select><br><br>
         
             <!-- fattura cliente o fornitore? -->
@@ -39,7 +39,7 @@
             <!-- persona, che sia o il fornitore o il clente -->
             <input id="input-persona" list="persona" name="persona" required autofocus="autofocus" placeholder="Persona">
             <datalist id="persona">
-                <option value="Persona 1">
+                <option value="Persona 1">ciao</option>
                 <option value="Persona 2">
                 <option value="Persona 3">
                 <option value="Persona 4">
@@ -62,7 +62,7 @@
             </select><br><br>
             
             <!-- lista degli articoli -->
-            <div id="articoli" style="background-color: darkgoldenrod;">
+            <div id="articoli">
                 Articoli<br>
                 Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Prezzo (netto)
 
@@ -70,7 +70,7 @@
 
             <!-- breve descrizione facoltativa -->
             Note<br>
-            <textarea id="input-note" name="note" class="note_invoice">Vendita di due pizze.</textarea><br><br>
+            <textarea id="input-note" name="note" class="note_invoice" placeholder="Vendita di due pizze."></textarea><br><br>
 
             <!-- button to save the new invoice-->
             <br>
