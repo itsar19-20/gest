@@ -21,23 +21,24 @@
 
         <!-- form fattura -->
         <div id="form-fattura" class="">
+            <form>
 
             <!-- scegliere la propria azienda (alisa conto) -->
             Azienda (Conto)
-            <select id="input-conto" name="conto">
+            <select id="input-conto" name="conto" required>
                 <option value="1">il mio conto</option>
                 <option value="2">l'altro mio conto</option>
             </select><br><br>
         
             <!-- fattura cliente o fornitore? -->
             Fattura
-            <select id="input-tipo-fattura" name="invoice-type">
+            <select id="input-tipo-fattura" name="invoice-type" required>
                 <option value="cliente">cliente</option>
                 <option value="fornitore">fornitore</option>
             </select><br><br>
 
             <!-- persona, che sia o il fornitore o il clente -->
-            <input id="input-persona" list="persona" name="persona" required autofocus="autofocus" placeholder="Persona">
+            <input id="input-persona" list="persona" name="persona" autofocus="autofocus" placeholder="Persona" required>
             <datalist id="persona">
                 <option value="Persona 1">ciao</option>
                 <option value="Persona 2">
@@ -54,7 +55,7 @@
 
             <!-- scadenza della fattura in giorni -->
             Scadenza in giorni<br>
-			<select id="input-scadenza" name="deadline">
+			<select id="input-scadenza" name="deadline" required>
                 <option value="0" selected>0</option>
                 <option value="30">30</option>
 				<option value="60">60</option>
@@ -64,7 +65,9 @@
             <!-- lista degli articoli -->
             <div id="articoli">
                 Articoli<br>
-                Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Prezzo (netto)
+                Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                Prezzo (netto)
 
             </div>
 
@@ -76,6 +79,7 @@
             <br>
             <button id="btn-submit" type="button">Salva</button>
 
+            </form>
         </div>
 
         <footer></footer>
