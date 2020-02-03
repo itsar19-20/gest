@@ -21,7 +21,7 @@ public class Articolo {
 	private Integer idArticolo;
 	private String descrizione;
 	private Integer quantita;
-	private float importoParziale;
+	private float prezzo;
 	private float iva = 0.22f;
 	
 	@ManyToOne
@@ -38,7 +38,7 @@ public class Articolo {
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
 		this.quantita = quantita;
-		this.importoParziale = importoParziale;
+		this.prezzo = importoParziale;
 		//	this.iva = iva;
 		this.fattura = fattura;
 	}
@@ -69,10 +69,10 @@ public class Articolo {
 		this.quantita = quantita;
 	}
 	public float getImportoParziale() {
-		return importoParziale;
+		return prezzo;
 	}
 	public void setImportoParziale(float importoParziale) {
-		this.importoParziale = importoParziale;
+		this.prezzo = importoParziale;
 	}
 	public float getIva() {
 		return iva;

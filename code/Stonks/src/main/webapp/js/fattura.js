@@ -89,6 +89,14 @@ $(() => {
     });
 
     // submit (crea fattura)
+
+    var articoli = [
+        { descrizione: 'piadina', quantita: 3, prezzo: 7 },
+        { descrizione: 'pita', quantita: 10, prezzo: 3 },
+        { descrizione: 'kebab', quantita: 2, prezzo: 5 },
+    ];
+    articoli = JSON.stringify({ 'articoli': articoli });
+
     $('#btn-submit').click(() => {
         $.ajax({
             url: '/fattura/crea',
@@ -101,16 +109,26 @@ $(() => {
                 data: $('#input-data').val(),
                 scadenza: $('#input-scadenza').val(),
                 note: $('#input-note').val(),
+                articoli,
 
                 // articoli
+                
                 descrizione: $('#input-articolo-descrizione').val(),
                 quantita: $('#input-articolo-quantita').val(),
                 prezzo: $('#input-articolo-prezzo').val(),
-    }
+                
+            }
+            /*
+            success: function () {
+                //  code
+            }
+            failure: function () {
+                //  code
+            }
+            */
         })
         .done((fattura) => {
             console.log('fattura creata');
-            console.log(fattura);
         })
         .fail((fattura) => {
             console.log('fattura non creata');

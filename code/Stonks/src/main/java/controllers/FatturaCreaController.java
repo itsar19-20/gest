@@ -13,6 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.mapping.Map;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import business.MenagementFattura;
 import models.Articolo;
 import models.Conto;
@@ -85,19 +91,6 @@ public class FatturaCreaController extends HttpServlet {
 
 		String nota = request.getParameter("note");
 		
-		/*
-		 * per gli articoli:
-		 * 1. assegnare ad ogni articolo la stessa classe
-		 * 2. con js contare quanti elementi appartengono a quella classe
-		 * 3. passare il valore al controller
-		 * 
-		 * sistemare il meccanismo per assegnare id sequenziali agli articoli
-		 * 
-		 * oppure usare un ciclo for each nel controller
-		 * 
-		 * ci devo pensare ...
-		 * 
-		 */
 		
 		//	articoli
 		String descrizione = request.getParameter("descrizione");
@@ -106,14 +99,22 @@ public class FatturaCreaController extends HttpServlet {
 		String prezzoString = request.getParameter("prezzo");
 			Integer prezzo = Integer.parseInt(prezzoString);
 		
-		List<Articolo> articoli;
-		
 		if (data == null || scadenza == null || persona == null || conto == null) {
 			doGet(request, response);
 			response.sendError(400, "Inserire tutti i campi !!");
 			response.getWriter().append("alert('Inserire tutti i campi !!')");
 			return;
 		}
+		
+		//	creo l'oggetto fattura
+		Fattura f = new Fattura(data, scadenza, eUnaFatturaCliente, persona, nota, pagata, conto);
+		// lo salvo nel database
+		MenagementFattura.create(f);
+		ObjectMapper om = new ObjectMapper();
+		out("");
+		// cerco la fattura per id nel database e la stampo in stringa json
+		System.out.println(om.writeValueAsString(MenagementFattura.readById(f.getId())));
+		//	MenagementFattura.delate(f);
 		
 		//	test conversione tipi
 		String g = "\n", s = " -> ", t = "    ", 
@@ -128,24 +129,55 @@ public class FatturaCreaController extends HttpServlet {
 				"pagata"+s+pagata+g+
 				"nota"+s+nota+g+
 				g+
-				"articoli:"+g+
-				g+
-				t+"descrizione"+s+descrizione+g+
-				t+"quantita"+s+quantitaString+s+quantita+g+
-				t+"prezzo"+s+prezzoString+s+prezzo+
-				bl
+				"articoli:"+g
 		);
 		
-		Fattura f = new Fattura(data, scadenza, eUnaFatturaCliente, persona, nota, pagata, conto);
-		System.out.println(g+f.toString()+g);
-		MenagementFattura.crate(f);
-		System.out.println("la fattura è stata aggiunta al database");
 		
-		// for each elemento of article class
-		Articolo a = new Articolo(descrizione, quantita, prezzo, f);
-		MenagementFattura.add(a);
-		System.out.println("l'articolo "+a+" è stato aggiunto al database");
+		//	dichiaro una stringa contenente una lista oggetti articolo in json
+		String articoliJsonString = request.getParameter("articoli");
+		out(articoliJsonString);
+		out(om.writeValueAsString(articoliJsonString));
 		
+		//	cerco di convertire la stringa json in degli oggetti veri e propri
+		/*
+		List<Articolo> articoli = om.readValue(articoliJsonString, new TypeReference<List<Articolo>>() {});
+		out("creata la lista");
+		for (Articolo a : articoli) {
+			//	colleggo il singolo oggetto alla rispettiva fattura
+			a.setFattura(f); out("set fattura");
+			//	salvo l'oggetto nel database
+			MenagementFattura.create(a); out("persist nel db");
+			//	stampo a console l'articolo in formato json
+			System.out.println(om.writeValueAsString(a));
+		}
+		*/
+		
+		
+		/*
+		String[] articoli = request.getParameterValues("articoliDiProva");
+		for (String art : articoli) {
+			System.out.println(art);
+			/*
+			a.setFattura(f);
+			MenagementFattura.create(a);
+			System.out.println("l'articolo "+a+" è stato aggiunto al database");
+			System.out.println(
+					t+a.getDescrizione()+g+
+					t+a.getQuantita()+g+
+					t+a.getImportoParziale()+
+					bl
+			);
+			
+		}
+		*/
+		//	for each elemento of article class
+		//	Articolo a = new Articolo(descrizione, quantita, prezzo, f);
+		
+		
+	}
+	
+	public void out(String s) {
+		System.out.println(s);
 	}
 
 }

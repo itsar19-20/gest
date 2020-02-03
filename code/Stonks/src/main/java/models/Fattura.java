@@ -55,7 +55,7 @@ public class Fattura {
 	private List<Articolo> articoli;
 	
 	@Column(name = "numero_fattura")
-	private String numeroFattura;
+	private String numeroFattura = "bho";
 	
 	@Transient
 	private float iva = 0.22F;
@@ -70,8 +70,9 @@ public class Fattura {
 	private Conto conto;
 	
 	
-	public Fattura(Integer id, Date data, Integer scadenza, boolean eUnaFatturaCliente, Persona persona, String nota,
-			List<Articolo> articoli, String numeroFattura, float iva, float lordo, boolean pagata, Conto conto) {
+	public Fattura(Integer id, Date data, Integer scadenza, boolean eUnaFatturaCliente, 
+			Persona persona, String nota, List<Articolo> articoli, String numeroFattura, 
+			float iva, float lordo, boolean pagata, Conto conto) {
 		super();
 		this.id = id;
 		this.data = data;
