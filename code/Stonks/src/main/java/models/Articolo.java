@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Articolo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer idArticolo;
 	private String descrizione;
@@ -33,13 +33,14 @@ public class Articolo {
 		
 	}
 
-	public Articolo(Integer idArticolo, String descrizione, Integer quantita, float importoParziale, float iva) {
+	public Articolo(String descrizione, Integer quantita, float importoParziale, Fattura fattura) {
 		super();
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
 		this.quantita = quantita;
 		this.importoParziale = importoParziale;
 		//	this.iva = iva;
+		this.fattura = fattura;
 	}
 	
 	public void aggiungi() {
