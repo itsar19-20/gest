@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import models.Conto;
+import models.Fattura;
 import models.Pagamento;
 import models.Persona;
 import models.Utente;
@@ -139,11 +140,12 @@ public class Scadenziario {
 	}
 	
 	
-	private static void searchForNotifica(List<Pagamento> pagamentiDaConcludere) {
+	private static List<Fattura> searchForNotifica(List<Pagamento> pagamentiDaConcludere,Integer anticipoNotifica) {
 
 		Date dataOggi=new Date();
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataOggi);
+		List<Fattura> listaFattura=new ArrayList<>();
 		
 		for(Pagamento pag:pagamentiDaConcludere) {
 			Calendar calFattura=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
@@ -152,28 +154,30 @@ public class Scadenziario {
 			Calendar calCorrente=(Calendar) cal.clone();
 			//
 			// l'anticipo notifica va memorizzato nel local Storage, per ora uso 5
-			calCorrente.add(Calendar.DAY_OF_YEAR, +5 ); 
+			calCorrente.add(Calendar.DAY_OF_YEAR, +anticipoNotifica ); 
 			calFattura.add(Calendar.DAY_OF_YEAR, +pag.getFattura().getScadenza());
 			if(calCorrente.getTime().after(calFattura.getTime())) {
 				System.out.println("La fattura di id: "+pag.getFattura().getIdFattura()+" sta per scadere");
+				listaFattura.add(pag.getFattura());
 			}	
 		}
+		return listaFattura;
 	}
 	
 	
 	
 	
-	public static void checkNotifica(Persona pers) {
-		System.out.println("Entro dove non chiede boolean");
+	public static List<Fattura> checkNotifica(Persona pers,Integer anticipoNotifica) {
+		
 		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(pers);
-		Scadenziario.searchForNotifica(pagamentiDaConcludere);	
+		return Scadenziario.searchForNotifica(pagamentiDaConcludere,anticipoNotifica);	
 		
 		}
 	
-		public static void checkNotifica(Persona pers ,boolean entrataUscita) {
-			System.out.println("Entro dove chiede boolean");
+		public static List<Fattura> checkNotifica(Persona pers ,boolean entrataUscita,Integer anticipoNotifica) {
+			
 			List<Pagamento> listaPagamento=JPALuke.selectParziale(pers,entrataUscita);
-			Scadenziario.searchForNotifica(listaPagamento);			
+			return Scadenziario.searchForNotifica(listaPagamento,anticipoNotifica);			
 		}
 	}
 
