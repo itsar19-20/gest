@@ -22,7 +22,30 @@
 
         <header></header>
         
+        
+        
         <br><br><br><br>
+       
+		<table>
+		<tr>
+		<td>Inserisci mesi successivi :</td>
+		<td><input size ="8" maxlength="10" pattern="[0-9]+" style="background-color:yellow;" type="text" name="numMesi" id="mesi"/></td>
+		</tr>
+		<tr>
+		<td>Inserisci settimane successive : </td>
+		<td><input size ="8" maxlength="10" pattern="[0-9]+" style="background-color:yellow;" type="text" name="numSettimane" id="settimane"/></td>
+			
+		</tr>
+		<tr>
+		<td>ENTRATA<input type="radio" required name="entrataUscita" id="entUsc" value="true"/></td>
+		<td>USCITA<input type="radio" required name="entrataUscita" id="entUsc" value="false"/> </td>
+		<td>FULL<input type="radio" required name="entrataUscita" id="entUsc" value="null"/></td>
+		</tr>
+		
+		</table>
+		<ul id="listaPagamenti"></ul>
+    	<table id="tblPagamenti"></table>
+    	<button id="bottone">cerca</button>
 
         <footer></footer>
 
@@ -37,6 +60,7 @@
         <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         
         <!-- my js file -->
+        <script src="/js/scadenziario.js"></script>
         <script src="/js/index.js"></script> 
     
     </body>
