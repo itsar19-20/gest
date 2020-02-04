@@ -6,21 +6,24 @@ import models.Fattura;
 import models.Pagamento;
 
 public class Saldo {
+	
+	float s=0;
 
-	public float saldo(Conto conto, Date data, TipoSaldo tipoSaldo) {
-		float totale = 0.0F;
+	@SuppressWarnings("null")
+	public static Saldo saldo(Conto conto, Date data, TipoSaldo tipoSaldo) {
+		Saldo totale = null;
 		switch (tipoSaldo) {
 		case utile:
 			for (Fattura f : conto.getFatture()) {
 				if (f.getData().getTime() <= data.getTime()) {
-					totale += f.getLordo();
+					totale.s += f.getLordo();
 				}
 			}
 			break;
 		case disponibile:
 			for (Pagamento p : conto.getPagamenti()) {
 				if (p.getDataPagamento().getTime() <= data.getTime()) {
-					totale += p.getGiaPagato();
+					totale.s += p.getGiaPagato();
 				}
 			}
 			break;

@@ -23,6 +23,7 @@ footer{
     border-width: 1px;
     border-color: black;
     text-align: center;
+    margin-top: -100px;
     line-height: 24px; /* Vertically center the text there */    
 }
 

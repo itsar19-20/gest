@@ -14,6 +14,20 @@ import javax.persistence.Transient;
 @Table(name = "conto")
 public class Conto {
 
+	public Conto(Integer id, String nome, List<Fattura> fatture, Integer idFatture, List<Pagamento> pagamenti,
+			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Utente utente) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.fatture = fatture;
+		this.idFatture = idFatture;
+		this.pagamenti = pagamenti;
+		this.idPagamenti = idPagamenti;
+		this.saldoDisponibile = saldoDisponibile;
+		this.saldoUtile = saldoUtile;
+		this.utente = utente;
+	}
+
 	@Id
 	private Integer id;
 	private String nome;

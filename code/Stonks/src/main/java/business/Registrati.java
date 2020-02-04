@@ -4,36 +4,19 @@ import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import models.Utente;
+import models.Persona;
 import utils.JPAUtil;
 
 public class Registrati {
 	
-	public Utente registrati(){
+	public Utente registrati(String nome, String cognome, String pIVA, String mail, String indirizzo,
+			String telefono, String username, String password,String metodoDiRegistrazione){
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		Utente u = new Utente(null, null, null, null, null, null, null, null, null);
-	    Scanner s = null;
-		System.out.println("Inserire nome");
-		u.setNome(s.nextLine());
-		System.out.println("Inserire cognome");
-		u.setCognome(s.nextLine());
-		System.out.println("Inserire Partita IVA");
-		u.setpIVA(s.nextLine());
-		System.out.println("Inserire E-mail ");
-		u.setMail(s.nextLine());	
-		System.out.println("Inserire Indirizzo");
-		u.setIndirizzo(s.nextLine());
-		System.out.println("Inserire Telefono");
-		u.setTelefono(s.nextLine());
-		System.out.println("Inserire Username");
-		u.setUsername(s.nextLine());
-		System.out.println("Inserire Password");
-		u.setPassword(s.nextLine());
-		System.out.println("Inserire il Metodo di Registrazione");
-		u.setMetodoDiRegistrazione(s.nextLine());
-		
-		
-		em.persist(u);
-		em.getTransaction().commit();
+		Utente u = new Utente(nome, cognome, pIVA, mail, indirizzo, telefono, username, password, metodoDiRegistrazione);
+	
+	em.getTransaction().begin();
+	em.persist(u);
+	em.getTransaction().commit();
 	
 	return u;
 	}

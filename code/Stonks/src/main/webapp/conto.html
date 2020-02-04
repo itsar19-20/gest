@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/Login.css">
+        <link href="css/index.css" rel="stylesheet" type="text/css">
 
             
     </head>
@@ -13,7 +13,7 @@
     <body>
         <div id="immagine">
             <a href="homepage.html">
-                <img id="img-fatturo" class="mb-4" src="../images/fatturoIO.png" alt="">
+                <img id="img-fatturo" class="mb-4" src="images/fatturoIO.png" alt="">
             </a>
         </div>
 
@@ -21,17 +21,20 @@
             <h2>Seleziona tipo di saldo</h2>
 
             <form action="/action_page.php">
-                <select name="saldo">
+                <select name="saldo" id="idSaldo">
                     <option value="disponibile">Disponibile</option>
                     <option value="utile">Utile</option>
                 </select>
                 <br><br>
-                <input type="submit">
+                <input type="submit" value="calcola" name="btnSaldo">
             </form>
-
+            
             
         </div>
-
+        <div class="form-saldo">
+            <h3 id="titolo">Saldo </h3>
+            <p id="paragrafo"></p>
+        </div>
         <footer class="footer">  
         </footer>
           
