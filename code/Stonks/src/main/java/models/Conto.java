@@ -29,16 +29,18 @@ public class Conto {
 	@Transient
 	private Integer idFatture = 0;
 	
+	@Transient
 	@OneToMany
 	private List<Pagamento> pagamenti;
+	
 	@Transient
 	private Integer idPagamenti = 0;
 	
 	private float saldoDisponibile = 0f;
 	private float saldoUtile = 0f;
 	
-	@OneToOne
-	private Utente utente = new Utente();
+	@Column(name = "utente_id")
+	private Integer utente;
 	
 	
 	public Integer getIdFatture() {
@@ -59,10 +61,10 @@ public class Conto {
 	public void setIdPagamenti(Integer idPagamenti) {
 		this.idPagamenti = idPagamenti;
 	}
-	public Utente getUtente() {
+	public Integer getUtente() {
 		return utente;
 	}
-	public void setUtente(Utente utente) {
+	public void setUtente(Integer utente) {
 		this.utente = utente;
 	}
 	public float getSaldoDisponibile() {

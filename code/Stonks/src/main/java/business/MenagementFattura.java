@@ -1,9 +1,10 @@
 package business;
 
-import java.awt.List;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Transient;
+import javax.persistence.TypedQuery;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -74,15 +75,19 @@ public class MenagementFattura {
 		return f;
 	}
 	
-	/*
-	public Fattura guarda(Integer id) {
-		
-		_return = em.find(Fattura.class, id);
-		em.close();
-		if (_return != null) return _return;
-		return null;
-		
+	public static List<Persona> listaPersone(Integer id) {
+		//	restituisce la lista delle presone create dell'utente che gli viene passato
+		TypedQuery<Persona> query = (TypedQuery<Persona>) em.createQuery("SELECT x FROM Persona x WHERE x.autore=:user");
+		query.setParameter("user", id);
+		List<Persona> lp = query.getResultList();
+		return lp;
+	}	
+	public static List<Conto> listaConti(Integer id) {
+		//	restituisce la lista delle presone create dell'utente che gli viene passato
+		TypedQuery<Conto> query = (TypedQuery<Conto>) em.createQuery("SELECT x FROM Conto x WHERE x.utente=:user");
+		query.setParameter("user", id);
+		List<Conto> lc = query.getResultList();
+		return lc;
 	}
-	*/
 	
 }

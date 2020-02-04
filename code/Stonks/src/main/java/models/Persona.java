@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.sun.tools.javac.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,6 +28,9 @@ public class Persona {
 	private String mail;
 	private String indirizzo;
 	private String telefono;
+	
+	@Column(name = "autore")
+	private Integer autore;
 	
 	//	@OneToMany	//(mappedBy = "persona")
 	//	@Transient
@@ -111,5 +117,13 @@ public class Persona {
 		this.fatture = fatture;
 	}
 	*/
+
+	public Integer getAutore() {
+		return autore;
+	}
+
+	public void setAutore(Integer autore) {
+		this.autore = autore;
+	}
 }
 
