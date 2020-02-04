@@ -2,18 +2,21 @@ package business;
 
 import java.util.Date;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 
-import models.Utente;
+import models.Users;
 import utils.JPAUtil;
 
 public class Login {
 
-		public Utente login(String username, String password) {
-			Utente _return = null;
+		public Users login(String username, String password) {
+			Users _return = null;
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			
-			_return = em.find(Utente.class, username);
+			//	_return = em.find(Users.class, username);
+			_return = (Users) em.createQuery("Select x from Users x where x.username = :username")
+					.setParameter("username", username).getSingleResult();
 			if (_return != null) {
 				
 				em.getTransaction().begin();
