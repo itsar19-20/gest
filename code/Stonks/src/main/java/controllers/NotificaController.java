@@ -34,7 +34,7 @@ public class NotificaController extends HttpServlet {
 		Integer anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
 		
 		
-		// utente di prova, dovrà poi corrispondere all'utente che ha effettuato
+		// utente di prova, dovrï¿½ poi corrispondere all'utente che ha effettuato
 		// il login
 		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		 Persona persona =em.find(Persona.class ,1 );
