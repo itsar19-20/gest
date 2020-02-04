@@ -11,7 +11,7 @@ $(() => {
         .done((utente) => {
             if (utente) {
                 localStorage.setItem('user', JSON.stringify(utente));
-                location.href = './home.html';
+                location.href = '/';
             } else {
                 localStorage.removeItem('user');
             }

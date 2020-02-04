@@ -41,6 +41,25 @@
 		<td>USCITA<input type="radio" required name="entrataUscita" id="entUsc" value="false"/> </td>
 		<td>FULL<input type="radio" required name="entrataUscita" id="entUsc" value="null"/></td>
 		</tr>
+		<tr>
+			<td>
+				<label for="sel1">Selezione anticipo di notifica:</label>
+      			<select class="form-control" id="sel1" name="listaNotifica">
+        		<option value="1">1</option>
+       			 <option value="2">2</option>
+       			 <option value="3">3</option>
+       			 <option value="4">4</option>
+       			 <option value="5">5</option>
+       			 <option value="6">6</option>
+       			 <option value="7">7</option>
+       			 <option value="8">8</option>
+       			 <option value="9">9</option>
+       			 <option value="10">10</option>
+     			 </select>
+				
+			</td>
+		
+		</tr>	
 		
 		</table>
 		<ul id="listaPagamenti"></ul>
@@ -62,6 +81,42 @@
         <!-- my js file -->
         <script src="/js/scadenziario.js"></script>
         <script src="/js/index.js"></script> 
+   <!--     <script scr="/js/notifica.js"></script> -->  
+        
+        
+         <script>
+        //console.log(localStorage.getItem("anticipo"));
+        if(localStorage.getItem("anticipo")==null){
+			localStorage.setItem("anticipo","5");
+		}
+        
+        function getListValue(){
+        	var e=document.getElementById("sel1");
+        	var d=e.options[e.selectedIndex].value;
+			return d;
+        }
+        function setSelectedIndex(s, i)
+
+        {
+
+        s.options[i-1].selected = true;
+
+        return;
+
+        }
+
+        setSelectedIndex(document.getElementById("sel1"),localStorage.getItem("anticipo"));
+        
+		</script>
+		
+		<script>
+			$('#sel1').focusout( function(){
+				localStorage.setItem("anticipo",getListValue());
+				//console.log(localStorage.getItem("anticipo"));
+				 var z=$('#sel1').val();
+			});
+
+		</script>
     
     </body>
 

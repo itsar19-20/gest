@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.Login;
-import models.Utente;
+import models.Users;
 
 /**
  * Servlet implementation class LoginController
@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		Login lm = new Login();
-		Utente u = lm.login(username, password);
+		Users u = lm.login(username, password);
 		request.getSession().setAttribute("user", u);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
