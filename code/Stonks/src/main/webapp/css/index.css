@@ -1,6 +1,10 @@
 body{
+<<<<<<< HEAD
+    background-color: cyan;
+=======
     background-color: darkturquoise;
     margin: 0;
+>>>>>>> f27d5bb5dea2dd8bdcc27eba5bbca9dafd5ee5c1
     text-align: left;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -24,10 +28,6 @@ footer{
     border-color: black;
     text-align: center;
     line-height: 24px; /* Vertically center the text there */    
-}
-
-.push{
-    height: 100px;
 }
 
 #fatturo-footer{
