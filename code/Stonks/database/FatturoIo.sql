@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         192.168.203.215
+-- Host:                         localhost
 -- Server version:               10.4.11-MariaDB - Source distribution
 -- Server OS:                    Linux
 -- HeidiSQL Version:             10.3.0.5771
@@ -44,38 +44,43 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   `fattura_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
-  CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `OLDfattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~3 rows (approximately)
+-- Dumping data for table stonks.articolo: ~5 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `importoParziale`, `iva`, `quantita`, `fattura_id`) VALUES
 	(1, 'ciao', 34.6, 2, 7, 1),
 	(2, 'ciao2', 77.6, 6, 5, 1),
-	(3, 'ciao3', 88.6, 8, 4, 1);
+	(3, 'ciao3', 88.6, 8, 4, 1),
+	(4, 'calzini', 4, 22, 2, 2),
+	(5, 'mutande', 6, 2, 13, 3),
+	(7, 'calzone ripeieno', 22222, 0.22, 22, 9);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.conto
 DROP TABLE IF EXISTS `conto`;
 CREATE TABLE IF NOT EXISTS `conto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
   `saldoDisponibile` float NOT NULL DEFAULT 0,
   `saldoUtile` float NOT NULL DEFAULT 0,
   `metodo_di_pagamento_id` varchar(255) DEFAULT NULL,
-  `persona_id` int(11) DEFAULT NULL,
+  `utente_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKijchw6mbp43uml7gwtxf60hv3` (`metodo_di_pagamento_id`),
-  KEY `FK11e25b6phyqq9o4vd9aat9gdo` (`persona_id`),
-  CONSTRAINT `FK11e25b6phyqq9o4vd9aat9gdo` FOREIGN KEY (`persona_id`) REFERENCES `persona` (`id`),
+  KEY `FK11e25b6phyqq9o4vd9aat9gdo` (`utente_id`),
+  CONSTRAINT `FK11e25b6phyqq9o4vd9aat9gdo` FOREIGN KEY (`utente_id`) REFERENCES `persona` (`id`),
   CONSTRAINT `FKijchw6mbp43uml7gwtxf60hv3` FOREIGN KEY (`metodo_di_pagamento_id`) REFERENCES `metodo_di_pagamento` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.conto: ~0 rows (approximately)
+-- Dumping data for table stonks.conto: ~2 rows (approximately)
 DELETE FROM `conto`;
 /*!40000 ALTER TABLE `conto` DISABLE KEYS */;
-INSERT INTO `conto` (`id`, `saldoDisponibile`, `saldoUtile`, `metodo_di_pagamento_id`, `persona_id`) VALUES
-	(1, 103.5, 123.3, 'm1', 4);
+INSERT INTO `conto` (`id`, `nome`, `saldoDisponibile`, `saldoUtile`, `metodo_di_pagamento_id`, `utente_id`) VALUES
+	(1, 'pippo', 103.5, 123.3, 'm1', 4),
+	(2, 'tanto', 3000, 5000, 'm1', 1);
 /*!40000 ALTER TABLE `conto` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.fattura
@@ -90,16 +95,23 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `numero_fattura` varchar(64) NOT NULL,
   `lordo` float NOT NULL DEFAULT 0,
   `pagata` bit(1) NOT NULL,
+  `conto_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.fattura: ~3 rows (approximately)
+-- Dumping data for table stonks.fattura: ~8 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
-INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`) VALUES
-	(1, '2020-01-24', 0, b'1', 1, 'ciao', '25', 12, b'0'),
-	(2, '2020-01-24', 30, b'1', 4, 'bjsvdbjdqgbji57', '2', 1234, b'0'),
-	(3, '2020-01-24', 30, b'0', 5, '', '12s', 323, b'0');
+INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`, `conto_id`) VALUES
+	(1, '2020-01-24', 0, b'1', 1, 'ciao', 'Fat-1', 12, b'0', 1),
+	(2, '2020-01-24', 30, b'1', 4, 'bjsvdbjdqgbji57', '2', 1234, b'0', 1),
+	(3, '2020-01-24', 30, b'0', 5, '', '12s', 323, b'0', 1),
+	(4, '2020-01-31', 30, b'0', 3, 'buona', 'Fat-null', 0, b'0', 1),
+	(5, '2020-01-31', 60, b'0', 3, '', 'Fat-qualcosa', 0, b'0', 1),
+	(6, '2020-01-04', 0, b'0', 3, 'buona ma un po\' costosa', 'Fat-qualcosa', 0, b'1', 1),
+	(7, '2020-01-31', 30, b'0', 3, 'ho un articolo?', 'Fat-qualcosa', 0, b'0', 1),
+	(8, '2020-01-31', 30, b'0', 3, 'ho un articolo?', 'Fat-qualcosa', 0, b'0', 1),
+	(9, '2020-01-31', 30, b'0', 3, 'shao', 'Fat-qualcosa', 0, b'0', 1);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento

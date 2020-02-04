@@ -16,12 +16,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Articolo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer idArticolo;
 	private String descrizione;
 	private Integer quantita;
-	private float importoParziale;
+	private float prezzo;
 	private float iva = 0.22f;
 	
 	@ManyToOne
@@ -33,13 +33,14 @@ public class Articolo {
 		
 	}
 
-	public Articolo(Integer idArticolo, String descrizione, Integer quantita, float importoParziale, float iva) {
+	public Articolo(String descrizione, Integer quantita, float importoParziale, Fattura fattura) {
 		super();
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
 		this.quantita = quantita;
-		this.importoParziale = importoParziale;
+		this.prezzo = importoParziale;
 		//	this.iva = iva;
+		this.fattura = fattura;
 	}
 	
 	public void aggiungi() {
@@ -68,10 +69,10 @@ public class Articolo {
 		this.quantita = quantita;
 	}
 	public float getImportoParziale() {
-		return importoParziale;
+		return prezzo;
 	}
 	public void setImportoParziale(float importoParziale) {
-		this.importoParziale = importoParziale;
+		this.prezzo = importoParziale;
 	}
 	public float getIva() {
 		return iva;

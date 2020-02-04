@@ -32,7 +32,8 @@ public class ScadenzaController extends HttpServlet {
 		
 		Integer mesiSuccessivi;
 		Integer settimaneSuccessive;
-		Boolean entrataOUscita;
+		String stringaEntrataUscita;
+		Boolean entrataUscita;
 			
 		try {
 			mesiSuccessivi=Integer.parseInt(request.getParameter("numMesi"));
@@ -44,12 +45,16 @@ public class ScadenzaController extends HttpServlet {
 		}catch(Exception e) {
 			settimaneSuccessive=null;
 		}
-		try {
-		  entrataOUscita=Boolean.parseBoolean(request.getParameter("entrataUscita"));
-		}catch(Exception e) {
-			entrataOUscita=null;
-		}
-		 
+		
+		  stringaEntrataUscita=request.getParameter("entrataUscita");
+		  
+		  if(stringaEntrataUscita==null || stringaEntrataUscita.contentEquals("null")) {
+		
+			entrataUscita=null;
+		
+		  }else {
+			  entrataUscita=Boolean.parseBoolean(stringaEntrataUscita);
+		  }
 		 
 		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		 
@@ -59,37 +64,35 @@ public class ScadenzaController extends HttpServlet {
 		 List<Pagamento> scadenzeOttenute=null;
 		 
 		 if ( mesiSuccessivi==null && settimaneSuccessive== null) {
-			 if(entrataOUscita==null) {
-				 //System.out.println("eseguo fullscadenziario");
+			 if(entrataUscita==null) {
+				 
 				scadenzeOttenute = Scadenziario.showFullScadenziario(persona);
 			 }else {
-				 //System.out.println("eseguo entrata concludere");
-				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataOUscita);
+		
+				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataUscita);
 			 }
 			 
 		 }else if(mesiSuccessivi!=null) {
-			// System.out.println("eseguo mese");
-			 if(entrataOUscita ==null) {
-				 Scadenziario.showScadenziarioMese(persona, mesiSuccessivi);
+			
+			 if(entrataUscita ==null) {
+				scadenzeOttenute= Scadenziario.showScadenziarioMese(persona, mesiSuccessivi);
 			 }else {
-				 Scadenziario.showMeseEntrata(persona, mesiSuccessivi,entrataOUscita);
+				scadenzeOttenute= Scadenziario.showMeseEntrata(persona, mesiSuccessivi,entrataUscita);
 			 }
 		 }else {
-			 if(entrataOUscita== null) {
-				// System.out.println("eseguo settimana");
-				 Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive);
+			 if(entrataUscita== null) {
+				
+				scadenzeOttenute= Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive);
 			 }else {
-				 Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataOUscita);
+				scadenzeOttenute= Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataUscita);
 			 }
 		 }
-		/*     Incompleto
-		 * 
-		 * 
-		 * 
+		
+		 
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
-		*/
+		
 		
 	}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

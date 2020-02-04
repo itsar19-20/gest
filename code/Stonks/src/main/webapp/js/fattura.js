@@ -54,7 +54,7 @@ $(() => {
         console.log(btn, '.EndClick');
     });
 
-    //  load the first articol
+    //  load the first article
     $.ajax({
         url: '/parts/articolo.html',
         method: 'get'
@@ -66,59 +66,73 @@ $(() => {
             .replace('§numero§', numeroArticoli)
             .replace('§btn-text§', '+'));
         
-
-        // add another articol
-        $('#btn-articol-1').click(() => {
+        // add another article
+        $('#btn-article-1').click(() => {
             numeroArticoli++;
-            
-
             $.ajax({
                 url: '/parts/articolo.html',
                 method: 'get'
             })
             .done((html) => {
-
-
-
+                //  the next line allows you to remove the newly added article
+                var rimuoviQuestoDiv = '$(\'#articolo-list-item-' + numeroArticoli + '\').remove();';
+                console.log(rimuoviQuestoDiv);
                 $('#articoli').append(html
                     .replace('§numero§', numeroArticoli)
                     .replace('§numero§', numeroArticoli)
                     .replace('§btn-text§', '-')
-                    //.replace('§click§', 'alert(\'pippo\', \`${rimuoviDiv}\`);')
-                    //.replace('§click§', 'console.log(rimuoviDiv, \'click\')')
+                    .replace('§click§', rimuoviQuestoDiv)
                 );
-
-                // remove an articol
-                $('#btn-articol-' + numeroArticoli).click(() =>{
-                    console.log('hai premuto il bottone dell\'artiolo', numeroArticoli);
-                    $('#articolo-list-item-' + numeroArticoli).remove();
-                    
-                });
+                console.log('hai aggiunto l\'articolo', numeroArticoli);
             });
         });
     });
 
     // submit (crea fattura)
+
+    var articoli = [
+        { descrizione: 'piadina', quantita: 3, prezzo: 7 },
+        { descrizione: 'pita', quantita: 10, prezzo: 3 },
+        { descrizione: 'kebab', quantita: 2, prezzo: 5 },
+    ];
+    articoli = JSON.stringify({ 'articoli': articoli });
+
     $('#btn-submit').click(() => {
         $.ajax({
             url: '/fattura/crea',
             method: 'post',
+            //  mapping the datas for the servlet
             data: {
-                eUnaFatturaCliente: $('#input-tipo-fattura').val(),
+                tipoFattura: $('#input-tipo-fattura').val(),
                 conto: $('#input-conto').val(),
                 persona: $('#input-persona').val(),
                 data: $('#input-data').val(),
                 scadenza: $('#input-scadenza').val(),
-                //  articoli
                 note: $('#input-note').val(),
+                articoli,
+
+                // articoli
+                
+                descrizione: $('#input-articolo-descrizione').val(),
+                quantita: $('#input-articolo-quantita').val(),
+                prezzo: $('#input-articolo-prezzo').val(),
+                
             }
+            /*
+            success: function () {
+                //  code
+            }
+            failure: function () {
+                //  code
+            }
+            */
         })
         .done((fattura) => {
             console.log('fattura creata');
-            console.log(fattura);
         })
         .fail((fattura) => {
             console.log('fattura non creata');
+            alert('La fattura non è stata creata,'+'\n'+'prego inserire tutti i campi.');
         });
     });
 
