@@ -64,6 +64,58 @@ $(() => {
             //  svuota il tag main e appende il form per creare una nuova fattura
             $('main').empty().append(html);
 
+            //  invia al controller l'utente loggato
+            var user = JSON.parse(localStorage.getItem('user'));
+            //  richiesta della lista dei conti associati
+            var whatIWant = 'conti';
+            user = user.idPersona;
+            $.ajax({
+                url: '/fattura/crea',
+                method: 'post',
+                data: {user, whatIWant}
+            })
+            //  il controller risponde con i conti collegati all'utente loggato
+            .done((lista) => {
+                console.log('conti')
+
+                var select = document.getElementById("input-conto");
+                $('#input-conto').empty();
+                lista.forEach(element => {
+                    var option = document.createElement("option");
+                    option.value = `${element.id}`;
+                    option.text = `${element.nome}`;
+                    select.add(option);
+                });
+                    
+                //  richiesta della lista delle persone associate
+                whatIWant = 'persone';
+                $.ajax({
+                    url: '/fattura/crea',
+                    method: 'post',
+                    data: {user, whatIWant}
+                })
+                //  il controller risponde con le persone collegate all'utente loggato
+                .done((lista) => {
+                    console.log('persone')
+
+                    var select = document.getElementById("input-persona");
+                    $('#input-persona').empty();
+                    lista.forEach(element => {
+                        var option = document.createElement("option");
+                        option.value = `${element.id}`;
+                        option.text = `${element.nome} ${element.cognome}`;
+                        select.add(option);
+                    });
+                    
+                })
+                .fail(() => {
+                    console.log('problema')
+                });
+            })
+            .fail(() => {
+                console.log('problema')
+            });
+
             //  load the first article
             $.ajax({
                 url: '/parts/articolo.html',
@@ -96,20 +148,6 @@ $(() => {
                         console.log('hai aggiunto l\'articolo', numeroArticoli);
                     });
                 });
-            });
-
-            //  invia al controller l'utente loggato
-            var user = JSON.parse(localStorage.getItem('user'));
-            user = user.idPersona;
-            $.ajax({
-                url: '/fattura/crea',
-                method: 'post',
-                data: {user}
-            })
-            //  il controller risponde con i conti e le persone collegate all'utente loggato
-            .done((conti, persone) => {
-                //  QUA
-                console.log('ho invitato l\'utente al controller')
             });
 
             // submit button - salva fattura
