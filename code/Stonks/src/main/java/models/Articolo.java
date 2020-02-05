@@ -19,7 +19,7 @@ public class Articolo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer idArticolo;
+	private Integer id;
 	
 	@JsonProperty("descrizione")
 	private String descrizione;
@@ -59,10 +59,10 @@ public class Articolo {
 	}
 	
 	public Integer getIdArticolo() {
-		return idArticolo;
+		return id;
 	}
 	public void setIdArticolo(Integer idArticolo) {
-		this.idArticolo = idArticolo;
+		this.id = idArticolo;
 	}
 	public String getDescrizione() {
 		return descrizione;

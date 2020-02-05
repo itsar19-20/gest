@@ -1,4 +1,3 @@
-
 //  index.js
 
 // wait for the page to load

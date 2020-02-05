@@ -39,29 +39,33 @@ import utils.JsonUtil;
 @WebServlet("/fattura/salva")
 public class FatturaSalvaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FatturaSalvaController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FatturaSalvaController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//	data
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// data
 		String dataString = request.getParameter("data");
 		Date data = null;
 		try {
@@ -71,113 +75,111 @@ public class FatturaSalvaController extends HttpServlet {
 			e.printStackTrace();
 			System.out.println("errore nella conversione della data -> non è stata inserita correttamente");
 		}
-		
-		//	scadenza
+
+		// scadenza
 		String scadenzaString = request.getParameter("scadenza");
 		Integer scadenza = Integer.parseInt(scadenzaString);
-		
-		//	pagata
+
+		// pagata
 		boolean pagata = false;
-		if (scadenza == 0) pagata = true;
-		
-		//	cliente o fornitore
+		if (scadenza == 0)
+			pagata = true;
+
+		// cliente o fornitore
 		String tipoFatturaString = request.getParameter("tipoFattura");
 		boolean eUnaFatturaCliente;
-		if(tipoFatturaString.contentEquals("cliente")) eUnaFatturaCliente = true;
-		else eUnaFatturaCliente = false;
-		
-		//	persona
+		if (tipoFatturaString.contentEquals("cliente"))
+			eUnaFatturaCliente = true;
+		else
+			eUnaFatturaCliente = false;
+
+		// persona
 		String personaString = request.getParameter("persona");
 		Integer personaInteger = Integer.parseInt(personaString);
 		Persona persona = MenagementFattura.getPersona(personaInteger);
-		
-		//	conto
+
+		// conto
 		String contoString = request.getParameter("conto");
 		Integer contoInteger = Integer.parseInt(contoString);
 		Conto conto = MenagementFattura.getConto(contoInteger);
 
-		//	nota
+		// nota
 		String nota = request.getParameter("note");
-		
-		//	articoli
+
+		// articoli
 		String descrizione = request.getParameter("descrizione");
 		String quantitaString = request.getParameter("quantita");
-			Integer quantita = Integer.parseInt(quantitaString);
+		Integer quantita = Integer.parseInt(quantitaString);
 		String prezzoString = request.getParameter("prezzo");
-			Integer prezzo = Integer.parseInt(prezzoString);
-		
+		Integer prezzo = Integer.parseInt(prezzoString);
+
 		if (data == null || scadenza == null || persona == null || conto == null) {
 			doGet(request, response);
 			response.sendError(400, "Inserire tutti i campi !!");
 			response.getWriter().append("alert('Inserire tutti i campi !!')");
 			return;
 		}
-		
-		//	creo l'oggetto fattura
+
+		// creo l'oggetto fattura
 		Fattura f = new Fattura(data, scadenza, eUnaFatturaCliente, persona, nota, pagata, conto);
 		// lo salvo nel database
 		MenagementFattura.create(f);
+		// MenagementFattura.delate(f);
 		ObjectMapper om = new ObjectMapper();
 
 		// cerco la fattura per id nel database e la stampo in stringa json
-		System.out.println(om.writeValueAsString(MenagementFattura.readById(f.getId())));		
-		
-		//	dichiaro una stringa contenente una lista oggetti di tipo articolo in json
-		//	String articoliJsonString = request.getParameter("articoli");
-		String articoliJsonString = "[{\"descrizione\":\"piadina\",\"quantita\":3,\"prezzo\":7},{\"descrizione\":\"pita\",\"quantita\":10,\"prezzo\":3},{\"descrizione\":\"kebab\",\"quantita\":2,\"prezzo\":5}]";
-		out(articoliJsonString);
-		
-		//	cerco di convertire la stringa json in degli oggetti veri e propri
-		
-		TypeReference<List<Articolo>> listType = new TypeReference<List<Articolo>>() { };
-		List<Articolo> articoli = om.readValue(articoliJsonString, listType);
-		
+		System.out.println(om.writeValueAsString(MenagementFattura.readById(f.getId())));
+
+		// dichiaro una stringa contenente una lista oggetti di tipo articolo in json
+		String articoliJsonString = request.getParameter("articoli");
+		// la converto in una reale stringa json rappresentante una collezione di
+		// oggetti
+		String realArticoliJsonString = null;
+		boolean apertaQuadra = false;
+		for (int i = 0; i < articoliJsonString.length() - 1; i++) {
+			String quadra = "[";
+			Character questoCarattere = articoliJsonString.charAt(i);
+			if (!apertaQuadra) {
+				if (quadra.contentEquals(questoCarattere.toString())) {
+					apertaQuadra = true;
+					realArticoliJsonString = questoCarattere.toString();
+				}
+			} else {
+				realArticoliJsonString += questoCarattere.toString();
+			}
+		}
+		// converto la stringa json in degli oggetti veri e propri
+		TypeReference<List<Articolo>> listType = new TypeReference<List<Articolo>>() {
+		};
+		List<Articolo> articoli = om.readValue(realArticoliJsonString, listType);
+
 		out("lista crata");
 		out(om.writeValueAsString(articoli));
-		System.out.println(articoli);
-		
-		/*
-		for (Articolo articolo : articoli) {
-			int count = 0;
-			articolo.setFattura(f);
-			System.out.println("articolo " + count + " collegato alla sua fattura");
-			count++;
-		}
-		*/
-		/*
+
 		for (Articolo a : articoli) {
-			//	colleggo il singolo articolo alla rispettiva fattura
-			a.setFattura(f); out("set fattura");
-			//	salvo l'articolo nel database
-			MenagementFattura.create(a); out("persist nel db");
-			//	stampo a console l'articolo in formato json
+			// colleggo il singolo articolo alla rispettiva fattura
+			a.setFattura(f);
+			// salvo l'articolo nel database
+			MenagementFattura.create(a);
+			// stampo a console l'articolo in formato json
 			System.out.println(om.writeValueAsString(a));
 		}
-		*/	
-		
+
 		/*
-		String[] articoli = request.getParameterValues("articoliDiProva");
-		for (String art : articoli) {
-			System.out.println(art);
-			/*
-			a.setFattura(f);
-			MenagementFattura.create(a);
-			System.out.println("l'articolo "+a+" è stato aggiunto al database");
-			System.out.println(
-					t+a.getDescrizione()+g+
-					t+a.getQuantita()+g+
-					t+a.getImportoParziale()+
-					bl
-			);
-			
-		}
-		*/
-		//	for each elemento of article class
-		//	Articolo a = new Articolo(descrizione, quantita, prezzo, f);
-		
-		
+		 * String[] articoli = request.getParameterValues("articoliDiProva"); for
+		 * (String art : articoli) { System.out.println(art); /* a.setFattura(f);
+		 * MenagementFattura.create(a);
+		 * System.out.println("l'articolo "+a+" è stato aggiunto al database");
+		 * System.out.println( t+a.getDescrizione()+g+ t+a.getQuantita()+g+
+		 * t+a.getImportoParziale()+ bl );
+		 * 
+		 * }
+		 */
+		// for each elemento of article class
+		// Articolo a = new Articolo(descrizione, quantita, prezzo, f);
+
 	}
-	
+
 	public void out(String s) {
 		System.out.println(s);
 	}
