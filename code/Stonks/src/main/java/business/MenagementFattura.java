@@ -37,6 +37,7 @@ public class MenagementFattura {
 	public static void create(Articolo a) {
 		trans("create", a);
 	}
+            var whatIWant = 'conti';
 	*/
 	public static void create(Object o) {
 		trans("create", o);

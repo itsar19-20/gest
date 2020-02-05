@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "articolo")
@@ -19,9 +20,16 @@ public class Articolo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer idArticolo;
+	
+	@JsonProperty("descrizione")
 	private String descrizione;
+	
+	@JsonProperty("quantita")	
 	private Integer quantita;
+	
+	@JsonProperty("prezzo")
 	private float prezzo;
+	
 	private float iva = 0.22f;
 	
 	@ManyToOne

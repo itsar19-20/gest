@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -45,21 +46,27 @@ public class FatturaCreaController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ObjectMapper om = new ObjectMapper();
-		
 		//	ajax passa l'id dell'utente loggato come stringa
 		String userIdString = request.getParameter("user");
 		//	la stringa diventa un numero
 		Integer id = Integer.parseInt(userIdString);
-		out(om.writeValueAsString(MenagementFattura.getPersona(id)));
-		//	richiedo la lista delle persone create da questo utente
-		List<Persona> lp = MenagementFattura.listaPersone(id);
-		for (Persona persona : lp) {
-			out(om.writeValueAsString(persona));
-		}
-		//	richiedo la lista dei conti collegati all'utente loggato
-		List<Conto> lc = MenagementFattura.listaConti(id);
-		for (Conto conto : lc) {
-			System.out.println(om.writeValueAsString(conto));
+		//	capisco cosa mi sta richiedendo il client
+		String whatIWant = request.getParameter("whatIWant");
+		response.setContentType("application/json");
+		if (whatIWant.contentEquals("conti")) {
+			out("conti " + whatIWant);
+			//	richiedo la lista dei conti collegati all'utente loggato
+			List<Conto> lc = MenagementFattura.listaConti(id);
+			//	passo queste informazioni al client
+			response.getWriter().append(om.writeValueAsString(lc));
+		} else {
+			//	richiedo la lista delle persone create da questo utente
+			List<Persona> lp = MenagementFattura.listaPersone(id);
+			for (Persona persona : lp) {
+				out(om.writeValueAsString(persona));
+			}
+			//	passo queste informazioni al client
+			response.getWriter().append(om.writeValueAsString(lp));
 		}
 	}
 	

@@ -20,7 +20,7 @@ public class Persona {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	protected Integer idPersona;
+	protected Integer id;
 	
 	private String nome;
 	private String cognome;
@@ -73,11 +73,11 @@ public class Persona {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getIdPersona() {
-		return idPersona;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdPersona(Integer idPersona) {
-		this.idPersona = idPersona;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getCognome() {
 		return cognome;

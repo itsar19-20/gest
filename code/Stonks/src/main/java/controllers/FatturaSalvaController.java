@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -18,6 +19,10 @@ import org.hibernate.mapping.Map;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
+import com.sun.tools.classfile.Attribute.Factory;
 
 import business.MenagementFattura;
 import models.Articolo;
@@ -26,6 +31,7 @@ import models.Fattura;
 import models.Persona;
 import sun.font.MFontConfiguration;
 import utils.JPAUtil;
+import utils.JsonUtil;
 
 /**
  * Servlet implementation class FatturaCreaController
@@ -77,12 +83,12 @@ public class FatturaSalvaController extends HttpServlet {
 		//	cliente o fornitore
 		String tipoFatturaString = request.getParameter("tipoFattura");
 		boolean eUnaFatturaCliente;
-		if(tipoFatturaString == "cliente") eUnaFatturaCliente = true;
+		if(tipoFatturaString.contentEquals("cliente")) eUnaFatturaCliente = true;
 		else eUnaFatturaCliente = false;
 		
 		//	persona
 		String personaString = request.getParameter("persona");
-		Integer personaInteger = 3;	//	id provvisrio
+		Integer personaInteger = Integer.parseInt(personaString);
 		Persona persona = MenagementFattura.getPersona(personaInteger);
 		
 		//	conto
@@ -90,8 +96,8 @@ public class FatturaSalvaController extends HttpServlet {
 		Integer contoInteger = Integer.parseInt(contoString);
 		Conto conto = MenagementFattura.getConto(contoInteger);
 
+		//	nota
 		String nota = request.getParameter("note");
-		
 		
 		//	articoli
 		String descrizione = request.getParameter("descrizione");
@@ -112,47 +118,42 @@ public class FatturaSalvaController extends HttpServlet {
 		// lo salvo nel database
 		MenagementFattura.create(f);
 		ObjectMapper om = new ObjectMapper();
-		out("");
+
 		// cerco la fattura per id nel database e la stampo in stringa json
-		System.out.println(om.writeValueAsString(MenagementFattura.readById(f.getId())));
-		//	MenagementFattura.delate(f);
+		System.out.println(om.writeValueAsString(MenagementFattura.readById(f.getId())));		
 		
-		//	test conversione tipi
-		String g = "\n", s = " -> ", t = "    ", 
-				bl = g+"--------------------------------------------------"+g;
-		System.out.print(
-				bl+
-				"tipo fattura"+s+tipoFatturaString+s+eUnaFatturaCliente+g+
-				"conto"+s+contoString+s+contoInteger+s+conto+g+
-				"persona"+s+personaString+s+personaInteger+s+persona+g+
-				"data"+s+dataString+s+data+g+
-				"scadenza"+s+scadenzaString+s+scadenza+g+
-				"pagata"+s+pagata+g+
-				"nota"+s+nota+g+
-				g+
-				"articoli:"+g
-		);
-		
-		
-		//	dichiaro una stringa contenente una lista oggetti articolo in json
-		String articoliJsonString = request.getParameter("articoli");
+		//	dichiaro una stringa contenente una lista oggetti di tipo articolo in json
+		//	String articoliJsonString = request.getParameter("articoli");
+		String articoliJsonString = "[{\"descrizione\":\"piadina\",\"quantita\":3,\"prezzo\":7},{\"descrizione\":\"pita\",\"quantita\":10,\"prezzo\":3},{\"descrizione\":\"kebab\",\"quantita\":2,\"prezzo\":5}]";
 		out(articoliJsonString);
-		out(om.writeValueAsString(articoliJsonString));
 		
 		//	cerco di convertire la stringa json in degli oggetti veri e propri
+		
+		TypeReference<List<Articolo>> listType = new TypeReference<List<Articolo>>() { };
+		List<Articolo> articoli = om.readValue(articoliJsonString, listType);
+		
+		out("lista crata");
+		out(om.writeValueAsString(articoli));
+		System.out.println(articoli);
+		
 		/*
-		List<Articolo> articoli = om.readValue(articoliJsonString, new TypeReference<List<Articolo>>() {});
-		out("creata la lista");
+		for (Articolo articolo : articoli) {
+			int count = 0;
+			articolo.setFattura(f);
+			System.out.println("articolo " + count + " collegato alla sua fattura");
+			count++;
+		}
+		*/
+		/*
 		for (Articolo a : articoli) {
-			//	colleggo il singolo oggetto alla rispettiva fattura
+			//	colleggo il singolo articolo alla rispettiva fattura
 			a.setFattura(f); out("set fattura");
-			//	salvo l'oggetto nel database
+			//	salvo l'articolo nel database
 			MenagementFattura.create(a); out("persist nel db");
 			//	stampo a console l'articolo in formato json
 			System.out.println(om.writeValueAsString(a));
 		}
-		*/
-		
+		*/	
 		
 		/*
 		String[] articoli = request.getParameterValues("articoliDiProva");

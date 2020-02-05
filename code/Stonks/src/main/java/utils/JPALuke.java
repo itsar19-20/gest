@@ -25,7 +25,7 @@ public class JPALuke {
 		EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE and pa.fattura.conto.persona.id=:id",Pagamento.class);
 		//TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE and pa.fattura.conto.persona.id=:id and pa.fattura.destinatario.id=:id",Pagamento.class);
-		query.setParameter("id", p.getIdPersona());
+		query.setParameter("id", p.getId());
 		List<Pagamento> listCompleta=query.getResultList();
 		return listCompleta;
 	}
@@ -34,7 +34,7 @@ public class JPALuke {
 		EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE"
 				+ " and pa.fattura.conto.persona.id=:id and pa.fattura.fatturaCliente=:si",Pagamento.class);
-		query.setParameter("id",p.getIdPersona());
+		query.setParameter("id",p.getId());
 		query.setParameter("si",x);
 		List<Pagamento> listEntrata=query.getResultList();
 		

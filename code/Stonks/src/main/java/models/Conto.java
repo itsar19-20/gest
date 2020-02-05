@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 public class Conto {
 
 	public Conto(Integer id, String nome, List<Fattura> fatture, Integer idFatture, List<Pagamento> pagamenti,
-			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Utente utente) {
+			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Integer utente) {
 		super();
 		this.id = id;
 		this.nome = nome;

@@ -39,7 +39,7 @@ public class Users extends Persona{
 				this.password = pass1;
 			}else {System.out.println("Le due password non corrispondono");}
 				
-		}else{System.out.println("La vecchia password � errata, riprova");}
+		}else{System.out.println("La vecchia password è errata, riprova");}
 			
 	}
 	/*
