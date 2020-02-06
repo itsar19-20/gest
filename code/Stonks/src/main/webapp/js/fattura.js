@@ -76,7 +76,7 @@ $(() => {
             $('#input-data').val(today);
             //  richiesta della lista dei conti associati
             var whatIWant = 'conti';
-            user = user.idPersona;
+            user = user.id;
             $.ajax({
                 url: '/fattura/crea',
                 method: 'post',
@@ -84,10 +84,9 @@ $(() => {
             })
             //  il controller risponde con i conti collegati all'utente loggato
             .done((lista) => {
-                console.log('conti')
                 var select = document.getElementById("input-conto");
-                $('#input-conto').empty();
                 lista.forEach(element => {
+                localStorage.setItem(`conto-${element.id}`, JSON.stringify(element));
                     var option = document.createElement("option");
                     option.value = `${element.id}`;
                     option.text = `${element.nome}`;
@@ -103,22 +102,37 @@ $(() => {
                 })
                 //  il controller risponde con le persone collegate all'utente loggato
                 .done((lista) => {
-                    console.log('persone')
                     var select = document.getElementById("input-persona");
-                    $('#input-persona').empty();
                     lista.forEach(element => {
+                        localStorage.setItem(`persona-${element.id}`, JSON.stringify(element));
                         var option = document.createElement("option");
                         option.value = `${element.id}`;
                         option.text = `${element.nome} ${element.cognome}`;
                         select.add(option);
                     });
+
+                    // richiedo al controller l'id minimo e massimo delle entita Conto e Persona
+                    // collegate all' utente loggato, per poterle poi eliminare dal localStorage
+                    whatIWant = `minMax`;
+                    $.ajax({
+                        url: `/fattura/crea`,
+                        method: 'post',
+                        data: {user, whatIWant}
+                    })
+                    .done((fromControler) => {
+                        console.log(`from conroller`, fromControler);
+                        localStorage.setItem(`minMax`, JSON.stringify(fromControler));
+                    })
+                    .fail(() => {
+                        console.log(`problema nel caricamento dell'indice minMax`);
+                    });
                 })
                 .fail(() => {
-                    console.log('problema')
+                    console.log('problema nel caricamento delle persone')
                 });
             })
             .fail(() => {
-                console.log('problema')
+                console.log('problema nel caricamento dei conti')
             });
 
             //  load the first article
@@ -146,7 +160,6 @@ $(() => {
                     .done((html) => {
                         //  the next line allows you to remove the newly added article
                         var rimuoviQuestoDiv = '$(\'#articolo-list-item-' + numeroArticoli + '\').remove();';
-                        console.log(rimuoviQuestoDiv);
                         $('#articoli').append(html
                             .replace('§numero0§', numeroArticoli)
                             .replace('§numero1§', numeroArticoli)
@@ -156,73 +169,61 @@ $(() => {
                             .replace('§btn-text§', '-')
                             .replace('§click§', rimuoviQuestoDiv)
                         );
-                        console.log('hai aggiunto l\'articolo', numeroArticoli);
                     });
                 });
             });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            // test
+            $('#btn-test').click(() => {
+                console.log(`test`);
+                console.log(`nessun test impostato`);
+            });
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             // submit button - salva fattura
             $('#btn-submit').click(() => {
+                // creo l'oggetto fattura
+                var fattura = {
+                    eUnaFatturaCliente: $('#input-tipo-fattura').val(),
+                    conto: JSON.parse(localStorage.getItem(`conto-` + $('#input-conto').val())),
+                    persona: JSON.parse(localStorage.getItem(`persona-` + $('#input-persona').val())),
+                    data: $('#input-data').val(),
+                    scadenza: $('#input-scadenza').val(),
+                    nota: $('#input-note').val(),           
+                };
+                console.log(fattura);
+                // serializzo l'oggetto
+                fattura = JSON.stringify({ 'fattura': fattura });
                 // prendo ogni articolo singolarmente
+                // serializzo manualmente un oggetto di oggietti in una stringa in formato json
                 var numArticoliInseriti = $('.articolo').length
                 var count = 1;
                 var numElementiEsistentiGiaToccati = 0;
-                var articoli = [];
+                var articoli = `{"articoli":[`;
                 while (true) {
-                    var myArt = 'articolo-list-item-' + count;
-                    var element = !!document.getElementById(myArt);
+                    var element = !!document.getElementById('articolo-list-item-' + count);
                     if (element) {
-                        var questoArticolo = `{ descrizione: '` + $(myArt) + `', quantita: ` + myArt + `, prezzo: ` + myArt + ` }, `
-                        console.log(questoArticolo)
-                        articoli.push(questoArticolo);
+                        if (count > 1) articoli += `,`;
+                        var ia = `#input-articolo-`;
+                        var desc = $(ia + 'descrizione-' + count).val();
+                        var quan = $(ia + 'quantita-' + count).val();
+                        var prez = $(ia + 'prezzo-' + count).val();
+                        articoli += `{"descrizione":"` + desc + `","quantita":` + quan + `,"prezzo":`  + prez + `}`;
                         numElementiEsistentiGiaToccati++;
                     }
-                    if (numElementiEsistentiGiaToccati == numArticoliInseriti) break;
+                    if (numElementiEsistentiGiaToccati == numArticoliInseriti) {
+                        articoli += `]}`;
+                        break;
+                    };
+                    count++;
                 }
-                console.log(`tutti gli articoli`, articoli);
-
-
-
-                /*
-                $('.articolo').forEach(element => {
-                    console.log()
-                });
-
-                array.forEach(element => {
-                    
-                });
-                //  creo un contenitore per tutti gli articoli
-                var articoli = [];  //  var articoli = new Array(numArticoliInseriti)
-                for (let index = 0; index < numArticoliInseriti; index++) {
-                    //  const element = array[index];
-                    articoli.push(index);
-                }
-    */
-                //  var articoli = [
-                //      { descrizione: 'piadina', quantita: 3, prezzo: 7 },
-                //      { descrizione: 'pita', quantita: 10, prezzo: 3 },
-                //      { descrizione: 'kebab', quantita: 2, prezzo: 5 },
-                //  ];
-                articoli = JSON.stringify({ 'articoli': articoli });
+                // invio al controller l'oggetto Fattura e l'oggetto di oggetti Articolo
                 $.ajax({
                     url: '/fattura/salva',
                     method: 'post',
                     //  mapping the datas for the servlet controller
-                    data: {
-                        tipoFattura: $('#input-tipo-fattura').val(),
-                        conto: $('#input-conto').val(),
-                        persona: $('#input-persona').val(),
-                        data: $('#input-data').val(),
-                        scadenza: $('#input-scadenza').val(),
-                        note: $('#input-note').val(),
-                        articoli,
-        
-                        // articoli
-                        descrizione: $('#input-articolo-descrizione').val(),
-                        quantita: $('#input-articolo-quantita').val(),
-                        prezzo: $('#input-articolo-prezzo').val(),
-                    }
+                    data: { fattura, articoli }
                     /*
                     success: function () {
                         //  code
@@ -233,13 +234,38 @@ $(() => {
                     */
                 })
                 .done((fattura) => {
-                    console.log('fattura salvata');
+                    removeContiAndPersoneFromLocalStorage();
+                    location.href = `/fattura`;
                 })
                 .fail((fattura) => {
                     console.log('fattura non salvata');
-                    alert('La fattura non è stata salvata,'+'\n'+'prego inserire tutti i campi.');
                 });
             });
         });
     });
+
+        /*
+    function allStorage() {
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+        while ( i-- ) {
+            values.push( localStorage.getItem(keys[i]) );
+        }
+        return values;
+    }
+    console.log(allStorage());
+    */
+    function removeContiAndPersoneFromLocalStorage() {
+        // costruire un meccanismo che esegue una query che restituisce il numero massimo e minimo degli id
+        // di conti e persone collegati all'utente loggato, così da impostare min e max del ciclo for
+        var minMax = JSON.parse(localStorage.getItem(`minMax`));
+        for (let i = minMax.min; i <= minMax.max; i++) {
+            console.log(i)
+            localStorage.removeItem(`conto-` + i);
+            localStorage.removeItem(`persona-` + i);
+        }
+        localStorage.removeItem(`minMax`);
+    }
+
 });

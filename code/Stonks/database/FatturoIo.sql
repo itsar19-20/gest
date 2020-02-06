@@ -13,12 +13,10 @@
 
 
 -- Dumping database structure for stonks
-DROP DATABASE IF EXISTS `stonks`;
 CREATE DATABASE IF NOT EXISTS `stonks` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `stonks`;
 
 -- Dumping structure for table stonks.admin
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `codiceAdmin` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
@@ -34,7 +32,6 @@ INSERT INTO `admin` (`codiceAdmin`, `id`) VALUES
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.articolo
-DROP TABLE IF EXISTS `articolo`;
 CREATE TABLE IF NOT EXISTS `articolo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descrizione` varchar(255) DEFAULT NULL,
@@ -45,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~5 rows (approximately)
+-- Dumping data for table stonks.articolo: ~21 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `fattura_id`) VALUES
@@ -74,11 +71,40 @@ INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `fattu
 	(22, 'kebab', 5, 0.22, 2, 83),
 	(23, 'piadina', 7, 0.22, 3, 84),
 	(24, 'pita', 3, 0.22, 10, 84),
-	(25, 'kebab', 5, 0.22, 2, 84);
+	(25, 'kebab', 5, 0.22, 2, 84),
+	(26, 'piadina', 7, 0.22, 3, 97),
+	(27, 'pita', 3, 0.22, 10, 97),
+	(28, 'kebab', 5, 0.22, 2, 97),
+	(29, 'piadina', 7, 0.22, 3, 98),
+	(30, 'pita', 3, 0.22, 10, 98),
+	(31, 'kebab', 5, 0.22, 2, 98),
+	(32, 'piadina', 7, 0.22, 3, 99),
+	(33, 'pita', 3, 0.22, 10, 99),
+	(34, 'kebab', 5, 0.22, 2, 99),
+	(35, 'piadina', 7, 0.22, 3, 100),
+	(36, 'pita', 3, 0.22, 10, 100),
+	(37, 'kebab', 5, 0.22, 2, 100),
+	(38, 'aaa', 0, 0.22, 1, 103),
+	(39, 'sss', 0, 0.22, 1, 103),
+	(40, 'ddd', 0, 0.22, 1, 103),
+	(41, '', 0, 0.22, 1, 104),
+	(42, '', 0, 0.22, 1, 105),
+	(43, '', 0, 0.22, 1, 106),
+	(44, '', 0, 0.22, 1, 107),
+	(45, '', 0, 0.22, 1, 108),
+	(46, '', 0, 0.22, 1, 109),
+	(47, '', 0, 0.22, 1, 110),
+	(48, '', 0, 0.22, 1, 111),
+	(49, 'ertwer', 0, 0.22, 1, 112),
+	(50, 'df', 0, 0.22, 1, 112),
+	(51, 'sss', 0, 0.22, 1, 112),
+	(52, 'fsdfsd', 0, 0.22, 1, 113),
+	(53, 'aaaa', 0, 0.22, 1, 113),
+	(54, 'sss', 0, 0.22, 1, 113),
+	(55, '', 0, 0.22, 1, 114);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.conto
-DROP TABLE IF EXISTS `conto`;
 CREATE TABLE IF NOT EXISTS `conto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
@@ -101,7 +127,6 @@ INSERT INTO `conto` (`id`, `nome`, `saldoDisponibile`, `saldoUtile`, `utente_id`
 /*!40000 ALTER TABLE `conto` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.fattura
-DROP TABLE IF EXISTS `fattura`;
 CREATE TABLE IF NOT EXISTS `fattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
@@ -114,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `pagata` bit(1) NOT NULL,
   `conto_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.fattura: ~40 rows (approximately)
+-- Dumping data for table stonks.fattura: ~74 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
 INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`, `conto_id`) VALUES
@@ -193,11 +218,31 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(90, '2020-01-05', 0, b'1', 9, '', 'Fat-90', 0, b'1', 3),
 	(91, '2020-01-05', 0, b'1', 9, '', 'Fat-91', 0, b'1', 3),
 	(92, '2020-01-05', 0, b'1', 9, '', 'Fat-92', 0, b'1', 3),
-	(93, '2020-01-05', 0, b'1', 9, '', 'Fat-93', 0, b'1', 3);
+	(93, '2020-01-05', 0, b'1', 9, '', 'Fat-93', 0, b'1', 3),
+	(94, '2020-01-06', 30, b'1', 10, 'tempo di spremute', 'Fat-94', 0, b'0', 4),
+	(95, '2020-01-06', 0, b'1', 10, 'tempo di spremute', 'Fat-95', 0, b'1', 4),
+	(96, '2020-01-06', 0, b'1', 9, '', 'Fat-96', 0, b'1', 3),
+	(97, '2020-01-06', 0, b'1', 9, '', 'Fat-97', 0, b'1', 3),
+	(98, '2020-01-06', 0, b'1', 9, '', 'Fat-98', 0, b'1', 3),
+	(99, '2020-01-06', 0, b'1', 9, '', 'Fat-99', 0, b'1', 3),
+	(100, '2020-01-06', 0, b'1', 9, '', 'Fat-100', 0, b'1', 3),
+	(101, '2020-01-06', 30, b'0', 10, 'allora questa spremuta?', 'Fat-101', 0, b'0', 4),
+	(102, '2020-01-06', 0, b'0', 10, '', 'Fat-102', 0, b'1', 4),
+	(103, '2020-01-06', 0, b'1', 9, '', 'Fat-103', 0, b'1', 3),
+	(104, '2020-01-06', 0, b'1', 9, '', 'Fat-104', 0, b'1', 3),
+	(105, '2020-02-06', 0, b'1', 9, '', 'Fat-105', 0, b'1', 3),
+	(106, '2020-02-06', 0, b'1', 9, '', 'Fat-106', 0, b'1', 3),
+	(107, '2020-02-06', 0, b'1', 9, '', 'Fat-107', 0, b'1', 3),
+	(108, '2020-02-06', 0, b'1', 10, 'aaaaaa', 'Fat-108', 0, b'1', 3),
+	(109, '2020-02-06', 0, b'1', 9, '', 'Fat-109', 0, b'1', 4),
+	(110, '2020-02-06', 0, b'1', 9, '', 'Fat-110', 0, b'1', 3),
+	(111, '2020-02-06', 0, b'1', 9, '', 'Fat-111', 0, b'1', 3),
+	(112, '2020-02-06', 0, b'1', 9, 'ss', 'Fat-112', 0, b'1', 3),
+	(113, '2020-02-06', 0, b'1', 9, '', 'Fat-113', 0, b'1', 3),
+	(114, '2020-02-06', 0, b'1', 9, 'ultima', 'Fat-114', 0, b'1', 3);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento
-DROP TABLE IF EXISTS `metodo_di_pagamento`;
 CREATE TABLE IF NOT EXISTS `metodo_di_pagamento` (
   `id` varchar(255) NOT NULL,
   `destinazione` varchar(255) DEFAULT NULL,
@@ -213,7 +258,6 @@ INSERT INTO `metodo_di_pagamento` (`id`, `destinazione`, `nome`) VALUES
 /*!40000 ALTER TABLE `metodo_di_pagamento` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.OLDfattura
-DROP TABLE IF EXISTS `OLDfattura`;
 CREATE TABLE IF NOT EXISTS `OLDfattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `persona` int(11) NOT NULL DEFAULT 0,
@@ -246,7 +290,6 @@ INSERT INTO `OLDfattura` (`id`, `persona`, `eUnaFatturaCliente`, `dataFattura`, 
 /*!40000 ALTER TABLE `OLDfattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.pagamento
-DROP TABLE IF EXISTS `pagamento`;
 CREATE TABLE IF NOT EXISTS `pagamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dataPagamento` varchar(255) DEFAULT NULL,
@@ -266,7 +309,6 @@ INSERT INTO `pagamento` (`id`, `dataPagamento`, `mancante`, `pagato`, `fattura_i
 /*!40000 ALTER TABLE `pagamento` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.persona
-DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) DEFAULT NULL,
@@ -298,7 +340,6 @@ INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `te
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.user
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -315,11 +356,10 @@ INSERT INTO `user` (`username`, `password`, `id`, `dataOraUltimoLogin`) VALUES
 	('UserPippo2', 'Pippo123', 1, NULL),
 	('AdminUser', 'admin_pass', 3, NULL),
 	('UserPippo2u', 'Pippo123u', 4, NULL),
-	('albi', '123', 8, '2020-02-05 11:46:43');
+	('albi', '123', 8, '2020-02-06 15:47:02');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.utente
-DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
   `metodoDiRegistrazione` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,

@@ -10,6 +10,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "conto")
 public class Conto {
@@ -29,7 +32,10 @@ public class Conto {
 	}
 
 	@Id
+	@JsonProperty("id")
 	private Integer id;
+
+	@JsonProperty("nome")
 	private String nome;
 	
 	public Conto() {
@@ -38,22 +44,31 @@ public class Conto {
 	
 	@OneToMany(mappedBy = "conto")
 	@Transient
+	@JsonIgnore
 	private List<Fattura> fatture;
 	
 	@Transient
+	@JsonIgnore
 	private Integer idFatture = 0;
 	
 	@Transient
 	@OneToMany
+	@JsonIgnore
 	private List<Pagamento> pagamenti;
 	
 	@Transient
+	@JsonProperty("idPagamenti")
+	@JsonIgnore
 	private Integer idPagamenti = 0;
-	
+
+	@JsonProperty("saldoDisponibile")
 	private float saldoDisponibile = 0f;
+	
+	@JsonProperty("saldoUtile")
 	private float saldoUtile = 0f;
 	
 	@Column(name = "utente_id")
+	@JsonProperty("utente")
 	private Integer utente;
 	
 	

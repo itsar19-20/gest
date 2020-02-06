@@ -2,15 +2,10 @@ package business;
 
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.EntityManager;
-import javax.persistence.Transient;
 import javax.persistence.TypedQuery;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
-
-import models.Articolo;
 import models.Conto;
 import models.Fattura;
 import models.Persona;
@@ -91,4 +86,23 @@ public class MenagementFattura {
 		return lc;
 	}
 	
+	public static Integer getMinIdOfContiAndFatture(Integer id) {
+		TypedQuery<Integer> qc = (TypedQuery<Integer>) em.createQuery("SELECT min(x.id) FROM Conto x WHERE x.utente=:user")
+				.setParameter("user", id);
+		TypedQuery<Integer> qp = (TypedQuery<Integer>) em.createQuery("SELECT min(x.id) FROM Persona x WHERE x.autore=:user")
+				.setParameter("user", id);
+		Integer output = qc.getSingleResult();
+		if (qp.getSingleResult() < output) output = qp.getSingleResult();
+		return output;
+	}	
+	public static Integer getMaxIdOfContiAndFatture(Integer id) {
+		TypedQuery<Integer> qc = (TypedQuery<Integer>) em.createQuery("SELECT max(x.id) FROM Conto x WHERE x.utente=:user")
+				.setParameter("user", id);
+		TypedQuery<Integer> qp = (TypedQuery<Integer>) em.createQuery("SELECT max(x.id) FROM Persona x WHERE x.autore=:user")
+				.setParameter("user", id);
+		Integer output = qc.getSingleResult();
+		if (qp.getSingleResult() > output) output = qp.getSingleResult();
+		return output;
+	}
+
 }

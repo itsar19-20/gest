@@ -24,54 +24,58 @@ import sun.font.MFontConfiguration;
 @WebServlet("/fattura/crea")
 public class FatturaCreaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FatturaCreaController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FatturaCreaController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		ObjectMapper om = new ObjectMapper();
-		//	ajax passa l'id dell'utente loggato come stringa
+		// ajax passa l'id dell'utente loggato come stringa
 		String userIdString = request.getParameter("user");
-		//	la stringa diventa un numero
+		// la stringa diventa un numero
 		Integer id = Integer.parseInt(userIdString);
-		//	capisco cosa mi sta richiedendo il client
+		// capisco cosa mi sta richiedendo il client
 		String whatIWant = request.getParameter("whatIWant");
 		response.setContentType("application/json");
 		if (whatIWant.contentEquals("conti")) {
-			out("conti " + whatIWant);
-			//	richiedo la lista dei conti collegati all'utente loggato
+			// richiedo la lista dei conti collegati all'utente loggato
 			List<Conto> lc = MenagementFattura.listaConti(id);
-			//	passo queste informazioni al client
+			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lc));
-		} else {
-			//	richiedo la lista delle persone create da questo utente
+		}
+		if (whatIWant.contentEquals("persone")) {
+			// richiedo la lista delle persone create da questo utente
 			List<Persona> lp = MenagementFattura.listaPersone(id);
-			for (Persona persona : lp) {
-				out(om.writeValueAsString(persona));
-			}
-			//	passo queste informazioni al client
+			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lp));
 		}
-	}
-	
-	public void out(String s) {
-		System.out.println(s);
+		if (whatIWant.contentEquals("minMax")) {
+			int min = MenagementFattura.getMinIdOfContiAndFatture(id),
+					max = MenagementFattura.getMaxIdOfContiAndFatture(id);
+			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
+			System.out.println(output);
+			response.getWriter().append(output);
+		}
 	}
 
 }

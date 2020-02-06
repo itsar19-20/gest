@@ -41,12 +41,12 @@ public class Articolo {
 		
 	}
 
-	public Articolo(String descrizione, Integer quantita, float importoParziale, Fattura fattura) {
+	public Articolo(String descrizione, Integer quantita, float prezzo, Fattura fattura) {
 		super();
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
 		this.quantita = quantita;
-		this.prezzo = importoParziale;
+		this.prezzo = prezzo;
 		//	this.iva = iva;
 		this.fattura = fattura;
 	}
@@ -76,11 +76,11 @@ public class Articolo {
 	public void setQuantita(Integer quantita) {
 		this.quantita = quantita;
 	}
-	public float getImportoParziale() {
+	public float getPrezzo() {
 		return prezzo;
 	}
-	public void setImportoParziale(float importoParziale) {
-		this.prezzo = importoParziale;
+	public void setPrezzo(float prezzo) {
+		this.prezzo = prezzo;
 	}
 	public float getIva() {
 		return iva;
