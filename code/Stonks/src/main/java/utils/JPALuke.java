@@ -21,25 +21,29 @@ public class JPALuke {
 	
 	
 	
-	public static List<Pagamento> selectPagamenti(Persona p,EntityManager em) {
+	public static List<Fattura> selectPagamenti(Persona p,EntityManager em) {
 		//EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE and pa.fattura.conto.utente.id=:id",Pagamento.class);
-		//TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE and pa.fattura.conto.persona.id=:id and pa.fattura.destinatario.id=:id",Pagamento.class);
-		query.setParameter("id", p.getId());
-		List<Pagamento> listCompleta=query.getResultList();
-		return listCompleta;
-	}
+				TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE and f.conto.utente.id=:id",Fattura.class);
+				
+				//TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE and pa.fattura.conto.persona.id=:id and pa.fattura.destinatario.id=:id",Pagamento.class);
+				query.setParameter("id", p.getId());
+				List<Fattura> listCompleta=query.getResultList();
+				
+				return listCompleta;
+			}
 	
-	public static List<Pagamento> selectParziale(Persona p,boolean x,EntityManager em){
+	public static List<Fattura> selectParziale(Persona p,boolean x,EntityManager em){
 		//EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE pa.pagato = FALSE"
-				+ " and pa.fattura.conto.utente.id=:id and pa.fattura.eUnaFatturaCliente=:si",Pagamento.class);
-		query.setParameter("id",p.getId());
-		query.setParameter("si",x);
-		List<Pagamento> listEntrata=query.getResultList();
-		
-		
-		return listEntrata;
+				TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE"
+						+ " and f.conto.utente.id=:id and f.eUnaFatturaCliente=:si",Fattura.class);
+				
+				query.setParameter("id",p.getId());
+				query.setParameter("si",x);
+				List<Fattura> listEntrata=query.getResultList();
+				//em.close();
+				
+				
+				return listEntrata;
 	}
 	
 	
