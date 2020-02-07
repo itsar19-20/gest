@@ -64,11 +64,7 @@ public class ScadenzaController extends HttpServlet {
 		 }
 			 
 		 
-		 
-		 
-		 
-		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		 Persona persona =em.find(Persona.class ,1 );
+		 Persona persona =(Persona) request.getSession().getAttribute("user");
 		 
 		 List<Fattura> scadenzeOttenute=null;
 		 EntityManager emTemp=JPAUtil.getInstance().getEmf().createEntityManager();
@@ -105,7 +101,7 @@ public class ScadenzaController extends HttpServlet {
 		 ObjectMapper om = new ObjectMapper();
 		 response.setContentType("application/json");
 		 response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
-		 em.close();
+		 
 		 emTemp.close();
 		 
 		 

@@ -35,10 +35,9 @@ public class NotificaController extends HttpServlet {
 		Integer anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
 		
 		
-		// utente di prova, dovrà poi corrispondere all'utente che ha effettuato
-		// il login
-		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		 Persona persona =em.find(Persona.class ,1 );
+		
+		 
+		Persona persona= (Persona) request.getSession().getAttribute("user");
 		 
 		EntityManager emTemp= JPAUtil.getInstance().getEmf().createEntityManager();
 		
@@ -48,7 +47,7 @@ public class NotificaController extends HttpServlet {
 		 ObjectMapper om = new ObjectMapper();
 		 response.setContentType("application/json");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
-		 em.close();
+		 
 		 emTemp.close();
 		
 		
