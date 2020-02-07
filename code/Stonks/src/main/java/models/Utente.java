@@ -23,7 +23,7 @@ public class Utente extends Users {
 	}
 	
 	public int getUtente() {
-		return idPersona;
+		return id;
 	}
 	
 

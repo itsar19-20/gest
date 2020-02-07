@@ -10,12 +10,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "conto")
 public class Conto {
 
 	public Conto(Integer id, String nome, List<Fattura> fatture, Integer idFatture, List<Pagamento> pagamenti,
-			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Utente utente) {
+			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Integer utente) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -29,7 +32,10 @@ public class Conto {
 	}
 
 	@Id
+	@JsonProperty("id")
 	private Integer id;
+
+	@JsonProperty("nome")
 	private String nome;
 	
 	public Conto() {
@@ -38,21 +44,32 @@ public class Conto {
 	
 	@OneToMany(mappedBy = "conto")
 	@Transient
+	@JsonIgnore
 	private List<Fattura> fatture;
 	
 	@Transient
+	@JsonIgnore
 	private Integer idFatture = 0;
 	
-	@OneToMany
-	private List<Pagamento> pagamenti;
 	@Transient
-	private Integer idPagamenti = 0;
+	@OneToMany
+	@JsonIgnore
+	private List<Pagamento> pagamenti;
 	
+	@Transient
+	@JsonProperty("idPagamenti")
+	@JsonIgnore
+	private Integer idPagamenti = 0;
+
+	@JsonProperty("saldoDisponibile")
 	private float saldoDisponibile = 0f;
+	
+	@JsonProperty("saldoUtile")
 	private float saldoUtile = 0f;
 	
-	@OneToOne
-	private Utente utente = new Utente();
+	@Column(name = "utente_id")
+	@JsonProperty("utente")
+	private Integer utente;
 	
 	
 	public Integer getIdFatture() {
@@ -73,10 +90,10 @@ public class Conto {
 	public void setIdPagamenti(Integer idPagamenti) {
 		this.idPagamenti = idPagamenti;
 	}
-	public Utente getUtente() {
+	public Integer getUtente() {
 		return utente;
 	}
-	public void setUtente(Utente utente) {
+	public void setUtente(Integer utente) {
 		this.utente = utente;
 	}
 	public float getSaldoDisponibile() {

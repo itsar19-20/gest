@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="it">
+    <head>
+    
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta name="description" content="Form per creare una nuova fattura">
+    	<meta name="author" content="Alberto Sormani">
+    	<meta name="generator" content="FatturoloIo v0.1">
+    	<title>Fattura · Fatturo.io</title>
+    
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="/css/index.css" rel="stylesheet" type="text/css">
+        
+    </head>
+    <body>
+
+        <header></header>
+
+        <main>
+        <br><br><br><br>
+
+        <!-- form fattura -->
+        <div id="form-fattura" class="">
+            <form>
+
+            <!-- scegliere la propria azienda (alisa conto) -->
+            Azienda (Conto)
+            <select id="input-conto" name="conto" required>
+                <option value="1">il mio conto</option>
+                <option value="2">l'altro mio conto</option>
+            </select><br><br>
+        
+            <!-- fattura cliente o fornitore? -->
+            Fattura
+            <select id="input-tipo-fattura" name="invoice-type" required>
+                <option value="cliente">cliente</option>
+                <option value="fornitore">fornitore</option>
+            </select><br><br>
+
+            <!-- persona, che sia o il fornitore o il clente -->
+            <input id="input-persona" list="persona" name="persona" autofocus="autofocus" placeholder="Persona" required>
+            <datalist id="persona">
+                <option value="Persona 1">ciao</option>
+                <option value="Persona 2">
+                <option value="Persona 3">
+                <option value="Persona 4">
+            </datalist>
+        
+            <!-- button to add a new persona -->
+            <button id="btn-add-new-persona" type="button" name="aggiungiPersona">Nuova persona</button><br><br>
+            Data<br>
+
+            <!-- data della fattura -->
+            <input id="input-data" type="date" name="date" required><br><br>
+
+            <!-- scadenza della fattura in giorni -->
+            Scadenza in giorni<br>
+			<select id="input-scadenza" name="deadline" required>
+                <option value="0" selected>0</option>
+                <option value="30">30</option>
+				<option value="60">60</option>
+				<option value="120">120</option>
+            </select><br><br>
+            
+            <!-- lista degli articoli -->
+            <div id="articoli">
+                Articoli<br>
+                Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                Prezzo (netto)
+
+            </div>
+
+            <!-- breve descrizione facoltativa -->
+            Note<br>
+            <textarea id="input-note" name="note" class="note_invoice" placeholder="Vendita di due pizze."></textarea><br><br>
+
+            <!-- button to save the new invoice-->
+            <br>
+            <button id="btn-submit" type="button">Salva</button>
+
+            </form>
+        </div>
+        </main>
+
+        <footer></footer>
+
+        <!-- Bootstrap js
+            this is the jquery slim, for Boostrap, normal version below -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        
+        <!-- my js file -->
+        <script src="/js/index.js"></script> 
+        <script src="/js/fattura.js"></script>
+
+    </body>
+</html>

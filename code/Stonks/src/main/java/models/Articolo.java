@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "articolo")
@@ -18,10 +19,17 @@ public class Articolo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer idArticolo;
+	private Integer id;
+	
+	@JsonProperty("descrizione")
 	private String descrizione;
+	
+	@JsonProperty("quantita")	
 	private Integer quantita;
+	
+	@JsonProperty("prezzo")
 	private float prezzo;
+	
 	private float iva = 0.22f;
 	
 	@ManyToOne
@@ -33,12 +41,12 @@ public class Articolo {
 		
 	}
 
-	public Articolo(String descrizione, Integer quantita, float importoParziale, Fattura fattura) {
+	public Articolo(String descrizione, Integer quantita, float prezzo, Fattura fattura) {
 		super();
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
 		this.quantita = quantita;
-		this.prezzo = importoParziale;
+		this.prezzo = prezzo;
 		//	this.iva = iva;
 		this.fattura = fattura;
 	}
@@ -51,10 +59,10 @@ public class Articolo {
 	}
 	
 	public Integer getIdArticolo() {
-		return idArticolo;
+		return id;
 	}
 	public void setIdArticolo(Integer idArticolo) {
-		this.idArticolo = idArticolo;
+		this.id = idArticolo;
 	}
 	public String getDescrizione() {
 		return descrizione;
@@ -68,11 +76,11 @@ public class Articolo {
 	public void setQuantita(Integer quantita) {
 		this.quantita = quantita;
 	}
-	public float getImportoParziale() {
+	public float getPrezzo() {
 		return prezzo;
 	}
-	public void setImportoParziale(float importoParziale) {
-		this.prezzo = importoParziale;
+	public void setPrezzo(float prezzo) {
+		this.prezzo = prezzo;
 	}
 	public float getIva() {
 		return iva;

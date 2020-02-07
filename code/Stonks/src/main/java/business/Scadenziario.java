@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.persistence.EntityManager;
+
 import models.Conto;
 import models.Fattura;
 import models.Pagamento;
@@ -40,15 +42,21 @@ public class Scadenziario {
 	public void setAnticipoNotifica(int anticipoNotifica) {
 		
 	}
-	public static List<Pagamento> showFullScadenziario(Persona persona) {
+	public static List<Fattura> showFullScadenziario(Persona persona,EntityManager em) {
 		
-		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(persona);
-		
+		List<Fattura> pagamentiDaConcludere=JPALuke.selectPagamenti(persona,em);
+		for(Fattura f:pagamentiDaConcludere) {
+			System.out.println("Fattura: "+f.getIdFattura());
+
+		}
 		return pagamentiDaConcludere;
 	}
 	
-	public static List<Pagamento> showEntrataDaConcludere(Persona pers, boolean bol) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,bol);
+	public static List<Fattura> showEntrataDaConcludere(Persona pers, boolean bol,EntityManager em) {
+		List<Fattura> entrataDaConcludere=JPALuke.selectParziale(pers,bol,em);
+		for(Fattura f:entrataDaConcludere) {
+			System.out.println("Id"+f.getIdFattura());		
+		}
 		
 		return entrataDaConcludere;
 	}
@@ -57,126 +65,124 @@ public class Scadenziario {
 	
 	
 	
-	public static List<Pagamento> showScadenziarioMese(Persona pers,Integer mese) {
-		
-				List<Pagamento> scadenzaMese=JPALuke.selectPagamenti(pers);
+	public static List<Fattura> showScadenziarioMese(Persona pers,Integer mese,EntityManager em) {
+		//select tutti i pagamenti dell'utnte non ancora completati
+				List<Fattura> scadenzaMese=JPALuke.selectPagamenti(pers,em);
 				scadenzaMese=Scadenziario.searchByMese(mese, scadenzaMese);
 				return scadenzaMese;
-				
 	}
 	
-	
-	
-	public static List<Pagamento> showScadenziarioSettimana(Persona pers,Integer settimana) {
-		List<Pagamento> scadenzaSettimana= JPALuke.selectPagamenti(pers);
+	public static List<Fattura> showScadenziarioSettimana(Persona pers,Integer settimana,EntityManager em) {
+		List<Fattura> scadenzaSettimana= JPALuke.selectPagamenti(pers,em);
 		scadenzaSettimana=Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
 		return scadenzaSettimana;
 	}
 	
-	public static List<Pagamento> showMeseEntrata(Persona pers,Integer mese,boolean bol) {
-		List<Pagamento> entrataDaConcludere=JPALuke.selectParziale(pers,bol);
+	public static List<Fattura> showMeseEntrata(Persona pers,Integer mese,boolean bol,EntityManager em) {
+		List<Fattura> entrataDaConcludere=JPALuke.selectParziale(pers,bol,em);
 		entrataDaConcludere=Scadenziario.searchByMese(mese, entrataDaConcludere);
 		return entrataDaConcludere;
+		
 	}
 	
-	public static List<Pagamento> showSettimanaEntrata(Persona pers, Integer settimana,boolean bol) {
-		List<Pagamento> scadenzaSettimana=JPALuke.selectParziale(pers,bol);
+	public static List<Fattura> showSettimanaEntrata(Persona pers, Integer settimana,boolean bol,EntityManager em) {
+		List<Fattura> scadenzaSettimana=JPALuke.selectParziale(pers,bol,em);
 		scadenzaSettimana=Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
 		return scadenzaSettimana;
+		
 	}
 	
 	
 	
-	private static List<Pagamento> searchByMese(Integer mese, List<Pagamento> scadenzaMese) {
+	private static List<Fattura> searchByMese(Integer mese, List<Fattura> scadenzaMese) {
 		Date dataCorrente=new Date();
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataCorrente);
-		List<Pagamento> result=new ArrayList<>();
-		
+		List<Fattura> result=new ArrayList<>();
 		// ricerca in base a N mesi successivi a quello corrente delle scadenze fatture
-		for(Pagamento pag:scadenzaMese) {
+		for(Fattura f:scadenzaMese) {
 			
 			Calendar c=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
-			c.setTime(pag.getFattura().getData());
+			c.setTime(f.getData());
 			
 			Calendar d=(Calendar) cal.clone();
-			c.add(Calendar.DAY_OF_YEAR,+pag.getFattura().getScadenza() );
-			Scadenziario.calcolaMese(c, d, mese, pag,result);
+			c.add(Calendar.DAY_OF_YEAR,+f.getScadenza() );
+			Scadenziario.calcolaMese(c, d, mese, f,result);
 		}
 		return result;
 	}
 	
-	private static List<Pagamento> searchBySettimana(Integer settimana,List<Pagamento> scadenzaSettimana) {
+	private static List<Fattura> searchBySettimana(Integer settimana,List<Fattura> scadenzaSettimana) {
 		Date dataCorrente=new Date();
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataCorrente);
-		List<Pagamento> result=new ArrayList<>();
-		for(Pagamento pag:scadenzaSettimana) {
+		List<Fattura> result =new ArrayList<>();
+		for(Fattura f:scadenzaSettimana) {
 			Calendar c=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
-			c.setTime(pag.getFattura().getData());
+			c.setTime(f.getData());
 			Calendar d=(Calendar) cal.clone();
-			c.add(Calendar.DAY_OF_YEAR, +pag.getFattura().getScadenza());
-			Scadenziario.calcolaSettimana(c, d, settimana, pag,result);
+			c.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
+			Scadenziario.calcolaSettimana(c, d, settimana, f, result);
 		}
-		
 		return result;
 		
 	}
 	
 	
-	private static void calcolaMese(Calendar c, Calendar d,Integer mese, Pagamento pag,List<Pagamento> result) {
+	private static void calcolaMese(Calendar c, Calendar d,Integer mese, Fattura f,List<Fattura> result) {
 		d.add(Calendar.MONTH , +mese);
 		
 		if(c.get(Calendar.MONTH)==d.get(Calendar.MONTH)) {
-			result.add(pag);
+			result.add(f);
+		}	
 	}
-	}
-	private static void calcolaSettimana(Calendar c,Calendar d, Integer settimana,Pagamento pag,List<Pagamento> result) {
+	
+	private static void calcolaSettimana(Calendar c,Calendar d, Integer settimana,Fattura f,List<Fattura> result) {
 		d.add(Calendar.WEEK_OF_YEAR, +settimana);
 		if(c.get(Calendar.WEEK_OF_YEAR)==d.get(Calendar.WEEK_OF_YEAR)) {
+			result.add(f);
 			
-			result.add(pag);
 		}
 	}
 	
 	
-	private static List<Fattura> searchForNotifica(List<Pagamento> pagamentiDaConcludere,Integer anticipoNotifica) {
+	private static List<Fattura> searchForNotifica(List<Fattura> pagamentiDaConcludere,Integer anticipoNotifica) {
 
 		Date dataOggi=new Date();
 		Calendar cal=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataOggi);
-		List<Fattura> listaFattura=new ArrayList<>();
+		List<Fattura> listaFatture=new ArrayList<>();
 		
-		for(Pagamento pag:pagamentiDaConcludere) {
+		for(Fattura f:pagamentiDaConcludere) {
 			Calendar calFattura=Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 			
-			calFattura.setTime(pag.getFattura().getData());
+			calFattura.setTime(f.getData());
 			Calendar calCorrente=(Calendar) cal.clone();
 			//
-			// l'anticipo notifica va memorizzato nel local Storage, per ora uso 5
+			// l'anticipoNotifica è un valore memorizzato in localStorage con chiave "anticipo"
 			calCorrente.add(Calendar.DAY_OF_YEAR, +anticipoNotifica ); 
-			calFattura.add(Calendar.DAY_OF_YEAR, +pag.getFattura().getScadenza());
+			calFattura.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
 			if(calCorrente.getTime().after(calFattura.getTime())) {
-				System.out.println("La fattura di id: "+pag.getFattura().getIdFattura()+" sta per scadere");
-				listaFattura.add(pag.getFattura());
+				System.out.println("La fattura di id: "+f.getIdFattura()+" sta per scadere");
+				listaFatture.add(f);
 			}	
 		}
-		return listaFattura;
+		return listaFatture;
 	}
 	
 	
 	
 	
-	public static List<Fattura> checkNotifica(Persona pers,Integer anticipoNotifica) {
-		
-		List<Pagamento> pagamentiDaConcludere=JPALuke.selectPagamenti(pers);
+	public static List<Fattura> checkNotifica(Persona pers,Integer anticipoNotifica,EntityManager em) {
+		//System.out.println("Entro dove non chiede boolean");
+		List<Fattura> pagamentiDaConcludere=JPALuke.selectPagamenti(pers,em);
 		return Scadenziario.searchForNotifica(pagamentiDaConcludere,anticipoNotifica);	
 		
 		}
 	
-		public static List<Fattura> checkNotifica(Persona pers ,boolean entrataUscita,Integer anticipoNotifica) {
-			
-			List<Pagamento> listaPagamento=JPALuke.selectParziale(pers,entrataUscita);
+		public static List<Fattura> checkNotifica(Persona pers ,Integer anticipoNotifica,boolean entrataUscita,EntityManager em) {
+			//System.out.println("Entro dove chiede boolean");
+			List<Fattura> listaPagamento=JPALuke.selectParziale(pers,entrataUscita,em);
 			return Scadenziario.searchForNotifica(listaPagamento,anticipoNotifica);			
 		}
 	}

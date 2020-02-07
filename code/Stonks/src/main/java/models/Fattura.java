@@ -18,6 +18,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name = "fattura")
 public class Fattura {
@@ -33,12 +35,15 @@ public class Fattura {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data")
+	@JsonProperty("data")
 	private Date data;
 	
 	@Column(name = "scadenza")
+	@JsonProperty("scadenza")
 	private Integer scadenza;
 	
 	@Column(name = "e_una_fattura_cliente")
+	@JsonProperty("eUnaFatturaCliente")
 	private boolean eUnaFatturaCliente;
 	//	nel DB usiamo un dato di tipo 'BIT'
 	//	0 = false
@@ -46,15 +51,18 @@ public class Fattura {
 	
 	@ManyToOne
 	@JoinColumn(name = "persona_id")
+	@JsonProperty("persona")
 	private Persona persona;
 	
 	@Column(name = "nota")
+	@JsonProperty("nota")
 	private String nota;
 	
 	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL)
 	private List<Articolo> articoli;
 	
 	@Column(name = "numero_fattura")
+	@JsonProperty("numeroFattura")
 	private String numeroFattura = "bho";
 	
 	@Transient
@@ -173,6 +181,30 @@ public class Fattura {
 	}
 	public void setLordo(float lordo) {
 		this.lordo = lordo;
+	}
+
+	public List<Articolo> getArticoli() {
+		return articoli;
+	}
+
+	public void setArticoli(List<Articolo> articoli) {
+		this.articoli = articoli;
+	}
+
+	public boolean isPagata() {
+		return pagata;
+	}
+
+	public void setPagata(boolean pagata) {
+		this.pagata = pagata;
+	}
+
+	public Conto getConto() {
+		return conto;
+	}
+
+	public void setConto(Conto conto) {
+		this.conto = conto;
 	}
 	
 }
