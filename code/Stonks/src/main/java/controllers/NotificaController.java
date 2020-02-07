@@ -22,30 +22,37 @@ import utils.JPAUtil;
 public class NotificaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+   
     public NotificaController() {
         super();
         
-    }
 
-	
+    }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		
 		Integer anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
 		
 		
-		// utente di prova, dovrï¿½ poi corrispondere all'utente che ha effettuato
+		// utente di prova, dovrà poi corrispondere all'utente che ha effettuato
 		// il login
 		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		 Persona persona =em.find(Persona.class ,1 );
+		 
+		EntityManager emTemp= JPAUtil.getInstance().getEmf().createEntityManager();
 		
-		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica);
+		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica,emTemp);
 		
 		 
 		 ObjectMapper om = new ObjectMapper();
 		 response.setContentType("application/json");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
-		 
+		 em.close();
+		 emTemp.close();
+		
+		
+		
 	}
 
 	
