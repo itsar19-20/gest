@@ -13,7 +13,7 @@ $(() => {
     //  se invece non è loggato
     } else {
         // se non sei gia nella pagina di login
-        if (window.location.href.indexOf("login") > 0) {
+        if (window.location.href.indexOf("login") > 0 || window.location.href.indexOf("registrati") > 0) {
             // non fare niente
         } else {
             //  altrimenti vai alla pagina di login

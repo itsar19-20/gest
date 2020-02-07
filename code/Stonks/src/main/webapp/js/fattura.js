@@ -1,3 +1,4 @@
+// aspetto che la pagina venga caricata
 $(() => {
 
     //  button guarda fatture
@@ -180,6 +181,11 @@ $(() => {
                 console.log(`nessun test impostato`);
             });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // bottone per aggiungere una nuova persona
+            $(`#btn-add-new-persona`).click(() => {
+                window.open("aggiungi-persona.html", "_blank");
+            });
 
             // submit button - salva fattura
             $('#btn-submit').click(() => {

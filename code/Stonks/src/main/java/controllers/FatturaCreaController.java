@@ -73,7 +73,6 @@ public class FatturaCreaController extends HttpServlet {
 			int min = MenagementFattura.getMinIdOfContiAndFatture(id),
 					max = MenagementFattura.getMaxIdOfContiAndFatture(id);
 			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
-			System.out.println(output);
 			response.getWriter().append(output);
 		}
 	}

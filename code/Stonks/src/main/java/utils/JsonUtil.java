@@ -19,7 +19,7 @@ public class JsonUtil {
 		}
 		return output;
 	}
-	
+
 	public static String getJsonFromAnObject(String input) {
 		String output = null;
 		boolean apertaGraffa = false;
@@ -37,5 +37,5 @@ public class JsonUtil {
 		}
 		return output;
 	}
-	
+
 }
