@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.Scadenziario;
+import models.Fattura;
 import models.Pagamento;
 import models.Persona;
 import utils.JPAUtil;
@@ -21,9 +22,9 @@ import utils.JPAUtil;
 @WebServlet("/scadenza")
 public class ScadenzaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
     
     public ScadenzaController() {
-        super();
         
     }
 
@@ -32,69 +33,85 @@ public class ScadenzaController extends HttpServlet {
 		
 		Integer mesiSuccessivi;
 		Integer settimaneSuccessive;
-		String stringaEntrataUscita;
-		Boolean entrataUscita;
-			
+		String entrataOUscitaS;
+		Boolean entrataOUscita;
+		
 		try {
-			mesiSuccessivi=Integer.parseInt(request.getParameter("numMesi"));
+		  mesiSuccessivi=Integer.parseInt(request.getParameter("numMesi"));
 		}catch(Exception e) {
 			mesiSuccessivi=null;
 		}
-		try {
+		 try {
 		  settimaneSuccessive=Integer.parseInt(request.getParameter("numSettimane"));
-		}catch(Exception e) {
-			settimaneSuccessive=null;
-		}
-		
-		  stringaEntrataUscita=request.getParameter("entrataUscita");
+		 }catch(Exception e) {
+			 settimaneSuccessive=null;
+		 }
+		 
+		 
+		 
+		  entrataOUscitaS=request.getParameter("entrataUscita");
+		  System.out.println(entrataOUscitaS);
 		  
-		  if(stringaEntrataUscita==null || stringaEntrataUscita.contentEquals("null")) {
-		
-			entrataUscita=null;
-		
-		  }else {
-			  entrataUscita=Boolean.parseBoolean(stringaEntrataUscita);
-		  }
+		  
+		  
+		 if( entrataOUscitaS==null || entrataOUscitaS.contentEquals("null")) {
+			 entrataOUscita=null;
+			 
+		 }else {
+			 entrataOUscita=Boolean.parseBoolean(entrataOUscitaS);
+			
+			
+		 }
+			 
+		 
+		 
+		 
 		 
 		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
+		 Persona persona =em.find(Persona.class ,1 );
 		 
-		 // L'id dovrà poi essere preso dall'utente che vuole vedere lo scadenziario
-		 Persona persona =em.find(Persona.class , 1 );
-		 
-		 List<Pagamento> scadenzeOttenute=null;
-		 
-		 if ( mesiSuccessivi==null && settimaneSuccessive== null) {
-			 if(entrataUscita==null) {
-				 
-				scadenzeOttenute = Scadenziario.showFullScadenziario(persona);
-			 }else {
+		 List<Fattura> scadenzeOttenute=null;
+		 EntityManager emTemp=JPAUtil.getInstance().getEmf().createEntityManager();
 		
-				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataUscita);
+		 
+		 if ( mesiSuccessivi==null && settimaneSuccessive==null) {
+			 if(entrataOUscita==null) {
+				 
+				scadenzeOttenute= Scadenziario.showFullScadenziario(persona,emTemp);
+			 }else {
+				
+				scadenzeOttenute= Scadenziario.showEntrataDaConcludere(persona, entrataOUscita,emTemp);
 			 }
 			 
 		 }else if(mesiSuccessivi!=null) {
 			
-			 if(entrataUscita ==null) {
-				scadenzeOttenute= Scadenziario.showScadenziarioMese(persona, mesiSuccessivi);
+			 if(entrataOUscita==null) {
+				scadenzeOttenute= Scadenziario.showScadenziarioMese(persona, mesiSuccessivi,emTemp);
 			 }else {
-				scadenzeOttenute= Scadenziario.showMeseEntrata(persona, mesiSuccessivi,entrataUscita);
+				 scadenzeOttenute=Scadenziario.showMeseEntrata(persona, mesiSuccessivi,entrataOUscita,emTemp);
 			 }
 		 }else {
-			 if(entrataUscita== null) {
-				
-				scadenzeOttenute= Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive);
+			
+			 if(entrataOUscita==null) {
+				scadenzeOttenute= Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive,emTemp);
 			 }else {
-				scadenzeOttenute= Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataUscita);
+				scadenzeOttenute= Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataOUscita,emTemp);
 			 }
 		 }
-		
 		 
-		ObjectMapper om = new ObjectMapper();
-		response.setContentType("application/json");
-		response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
-		
-		
-	}	
+		 
+		 
+		 
+		 ObjectMapper om = new ObjectMapper();
+		 response.setContentType("application/json");
+		 response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
+		 em.close();
+		 emTemp.close();
+		 
+		 
+	}
+
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
