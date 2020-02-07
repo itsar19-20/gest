@@ -21,6 +21,7 @@ public class Persona {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+	@JsonProperty("id")
 	protected Integer id;
 
 	@JsonProperty("nome")

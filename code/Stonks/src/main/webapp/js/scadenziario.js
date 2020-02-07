@@ -3,14 +3,17 @@ $(document).ready( function () {
 
 $('#bottone').click(function(){
     
+    var user = JSON.parse(localStorage.getItem('user')  );
+    user = user.id;
+
 	$.ajax({
        url: './scadenza',
        method: 'get',
        data: { 
                numMesi: $('#mesi').val(),
                numSettimane: $('#settimane').val(),
-               entrataUscita: $("input[name='entrataUscita']:checked").val()
-               
+               entrataUscita: $("input[name='entrataUscita']:checked").val(),
+               user
            }
     })
     .done(function(fatture) {

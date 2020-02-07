@@ -23,37 +23,41 @@ import utils.JPAUtil;
 @WebServlet("/fattura/guarda")
 public class FatturaGuardaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FatturaGuardaController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FatturaGuardaController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		//	em.createQuery utilizza il linguaggio JPQL
+		// em.createQuery utilizza il linguaggio JPQL
 		List<Fattura> fatture = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
-		ObjectMapper om = new ObjectMapper()/*.setSerializationInclusion(Include.NON_NULL)*/;
-		
+		ObjectMapper om = new ObjectMapper()/* .setSerializationInclusion(Include.NON_NULL) */;
+
 		for (Fattura fattura : fatture) {
 			System.out.println(om.writeValueAsString(fattura));
 		}
-		
+
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
 
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

@@ -70,7 +70,6 @@ $(() => {
         // di conti e persone collegati all'utente loggato, così da impostare min e max del ciclo for
         var minMax = JSON.parse(localStorage.getItem(`minMax`));
         for (let i = minMax.min; i <= minMax.max; i++) {
-            console.log(i)
             localStorage.removeItem(`conto-` + i);
             localStorage.removeItem(`persona-` + i);
         }

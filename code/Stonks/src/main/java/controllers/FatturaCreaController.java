@@ -62,14 +62,12 @@ public class FatturaCreaController extends HttpServlet {
 			List<Conto> lc = MenagementFattura.listaConti(id);
 			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lc));
-		}
-		if (whatIWant.contentEquals("persone")) {
+		} else if (whatIWant.contentEquals("persone")) {
 			// richiedo la lista delle persone create da questo utente
 			List<Persona> lp = MenagementFattura.listaPersone(id);
 			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lp));
-		}
-		if (whatIWant.contentEquals("minMax")) {
+		} else if (whatIWant.contentEquals("minMax")) {
 			int min = MenagementFattura.getMinIdOfContiAndFatture(id),
 					max = MenagementFattura.getMaxIdOfContiAndFatture(id);
 			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
