@@ -21,7 +21,7 @@ public class JPALuke {
 
 	public static List<Fattura> selectPagamenti(Persona p, EntityManager em) {
 		// EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		 TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHEREf.pagata = FALSE AND f.conto.utente=:id",Fattura.class);
+		 TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE AND f.conto.utente=:id",Fattura.class);
 		//TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE", Fattura.class);
 
 		// TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE
