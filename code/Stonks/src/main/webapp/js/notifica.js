@@ -13,6 +13,7 @@ $(document).ready( function () {
 			}
 		})
 		.done(function(listaFattura) {
+			if(listaFattura.length>0){
 			console.log("ciao");
 			//console.log(listaFattura[0].lordo);
 			//console.log(listaFattura[1].lordo);
@@ -49,7 +50,7 @@ $(document).ready( function () {
 				}
 				
 				waitNotifica();
-
+			}
 			/*var fattura = listaFattura[0];
 			console.log("ciao");
             if (fattura.idFattura>0) {
