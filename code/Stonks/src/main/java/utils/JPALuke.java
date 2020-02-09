@@ -67,6 +67,7 @@ public class JPALuke {
 		p.setGiaPagato(p.getFattura().getLordo());
 		p.setPagato(true);
 		p.setDataPagamento(dataPagamento);
+		p.getFattura().setPagata(true);
 
 		em.getTransaction().begin();
 		em.merge(p);
