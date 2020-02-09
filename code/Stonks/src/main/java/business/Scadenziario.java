@@ -152,7 +152,7 @@ public class Scadenziario {
 			// "anticipo"
 			calCorrente.add(Calendar.DAY_OF_YEAR, +anticipoNotifica);
 			calFattura.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
-			if (calCorrente.getTime().after(calFattura.getTime())) {
+			if (calCorrente.getTime().after(calFattura.getTime()) && cal.getTime().before(calFattura.getTime())) {
 				System.out.println("La fattura di id: " + f.getIdFattura() + " sta per scadere");
 				listaFatture.add(f);
 			}
