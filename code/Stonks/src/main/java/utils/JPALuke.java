@@ -21,9 +21,8 @@ public class JPALuke {
 
 	public static List<Fattura> selectPagamenti(Persona p, EntityManager em) {
 		// EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		// TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHERE
-		// f.pagata = FALSE AND f.conto.utente.id=:id",Fattura.class);
-		TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE", Fattura.class);
+		 TypedQuery<Fattura> query=em.createQuery("SELECT f FROM Fattura f WHEREf.pagata = FALSE AND f.conto.utente=:id",Fattura.class);
+		//TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE", Fattura.class);
 
 		// TypedQuery<Pagamento> query=em.createQuery("SELECT pa FROM Pagamento pa WHERE
 		// pa.pagato = FALSE and pa.fattura.conto.persona.id=:id and
@@ -41,7 +40,7 @@ public class JPALuke {
 	public static List<Fattura> selectParziale(Persona p, boolean x, EntityManager em) {
 		// EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE"
-				+ " and f.conto.utente.id=:id and f.eUnaFatturaCliente=:si", Fattura.class);
+				+ " and f.conto.utente=:id and f.eUnaFatturaCliente=:si", Fattura.class);
 
 		query.setParameter("id", p.getId());
 		query.setParameter("si", x);
