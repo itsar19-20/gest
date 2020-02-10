@@ -3,11 +3,11 @@
     <head>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    	<meta name="description" content="menu di prova per la creazione e la visione delle fatture">
+    	<meta name="description" content="Form per la creazione delle fatture">
     	<meta name="author" content="Alberto Sormani">
-    	<meta name="generator" content="invoice menu v0.1">
+    	<meta name="generator" content="make invoice v1.0">
 
-        <title>Fatturo.io</title>
+        <title>Fatturo.IO</title>
 
         <!-- Bootstrap css -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -22,18 +22,65 @@
         <header></header>
         
         <main>
-            <div>
+            <br><br><br><br>
 
-                <br><br><br><br>
+            <!-- form fattura -->
+            <div id="form-fattura" class="">
+                <!-- scegliere la propria azienda (alisa conto) -->
+                Azienda (Conto)
+                <select id="input-conto" name="conto" required></select><br><br>
 
-                <button type="button" id="btn-crea-fattura">Crea una nuova fattura</button>
-                <br><br>
-                <button type="button" id="btn-guarda-fatture">Guarda le fatture</button>
-            
-                <ul id="ul-fatture"></ul>
-                <table id="tbl-fatture"></table>
+                <!-- fattura cliente o fornitore? -->
+                Fattura
+                <select id="input-tipo-fattura" name="invoice-type" required>
+                    <option value="true">cliente</option>
+                    <option value="false">fornitore</option>
+                </select><br><br>
 
+                <!-- persona, che sia o il fornitore o il clente -->
+                <select id="input-persona" required></select>
+
+                <!-- button to add a new persona -->
+                <button id="btn-add-new-persona" type="button" name="aggiungiPersona">Nuova persona</button><br><br>
+
+                <!-- data della fattura -->
+                Data<br>
+                <input id="input-data" type="date" name="date" required><br><br>
+
+                <!-- scadenza della fattura in giorni -->
+                Scadenza in giorni<br>
+                <select id="input-scadenza" name="deadline" required>
+                    <option value="0" selected>0</option>
+                    <option value="30">30</option>
+                    <option value="60">60</option>
+                    <option value="120">120</option>
+                </select><br><br>
+                
+                <!-- lista degli articoli -->
+                <div id="articoli">
+                    Articoli<br>
+                    Descrizione&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                    Quantità&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;
+                    Prezzo (netto)
+
+                </div>
+
+                <!-- breve descrizione facoltativa -->
+                Note<br>
+                <textarea id="input-note" name="note" class="note_invoice" placeholder="Nota facoltativa"></textarea><br><br>
+
+                <!-- totale -->
+                <div>
+                    <span>Totale: </span>
+                    <span id="totale">0</span>
+                </div>
+
+                <!-- button to save the new invoice-->
+                <br>
+                <button id="btn-submit" type="button">Salva</button>
+                <button id="btn-test" type="button">TEST</button>
             </div>
+
         </main>
 
         <footer></footer>
