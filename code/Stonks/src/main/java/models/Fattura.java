@@ -95,7 +95,7 @@ public class Fattura {
 	}
 
 	public Fattura(Date data, Integer scadenza, boolean eUnaFatturaCliente, Persona persona, String nota,
-			boolean pagata, Conto conto) {
+			float lordo, boolean pagata, Conto conto) {
 		super();
 		// this.id = id;
 		this.data = data;
@@ -106,7 +106,7 @@ public class Fattura {
 		// this.articoli = articoli;
 		// this.numeroFattura = numeroFattura;
 		// this.iva = iva;
-		// this.lordo = lordo;
+		this.lordo = lordo;
 		this.pagata = pagata;
 		this.conto = conto;
 	}

@@ -1,6 +1,8 @@
 // aspetto che la pagina venga caricata
 $(() => {
 
+    var ciao = `buongiorno`;
+
     //  invia al controller l'utente loggato
     var user = JSON.parse(localStorage.getItem('user'));
     //  impostare automaticamente la data di oggi
@@ -78,17 +80,21 @@ $(() => {
     })
     .done((html) => {
         var numeroArticoli = 1;
+        localStorage.setItem(`numeroArticoli`, numeroArticoli);
         $('#articoli').append(html
             .replace('§numero0§', numeroArticoli)
             .replace('§numero1§', numeroArticoli)
             .replace('§numero2§', numeroArticoli)
             .replace('§numero3§', numeroArticoli)
             .replace('§numero4§', numeroArticoli)
-            .replace('§btn-text§', '+'));
+            .replace('§numero5§', numeroArticoli)
+            .replace('§btn-text§', '+')
+            .replace('§click§', ''));
         
         // add another article
         $('#btn-article-1').click(() => {
             numeroArticoli++;
+            localStorage.setItem(`numeroArticoli`, numeroArticoli)
             $.ajax({
                 url: '/parts/articolo.html',
                 method: 'get'
@@ -102,34 +108,14 @@ $(() => {
                     .replace('§numero2§', numeroArticoli)
                     .replace('§numero3§', numeroArticoli)
                     .replace('§numero4§', numeroArticoli)
+                    .replace('§numero5§', numeroArticoli)
                     .replace('§btn-text§', '-')
                     .replace('§click§', rimuoviQuestoDiv)
-                );                
+                );             
             });
-        });
-
-        // aggiorna totale
-        $('.prezzo').change(() => {
-            /*
-            let tot = 0;
-            $('.prezzo').each(() => {
-                var str = $(this).val();
-                str = this.id.match(/\d+/);
-                tot += str;
-            })
-            */
-            var tot = 0;
-            $('.prezzo').each(() => {
-                for (let i = 1; i <= numeroArticoli; i++) {
-                    tot += document.getElementsByName("input-articolo-prezzo-" + i).value;
-                    console.log(`value:`,document.getElementsByName("input-articolo-prezzo-" + i).value,`- id:`,i)
-                    
-                }
-            });
-            
-            document.getElementById("totale").innerHTML = tot;
         });
     });
+    
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // bottone per aggiungere una nuova persona
@@ -285,6 +271,7 @@ $(() => {
 
     // submit button - salva fattura
     $('#btn-submit').click(() => {
+        var lordo = $('#totale').text() + `F`;
         // creo l'oggetto fattura
         var fattura = {
             eUnaFatturaCliente: $('#input-tipo-fattura').val(),
@@ -292,9 +279,9 @@ $(() => {
             persona: JSON.parse(localStorage.getItem(`persona-` + $('#input-persona').val())),
             data: $('#input-data').val(),
             scadenza: $('#input-scadenza').val(),
+            lordo: lordo,
             nota: $('#input-note').val(),           
         };
-        console.log(fattura);
         // serializzo l'oggetto
         fattura = JSON.stringify({ 'fattura': fattura });
         // prendo ogni articolo singolarmente
@@ -344,7 +331,6 @@ $(() => {
         });
     });
 
-
         /*
     function allStorage() {
         var values = [],
@@ -357,6 +343,7 @@ $(() => {
     }
     console.log(allStorage());
     */
+
     function removeContiAndPersoneFromLocalStorage() {
         // costruire un meccanismo che esegue una query che restituisce il numero massimo e minimo degli id
         // di conti e persone collegati all'utente loggato, così da impostare min e max del ciclo for
@@ -366,5 +353,7 @@ $(() => {
             localStorage.removeItem(`persona-` + i);
         }
         localStorage.removeItem(`minMax`);
+        localStorage.removeItem(`numertoArticoli`);
     }
+
 });
