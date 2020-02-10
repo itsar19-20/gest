@@ -17,14 +17,10 @@ $('#bottone').click(function(){
            }
     })
     .done(function(fatture) {
-            
-           // $('#listaPagamenti').empty();
-            //fatture.forEach(f => {
-              //  $('#listaPagamenti').append(`<li>Fattura: ${f.idFattura} ${f.data}</li>`)
-            //});
-            
-              
-            
+    	
+    	
+    	if(fatture.length>0){
+    		
            var table= $('#tblPagamenti').DataTable({
                 data: fatture,
                 columns: [
@@ -44,6 +40,11 @@ $('#bottone').click(function(){
                location.href='./pagamento.html';
                 
            });
+           
+    	}else{
+            alert("non ci sono fatture da mostrare con queste impostazioni");
+        }
+           
         })
         .fail(function() {
             console.log('fail!!');

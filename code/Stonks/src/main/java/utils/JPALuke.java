@@ -50,8 +50,8 @@ public class JPALuke {
 		return listEntrata;
 	}
 
-	public static void aggiornaGiaPagato(Pagamento p, float valoreEntrata) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+	public static void aggiornaGiaPagato(Pagamento p, float valoreEntrata,EntityManager em) {
+		//EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		p.setGiaPagato(p.getGiaPagato() + valoreEntrata);
 
 		em.getTransaction().begin();
@@ -61,8 +61,8 @@ public class JPALuke {
 
 	}
 
-	public static void setCompletato(Pagamento p) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+	public static void setCompletato(Pagamento p,EntityManager em) {
+		//EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		Date dataPagamento = new Date();
 		p.setGiaPagato(p.getFattura().getLordo());
 		p.setPagato(true);

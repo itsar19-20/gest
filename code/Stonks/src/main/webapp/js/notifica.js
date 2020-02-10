@@ -1,7 +1,7 @@
 $(document).ready( function () {
 	
 		
-		 var user = JSON.parse(localStorage.getItem('user')  );
+		 var user = JSON.parse(localStorage.getItem('user'));
 		    user = user.id;
 		
 		$.ajax({
