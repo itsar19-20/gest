@@ -16,7 +16,7 @@ import models.Persona;
 import models.Utente;
 
 public class JPALuke {
-
+ 
 	// private List<Pagamento> listPagamento;
 
 	public static List<Fattura> selectPagamenti(Persona p, EntityManager em) {

@@ -3,7 +3,7 @@ $(document).ready( function () {
 		
 		 var user = JSON.parse(localStorage.getItem('user'));
 		    user = user.id;
-		
+		 
 		$.ajax({
 			url: './notifica',
 			method: 'get',

@@ -2,7 +2,7 @@ $(document).ready( function () {
 
 
 $('#bottone').click(function(){
-    
+     
     var user = JSON.parse(localStorage.getItem('user')  );
     user = user.id;
 

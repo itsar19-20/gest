@@ -27,7 +27,7 @@ public class EseguiPagamento extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		 
 		Float newImporto=Float.parseFloat(request.getParameter("nuovoImporto")) ;
 		
 		Pagamento pagamento=(Pagamento) request.getSession().getAttribute("pagamento");

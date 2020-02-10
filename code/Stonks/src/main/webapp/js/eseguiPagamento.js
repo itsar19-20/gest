@@ -3,7 +3,7 @@ $(document).ready( function () {
     $('#btnPagamento').click(function(){
         var value=  parseFloat($('#inputImporto').val()).toFixed(2);
 
-
+ 
         console.log(value);
         if( value>=0 ){
             $('#idDiv').hide();

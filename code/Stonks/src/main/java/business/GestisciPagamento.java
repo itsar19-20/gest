@@ -14,7 +14,7 @@ public class GestisciPagamento {
 	
 	public static Pagamento segnalaPagamento(Pagamento p, float valoreEntrata,EntityManager emTemp) {
 		
-		//if(p.isPagato()==false) {
+		//if(p.isPagato()==false) { 
 			
 			if(p.getGiaPagato()+ valoreEntrata <p.getFattura().getLordo()) {
 				JPALuke.aggiornaGiaPagato(p,valoreEntrata,emTemp);
