@@ -30,7 +30,7 @@ $(() => {
         $('header').html(html);
         //  mostra il nome dell'utente loggato
         var utente = JSON.parse(localStorage.getItem('user'));
-        $('#showUserName').text(`Ciao ${utente.username} !`);
+        $('#showUserName').text(`Ciao ${utente.username}`);
         /*
         //  meccanismo per nascondere e mostrare i menu sulla nav bar
         if (localStorage.getItem('user')) {
@@ -75,5 +75,4 @@ $(() => {
         }
         localStorage.removeItem(`minMax`);
     }
-
 });
