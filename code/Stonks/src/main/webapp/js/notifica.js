@@ -2,8 +2,23 @@ $(document).ready( function () {
 	
 		
 		 var user = JSON.parse(localStorage.getItem('user'));
-		    user = user.id;
-		 
+			user = user.id;
+		//var accesso=localStorage.getItem('primoAccesso');
+		//console.log(accesso);
+		var dataOggi=new Date();
+			//console.log(dataOggi);
+			//localStorage.setItem('primoAccesso',false);
+			var dataStorage=localStorage.getItem('dataStorage');
+			console.log(dataOggi.getTime());
+			console.log(dataStorage);
+			var diff=Math.abs(dataOggi.getTime()- dataStorage);	
+			console.log(diff);
+			//3.600.000 millisecondi = 1 ora
+		if(diff>3600000)
+		{
+
+			localStorage.setItem("dataStorage",dataOggi.getTime());
+
 		$.ajax({
 			url: './notifica',
 			method: 'get',
@@ -51,24 +66,10 @@ $(document).ready( function () {
 				
 				waitNotifica();
 			}
-			/*var fattura = listaFattura[0];
-			console.log("ciao");
-            if (fattura.idFattura>0) {
-				console.log("sono nell if");
-            	console.log(fattura.idFattura);
-				$('#idFattura').text(`${fattura.idFattura}`);
-				
-				//$('#idFattura').text(JSON.parse(localStorage.getItem("fatturaDaPagare")).idFattura);
-				waitNotifica();
-            } else {
-            	console.log("non ce nessuna fattura");
-            }
-            localStorage.removeItem('fatturaDaPagare');
-			localStorage.setItem('fatturaDaPagare',fattura);
-            */
+			
         })
 			
-	
+	} 
 	
       
 
