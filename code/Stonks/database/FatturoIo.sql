@@ -13,10 +13,12 @@
 
 
 -- Dumping database structure for stonks
+DROP DATABASE IF EXISTS `stonks`;
 CREATE DATABASE IF NOT EXISTS `stonks` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `stonks`;
 
 -- Dumping structure for table stonks.admin
+DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `codiceAdmin` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
@@ -32,6 +34,7 @@ INSERT INTO `admin` (`codiceAdmin`, `id`) VALUES
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.articolo
+DROP TABLE IF EXISTS `articolo`;
 CREATE TABLE IF NOT EXISTS `articolo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descrizione` varchar(255) DEFAULT NULL,
@@ -42,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~21 rows (approximately)
+-- Dumping data for table stonks.articolo: ~52 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `fattura_id`) VALUES
@@ -101,10 +104,14 @@ INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `fattu
 	(52, 'fsdfsd', 0, 0.22, 1, 113),
 	(53, 'aaaa', 0, 0.22, 1, 113),
 	(54, 'sss', 0, 0.22, 1, 113),
-	(55, '', 0, 0.22, 1, 114);
+	(55, '', 0, 0.22, 1, 114),
+	(56, '', 0, 0.22, 1, 115),
+	(57, '', 0, 0.22, 1, 116),
+	(58, '', 78, 0.22, 1, 118);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.conto
+DROP TABLE IF EXISTS `conto`;
 CREATE TABLE IF NOT EXISTS `conto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
@@ -114,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `conto` (
   PRIMARY KEY (`id`),
   KEY `FK11e25b6phyqq9o4vd9aat9gdo` (`utente_id`),
   CONSTRAINT `FK_conto_user` FOREIGN KEY (`utente_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.conto: ~4 rows (approximately)
 DELETE FROM `conto`;
@@ -123,10 +130,13 @@ INSERT INTO `conto` (`id`, `nome`, `saldoDisponibile`, `saldoUtile`, `utente_id`
 	(1, 'pippo', 103.5, 123.3, 4),
 	(2, 'tanto', 3000, 5000, 1),
 	(3, 'Sormaflex', 10000, 15000, 8),
-	(4, 'Naranja', 2500, 2500, 8);
+	(4, 'Naranja', 2500, 2500, 8),
+	(5, 'Pippo', 645165, 645165, 58),
+	(6, 'Pluto', 654, 645465, 58);
 /*!40000 ALTER TABLE `conto` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.fattura
+DROP TABLE IF EXISTS `fattura`;
 CREATE TABLE IF NOT EXISTS `fattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `data` date NOT NULL,
@@ -139,9 +149,9 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `pagata` bit(1) NOT NULL,
   `conto_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.fattura: ~74 rows (approximately)
+-- Dumping data for table stonks.fattura: ~96 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
 INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`, `conto_id`) VALUES
@@ -239,10 +249,15 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(111, '2020-02-06', 0, b'1', 9, '', 'Fat-111', 0, b'1', 3),
 	(112, '2020-02-06', 0, b'1', 9, 'ss', 'Fat-112', 0, b'1', 3),
 	(113, '2020-02-06', 0, b'1', 9, '', 'Fat-113', 0, b'1', 3),
-	(114, '2020-02-06', 0, b'1', 9, 'ultima', 'Fat-114', 0, b'1', 3);
+	(114, '2020-02-06', 0, b'1', 9, 'ultima', 'Fat-114', 0, b'1', 3),
+	(115, '2020-02-07', 0, b'1', 9, '', 'Fat-115', 0, b'1', 3),
+	(116, '2020-02-07', 30, b'1', 59, '', 'Fat-116', 0, b'0', 5),
+	(117, '2020-02-07', 30, b'1', 59, NULL, 'Fat-117', 0, b'0', 5),
+	(118, '2020-02-07', 60, b'1', 60, '', 'Fat-118', 0, b'0', 5);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento
+DROP TABLE IF EXISTS `metodo_di_pagamento`;
 CREATE TABLE IF NOT EXISTS `metodo_di_pagamento` (
   `id` varchar(255) NOT NULL,
   `destinazione` varchar(255) DEFAULT NULL,
@@ -258,6 +273,7 @@ INSERT INTO `metodo_di_pagamento` (`id`, `destinazione`, `nome`) VALUES
 /*!40000 ALTER TABLE `metodo_di_pagamento` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.OLDfattura
+DROP TABLE IF EXISTS `OLDfattura`;
 CREATE TABLE IF NOT EXISTS `OLDfattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `persona` int(11) NOT NULL DEFAULT 0,
@@ -290,6 +306,7 @@ INSERT INTO `OLDfattura` (`id`, `persona`, `eUnaFatturaCliente`, `dataFattura`, 
 /*!40000 ALTER TABLE `OLDfattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.pagamento
+DROP TABLE IF EXISTS `pagamento`;
 CREATE TABLE IF NOT EXISTS `pagamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dataPagamento` varchar(255) DEFAULT NULL,
@@ -309,6 +326,7 @@ INSERT INTO `pagamento` (`id`, `dataPagamento`, `mancante`, `pagato`, `fattura_i
 /*!40000 ALTER TABLE `pagamento` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.persona
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) DEFAULT NULL,
@@ -321,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   PRIMARY KEY (`id`),
   KEY `FK_persona_persona` (`autore`),
   CONSTRAINT `FK_persona_persona` FOREIGN KEY (`autore`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.persona: ~9 rows (approximately)
 DELETE FROM `persona`;
@@ -336,10 +354,25 @@ INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `te
 	(7, NULL, 'yysyh', 'eyweywe', NULL, NULL, NULL, NULL),
 	(8, 'Alberto', 'Sormani', 'Milano', 'a.sormani@itsrizzoli.it', NULL, NULL, NULL),
 	(9, 'Mickey', 'Mouse', 'Disneyland', 'mm@disney.com', '1234567890', 'aifon', 8),
-	(10, 'Jack', 'Aubrey', 'UK', NULL, NULL, 'uauei', 8);
+	(10, 'Jack', 'Aubrey', 'UK', NULL, NULL, 'uauei', 8),
+	(47, 'Giorgio', 'Nesci', 'Monza', 'gn@info.it', '', '456486456', 8),
+	(48, 'rgadfhgsfa', '', '', '', '', '', 8),
+	(49, 'Giacomo', 'Poretti', '', '', '', '', 8),
+	(50, 'Aldo', '', '', '', '', '', 8),
+	(51, 'Aldo', '', '', '', '', '', 8),
+	(52, 'alvo', '', '', '', '', '', 8),
+	(53, 'aldo', '', '', '', '', '', 8),
+	(54, 'rgt', '', '', '', '', '', 8),
+	(55, 'wegegr', '', '', '', '', '', 8),
+	(56, 'rtfetkekejy', '', '', '', '', '', 8),
+	(57, 'rtfetkekejy', '', '', '', '', '', 8),
+	(58, 'Luca', 'Donà', 'via da qua', 'mail@realmente.esistente', NULL, '645456156', NULL),
+	(59, 'ciccio', 'pasticco', '', 'emai', '', '666', 58),
+	(60, 'adfghhd', 'hwh', 'rthrht', NULL, NULL, NULL, 58);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
@@ -356,10 +389,12 @@ INSERT INTO `user` (`username`, `password`, `id`, `dataOraUltimoLogin`) VALUES
 	('UserPippo2', 'Pippo123', 1, NULL),
 	('AdminUser', 'admin_pass', 3, NULL),
 	('UserPippo2u', 'Pippo123u', 4, NULL),
-	('albi', '123', 8, '2020-02-06 15:47:02');
+	('albi', '123', 8, '2020-02-07 10:53:12'),
+	('luca', 'pippo123', 58, '2020-02-07 16:56:43');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.utente
+DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
   `metodoDiRegistrazione` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import business.Scadenziario;
 import models.Fattura;
 import models.Persona;
+import utils.DataBase;
 import utils.JPAUtil;
 
 
@@ -29,15 +30,21 @@ public class NotificaController extends HttpServlet {
 
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer anticipoNotifica;
+		try {
 		
-		
-		
-		Integer anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
-		
+		 anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
+		}catch(Exception e) {
+			anticipoNotifica=10;
+		}
 		
 		
 		 
-		Persona persona= (Persona) request.getSession().getAttribute("user");
+		//Persona persona= (Persona) request.getSession().getAttribute("user");
+		
+		String idUserString = request.getParameter("user");
+		Integer idUser = Integer.parseInt(idUserString);
+		Persona persona = (Persona) DataBase.getObjectById("p", idUser);
 		 
 		EntityManager emTemp= JPAUtil.getInstance().getEmf().createEntityManager();
 		

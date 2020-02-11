@@ -2,26 +2,25 @@ $(document).ready( function () {
 
 
 $('#bottone').click(function(){
-    
+     
+    var user = JSON.parse(localStorage.getItem('user')  );
+    user = user.id;
+
 	$.ajax({
        url: './scadenza',
        method: 'get',
        data: { 
                numMesi: $('#mesi').val(),
                numSettimane: $('#settimane').val(),
-               entrataUscita: $("input[name='entrataUscita']:checked").val()
-               
+               entrataUscita: $("input[name='entrataUscita']:checked").val(),
+               user
            }
     })
     .done(function(fatture) {
-            
-           // $('#listaPagamenti').empty();
-            //fatture.forEach(f => {
-              //  $('#listaPagamenti').append(`<li>Fattura: ${f.idFattura} ${f.data}</li>`)
-            //});
-            
-              
-            
+    	
+    	
+    	if(fatture.length>0){
+    		
            var table= $('#tblPagamenti').DataTable({
                 data: fatture,
                 columns: [
@@ -41,6 +40,11 @@ $('#bottone').click(function(){
                location.href='./pagamento.html';
                 
            });
+           
+    	}else{
+            alert("non ci sono fatture da mostrare con queste impostazioni");
+        }
+           
         })
         .fail(function() {
             console.log('fail!!');

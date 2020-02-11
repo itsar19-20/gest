@@ -13,7 +13,7 @@ $(() => {
     //  se invece non è loggato
     } else {
         // se non sei gia nella pagina di login
-        if (window.location.href.indexOf("login") > 0) {
+        if (window.location.href.indexOf("login") > 0 || window.location.href.indexOf("registrati") > 0) {
             // non fare niente
         } else {
             //  altrimenti vai alla pagina di login
@@ -30,7 +30,7 @@ $(() => {
         $('header').html(html);
         //  mostra il nome dell'utente loggato
         var utente = JSON.parse(localStorage.getItem('user'));
-        $('#showUserName').text(`Ciao ${utente.username} !`);
+        $('#showUserName').text(`Ciao ${utente.username}`);
         /*
         //  meccanismo per nascondere e mostrare i menu sulla nav bar
         if (localStorage.getItem('user')) {
@@ -70,11 +70,10 @@ $(() => {
         // di conti e persone collegati all'utente loggato, così da impostare min e max del ciclo for
         var minMax = JSON.parse(localStorage.getItem(`minMax`));
         for (let i = minMax.min; i <= minMax.max; i++) {
-            console.log(i)
             localStorage.removeItem(`conto-` + i);
             localStorage.removeItem(`persona-` + i);
         }
         localStorage.removeItem(`minMax`);
+        localStorage.removeItem(`numertoArticoli`);
     }
-
 });

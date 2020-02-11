@@ -37,25 +37,25 @@ public class Conto {
 
 	@JsonProperty("nome")
 	private String nome;
-	
+
 	public Conto() {
-		
+
 	}
-	
+
 	@OneToMany(mappedBy = "conto")
-	@Transient
+	// @Transient
 	@JsonIgnore
 	private List<Fattura> fatture;
-	
+
 	@Transient
 	@JsonIgnore
 	private Integer idFatture = 0;
-	
+
 	@Transient
 	@OneToMany
 	@JsonIgnore
 	private List<Pagamento> pagamenti;
-	
+
 	@Transient
 	@JsonProperty("idPagamenti")
 	@JsonIgnore
@@ -63,68 +63,84 @@ public class Conto {
 
 	@JsonProperty("saldoDisponibile")
 	private float saldoDisponibile = 0f;
-	
+
 	@JsonProperty("saldoUtile")
 	private float saldoUtile = 0f;
-	
+
 	@Column(name = "utente_id")
 	@JsonProperty("utente")
 	private Integer utente;
-	
-	
+
 	public Integer getIdFatture() {
 		return idFatture;
 	}
+
 	public void setIdFatture(Integer idFatture) {
 		this.idFatture = idFatture;
 	}
+
 	public List<Pagamento> getPagamenti() {
 		return pagamenti;
 	}
+
 	public void setPagamenti(List<Pagamento> pagamenti) {
 		this.pagamenti = pagamenti;
 	}
+
 	public Integer getIdPagamenti() {
 		return idPagamenti;
 	}
+
 	public void setIdPagamenti(Integer idPagamenti) {
 		this.idPagamenti = idPagamenti;
 	}
+
 	public Integer getUtente() {
 		return utente;
 	}
+
 	public void setUtente(Integer utente) {
 		this.utente = utente;
 	}
+
 	public float getSaldoDisponibile() {
 		return saldoDisponibile;
 	}
+
 	public void setSaldoDisponibile(float saldoDisponibile) {
 		this.saldoDisponibile = saldoDisponibile;
 	}
+
 	public float getSaldoUtile() {
 		return saldoUtile;
 	}
+
 	public void setSaldoUtile(float saldoUtile) {
 		this.saldoUtile = saldoUtile;
 	}
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public List<Fattura> getFatture() {
 		return fatture;
 	}
+
 	public void setFatture(List<Fattura> fatture) {
 		this.fatture = fatture;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 }
