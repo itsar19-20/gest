@@ -13,90 +13,96 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.Scadenziario;
+import models.Fattura;
 import models.Pagamento;
 import models.Persona;
+import utils.DataBase;
 import utils.JPAUtil;
-
 
 @WebServlet("/scadenza")
 public class ScadenzaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-    public ScadenzaController() {
-        super();
-        
-    }
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public ScadenzaController() {
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Integer mesiSuccessivi;
 		Integer settimaneSuccessive;
-		String stringaEntrataUscita;
-		Boolean entrataUscita;
-			
+		String entrataOUscitaS;
+		Boolean entrataOUscita;
+
 		try {
-			mesiSuccessivi=Integer.parseInt(request.getParameter("numMesi"));
-		}catch(Exception e) {
-			mesiSuccessivi=null;
+			mesiSuccessivi = Integer.parseInt(request.getParameter("numMesi"));
+		} catch (Exception e) {
+			mesiSuccessivi = null;
 		}
 		try {
-		  settimaneSuccessive=Integer.parseInt(request.getParameter("numSettimane"));
-		}catch(Exception e) {
-			settimaneSuccessive=null;
+			settimaneSuccessive = Integer.parseInt(request.getParameter("numSettimane"));
+		} catch (Exception e) {
+			settimaneSuccessive = null;
 		}
-		
-		  stringaEntrataUscita=request.getParameter("entrataUscita");
-		  
-		  if(stringaEntrataUscita==null || stringaEntrataUscita.contentEquals("null")) {
-		
-			entrataUscita=null;
-		
-		  }else {
-			  entrataUscita=Boolean.parseBoolean(stringaEntrataUscita);
-		  }
-		 
-		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		 
-		 // L'id dovrà poi essere preso dall'utente che vuole vedere lo scadenziario
-		 Persona persona =em.find(Persona.class , 1 );
-		 
-		 List<Pagamento> scadenzeOttenute=null;
-		 
-		 if ( mesiSuccessivi==null && settimaneSuccessive== null) {
-			 if(entrataUscita==null) {
-				 
-				scadenzeOttenute = Scadenziario.showFullScadenziario(persona);
-			 }else {
-		
-				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataUscita);
-			 }
-			 
-		 }else if(mesiSuccessivi!=null) {
-			
-			 if(entrataUscita ==null) {
-				scadenzeOttenute= Scadenziario.showScadenziarioMese(persona, mesiSuccessivi);
-			 }else {
-				scadenzeOttenute= Scadenziario.showMeseEntrata(persona, mesiSuccessivi,entrataUscita);
-			 }
-		 }else {
-			 if(entrataUscita== null) {
-				
-				scadenzeOttenute= Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive);
-			 }else {
-				scadenzeOttenute= Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataUscita);
-			 }
-		 }
-		
-		 
+
+		entrataOUscitaS = request.getParameter("entrataUscita");
+		System.out.println(entrataOUscitaS);
+
+		if (entrataOUscitaS == null || entrataOUscitaS.contentEquals("null")) {
+			entrataOUscita = null;
+
+		} else {
+			entrataOUscita = Boolean.parseBoolean(entrataOUscitaS);
+
+		}
+
+		String idUserString = request.getParameter("user");
+		Integer idUser = Integer.parseInt(idUserString);
+		Persona persona = (Persona) DataBase.getObjectById("p", idUser);
+
+		// Persona persona = (Persona) request.getSession().getAttribute("user");
+
+		List<Fattura> scadenzeOttenute = null;
+		EntityManager emTemp = JPAUtil.getInstance().getEmf().createEntityManager();
+
+		if (mesiSuccessivi == null && settimaneSuccessive == null) {
+			if (entrataOUscita == null) {
+
+				scadenzeOttenute = Scadenziario.showFullScadenziario(persona, emTemp);
+			} else {
+
+				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataOUscita, emTemp);
+			}
+
+		} else if (mesiSuccessivi != null) {
+
+			if (entrataOUscita == null) {
+				scadenzeOttenute = Scadenziario.showScadenziarioMese(persona, mesiSuccessivi, emTemp);
+			} else {
+				scadenzeOttenute = Scadenziario.showMeseEntrata(persona, mesiSuccessivi, entrataOUscita, emTemp);
+			}
+		} else {
+
+			if (entrataOUscita == null) {
+				scadenzeOttenute = Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive, emTemp);
+			} else {
+				scadenzeOttenute = Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataOUscita,
+						emTemp);
+			}
+		}
+
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
-		
-		
-	}	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+		emTemp.close();
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

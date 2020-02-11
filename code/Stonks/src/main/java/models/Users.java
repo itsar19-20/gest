@@ -7,6 +7,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import models.Persona;
 
 @Entity
@@ -16,6 +18,7 @@ public class Users extends Persona{
 	
 	private String username;
 	
+	//	@JsonIgnore
 	private String password;
 	
 	private Date dataOraUltimoLogin;
@@ -39,7 +42,7 @@ public class Users extends Persona{
 				this.password = pass1;
 			}else {System.out.println("Le due password non corrispondono");}
 				
-		}else{System.out.println("La vecchia password � errata, riprova");}
+		}else{System.out.println("La vecchia password è errata, riprova");}
 			
 	}
 	/*

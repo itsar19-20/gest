@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import business.Scadenziario;
 import models.Fattura;
 import models.Persona;
+import utils.DataBase;
 import utils.JPAUtil;
 
 
@@ -22,30 +23,42 @@ import utils.JPAUtil;
 public class NotificaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+   
     public NotificaController() {
         super();
         
-    }
 
-	
+    }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer anticipoNotifica;
+		try {
 		
-		Integer anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
+		 anticipoNotifica=Integer.parseInt(request.getParameter("listaNotifica"));
+		}catch(Exception e) {
+			anticipoNotifica=10;
+		}
 		
 		
-		// utente di prova, dovr� poi corrispondere all'utente che ha effettuato
-		// il login
-		 EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
-		 Persona persona =em.find(Persona.class ,1 );
+		 
+		//Persona persona= (Persona) request.getSession().getAttribute("user");
 		
-		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica);
+		String idUserString = request.getParameter("user");
+		Integer idUser = Integer.parseInt(idUserString);
+		Persona persona = (Persona) DataBase.getObjectById("p", idUser);
+		 
+		EntityManager emTemp= JPAUtil.getInstance().getEmf().createEntityManager();
+		
+		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica,emTemp);
 		
 		 
 		 ObjectMapper om = new ObjectMapper();
 		 response.setContentType("application/json");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
 		 
+		 emTemp.close();
+		
+		
+		
 	}
 
 	
