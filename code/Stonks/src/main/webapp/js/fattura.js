@@ -297,8 +297,11 @@ $(() => {
                 var ia = `#input-articolo-`;
                 var desc = $(ia + 'descrizione-' + count).val();
                 var quan = $(ia + 'quantita-' + count).val();
+                if (quan.charAt(0) == `.`) quan = '0' + quan;
                 var prez = $(ia + 'prezzo-' + count).val();
-                articoli += `{"descrizione":"` + desc + `","quantita":` + quan + `,"prezzo":`  + prez + `}`;
+                if (prez.charAt(0) == `.`) prez = '0' + prez;
+                var parz = parseFloat($(`#parziale` + count).text());
+                articoli += `{"descrizione":"` + desc + `","quantita":` + quan + `,"prezzo":`  + prez + `,"parziale":` + parz + `}`;
                 numElementiEsistentiGiaToccati++;
             }
             if (numElementiEsistentiGiaToccati == numArticoliInseriti) {
