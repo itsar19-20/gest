@@ -13,7 +13,7 @@ $(document).ready( function () {
 			console.log(dataStorage);
 			var diff=Math.abs(dataOggi.getTime()- dataStorage);	
 			console.log(diff);
-			//3.600.000 millisecondi = 1 ora
+			//3.600.000 millisecondi = 1 ora 
 		if(diff>3600000)
 		{
 
