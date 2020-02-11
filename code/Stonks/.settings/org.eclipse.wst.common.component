@@ -19,9 +19,15 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+<<<<<<< HEAD
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/annotations"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-test-sources/test-annotations"/>
+                
+=======
                                 
         
         
+>>>>>>> 4bad6fb8686dae1ef3b3749a53e5e01d6b2a22ed
         <property name="java-output-path" value="/ajax-01/target/classes"/>
                         
         

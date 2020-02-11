@@ -74,6 +74,6 @@ $(() => {
             localStorage.removeItem(`persona-` + i);
         }
         localStorage.removeItem(`minMax`);
-        localStorage.removeItem(`numertoArticoli`);
+        localStorage.removeItem(`numeroArticoli`);
     }
 });

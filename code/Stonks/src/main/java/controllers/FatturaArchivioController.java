@@ -14,20 +14,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import business.MenagementFattura;
 import models.Fattura;
 import utils.JPAUtil;
 
 /**
  * Servlet implementation class FatturaController
  */
-@WebServlet("/fattura/guarda")
-public class FatturaGuardaController extends HttpServlet {
+@WebServlet("/archivio/getAllMineInvoices")
+public class FatturaArchivioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public FatturaGuardaController() {
+	public FatturaArchivioController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -38,18 +39,10 @@ public class FatturaGuardaController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		// em.createQuery utilizza il linguaggio JPQL
-		List<Fattura> fatture = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
-		ObjectMapper om = new ObjectMapper()/* .setSerializationInclusion(Include.NON_NULL) */;
-
-		for (Fattura fattura : fatture) {
-			System.out.println(om.writeValueAsString(fattura));
-		}
-
+		List<Fattura> fatture = MenagementFattura.tutteLeFatture();
+		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
-
 	}
 
 	/**

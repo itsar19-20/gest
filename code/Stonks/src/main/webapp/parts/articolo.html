@@ -7,18 +7,14 @@
 </div>
 <script>
     function updateParziale() {
-        console.log(`update`);
-        var tot = 0; console.log(`'tot' azzerato`);
+        var tot = 0;
         for (let i = 1; i <= localStorage.getItem(`numeroArticoli`); i++) {
-            console.log(i);
             $(`#parziale` + i).text(
                 parseFloat($('#input-articolo-quantita-'+i).val()) *
                 parseFloat($('#input-articolo-prezzo-'+i).val())
                 
             );
-            console.log(`parziale`, i, parseFloat($('#parziale'+i).text()));
             tot += parseFloat($('#parziale'+i).text());
-            console.log(`tot`, tot);
             $(`#totale`).text(tot); 
         }
     }
