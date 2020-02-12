@@ -35,7 +35,7 @@ public class Fattura {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "data")
 	@JsonProperty("data")
-	private Date data<;
+	private Date data;
 
 	@Column(name = "scadenza")
 	@JsonProperty("scadenza")
