@@ -20,14 +20,29 @@ $('#bottone').click(function(){
     	
     	
     	if(fatture.length>0){
+
+                fatture.forEach(f => {
+                var dataS=new Date(f.data).toLocaleDateString();
+                f.data=dataS;
+            });
+            console.log(fatture[0].data);
+
+          // console.log(fatture[0].data); 
+           //var dataS=new Date(fatture[0].data) ;
+
+           //toLocaleDateString() -> giorno/mese/anno in numero
+          // console.log(dataS.toLocaleDateString());
     		
            var table= $('#tblPagamenti').DataTable({
+               
                 data: fatture,
+                
                 columns: [
                     { title: 'ID', data: 'id'},
                     { title: 'Data Pagamento', data: 'data'},
-                    { title: 'Pagata', data: 'pagata'},
-                    { title: 'Importo',data: 'lordo'},
+                    { title: 'Scadenza: ', data: 'scadenza'},
+                    { title: 'Lordo',data: 'lordo'},
+                    { title: 'Numero fattura:',data: 'numeroFattura'},
                 ]
             });
            $('#tblPagamenti tbody').on('click','tr',function(){
