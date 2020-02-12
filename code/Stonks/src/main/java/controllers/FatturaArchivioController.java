@@ -39,7 +39,7 @@ public class FatturaArchivioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Fattura> fatture = MenagementFattura.tutteLeFatture();
+		List<Fattura> fatture = MenagementFattura.listaFatture(8);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));

@@ -5,37 +5,50 @@ $(() => {
         method: 'get'
     })
     .done(function(listaFatture) {
-        console.log(`done`, listaFatture);
-        
-        /*
+        console.log(listaFatture);
+        // Per ogni fattura ricevuta
         listaFatture.forEach(element => {
-            $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);              
-            console.log('ho aggiunto un list item');
+            // Converto la data in un formato umano
+            var date = new Date(element.data);
+            var month = date.getMonth()+1;
+            if (month < 10) month = "0" + month;
+            var day = date.getDate();
+            if (day < 10) day = "0" + day;
+            var convertedDate = day+'-'+month+'-'+date.getFullYear();
+            element.data = convertedDate;
+            // Aggingo una formattazione al numero di giorni di scadenza
+            element.scadenza += ` gg`;
+            // Converto in 'si' o 'no' il booean 'pagata'
+            element.pagata ? element.pagata = `si` : element.pagata = `no`;
+            // Converto in 'cliente' o 'fornitore' l'apposito boolean
+            element.eUnaFatturaCliente ? element.eUnaFatturaCliente = `cliente` : element.eUnaFatturaCliente = `fornitore`;
+            // Estraggo dalla Persona il suo nome e cognome
+            element.persona = element.persona.nome + ` ` + element.persona.cognome;
+            // Estraggo dal conto il suo nome
+            element.conto = element.conto.nome;
+            // Calocolo il numero degli articoli
+            element.numeroArticoli = element.articolo.length;
+            // Ricavo l'IVA dal lordo e lo formatto
+            element.iva *= element.lordo;
+            element.iva = `€ ` + element.iva;
+            // Formatto il lordo
+            element.lordo = `€ ` + element.lordo;
         });
-        */
-
-        /*
-        // Unordered List
-        $('#ul-fatture').empty();
-        listaFatture.forEach(element => {
-            $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);
-        });
-        console.log('ho terminato la UL');
-        */
-
-        //  DataTable
+        // DataTable
         $('#tblFatture').DataTable({
             data: listaFatture,
             columns: [
-                {title: 'ID', data: 'id'},
+                {title: 'N° fattura', data: 'numeroFattura'},
                 {title: 'Data', data: 'data'},
                 {title: 'Scadenza', data: 'scadenza'},
-//                    {title: 'Fattura cliente', data: 'fatturaCliente'},
+                {title: 'Pagata', data: 'pagata'},
+                {title: 'Tipo fattura', data: 'eUnaFatturaCliente'},
                 {title: 'Persona', data: 'persona'},
-                {title: 'Nota', data: 'nota'},
-//                    {title: 'Conto', data: 'conto'},
-                {title: 'IVA', data: 'iva'},
+                {title: 'Conto (Azienda)', data: 'conto'},
+                {title: 'N° articoli', data: 'numeroArticoli'},
                 {title: 'Lordo', data: 'lordo'},
+                {title: 'di cui IVA', data: 'iva'},
+                {title: 'Nota', data: 'nota'},
             ]
         });
         

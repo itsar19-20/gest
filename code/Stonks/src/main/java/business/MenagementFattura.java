@@ -36,7 +36,6 @@ public class MenagementFattura {
 		return l;
 	}
 
-	// metodo ancora da testare
 	public static List<Fattura> listaFatture(Integer id) {
 		// restituisce la lista delle fatture create dell'utente che gli viene passato
 		List<Fattura> l = em.createQuery("SELECT x FROM Fattura x WHERE x.conto.utente=:user").setParameter("user", id)
