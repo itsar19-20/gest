@@ -19,11 +19,17 @@ $('#bottone').click(function(){
     .done(function(fatture) {
     	
     	
-    	if(fatture.length>0){
+    	if(fatture.length>0){ 
 
                 fatture.forEach(f => {
                 var dataS=new Date(f.data).toLocaleDateString();
                 f.data=dataS;
+                console.log(f.eUnaFatturaCliente);
+                if(f.eUnaFatturaCliente==true){
+                    f.eUnaFatturaCliente="entrata";
+                }else{
+                    f.eUnaFatturaCliente="uscita";
+                }
             });
             console.log(fatture[0].data);
 
@@ -38,11 +44,12 @@ $('#bottone').click(function(){
                 data: fatture,
                 
                 columns: [
-                    { title: 'ID', data: 'id'},
-                    { title: 'Data Pagamento', data: 'data'},
+                    { title: 'Numero fattura:',data: 'numeroFattura'},
+                    { title: 'Data', data: 'data'},
                     { title: 'Scadenza: ', data: 'scadenza'},
                     { title: 'Lordo',data: 'lordo'},
-                    { title: 'Numero fattura:',data: 'numeroFattura'},
+                    { title: 'Tipo', data: 'eUnaFatturaCliente'}
+                   
                 ]
             });
            $('#tblPagamenti tbody').on('click','tr',function(){
