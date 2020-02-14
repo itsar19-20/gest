@@ -1,53 +1,71 @@
-    //  button guarda fatture
-    $('#btn-guarda-fatture').click(function() {
-        var btn = 'button guarda fatture '
-        console.log(btn, '.click');
-        $.ajax({
-            url: '/fattura/guarda',
-            method: 'get'
-        })
-        .done(function(listaFatture) {
-            console.log(btn, '.done', listaFatture);
-            
-            /*
-            listaFatture.forEach(element => {
-                $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);              
-                console.log('ho aggiunto un list item');
-            });
-            */
+$(() => {
+    // Richiedo la lista di tutte la fatture dell'utente loggato
+    $.ajax({
+        url: '/archivio/getAllMineInvoices',
+        method: 'get'
+    })
+    .done(function(listaFatture) {
+        console.log(listaFatture);
+        // Per ogni fattura ricevuta
+        listaFatture.forEach(element => {
+            // Converto la data in un formato umano
+            var date = new Date(element.data);
+            var month = date.getMonth()+1;
+            if (month < 10) month = "0" + month;
+            var day = date.getDate();
+            if (day < 10) day = "0" + day;
+            var convertedDate = day+'-'+month+'-'+date.getFullYear();
+            element.data = convertedDate;
+            // Aggingo una formattazione al numero di giorni di scadenza
+            element.scadenza += ` gg`;
+            // Converto in 'si' o 'no' il booean 'pagata'
+            element.pagata ? element.pagata = `si` : element.pagata = `no`;
+            // Converto in 'cliente' o 'fornitore' l'apposito boolean
+            element.eUnaFatturaCliente ? element.eUnaFatturaCliente = `cliente` : element.eUnaFatturaCliente = `fornitore`;
+            // Estraggo dalla Persona il suo nome e cognome
+            element.persona = element.persona.nome + ` ` + element.persona.cognome;
+            // Estraggo dal conto il suo nome
+            element.conto = element.conto.nome;
+            // Calocolo il numero degli articoli
+            element.numeroArticoli = element.articolo.length;
+            // Ricavo l'IVA dal lordo e lo formatto
+            element.iva *= element.lordo;
+            element.iva = `€ ` + element.iva;
+            // Formatto il lordo
+            element.lordo = `€ ` + element.lordo;
+            // Inserisco l'oggetto in una nuova righa della tabella
+            $('#tblFatture').append(`
+                <tr data-id="${element.id}" class="line">
+                    <td>${element.numeroFattura}</td>
+                    <td>${element.data}</td>
+                    <td>${element.scadenza}</td>
+                    <td>${element.pagata}</td>
+                    <td>${element.eUnaFatturaCliente}</td>
+                    <td>${element.persona}</td>
+                    <td>${element.conto}</td>
+                    <td>${element.numeroArticoli}</td>
+                    <td>${element.lordo}</td>
+                    <td>${element.iva}</td>
+                    <td>${element.nota}</td>
+                </tr>
+            `);
 
-            /*
-            // Unordered List
-            $('#ul-fatture').empty();
-            listaFatture.forEach(element => {
-                $('#ul-fatture').append(`<li>ID: ${element.id}</li>`);
-            });
-            console.log('ho terminato la UL');
-            */
-
-            //  DataTable
-            $('#tbl-fatture').DataTable({
-                data: listaFatture,
-                columns: [
-                    {title: 'ID', data: 'id'},
-                    {title: 'Data', data: 'data'},
-                    {title: 'Scadenza', data: 'scadenza'},
-//                    {title: 'Fattura cliente', data: 'fatturaCliente'},
-                    {title: 'Persona', data: 'persona'},
-                    {title: 'Nota', data: 'nota'},
-//                    {title: 'Conto', data: 'conto'},
-                    {title: 'IVA', data: 'iva'},
-                    {title: 'Lordo', data: 'lordo'},
-                ]
-            });
-            
-
-        })
-        .fail(function() {
-            console.log(btn, '.fail');
-        })
-        .always(function() {
-            console.log(btn, '.always', listaFatture);
         });
-        console.log(btn, '.EndClick');
-    });
+        $( "#tblFatture" ).on( "click", ".line", function() {
+            var aaa = $(this).data('id');
+            console.log(aaa);
+            MyPopUpWin(aaa);
+        });
+        function MyPopUpWin(aaa) {
+            var myHeight = window.screen.height / 2;
+            var myWidth = window.screen.width / 2;
+            //Open the window.
+            var win2 = window.open("/","Archivio - Fat-" + aaa,"status=no,height=" + myHeight + ",width=" + myWidth + ",resizable=yes,screenX=" + (myWidth/2) + ",screenY=" + (myHeight/2) + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
+            win2.focus();
+            }
+    })
+    .fail(() => {
+        console.log(`fail`);
+    })
+
+});

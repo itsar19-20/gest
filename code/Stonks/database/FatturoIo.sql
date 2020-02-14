@@ -40,74 +40,96 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   `descrizione` varchar(255) DEFAULT NULL,
   `prezzo` float NOT NULL DEFAULT 0,
   `iva` float NOT NULL,
-  `quantita` int(11) NOT NULL,
+  `quantita` float NOT NULL DEFAULT 0,
+  `parziale` float NOT NULL DEFAULT 0,
   `fattura_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.articolo: ~52 rows (approximately)
+-- Dumping data for table stonks.articolo: ~72 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
-INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `fattura_id`) VALUES
-	(1, 'ciao', 34.6, 2, 7, 1),
-	(2, 'ciao2', 77.6, 6, 5, 1),
-	(3, 'ciao3', 88.6, 8, 4, 1),
-	(4, 'calzini', 4, 22, 2, 2),
-	(5, 'mutande', 6, 2, 13, 3),
-	(7, 'calzone ripeieno', 22222, 0.22, 22, 9),
-	(8, 'piadina', 7, 0.22, 3, 79),
-	(9, 'pita', 3, 0.22, 10, 79),
-	(10, 'kebab', 5, 0.22, 2, 79),
-	(11, 'piadina', 7, 0.22, 3, 80),
-	(12, 'pita', 3, 0.22, 10, 80),
-	(13, 'kebab', 5, 0.22, 2, 80),
-	(14, 'piadina', 7, 0.22, 3, 81),
-	(15, 'pita', 3, 0.22, 10, 81),
-	(16, 'kebab', 5, 0.22, 2, 81),
-	(17, 'piadina', 7, 0.22, 3, 82),
-	(18, 'pita', 3, 0.22, 10, 82),
-	(19, 'kebab', 5, 0.22, 2, 82),
-	(20, 'piadina', 7, 0.22, 3, 83),
-	(21, 'pita', 3, 0.22, 10, 83),
-	(22, 'kebab', 5, 0.22, 2, 83),
-	(23, 'piadina', 7, 0.22, 3, 84),
-	(24, 'pita', 3, 0.22, 10, 84),
-	(25, 'kebab', 5, 0.22, 2, 84),
-	(26, 'piadina', 7, 0.22, 3, 97),
-	(27, 'pita', 3, 0.22, 10, 97),
-	(28, 'kebab', 5, 0.22, 2, 97),
-	(29, 'piadina', 7, 0.22, 3, 98),
-	(30, 'pita', 3, 0.22, 10, 98),
-	(31, 'kebab', 5, 0.22, 2, 98),
-	(32, 'piadina', 7, 0.22, 3, 99),
-	(33, 'pita', 3, 0.22, 10, 99),
-	(34, 'kebab', 5, 0.22, 2, 99),
-	(35, 'piadina', 7, 0.22, 3, 100),
-	(36, 'pita', 3, 0.22, 10, 100),
-	(37, 'kebab', 5, 0.22, 2, 100),
-	(38, 'aaa', 0, 0.22, 1, 103),
-	(39, 'sss', 0, 0.22, 1, 103),
-	(40, 'ddd', 0, 0.22, 1, 103),
-	(41, '', 0, 0.22, 1, 104),
-	(42, '', 0, 0.22, 1, 105),
-	(43, '', 0, 0.22, 1, 106),
-	(44, '', 0, 0.22, 1, 107),
-	(45, '', 0, 0.22, 1, 108),
-	(46, '', 0, 0.22, 1, 109),
-	(47, '', 0, 0.22, 1, 110),
-	(48, '', 0, 0.22, 1, 111),
-	(49, 'ertwer', 0, 0.22, 1, 112),
-	(50, 'df', 0, 0.22, 1, 112),
-	(51, 'sss', 0, 0.22, 1, 112),
-	(52, 'fsdfsd', 0, 0.22, 1, 113),
-	(53, 'aaaa', 0, 0.22, 1, 113),
-	(54, 'sss', 0, 0.22, 1, 113),
-	(55, '', 0, 0.22, 1, 114),
-	(56, '', 0, 0.22, 1, 115),
-	(57, '', 0, 0.22, 1, 116),
-	(58, '', 78, 0.22, 1, 118);
+INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `parziale`, `fattura_id`) VALUES
+	(1, 'ciao', 34.6, 2, 7, 0, 1),
+	(2, 'ciao2', 77.6, 6, 5, 0, 1),
+	(3, 'ciao3', 88.6, 8, 4, 0, 1),
+	(4, 'calzini', 4, 22, 2, 0, 2),
+	(5, 'mutande', 6, 2, 13, 0, 3),
+	(7, 'calzone ripeieno', 22222, 0.22, 22, 0, 9),
+	(8, 'piadina', 7, 0.22, 3, 0, 79),
+	(9, 'pita', 3, 0.22, 10, 0, 79),
+	(10, 'kebab', 5, 0.22, 2, 0, 79),
+	(11, 'piadina', 7, 0.22, 3, 0, 80),
+	(12, 'pita', 3, 0.22, 10, 0, 80),
+	(13, 'kebab', 5, 0.22, 2, 0, 80),
+	(14, 'piadina', 7, 0.22, 3, 0, 81),
+	(15, 'pita', 3, 0.22, 10, 0, 81),
+	(16, 'kebab', 5, 0.22, 2, 0, 81),
+	(17, 'piadina', 7, 0.22, 3, 0, 82),
+	(18, 'pita', 3, 0.22, 10, 0, 82),
+	(19, 'kebab', 5, 0.22, 2, 0, 82),
+	(20, 'piadina', 7, 0.22, 3, 0, 83),
+	(21, 'pita', 3, 0.22, 10, 0, 83),
+	(22, 'kebab', 5, 0.22, 2, 0, 83),
+	(23, 'piadina', 7, 0.22, 3, 0, 84),
+	(24, 'pita', 3, 0.22, 10, 0, 84),
+	(25, 'kebab', 5, 0.22, 2, 0, 84),
+	(26, 'piadina', 7, 0.22, 3, 0, 97),
+	(27, 'pita', 3, 0.22, 10, 0, 97),
+	(28, 'kebab', 5, 0.22, 2, 0, 97),
+	(29, 'piadina', 7, 0.22, 3, 0, 98),
+	(30, 'pita', 3, 0.22, 10, 0, 98),
+	(31, 'kebab', 5, 0.22, 2, 0, 98),
+	(32, 'piadina', 7, 0.22, 3, 0, 99),
+	(33, 'pita', 3, 0.22, 10, 0, 99),
+	(34, 'kebab', 5, 0.22, 2, 0, 99),
+	(35, 'piadina', 7, 0.22, 3, 0, 100),
+	(36, 'pita', 3, 0.22, 10, 0, 100),
+	(37, 'kebab', 5, 0.22, 2, 0, 100),
+	(38, 'aaa', 0, 0.22, 1, 0, 103),
+	(39, 'sss', 0, 0.22, 1, 0, 103),
+	(40, 'ddd', 0, 0.22, 1, 0, 103),
+	(41, '', 0, 0.22, 1, 0, 104),
+	(42, '', 0, 0.22, 1, 0, 105),
+	(43, '', 0, 0.22, 1, 0, 106),
+	(44, '', 0, 0.22, 1, 0, 107),
+	(45, '', 0, 0.22, 1, 0, 108),
+	(46, '', 0, 0.22, 1, 0, 109),
+	(47, '', 0, 0.22, 1, 0, 110),
+	(48, '', 0, 0.22, 1, 0, 111),
+	(49, 'ertwer', 0, 0.22, 1, 0, 112),
+	(50, 'df', 0, 0.22, 1, 0, 112),
+	(51, 'sss', 0, 0.22, 1, 0, 112),
+	(52, 'fsdfsd', 0, 0.22, 1, 0, 113),
+	(53, 'aaaa', 0, 0.22, 1, 0, 113),
+	(54, 'sss', 0, 0.22, 1, 0, 113),
+	(55, '', 0, 0.22, 1, 0, 114),
+	(56, '', 0, 0.22, 1, 0, 115),
+	(57, '', 0, 0.22, 1, 0, 116),
+	(58, '', 78, 0.22, 1, 0, 118),
+	(59, '', 0, 0.22, 1, 0, 119),
+	(60, '', 0, 0.22, 1, 0, 120),
+	(61, '', 0, 0.22, 1, 0, 121),
+	(62, '', 0, 0.22, 1, 0, 122),
+	(63, '', 0, 0.22, 1, 0, 123),
+	(64, '', 0, 0.22, 1, 0, 124),
+	(65, '', 0, 0.22, 1, 0, 125),
+	(66, '', 0, 0.22, 1, 0, 126),
+	(67, '', 0, 0.22, 1, 0, 127),
+	(68, '', 0, 0.22, 1, 0, 128),
+	(69, '', 0, 0.22, 1, 0, 129),
+	(70, '', 81, 0.22, 187, 0, 132),
+	(71, '', 1651, 0.22, 1, 0, 132),
+	(72, '', 615, 0.22, 56, 0, 132),
+	(73, '', 13.5, 0.22, 1, 0, 133),
+	(74, '', 0.651816, 0.22, 1, 0, 139),
+	(75, '', 0.5, 0.22, 1, 0.5, 141),
+	(76, '', 0, 0.22, 1, 0, 142),
+	(77, '', 0, 0.22, 1, 0, 142),
+	(78, '', 0, 0.22, 1, 0, 142),
+	(79, '', 0, 0.22, 1, 0, 142);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.conto
@@ -123,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `conto` (
   CONSTRAINT `FK_conto_user` FOREIGN KEY (`utente_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.conto: ~4 rows (approximately)
+-- Dumping data for table stonks.conto: ~6 rows (approximately)
 DELETE FROM `conto`;
 /*!40000 ALTER TABLE `conto` DISABLE KEYS */;
 INSERT INTO `conto` (`id`, `nome`, `saldoDisponibile`, `saldoUtile`, `utente_id`) VALUES
@@ -149,9 +171,9 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `pagata` bit(1) NOT NULL,
   `conto_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.fattura: ~96 rows (approximately)
+-- Dumping data for table stonks.fattura: ~120 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
 INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`, `conto_id`) VALUES
@@ -251,9 +273,33 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(113, '2020-02-06', 0, b'1', 9, '', 'Fat-113', 0, b'1', 3),
 	(114, '2020-02-06', 0, b'1', 9, 'ultima', 'Fat-114', 0, b'1', 3),
 	(115, '2020-02-07', 0, b'1', 9, '', 'Fat-115', 0, b'1', 3),
-	(116, '2020-02-07', 30, b'1', 59, '', 'Fat-116', 0, b'0', 5),
-	(117, '2020-02-07', 30, b'1', 59, NULL, 'Fat-117', 0, b'0', 5),
-	(118, '2020-02-07', 60, b'1', 60, '', 'Fat-118', 0, b'0', 5);
+	(116, '2020-02-07', 30, b'1', 9, '', 'Fat-116', 0, b'0', 5),
+	(117, '2020-02-07', 30, b'1', 9, NULL, 'Fat-117', 0, b'0', 5),
+	(118, '2020-02-07', 60, b'1', 9, '', 'Fat-118', 0, b'0', 5),
+	(119, '2020-02-10', 0, b'1', 9, '', 'Fat-119', 0, b'1', 3),
+	(120, '2020-02-10', 0, b'1', 9, '', 'Fat-120', 0, b'1', 3),
+	(121, '2020-02-10', 0, b'1', 9, '', 'Fat-121', 0, b'1', 3),
+	(122, '2020-02-10', 0, b'1', 9, '', 'Fat-122', 0, b'1', 3),
+	(123, '2020-02-10', 0, b'1', 9, '', 'Fat-123', 0, b'1', 3),
+	(124, '2020-02-10', 0, b'1', 9, '', 'Fat-124', 0, b'1', 3),
+	(125, '2020-02-10', 0, b'1', 9, '', 'Fat-125', 0, b'1', 3),
+	(126, '2020-02-10', 0, b'1', 9, '', 'Fat-126', 0, b'1', 3),
+	(127, '2020-02-10', 0, b'1', 9, '', 'Fat-127', 0, b'1', 3),
+	(128, '2020-02-10', 0, b'1', 9, '', 'Fat-128', 0, b'1', 3),
+	(129, '2020-02-10', 0, b'1', 9, '', 'Fat-129', 0, b'1', 3),
+	(130, '2020-02-10', 0, b'1', 9, '', 'Fat-130', 0, b'1', 3),
+	(131, '2020-02-10', 0, b'1', 9, '', 'Fat-131', 16812.6, b'1', 3),
+	(132, '2020-02-10', 0, b'1', 9, '', 'Fat-132', 51238, b'1', 3),
+	(133, '2020-02-11', 0, b'1', 9, '', 'Fat-133', 13.5, b'1', 3),
+	(134, '2020-02-11', 0, b'1', 9, '', 'Fat-134', 0.654686, b'1', 3),
+	(135, '2020-02-11', 0, b'1', 9, '', 'Fat-135', 0.26451, b'1', 3),
+	(136, '2020-02-11', 0, b'1', 9, '', 'Fat-136', 0.55, b'1', 3),
+	(137, '2020-02-11', 0, b'1', 9, '', 'Fat-137', 0.165, b'1', 3),
+	(138, '2020-02-11', 0, b'1', 9, '', 'Fat-138', 0.156, b'1', 3),
+	(139, '2020-02-11', 0, b'1', 9, '', 'Fat-139', 0.651816, b'1', 3),
+	(140, '2020-02-11', 0, b'1', 9, '', 'Fat-140', 0.156, b'1', 3),
+	(141, '2020-02-11', 0, b'1', 9, '', 'Fat-141', 0.5, b'1', 3),
+	(142, '2020-02-11', 0, b'1', 91, '', 'Fat-142', 0, b'1', 3);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento
@@ -339,9 +385,9 @@ CREATE TABLE IF NOT EXISTS `persona` (
   PRIMARY KEY (`id`),
   KEY `FK_persona_persona` (`autore`),
   CONSTRAINT `FK_persona_persona` FOREIGN KEY (`autore`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.persona: ~9 rows (approximately)
+-- Dumping data for table stonks.persona: ~16 rows (approximately)
 DELETE FROM `persona`;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
 INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `telefono`, `autore`) VALUES
@@ -356,19 +402,11 @@ INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `te
 	(9, 'Mickey', 'Mouse', 'Disneyland', 'mm@disney.com', '1234567890', 'aifon', 8),
 	(10, 'Jack', 'Aubrey', 'UK', NULL, NULL, 'uauei', 8),
 	(47, 'Giorgio', 'Nesci', 'Monza', 'gn@info.it', '', '456486456', 8),
-	(48, 'rgadfhgsfa', '', '', '', '', '', 8),
 	(49, 'Giacomo', 'Poretti', '', '', '', '', 8),
-	(50, 'Aldo', '', '', '', '', '', 8),
-	(51, 'Aldo', '', '', '', '', '', 8),
-	(52, 'alvo', '', '', '', '', '', 8),
-	(53, 'aldo', '', '', '', '', '', 8),
-	(54, 'rgt', '', '', '', '', '', 8),
-	(55, 'wegegr', '', '', '', '', '', 8),
-	(56, 'rtfetkekejy', '', '', '', '', '', 8),
-	(57, 'rtfetkekejy', '', '', '', '', '', 8),
 	(58, 'Luca', 'Donà', 'via da qua', 'mail@realmente.esistente', NULL, '645456156', NULL),
 	(59, 'ciccio', 'pasticco', '', 'emai', '', '666', 58),
-	(60, 'adfghhd', 'hwh', 'rthrht', NULL, NULL, NULL, 58);
+	(69, 'Davide', 'Grassalino', '', '', '', '486151346', 8),
+	(91, 'jhvufuu', '', '', '', '', '', 8);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.user
@@ -382,14 +420,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `FKfyoya0v2f2ecp7sl83vnfl0lq` FOREIGN KEY (`id`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.user: ~3 rows (approximately)
+-- Dumping data for table stonks.user: ~5 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`username`, `password`, `id`, `dataOraUltimoLogin`) VALUES
 	('UserPippo2', 'Pippo123', 1, NULL),
 	('AdminUser', 'admin_pass', 3, NULL),
 	('UserPippo2u', 'Pippo123u', 4, NULL),
-	('albi', '123', 8, '2020-02-07 10:53:12'),
+	('albi', '123', 8, '2020-02-12 12:01:40'),
 	('luca', 'pippo123', 58, '2020-02-07 16:56:43');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 

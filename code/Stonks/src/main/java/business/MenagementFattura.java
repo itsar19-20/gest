@@ -30,20 +30,30 @@ public class MenagementFattura {
 		return f;
 	}
 
+	public static List<Fattura> tutteLeFatture() {
+		// restituisce la lista di tutte le fatture nel database
+		List<Fattura> l = em.createQuery("select f from Fattura f", Fattura.class).getResultList();
+		return l;
+	}
+
+	public static List<Fattura> listaFatture(Integer id) {
+		// restituisce la lista delle fatture create dell'utente che gli viene passato
+		List<Fattura> l = em.createQuery("SELECT x FROM Fattura x WHERE x.conto.utente=:user").setParameter("user", id)
+				.getResultList();
+		return l;
+	}
+
 	public static List<Persona> listaPersone(Integer id) {
 		// restituisce la lista delle presone create dell'utente che gli viene passato
-		TypedQuery<Persona> query = (TypedQuery<Persona>) em
-				.createQuery("SELECT x FROM Persona x WHERE x.autore=:user");
-		query.setParameter("user", id);
-		List<Persona> lp = query.getResultList();
+		List<Persona> lp = em.createQuery("SELECT x FROM Persona x WHERE x.autore=:user").setParameter("user", id)
+				.getResultList();
 		return lp;
 	}
 
 	public static List<Conto> listaConti(Integer id) {
 		// restituisce la lista delle presone create dell'utente che gli viene passato
-		TypedQuery<Conto> query = (TypedQuery<Conto>) em.createQuery("SELECT x FROM Conto x WHERE x.utente=:user");
-		query.setParameter("user", id);
-		List<Conto> lc = query.getResultList();
+		List<Conto> lc = em.createQuery("SELECT x FROM Conto x WHERE x.utente=:user").setParameter("user", id)
+				.getResultList();
 		return lc;
 	}
 

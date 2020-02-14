@@ -25,10 +25,13 @@ public class Articolo {
 	private String descrizione;
 	
 	@JsonProperty("quantita")	
-	private Integer quantita;
+	private float quantita;
 	
 	@JsonProperty("prezzo")
 	private float prezzo;
+	
+	@JsonProperty("parziale")
+	private float parziale;
 	
 	private float iva = 0.22f;
 	
@@ -41,7 +44,7 @@ public class Articolo {
 		
 	}
 
-	public Articolo(String descrizione, Integer quantita, float prezzo, Fattura fattura) {
+	public Articolo(String descrizione, float quantita, float prezzo, Fattura fattura) {
 		super();
 		//	this.idArticolo = idArticolo;
 		this.descrizione = descrizione;
@@ -70,10 +73,10 @@ public class Articolo {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	public Integer getQuantita() {
+	public float getQuantita() {
 		return quantita;
 	}
-	public void setQuantita(Integer quantita) {
+	public void setQuantita(float quantita) {
 		this.quantita = quantita;
 	}
 	public float getPrezzo() {
