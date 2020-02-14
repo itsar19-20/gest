@@ -237,9 +237,9 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(73, '2020-01-05', 0, b'1', 9, 'siiiiiiiiii', 'Fat-73', 0, b'1', 3),
 	(74, '2020-01-05', 0, b'1', 9, 'siiiiiiiiii', 'Fat-74', 0, b'1', 3),
 	(79, '2020-01-05', 0, b'1', 9, 'json', 'Fat-79', 0, b'1', 3),
-	(80, '2020-01-05', 60, b'1', 10, 'd', 'Fat-80', 0, b'0', 4),
-	(81, '2020-01-05', 60, b'1', 10, 'd', 'Fat-81', 0, b'0', 4),
-	(82, '2020-01-05', 60, b'1', 10, 'd', 'Fat-82', 0, b'0', 4),
+	(80, '2020-01-05', 60, b'1', 10, 'd', 'Fat-80', 50, b'1', 4),
+	(81, '2020-01-05', 60, b'1', 10, 'd', 'Fat-81', 100, b'0', 4),
+	(82, '2020-01-05', 60, b'1', 10, 'd', 'Fat-82', 88, b'0', 4),
 	(83, '2020-01-05', 0, b'1', 9, '', 'Fat-83', 0, b'1', 3),
 	(84, '2020-01-05', 0, b'1', 9, 'data', 'Fat-84', 0, b'1', 3),
 	(85, '2020-01-05', 0, b'1', 9, '', 'Fat-85', 0, b'1', 3),
@@ -251,14 +251,14 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(91, '2020-01-05', 0, b'1', 9, '', 'Fat-91', 0, b'1', 3),
 	(92, '2020-01-05', 0, b'1', 9, '', 'Fat-92', 0, b'1', 3),
 	(93, '2020-01-05', 0, b'1', 9, '', 'Fat-93', 0, b'1', 3),
-	(94, '2020-01-06', 30, b'1', 10, 'tempo di spremute', 'Fat-94', 0, b'0', 4),
+	(94, '2020-01-06', 30, b'1', 10, 'tempo di spremute', 'Fat-94', 0, b'1', 4),
 	(95, '2020-01-06', 0, b'1', 10, 'tempo di spremute', 'Fat-95', 0, b'1', 4),
 	(96, '2020-01-06', 0, b'1', 9, '', 'Fat-96', 0, b'1', 3),
 	(97, '2020-01-06', 0, b'1', 9, '', 'Fat-97', 0, b'1', 3),
 	(98, '2020-01-06', 0, b'1', 9, '', 'Fat-98', 0, b'1', 3),
 	(99, '2020-01-06', 0, b'1', 9, '', 'Fat-99', 0, b'1', 3),
 	(100, '2020-01-06', 0, b'1', 9, '', 'Fat-100', 0, b'1', 3),
-	(101, '2020-01-06', 30, b'0', 10, 'allora questa spremuta?', 'Fat-101', 0, b'0', 4),
+	(101, '2020-01-06', 30, b'0', 10, 'allora questa spremuta?', 'Fat-101', 0, b'1', 4),
 	(102, '2020-01-06', 0, b'0', 10, '', 'Fat-102', 0, b'1', 4),
 	(103, '2020-01-06', 0, b'1', 9, '', 'Fat-103', 0, b'1', 3),
 	(104, '2020-01-06', 0, b'1', 9, '', 'Fat-104', 0, b'1', 3),
@@ -273,7 +273,7 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(113, '2020-02-06', 0, b'1', 9, '', 'Fat-113', 0, b'1', 3),
 	(114, '2020-02-06', 0, b'1', 9, 'ultima', 'Fat-114', 0, b'1', 3),
 	(115, '2020-02-07', 0, b'1', 9, '', 'Fat-115', 0, b'1', 3),
-	(116, '2020-02-07', 30, b'1', 9, '', 'Fat-116', 0, b'0', 5),
+	(116, '2020-02-07', 30, b'1', 9, '', 'Fat-116', 100, b'0', 5),
 	(117, '2020-02-07', 30, b'1', 9, NULL, 'Fat-117', 0, b'0', 5),
 	(118, '2020-02-07', 60, b'1', 9, '', 'Fat-118', 0, b'0', 5),
 	(119, '2020-02-10', 0, b'1', 9, '', 'Fat-119', 0, b'1', 3),
@@ -336,39 +336,37 @@ CREATE TABLE IF NOT EXISTS `OLDfattura` (
   PRIMARY KEY (`id`),
   KEY `FKolxar4dr0xl2xw3khfinied1j` (`conto_id`),
   KEY `FKgra11xpme91hur1mrx5utshcw` (`destinatario_id`),
-  KEY `FKmb9vx00a7hlubj1eo14fki1j5` (`mittente_id`),
-  CONSTRAINT `FKgra11xpme91hur1mrx5utshcw` FOREIGN KEY (`destinatario_id`) REFERENCES `fornitore_cliente` (`id`),
-  CONSTRAINT `FKmb9vx00a7hlubj1eo14fki1j5` FOREIGN KEY (`mittente_id`) REFERENCES `fornitore_cliente` (`id`),
-  CONSTRAINT `FKolxar4dr0xl2xw3khfinied1j` FOREIGN KEY (`conto_id`) REFERENCES `conto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  KEY `FKmb9vx00a7hlubj1eo14fki1j5` (`mittente_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.OLDfattura: ~2 rows (approximately)
+-- Dumping data for table stonks.OLDfattura: ~0 rows (approximately)
 DELETE FROM `OLDfattura`;
 /*!40000 ALTER TABLE `OLDfattura` DISABLE KEYS */;
-INSERT INTO `OLDfattura` (`id`, `persona`, `eUnaFatturaCliente`, `dataFattura`, `importo`, `nota`, `numeroFattura`, `saldoDovuto`, `scadenza`, `conto_id`, `destinatario_id`, `mittente_id`) VALUES
-	(1, 0, b'0', '12/12/2000', 34.5, 'nota1', 'numero fattura', 23, 3, 1, 5, 6),
-	(2, 0, b'1', '22/01/2020', 100, 'jidfsjisdfgjibgsffg', 'fat02', 122, 30, 1, 6, 6),
-	(3, 0, b'0', '06/07/1999', 5, 'menu kebab', 'Fat-03', 5, 0, 1, 5, 6);
 /*!40000 ALTER TABLE `OLDfattura` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.pagamento
 DROP TABLE IF EXISTS `pagamento`;
 CREATE TABLE IF NOT EXISTS `pagamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dataPagamento` varchar(255) DEFAULT NULL,
-  `mancante` float NOT NULL,
+  `dataPagamento` date DEFAULT NULL,
+  `giaPagato` float NOT NULL,
   `pagato` bit(1) NOT NULL,
   `fattura_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKoshl8ca41ee2jcc7bgfnv3lvo` (`fattura_id`),
-  CONSTRAINT `FKoshl8ca41ee2jcc7bgfnv3lvo` FOREIGN KEY (`fattura_id`) REFERENCES `OLDfattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `FKoshl8ca41ee2jcc7bgfnv3lvo` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table stonks.pagamento: ~0 rows (approximately)
+-- Dumping data for table stonks.pagamento: ~6 rows (approximately)
 DELETE FROM `pagamento`;
 /*!40000 ALTER TABLE `pagamento` DISABLE KEYS */;
-INSERT INTO `pagamento` (`id`, `dataPagamento`, `mancante`, `pagato`, `fattura_id`) VALUES
-	(1, '23', 33.6, b'1', 1);
+INSERT INTO `pagamento` (`id`, `dataPagamento`, `giaPagato`, `pagato`, `fattura_id`) VALUES
+	(1, '2020-01-24', 33.6, b'1', 1),
+	(2, '2020-02-14', 0, b'1', 80),
+	(3, '2020-02-14', 0, b'1', 101),
+	(4, NULL, 76, b'0', 81),
+	(6, '2020-02-14', 0, b'1', 94),
+	(13, NULL, 30, b'0', 82);
 /*!40000 ALTER TABLE `pagamento` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.persona
@@ -427,8 +425,8 @@ INSERT INTO `user` (`username`, `password`, `id`, `dataOraUltimoLogin`) VALUES
 	('UserPippo2', 'Pippo123', 1, NULL),
 	('AdminUser', 'admin_pass', 3, NULL),
 	('UserPippo2u', 'Pippo123u', 4, NULL),
-	('albi', '123', 8, '2020-02-12 12:01:40'),
-	('luca', 'pippo123', 58, '2020-02-07 16:56:43');
+	('albi', '123', 8, '2020-02-14 16:54:01'),
+	('luca', 'pippo123', 58, '2020-02-14 16:52:47');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.utente

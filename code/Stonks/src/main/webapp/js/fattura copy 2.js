@@ -118,6 +118,157 @@ $(() => {
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // bottone per aggiungere una nuova persona
+    $(`#btn-add-new-persona`).click(() => {
+
+        var persona;
+        var idUltimaPersonaAggiunta;
+        var istruzioniPerIlController;
+        
+        // aggiungi persona
+        aggiungiPersona();
+        function aggiungiPersona() {
+            $.ajax({
+                url: '/fattura/aggiungi-persona.html',
+                method: 'get'
+            })
+            .done((html) => {
+                //  svuota il tag main e appende il form per aggiungere una nuova persona
+                $('main').empty().append(html);
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // nascondo gli elementi che ancora non servono
+                $(`#personaAggiunta`).hide();
+                $(`#modificaAvventa`).hide();
+                $(`#btnModifica`).hide();
+                $(`#btnAggiungiNuovaPersona`).hide();
+                $(`#btnChiudiPaginaAggiungiPersona`).hide();
+                
+                // bottone aggiungi persona
+                $(`#btnAggiungi`).click(() => {
+                    // controllo che sia presente almeno il nome o il cognome
+                    if($('#inputName').val() || $('#inputSurname').val()) {
+                        // sistemo lo stile grafico
+                        $(`#inputName`).css({"border": "none"});
+                        $(`#inputSurname`).css({"border": "none"});
+                        
+                        // creo l'oggetto persona
+                        persona = creaOggettoPersona();
+                        // serializzo l'oggetto in json
+                        persona = serializzaPersonaInJson();
+                        // istruisco il controller su cosa voglio
+                        istruzioniPerIlController = 'crea';
+                        // lo invio al controller
+                        $.ajax({
+                            url: '/fattura/aggiungi-persona',
+                            method: 'post',
+                            data: {persona, istruzioniPerIlController}
+                        })
+                        .done((personaAgginta) => {
+                            personaAgginta = ricavaOggettoPersona(personaAgginta);
+                            salvaPersonaNelLocalStorage(personaAgginta);
+                            // confermo l'avvenuta aggiunta della persona e la mostro
+                            $(`#aggungiPersona`).hide();
+                            $(`#personaAggiunta`).show();
+                            $(`#btnAggiungi`).hide();
+                            $(`#btnModifica`).show();
+                            $(`#btnAggiungiNuovaPersona`).show();
+                            $(`#btnChiudiPaginaAggiungiPersona`).show();
+                        })
+                        .fail(() => {
+                            console.log(`fail`);
+                        });
+
+                        // bottone modifica
+                        $(`#btnModifica`).click(() => {
+                            // ricreo l'oggetto persona
+                            persona = creaOggettoPersona();
+                            // gli assegno l'id della persona appena aggiunta al database
+                            persona.id = idUltimaPersonaAggiunta;
+                            // serializzo l'oggetto in json
+                            persona = serializzaPersonaInJson()
+                            // istruisco il controller
+                            istruzioniPerIlController = 'modifica';
+                            // invio il nuovo oggetto al controller
+                            $.ajax({
+                                url: '/fattura/aggiungi-persona',
+                                method: 'post',
+                                data: {persona, istruzioniPerIlController}
+                            })
+                            .done((personaAgginta) => {
+                                personaAgginta = ricavaOggettoPersona(personaAgginta);
+                                salvaPersonaNelLocalStorage(personaAgginta);
+                                $('#personaAggiunta').hide();
+                                $('#modificaAvventa').show();
+                                alert(`Modifiche salvate`);                
+                            })
+                            .fail(() => {
+                                console.log(`fail`);
+                            });
+                        });
+    
+                        // bottone per aggiungerne un'altra
+                        $(`#btnAggiungiNuovaPersona`).click(() => {
+                            // ricarico la pagina
+                            aggiungiPersona();
+                        });
+                
+                        // bottone ok
+                        $(`#btnChiudiPaginaAggiungiPersona`).click(() => {
+                            // chiudo la pagina per aggiungere nuove persone
+                            location.href = "";
+                        });
+                    } else {
+                        // mostro un aiuto grafico
+                        $(`#inputName`).css({"border": "red 2px solid"});
+                        $(`#inputSurname`).css({"border": "red 2px solid"});
+                        // mostro un messaggio d'errore
+                        alert(`Perfavore, inserire almeno il nome o il cognome`);
+                    };
+                });
+            })
+            .fail(() => {
+                console.log(`fail`)
+            });
+        };
+
+        function creaOggettoPersona() {
+            var user = JSON.parse(localStorage.getItem(`user`));
+            var persona = {
+                nome: $(`#inputName`).val(),
+                cognome: $(`#inputSurname`).val(),
+                mail: $(`#inputMail`).val(),
+                telefono: $(`#inputPhone`).val(),
+                indirizzo: $(`#inputAddress`).val(),
+                pIVA: $(`#inputPIVA`).val(),
+                autore: user = user.id
+            }
+            return persona;
+        }
+
+        function ricavaOggettoPersona(oggetto) {
+            // ricreo l'oggetto persona dalla stinga json inviata del controller
+            personaAgginta = JSON.parse(oggetto);
+            // memorizzo il suo id
+            idUltimaPersonaAggiunta = personaAgginta.id;
+            return personaAgginta;
+        }
+
+        function salvaPersonaNelLocalStorage(oggetto) {
+            // aggingo la nuova persona al local storage
+            localStorage.setItem(`persona-${oggetto.id}`, JSON.stringify(oggetto));
+        }
+
+        function serializzaPersonaInJson() {
+            persona = JSON.stringify({ 'persona' : persona });
+            return persona;
+        }
+    });
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     // submit button - salva fattura
     $('#btn-submit').click(() => {
         var lordo = $('#totale').text() + `F`;
@@ -208,145 +359,17 @@ $(() => {
         localStorage.removeItem(`numertoArticoli`);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
 
-    // Aggiungi persona
-
-    // On click trigger - sposto il focus sul modal e lo rendo visibile
-    $('#btn-add-new-persona').on('click',function(){
-        // Carico l'html del body
-        $('.modal-body').load('/parts/aggingi-persona.html',function(){
-            // $('#myModal').modal({show:true});            
+        $.ajax({
+            url: `/parts/aggiungiPersona.html`,
+            method: `get`
+        })
+        .done((body) => {
+            $(`#modal-body`)
         });
-        // Carico l'html del footer
-        $(`.modal-footer`).load(`/parts/btns-aggiungi-persona.html`,() => {});
 
-            var persona;
-            var idUltimaPersonaAggiunta;
-            var istruzioniPerIlController;
-            // nascondo gli elementi che ancora non servono
-            $(`#personaAggiunta`).hide();
-            $(`#modificaAvventa`).hide();
-            $(`#btnModifica`).hide();
-            $(`#btnAggiungiNuovaPersona`).hide();
-            $(`#btnChiudiPaginaAggiungiPersona`).hide();
-            
-            // bottone aggiungi persona
-            $(`#btnAggiungi`).on('click',() => {
-                // controllo che sia presente almeno il nome o il cognome
-                if($('#inputName').val() || $('#inputSurname').val()) {
-                    // sistemo lo stile grafico
-                    $(`#inputName`).css({"border": "none"});
-                    $(`#inputSurname`).css({"border": "none"});
-                    
-                    // creo l'oggetto persona
-                    persona = creaOggettoPersona();
-                    // serializzo l'oggetto in json
-                    persona = serializzaPersonaInJson();
-                    // istruisco il controller su cosa voglio
-                    istruzioniPerIlController = 'crea';
-                    // lo invio al controller
-                    $.ajax({
-                        url: '/fattura/aggiungi-persona',
-                        method: 'post',
-                        data: {persona, istruzioniPerIlController}
-                    })
-                    .done((personaAgginta) => {
-                        personaAgginta = ricavaOggettoPersona(personaAgginta);
-                        salvaPersonaNelLocalStorage(personaAgginta);
-                        // confermo l'avvenuta aggiunta della persona e la mostro
-                        $(`#aggungiPersona`).hide();
-                        $(`#personaAggiunta`).show();
-                        $(`#btnAggiungi`).hide();
-                        $(`#btnModifica`).show();
-                        $(`#btnAggiungiNuovaPersona`).show();
-                        $(`#btnChiudiPaginaAggiungiPersona`).show();
-                    })
-                    .fail(() => {
-                        console.log(`fail`);
-                    });
-
-                    // bottone modifica
-                    $(`#btnModifica`).click(() => {
-                        // ricreo l'oggetto persona
-                        persona = creaOggettoPersona();
-                        // gli assegno l'id della persona appena aggiunta al database
-                        persona.id = idUltimaPersonaAggiunta;
-                        // serializzo l'oggetto in json
-                        persona = serializzaPersonaInJson()
-                        // istruisco il controller
-                        istruzioniPerIlController = 'modifica';
-                        // invio il nuovo oggetto al controller
-                        $.ajax({
-                            url: '/fattura/aggiungi-persona',
-                            method: 'post',
-                            data: {persona, istruzioniPerIlController}
-                        })
-                        .done((personaAgginta) => {
-                            personaAgginta = ricavaOggettoPersona(personaAgginta);
-                            salvaPersonaNelLocalStorage(personaAgginta);
-                            $('#personaAggiunta').hide();
-                            $('#modificaAvventa').show();
-                            alert(`Modifiche salvate`);                
-                        })
-                        .fail(() => {
-                            console.log(`fail`);
-                        });
-                    });
-
-                    // bottone per aggiungerne un'altra
-                    $(`#btnAggiungiNuovaPersona`).click(() => {
-                        // ricarico la pagina
-                        aggiungiPersona();
-                    });
-            
-                    // bottone ok
-                    $(`#btnChiudiPaginaAggiungiPersona`).click(() => {
-                        // chiudo la pagina per aggiungere nuove persone
-                        location.href = "";
-                    });
-                } else {
-                    // mostro un aiuto grafico
-                    $(`#inputName`).css({"border": "red 2px solid"});
-                    $(`#inputSurname`).css({"border": "red 2px solid"});
-                    // mostro un messaggio d'errore
-                    alert(`Perfavore, inserire almeno il nome o il cognome`);
-                };
-            });
-
-        function creaOggettoPersona() {
-            var user = JSON.parse(localStorage.getItem(`user`));
-            var persona = {
-                nome: $(`#inputName`).val(),
-                cognome: $(`#inputSurname`).val(),
-                mail: $(`#inputMail`).val(),
-                telefono: $(`#inputPhone`).val(),
-                indirizzo: $(`#inputAddress`).val(),
-                pIVA: $(`#inputPIVA`).val(),
-                autore: user = user.id
-            }
-            return persona;
-        }
-
-        function ricavaOggettoPersona(oggetto) {
-            // ricreo l'oggetto persona dalla stinga json inviata del controller
-            personaAgginta = JSON.parse(oggetto);
-            // memorizzo il suo id
-            idUltimaPersonaAggiunta = personaAgginta.id;
-            return personaAgginta;
-        }
-
-        function salvaPersonaNelLocalStorage(oggetto) {
-            // aggingo la nuova persona al local storage
-            localStorage.setItem(`persona-${oggetto.id}`, JSON.stringify(oggetto));
-        }
-
-        function serializzaPersonaInJson() {
-            persona = JSON.stringify({ 'persona' : persona });
-            return persona;
-        }
-
-
-    });
+      })
 
 });
