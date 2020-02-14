@@ -52,7 +52,7 @@ public class RegistratiController extends HttpServlet {
 			return;
 		}
 		Registrati r = new Registrati(nome, cognome, pIVA, mail, indirizzo, telefono, username, password, metodoDiRegistrazione);
-		response = (HttpServletResponse) Saldo.saldo(c, date, tS);
+		response = (HttpServletResponse) r;
 	}
 	
 }

@@ -36,8 +36,8 @@ public class ProvaMain {
 		EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		
 		Utente u=em.find(Utente.class, 1);
-		em.close();
-		Scadenziario.showScadenziarioMese(u, 2);
+		//em.close();
+		Scadenziario.showScadenziarioMese(u, 2, em);
 		
 		//Scadenziario s=new Scadenziario(u);
 		//u.setScadenziario(s);
