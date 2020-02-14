@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,7 @@ import business.Registrati;
 import business.Saldo;
 import utils.JPAUtil;
 
+@WebServlet("/registrati")
 public class RegistratiController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
