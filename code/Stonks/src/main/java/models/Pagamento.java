@@ -14,24 +14,36 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="pagamento")
-@NamedQuery(name="pagamento.findAll", query="SELECT pa FROM Pagamento pa")
+// @NamedQuery(name="pagamento.findAll", query="SELECT pa FROM Pagamento pa")
 public class Pagamento {
 	
 	//private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("id")
 	@Column( name="id")
 	private Integer idPagamento;
 
 	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "fattura_id", referencedColumnName = "id")
+	@JsonProperty("fattura")
 	private Fattura fattura;
 	
+	@Column(name = "dataPagamento")
+	@JsonProperty("dataPagamento")
 	private Date dataPagamento;
+	
+	@Column(name = "giaPagato")
+	@JsonProperty("giaPagato")
 	private float giaPagato;
+	
+	@Column(name = "pagato")
+	@JsonProperty("pagato")
 	private boolean pagato;
 	//private Scadenziario scadenziario;
 	

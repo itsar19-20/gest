@@ -1,6 +1,8 @@
 package business;
 
 
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 
 import models.Fattura;
@@ -32,8 +34,8 @@ public class GestisciPagamento {
 		//}
 		
 		
-	public static Pagamento addNewPagamento(Integer idFattura, float valoreEntrata,EntityManager emTemp) {
-		Fattura f=JPALuke.searchFattura(idFattura);
+	public static Pagamento addNewPagamento(Integer idFattura, float valoreEntrata,EntityManager emTemp,EntityManager emFattura) {
+		Fattura f=JPALuke.searchFattura(idFattura,emFattura);
 		Pagamento p=new Pagamento(f);
 		//JPALuke.persistPagamento(p);
 		p=segnalaPagamento(p,valoreEntrata,emTemp);
@@ -41,6 +43,38 @@ public class GestisciPagamento {
 		
 	}
 	
+	public static void modificaPagamento(Pagamento pagamento,float nuovoImporto,EntityManager em) {
+		if(nuovoImporto>=pagamento.getFattura().getLordo() && pagamento.isPagato()==false) {
+			pagamento.setPagato(true);
+			pagamento.getFattura().setPagata(true);
+			pagamento.setDataPagamento(new Date());
+			pagamento.setGiaPagato(pagamento.getFattura().getLordo());
+			} else if(nuovoImporto<pagamento.getFattura().getLordo() && pagamento.isPagato()==true) {
+			pagamento.setPagato(false);
+			pagamento.getFattura().setPagata(false);
+			pagamento.setDataPagamento(null);
+			pagamento.setGiaPagato(nuovoImporto);
+			
+			}else {
+				pagamento.setGiaPagato(nuovoImporto);
+				
+			}
+		em.getTransaction().begin();
+		em.merge(pagamento);
+		em.getTransaction().commit();
+	}
+	
+	public static void cancellaPagamento(Pagamento pagamento,EntityManager em) {
+		
+		if(pagamento.isPagato()==true)
+		{
+			pagamento.getFattura().setPagata(false);
+		}
+		em.getTransaction().begin();
+		em.remove(pagamento);
+		em.getTransaction().commit();
+		
+	}
 
 	
 	

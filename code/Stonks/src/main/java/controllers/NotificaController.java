@@ -50,12 +50,16 @@ public class NotificaController extends HttpServlet {
 		
 		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica,emTemp);
 		
-		 
+		// emTemp.close(); 
+		
+		//emTemp.clear();
+		
 		 ObjectMapper om = new ObjectMapper();
 		 response.setContentType("application/json");
+		 System.out.println("prima del append");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
-		 
 		 emTemp.close();
+		
 		
 		
 		
