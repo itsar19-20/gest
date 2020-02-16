@@ -10,7 +10,7 @@
         <table id="pagaFattura">
             <tr>
                 <td>Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></td>
-                <td>bla bla</td>
+                <td></td>
             </tr>
             <tr>
                 <td>Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></td>
@@ -33,12 +33,12 @@
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Pagamento avvenuto con successo</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" id="btnChiudi" onclick="toIndex()" class="close">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-        	<p> Dati pagamento: </br></p>
+        	<p> Dati pagamento:</p>
         	<ul id="datiPagamento"></ul>
         
 		</div>
@@ -48,7 +48,7 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" onclick="toIndex()" data-dismiss="modal">Close</button>
         </div>
         </div>
       </div>
@@ -70,7 +70,12 @@
     <script src="./js/cercaPagamento.js"></script>
     <script src="./js/eseguiPagamento.js"></script>
 
-    
+    <script>
+      function toIndex(){
+
+        location.href="/";
+      }
+    </script>
    
 </body>
 </html>

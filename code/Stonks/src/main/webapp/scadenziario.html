@@ -72,25 +72,10 @@
 		<div>
 		
 			
-			<div id="idDiv">
-				<table id="pagaFattura">
-					<tr>
-						<td>Fattura selezionata:<span id="fatturaSelezionata"></span></td>
-						<td>bla bla</td>
-					</tr>
-					<tr>
-						<td>Importo gia inserito: </td>
-						<td>tot</td>
-					</tr>
-					<tr>	
-						<td>Inserisci importo: </td>
-						<td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="imputImporto" name="nuovoImporto"/></td>
-					</tr>
-					<tr>
-						<td><button id="btnPagamento"> paga </button></td>
-					</tr>
-					</table>
-				</div>
+			<div>
+				<button id="cercaPagamenti"> Mostra Pagamenti</button>
+
+			</div>
 
 
     	<table id="tblPagamenti" class="display" style="width:100%"></table>
@@ -117,7 +102,8 @@
 		</script>
 
 		<script src="./js/index.js"></script>
-        <script src="./js/scadenziario.js"></script>
+		<script src="./js/scadenziario.js"></script>
+		<script src="./js/allPagamenti.js"></script>
         
         <script>
         //console.log(localStorage.getItem("anticipo"));

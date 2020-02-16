@@ -5,6 +5,7 @@ $('#bottone').click(function(){
      
     var user = JSON.parse(localStorage.getItem('user')  );
     user = user.id;
+    console.log(user);
 
 	$.ajax({
        url: './scadenza',
@@ -30,8 +31,14 @@ $('#bottone').click(function(){
                 }else{
                     f.eUnaFatturaCliente="uscita";
                 }
+
+                var lordoStringa= parseFloat(f.lordo).toFixed(2);
+                 lordoStringa+=" €";
+                 f.lordo=lordoStringa;
             });
             console.log(fatture[0].data);
+
+
 
           // console.log(fatture[0].data); 
            //var dataS=new Date(fatture[0].data) ;

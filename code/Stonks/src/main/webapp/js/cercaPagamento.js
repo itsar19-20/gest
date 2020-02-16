@@ -1,10 +1,8 @@
 $(document).ready( function () {
     var fatturaObj=JSON.parse(localStorage.getItem('fatturaDaPagare'));
-        $('#fatturaDaPagare').text(fatturaObj.id);
+        $('#fatturaDaPagare').text(fatturaObj.numeroFattura);
         
         
-
-
         $(()=>{
 		
             $.ajax({
@@ -17,15 +15,27 @@ $(document).ready( function () {
                 
             })
             .done(function(pagamento){
+
+				
+				localStorage.removeItem("prevPagamento");
+
+				
                 if(pagamento){
+					var giaPagatoStringa= parseFloat(pagamento.giaPagato).toFixed(2);
+                 	giaPagatoStringa+=" €";
+                 	
                     
-					$('#idGiaPagato').text(pagamento.giaPagato);
-					
+					$('#idGiaPagato').text(giaPagatoStringa);
+					localStorage.setItem("prevPagamento",JSON.stringify(pagamento))
+
+					if(window.location.href.indexOf("login")>0){
+						localStorage.removeItem("prevPagamento");
+					}
                      
                      
     
                 }else{
-                    $('#idGiaPagato').text("0");
+                    $('#idGiaPagato').text("0.00 €");
                 }
     
                 

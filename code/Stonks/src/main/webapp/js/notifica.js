@@ -54,6 +54,10 @@ $(document).ready( function () {
 					}else{
 						f.eUnaFatturaCliente="uscita";
 					}
+					var lordoStringa= parseFloat(f.lordo).toFixed(2);
+                 	lordoStringa+=" €";
+                 	f.lordo=lordoStringa;
+
 				});
 
 				var table= $('#notificaTable').DataTable({
