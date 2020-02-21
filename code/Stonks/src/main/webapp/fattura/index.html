@@ -42,7 +42,7 @@
 
                 <!-- button to add a new persona -->
                 <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
-                    class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    class="btn btn-primary" data-toggle="modal" data-target="#ilMioBelModal">
                     Nuova persona
                 </button><br><br>
 
@@ -90,17 +90,39 @@
             -->
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="ilMioBelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Aggingi una nuova persona</h5>
+                    <h5 class="modal-title" id="ilMioBelModalTitle">Aggingi una nuova persona</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
-                    ...
+                        <label for="inputName" class="sr-only">Nome</label>
+                        <input type="text" id="inputName" class="form-control" 
+                        placeholder="Nome" required autofocus name="name"><br/>
+
+                        <label for="inputSurname" class="sr-only">Cognome</label>
+                        <input type="text" id="inputSurname" class="form-control" 
+                        placeholder="Cognome" required autofocus name="Surname"><br/>
+
+                        <label for="inputMail" class="sr-only">Email</label>
+                        <input type="text" id="inputMail" class="form-control" 
+                        placeholder="Email" required autofocus name="email"><br/>
+
+                        <label for="inputPhone" class="sr-only">Telefono</label>
+                        <input type="text" id="inputPhone" class="form-control" 
+                        placeholder="Telefono" required autofocus name="phone"><br/>
+
+                        <label for="inputAddress" class="sr-only">Indirizzo</label>
+                        <input type="text" id="inputAddress" class="form-control" 
+                        placeholder="Indirizzo" required autofocus name="address"><br/>
+
+                        <label for="inputPIVA" class="sr-only">Partita IVA</label>
+                        <input type="text" id="inputPIVA" class="form-control" 
+                        placeholder="Partita IVA" required autofocus name="piva"><br/>
                     </div>
                     <div class="modal-footer">
                     <!--

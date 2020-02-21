@@ -215,14 +215,15 @@ $(() => {
 
     // On click trigger - sposto il focus sul modal e lo rendo visibile
     $('#btn-add-new-persona').on('click',function(){
-
         //$(`#ilMioBelModal`).modal(`show`);
-
-        // Carico l'html del modal-body
+        // Carico l'html nel modal-body
+        /*
         $('.modal-body').load('/parts/aggingi-persona.html',function(){
-            // $('#myModal').modal({show:true});            
+            // $('#myModal').modal({show:true});
         });
-        // Carico l'html del modal-footer
+        */
+        // Carico l'html nel modal-footer
+
         $(`.modal-footer`).load(`/parts/btns-aggiungi-persona.html`,() => {
 
             var persona;
@@ -251,6 +252,9 @@ $(() => {
                     // istruisco il controller su cosa voglio
                     istruzioniPerIlController = 'crea';
                     // lo invio al controller
+
+                    console.log(persona);   /////////////////////////////////////////////////////////////
+
                     $.ajax({
                         url: '/fattura/aggiungi-persona',
                         method: 'post',
@@ -323,7 +327,21 @@ $(() => {
         
 
         function creaOggettoPersona() {
+            $(`#ilMioBelModal`).dialog({
+                open: function(event, ui) {
+                    persona = {
+                        nome: $(`#inputName`).find(`input[name="inputName"]`).val(),
+                        cognome: $(`#inputSurname`).val(),
+                        mail: $(`#inputMail`).val(),
+                        telefono: $(`#inputPhone`).val(),
+                        indirizzo: $(`#inputAddress`).val(),
+                        pIVA: $(`#inputPIVA`).val(),
+                        autore: user = user.id
+                    }
+                }
+            });
             var user = JSON.parse(localStorage.getItem(`user`));
+            /*
             var persona = {
                 nome: $(`#inputName`).val(),
                 cognome: $(`#inputSurname`).val(),
@@ -333,6 +351,7 @@ $(() => {
                 pIVA: $(`#inputPIVA`).val(),
                 autore: user = user.id
             }
+            */
             return persona;
         }
 
@@ -353,7 +372,6 @@ $(() => {
             persona = JSON.stringify({ 'persona' : persona });
             return persona;
         }
-
 
     });
 
