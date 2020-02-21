@@ -2,6 +2,7 @@
 $(() => {
 
     var ciao = `buongiorno`;
+    var persona;
 
     //  invia al controller l'utente loggato
     var user = JSON.parse(localStorage.getItem('user'));
@@ -214,12 +215,15 @@ $(() => {
 
     // On click trigger - sposto il focus sul modal e lo rendo visibile
     $('#btn-add-new-persona').on('click',function(){
-        // Carico l'html del body
+
+        //$(`#ilMioBelModal`).modal(`show`);
+
+        // Carico l'html del modal-body
         $('.modal-body').load('/parts/aggingi-persona.html',function(){
             // $('#myModal').modal({show:true});            
         });
-        // Carico l'html del footer
-        $(`.modal-footer`).load(`/parts/btns-aggiungi-persona.html`,() => {});
+        // Carico l'html del modal-footer
+        $(`.modal-footer`).load(`/parts/btns-aggiungi-persona.html`,() => {
 
             var persona;
             var idUltimaPersonaAggiunta;
@@ -233,6 +237,7 @@ $(() => {
             
             // bottone aggiungi persona
             $(`#btnAggiungi`).on('click',() => {
+
                 // controllo che sia presente almeno il nome o il cognome
                 if($('#inputName').val() || $('#inputSurname').val()) {
                     // sistemo lo stile grafico
@@ -313,6 +318,9 @@ $(() => {
                     alert(`Perfavore, inserire almeno il nome o il cognome`);
                 };
             });
+
+        });
+        
 
         function creaOggettoPersona() {
             var user = JSON.parse(localStorage.getItem(`user`));
