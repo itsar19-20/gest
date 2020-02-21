@@ -16,23 +16,17 @@
                 <img id="img-fatturo" class="mb-4" src="images/fatturoIO.png" alt="">
             </a>
         </div>
-
         <div class="form-conto">
-            <h2>Seleziona tipo di saldo</h2>
-
-            <form action="/action_page.php">
-                <select name="saldo" id="idSaldo">
-                    <option value="disponibile">Disponibile</option>
-                    <option value="utile">Utile</option>
-                </select>
-                <br><br>
-                <input type="submit" value="calcola" name="btnSaldo">
-            </form>
-            
-            
+            <select id="conto"></select>
         </div>
-        <div class="form-saldo">
-            <h3 id="titolo">Saldo </h3>
+
+        <div class="form-saldo-disponibile">
+            <h3 id="titolo">Saldo Disponibile</h3>
+            <p id="paragrafo"></p>
+        </div>
+
+        <div class="form-saldo-utile">
+            <h3 id="titolo">Saldo Utile</h3>
             <p id="paragrafo"></p>
         </div>
         <footer class="footer">  
@@ -47,7 +41,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-        <script src="js/index.js"></script>
+        <!--<script src="js/index.js"></script>-->
         <script src="js/login.js"></script>
     </body>
 

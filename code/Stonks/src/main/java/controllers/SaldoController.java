@@ -15,6 +15,7 @@ import business.Login;
 import business.Saldo;
 import business.TipoSaldo;
 import models.Utente;
+import utils.DataBase;
 import business.Saldo;
 import models.Conto;
 import models.Fattura;
@@ -39,23 +40,9 @@ public class SaldoController extends HttpServlet {
 	 */
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String scelta = request.getParameter("scelta");
     	String contoStr = request.getParameter("conto");
     	TipoSaldo tS;
-    	if(scelta == "disponibile") {
-    		tS = TipoSaldo.disponibile;
-    	}else {
-    		tS = TipoSaldo.utile;
-    	}
-    	Integer contoInt = Integer.parseInt(contoStr);
-    	List<Fattura> fatture = null;
-		Integer idFatture = null;
-		List<Pagamento> pagamenti = null;
-		Integer idPagamenti = null;
-		float saldoDisponibile = 0;
-		float saldoUtile = 0;
-		Utente utente = null;
-		Conto c = new Conto(contoInt, "polenta", fatture, idFatture, pagamenti, idPagamenti, saldoDisponibile, saldoUtile, utente);
+		Conto c = (Conto) DataBase.getObjectById("c", Integer.parseInt(contoStr));
     	Date date = new Date();
     	response = (HttpServletResponse) Saldo.saldo(c, date, tS);
 	}
