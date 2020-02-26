@@ -69,8 +69,7 @@ public class DataBase {
 			break;
 
 		default:
-			System.out
-					.println("[utils.DataBase.getObjectById(classe, id)] inserire un corretto riferimento alla classe");
+			System.out.println("[utils.DataBase.getObjectById(classe, id)] inserire un corretto riferimento alla classe");
 			break;
 		}
 		// em.close();

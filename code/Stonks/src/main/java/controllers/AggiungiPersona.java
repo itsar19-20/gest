@@ -60,7 +60,7 @@ public class AggiungiPersona extends HttpServlet {
 			// aggiorno il database
 			DataBase.update(p);
 		} else {
-			System.out.println("[controllers.AggiungiPersona.doPost] istruzioni errate");
+			System.out.println("[controllers.AggiungiPersona.doPost]: Istruzioni errate");
 		}
 		// invio la persona appena aggiunta al browser
 		response.getWriter().append(om.writeValueAsString(DataBase.getObjectById("p", p.getId())));
