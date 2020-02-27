@@ -1,0 +1,11 @@
+#form-fattura {
+    max-width: 720px;
+}
+
+small {
+    margin: 0;
+}
+
+#articoli {
+    background-color: gold;
+}

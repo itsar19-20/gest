@@ -3,27 +3,29 @@ html {
 }
 
 body {
+    /* max-width: 1024px; */
     background-color: darkturquoise;
-    text-align: left;
+    text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     min-height: 100%; /* Serve per l footer */
     position: relative; /* Serve per l footer */
+    display: block;
 }
 
 header {}
 
 main {
-    padding-bottom: 200px;  /* Serve per l footer */
+    padding-bottom: 125px;  /* Serve per l footer */
     /* 
     * padding-bottom:
     * Serve a non far sovrapporre il footer al main.
-    * Corrisponde all'altezza del footer (175px),
-    * più un distacco grafico (25px).
+    * Corrisponde all'altezza del footer (100px),
+    * più un distacco grafico (25px).   
     */
 }
 
 footer {
-    padding: 1rem;
+    padding: 0.5rem;
     border-top: solid 1px black;
     text-align: center;
     background-color: lightcyan;
@@ -31,7 +33,12 @@ footer {
     left: 0;
     bottom: 0;
     right: 0;
-    height: 175px;
+    height: 100px;
+}
+
+.no-margin {
+    margin:0;
+    text-align: center;
 }
 
 #copyright {
@@ -57,8 +64,4 @@ h3 {
     text-align: left;
     font-weight: bolder;
     color: #fff;
-}
-
-#articoli {
-    background-color: gold;
 }

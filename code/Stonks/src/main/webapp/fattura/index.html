@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
         <!-- my css files -->
         <link href="/css/index.css" rel="stylesheet" type="text/css">
-        <link href="/css/registrati.css" rel="stylesheet" type="text/css">
+        <link href="/css/fattura.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>
@@ -26,29 +26,39 @@
 
             <!-- form fattura -->
             <div id="form-fattura" class="">
+
                 <!-- scegliere la propria azienda (alisa conto) -->
-                Azienda (Conto)
-                <select id="input-conto" name="conto" required></select><br><br>
+                <div class="form-group">
+                    <label for="input-conto">Conto</label>
+                    <select class="form-control" id="input-conto" name="conto" required></select>
+                    <small>I Conti rapprsentano le dierse Aziende che gestisci</small>
+                </div>
 
                 <!-- fattura cliente o fornitore? -->
-                Fattura
-                <select id="input-tipo-fattura" name="invoice-type" required>
-                    <option value="true">cliente</option>
-                    <option value="false">fornitore</option>
-                </select><br><br>
+                <div class="form-group">
+                    <label for="input-tipo-fattura">Fattura</label>
+                    <select class="form-control" id="input-tipo-fattura" name="invoice-type" required>
+                        <option value="true">cliente</option>
+                        <option value="false">fornitore</option>
+                    </select>
+                </div>
 
                 <!-- persona, che sia o il fornitore o il clente -->
-                <select id="input-persona" required></select>
-
-                <!-- button to add a new persona -->
-                <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
-                    class="btn btn-primary" data-toggle="modal" data-target="#ilMioBelModal">
+                <div class="form-group">
+                    <label for="input-persona" id="tizio">Tizio</label>
+                    <select class="form-control" id="input-persona" required></select>
+                    <!-- button to add a new persona -->
+                    <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
+                    class="btn btn-secondary" data-toggle="modal" data-target="#ilMioBelModal">
                     Nuova persona
-                </button><br><br>
+                    </button>
+                </div>
 
                 <!-- data della fattura -->
-                Data<br>
-                <input id="input-data" type="date" name="date" required><br><br>
+                <div class="form-group">
+                    <label for="input-data">Data</label>
+                    <input class="form-control" id="input-data" type="date" name="date" required>
+                </div>
 
                 <!-- scadenza della fattura in giorni -->
                 Scadenza in giorni<br>
@@ -80,8 +90,8 @@
 
                 <!-- button to save the new invoice-->
                 <br>
-                <button id="btn-submit" type="button">Salva</button>
-                <button id="btn-test" type="button">TEST</button>
+                <button class="btn btn-primary" id="btn-submit" type="button">Salva</button>
+                <button class="btn btn-success" id="btn-test" type="button">TEST</button>
             </div>
 
             <!-- Modal -->

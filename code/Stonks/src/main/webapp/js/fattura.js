@@ -41,6 +41,7 @@ $(() => {
         })
         //  il controller risponde con le persone collegate all'utente loggato
         .done((lista) => {
+            tizio();
             var select = document.getElementById("input-persona");
             lista.forEach(element => {
                 localStorage.setItem(`persona-${element.id}`, JSON.stringify(element));
@@ -208,8 +209,13 @@ $(() => {
         localStorage.removeItem(`numertoArticoli`);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+    // Aggiungere il richiamo a questa funzione ad ognii cmbiamento della select clinte/fornitore
+    function tizio() {
+        if ($('#input-tipo-fattura').val()) {
+            $(`#tizio`).text(`Cliente:`);
+        } else {
+            $(`#tizio`).text(`Fornitore:`);
+        }
+    }
 
 });
