@@ -41,7 +41,6 @@ $(() => {
         })
         //  il controller risponde con le persone collegate all'utente loggato
         .done((lista) => {
-            tizio();
             var select = document.getElementById("input-persona");
             lista.forEach(element => {
                 localStorage.setItem(`persona-${element.id}`, JSON.stringify(element));
@@ -74,48 +73,55 @@ $(() => {
         console.log('problema nel caricamento dei conti')
     });
 
-    //  load the first article
+    // Add the first
+    var numeroArticoli = 1;
+    localStorage.setItem(`numeroArticoli`, numeroArticoli);
     $.ajax({
         url: '/parts/articolo.html',
         method: 'get'
     })
     .done((html) => {
-        var numeroArticoli = 1;
-        localStorage.setItem(`numeroArticoli`, numeroArticoli);
         $('#articoli').append(html
-            .replace('§numero0§', numeroArticoli)
-            .replace('§numero1§', numeroArticoli)
-            .replace('§numero2§', numeroArticoli)
-            .replace('§numero3§', numeroArticoli)
-            .replace('§numero4§', numeroArticoli)
-            .replace('§numero5§', numeroArticoli)
-            .replace('§btn-text§', '+')
-            .replace('§click§', ''));
-        
-        // add another article
-        $('#btn-article-1').click(() => {
-            numeroArticoli++;
-            localStorage.setItem(`numeroArticoli`, numeroArticoli)
-            $.ajax({
-                url: '/parts/articolo.html',
-                method: 'get'
-            })
-            .done((html) => {
-                //  the next line allows you to remove the newly added article
-                var rimuoviQuestoDiv = '$(\'#articolo-list-item-' + numeroArticoli + '\').remove();';
-                $('#articoli').append(html
-                    .replace('§numero0§', numeroArticoli)
-                    .replace('§numero1§', numeroArticoli)
-                    .replace('§numero2§', numeroArticoli)
-                    .replace('§numero3§', numeroArticoli)
-                    .replace('§numero4§', numeroArticoli)
-                    .replace('§numero5§', numeroArticoli)
-                    .replace('§btn-text§', '-')
-                    .replace('§click§', rimuoviQuestoDiv)
-                );             
-            });
+            .replace('onclick="§onclick§"', '')
+            .replace(`§btn§`, `+`)
+        );
+    // add another article
+    $('#btn-article-1').click(() => {
+        numeroArticoli++;
+        localStorage.setItem(`numeroArticoli`, numeroArticoli);
+        $.ajax({
+            url: '/parts/articolo.html',
+            method: 'get'
+        })
+        .done((html) => {
+            //  the next line allows you to remove the newly added article
+            var rimuoviQuestoDiv = '$(\'#articolo-list-item-' + numeroArticoli + '\').remove();';
+            var labelDescrizione = ` <label for="input-articolo-descrizione-1">Descrizione</label>`;
+            var labelQuantita = `<label for="input-articolo-quantita-1">Quantità</label>`;
+            var labelPrezzo = `<label for="input-articolo-prezzo-1">Prezzo</label>`;
+            var labelButton = `<label for="btn-article-1">&nbsp;</label>`;
+            var labelParziale = `<label for="parziale1">Parziale</label>`;
+            var str = `input-articolo-`;
+            $('#articoli').append(html
+                .replace('articolo-list-item-1', 'articolo-list-item-' + numeroArticoli)
+                .replace(labelDescrizione, '')
+                .replace(str + 'descrizione-1', str + `item-` + numeroArticoli)
+                .replace(labelQuantita, '')
+                .replace(str + `quantita-1`, str + `quantita-` + numeroArticoli)
+                .replace(labelPrezzo, '')
+                .replace(str + `prezzo-1`, str + `prezzo-` + numeroArticoli)
+                .replace(labelButton, '')
+                .replace(`btn-article-1`, `btn-article-` + numeroArticoli)
+                .replace(`btn-success`, `btn-danger`)
+                .replace(`§btn§`, `&nbsp;x&nbsp;`)
+                .replace('§onclick§', rimuoviQuestoDiv)
+                .replace(labelParziale, ``)
+                .replace(str + `parziale-1`, str + `parziale-` + numeroArticoli)
+            );
         });
     });
+});
+
     
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -207,15 +213,6 @@ $(() => {
         }
         localStorage.removeItem(`minMax`);
         localStorage.removeItem(`numertoArticoli`);
-    }
-
-    // Aggiungere il richiamo a questa funzione ad ognii cmbiamento della select clinte/fornitore
-    function tizio() {
-        if ($('#input-tipo-fattura').val()) {
-            $(`#tizio`).text(`Cliente:`);
-        } else {
-            $(`#tizio`).text(`Fornitore:`);
-        }
     }
 
 });

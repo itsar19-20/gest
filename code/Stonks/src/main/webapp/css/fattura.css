@@ -1,5 +1,9 @@
 #form-fattura {
-    max-width: 720px;
+    max-width: 1024px;
+    padding: 2rem;
+    border: 1px solid red;
+    margin: auto;
+    background-color: #b3cccc;
 }
 
 small {
@@ -8,4 +12,10 @@ small {
 
 #articoli {
     background-color: gold;
+    padding: 1rem 3rem;
+    margin-top: 1rem;
+}
+
+.add-person {
+    margin: 1rem 0;
 }
