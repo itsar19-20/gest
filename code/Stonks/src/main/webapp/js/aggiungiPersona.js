@@ -124,7 +124,7 @@ $(() => {
         $(`#inputPhone`).val(``);
         $(`#inputAddress`).val(``);
         $(`#inputPIVA`).val(``);
-        $(`#ilMioBelModalTitle`).text(`Aggingi una nuova persona`);
+        $(`#ilMioBelModalTitle`).text(`Aggiungi una nuova persona`);
         $(`#btnAggiungi`).show();
         $(`#btnModifica`).hide();
         $(`#btnAggiungiNuovaPersona`).hide();

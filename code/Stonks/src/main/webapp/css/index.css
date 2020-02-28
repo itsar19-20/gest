@@ -2,6 +2,24 @@ html {
     height: 100%; /* Serve per l footer */
 }
 
+header {
+    max-width: 1024px;
+    margin: auto;
+    background-color: #fa0;
+    color: red;
+}
+
+#showUserName {
+    color: gold;
+    border: 1px dashed gold;
+    border-radius: 5px;
+}
+
+.navbar-brand:hover, .nav-item:hover {
+    background-color: rgba(255, 170, 0, 0.4);
+    border-radius: 5px;
+}
+
 body {
     /* max-width: 1024px; */
     background-color: darkturquoise;
@@ -12,8 +30,6 @@ body {
     display: block;
 }
 
-header {}
-
 main {
     padding-bottom: 125px;  /* Serve per l footer */
     /* 
@@ -22,6 +38,7 @@ main {
     * Corrisponde all'altezza del footer (100px),
     * più un distacco grafico (25px).   
     */
+    margin-top: 25px;
 }
 
 footer {
@@ -57,11 +74,4 @@ footer {
 h3 {
     background-color: white;
     padding: 5px;
-}
-
-.logo-text {
-    text-decoration: none;
-    text-align: left;
-    font-weight: bolder;
-    color: #fff;
 }

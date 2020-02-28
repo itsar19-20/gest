@@ -96,11 +96,11 @@ $(() => {
         .done((html) => {
             //  the next line allows you to remove the newly added article
             var rimuoviQuestoDiv = '$(\'#articolo-list-item-' + numeroArticoli + '\').remove();';
-            var labelDescrizione = ` <label for="input-articolo-descrizione-1">Descrizione</label>`;
-            var labelQuantita = `<label for="input-articolo-quantita-1">Quantità</label>`;
-            var labelPrezzo = `<label for="input-articolo-prezzo-1">Prezzo</label>`;
+            var labelDescrizione = ` <label for="input-articolo-descrizione-1" class="input-group-text">Descrizione</label>`;
+            var labelQuantita = `<label for="input-articolo-quantita-1" class="input-group-text">Quantità</label>`;
+            var labelPrezzo = `<label for="input-articolo-prezzo-1" class="input-group-text">Prezzo</label>`;
             var labelButton = `<label for="btn-article-1">&nbsp;</label>`;
-            var labelParziale = `<label for="parziale1">Parziale</label>`;
+            var labelParziale = `<label for="parziale1" class="input-group-text">Parziale</label>`;
             var str = `input-articolo-`;
             $('#articoli').append(html
                 .replace('articolo-list-item-1', 'articolo-list-item-' + numeroArticoli)
@@ -116,7 +116,7 @@ $(() => {
                 .replace(`§btn§`, `&nbsp;x&nbsp;`)
                 .replace('§onclick§', rimuoviQuestoDiv)
                 .replace(labelParziale, ``)
-                .replace(str + `parziale-1`, str + `parziale-` + numeroArticoli)
+                .replace(`parziale1`, `parziale` + numeroArticoli)
             );
         });
     });

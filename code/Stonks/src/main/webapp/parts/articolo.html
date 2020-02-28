@@ -1,14 +1,14 @@
 <div id="articolo-list-item-1" class="articolo form-row">
     <div class="col-5">
-        <label for="input-articolo-descrizione-1">Descrizione</label>
+        <label for="input-articolo-descrizione-1" class="input-group-text">Descrizione</label>
         <input id="input-articolo-descrizione-1" class="form-control" type="text" name="descrizione" placeholder="Descrizione" minlength="1" maxlength="144" alt="Inserisci la descrizione dell'articolo" required>
     </div>
     <div class="col-2">
-        <label for="input-articolo-quantita-1">Quantità</label>
+        <label for="input-articolo-quantita-1" class="input-group-text">Quantità</label>
         <input id="input-articolo-quantita-1" class="quantita form-control" type="number" name="quantita" min="1" value="1" alt="Inserisci la quantita di questo articolo" required onchange="updateParziale()">
     </div>
     <div class="col-2">
-        <label for="input-articolo-prezzo-1">Prezzo</label>
+        <label for="input-articolo-prezzo-1" class="input-group-text">Prezzo</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">€</span>
@@ -21,7 +21,7 @@
         <button id="btn-article-1" class="btn btn-success form-control" type="button" onclick="§onclick§">§btn§</button>
     </div>
     <div class="col-2">
-        <label for="parziale1">Parziale</label>
+        <label for="parziale1" class="input-group-text">Parziale</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">€</span>
@@ -38,6 +38,7 @@
         var tot = 0;
         var iva = 0.22;
         for (let i = 1; i <= localStorage.getItem(`numeroArticoli`); i++) {
+            console.log(localStorage.getItem(`numeroArticoli`), i)
             $(`#parziale` + i).text(
                 parseFloat($('#input-articolo-quantita-'+i).val()) *
                 parseFloat($('#input-articolo-prezzo-'+i).val())
