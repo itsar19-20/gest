@@ -1,23 +1,32 @@
 html {
     height: 100%; /* Serve per l footer */
+    font-size: 1rem;
 }
 
+header, main { max-width: 1024px; margin: auto; }
+
 header {
-    max-width: 1024px;
-    margin: auto;
-    background-color: #fa0;
+    background-color: #222;
     color: red;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+#showUserNameListItem {
+    position: absolute;
+    right: 1rem;
 }
 
 #showUserName {
     color: gold;
     border: 1px dashed gold;
     border-radius: 5px;
+    padding: 0.4rem 0.8rem;
 }
 
 .navbar-brand:hover, .nav-item:hover {
-    background-color: rgba(255, 170, 0, 0.4);
     border-radius: 5px;
+    color: gold;
 }
 
 body {
@@ -38,14 +47,15 @@ main {
     * Corrisponde all'altezza del footer (100px),
     * più un distacco grafico (25px).   
     */
-    margin-top: 25px;
+    margin-top: 1rem;
 }
 
 footer {
     padding: 0.5rem;
-    border-top: solid 1px black;
+    border-top: solid 0.15rem #111;
     text-align: center;
-    background-color: lightcyan;
+    background-color: #222;
+    color: lightcyan;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -63,15 +73,38 @@ footer {
 }
 
 .cover-link{
-    color: black;
+    color: rgba(224, 255, 255, 0.75);
     text-decoration-line: underline;
 }
 
-.coverlink:hover{
-    color: darkblue;
+.cover-link:hover{
+    color: gold;
 }
 
 h3 {
     background-color: white;
     padding: 5px;
+}
+
+.banner {
+    max-width: 100%;
+    max-height: 50%;
+    background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	background-position: center center;
+	position: relative;
+}
+
+.sponsor {
+    
+}
+
+.cover{height: 75%;
+	background-image: url(https://source.unsplash.com/random);	
+    background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	background-position: center center;
+	position: relative;
 }

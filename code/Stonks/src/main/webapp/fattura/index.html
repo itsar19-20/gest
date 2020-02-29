@@ -26,74 +26,85 @@
             <!-- form fattura -->
             <div id="form-fattura" class="">
 
-                <!-- scegliere la propria azienda (alisa conto) -->
-                <div class="form-row">
-                    <div class="col-5">
-                        <div class="form-group">
-                            <label for="input-conto">Conto</label>
-                            <select class="form-control" id="input-conto" name="conto" required></select>
-                            <small>I Conti rapprsentano le dierse Aziende che gestisci</small>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-6">
+
+                            <div id="primoBlocco" class="form-group">
+                                <!-- scegliere la propria azienda (alisa conto) -->
+                                <div class="form-row">
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <label for="input-conto" class="input-group-text">Conto</label>
+                                            <select class="form-control" id="input-conto" name="conto" required></select>
+                                            <small>I Conti rapprsentano le dierse Aziende che gestisci</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <!-- button to add a new persona -->
+                                        <label for="btn-add-new-conto">&nbsp;</label>
+                                        <button id="btn-add-new-conto" type="button"
+                                        class="btn btn-success btn-dark form-control" data-toggle="modal" data-target="#">
+                                        crea
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="col-4">
+                                        <!-- fattura cliente o fornitore? -->
+                                        <label for="input-tipo-fattura" class="input-group-text">Fattura</label>
+                                        <select class="form-control" id="input-tipo-fattura" name="invoice-type" required>
+                                            <option value="true">cliente</option>
+                                            <option value="false">fornitore</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <!-- persona, che sia o il fornitore o il clente -->
+                                        <label for="input-persona" class="input-group-text">Persona</label>
+                                        <select class="form-control" id="input-persona" required></select>
+                                    </div>
+                                    <div class="col-2">
+                                        <!-- button to add a new persona -->
+                                        <label for="btn-add-new-persona">&nbsp;</label>
+                                        <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
+                                        class="btn btn-success btn-dark form-control" data-toggle="modal" data-target="#ilMioBelModal">
+                                        crea
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <!-- data della fattura -->
+                                        <label for="input-data" class="input-group-text">Data</label>
+                                        <input class="form-control" id="input-data" type="date" name="date" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <!-- scadenza della fattura in giorni -->
+                                        <label for="input-scadenza" class="input-group-text">Scadenza</label>
+                                        <select class="form-control" id="input-scadenza" name="deadline" required>
+                                            <option value="0" selected>0</option>
+                                            <option value="30">30</option>
+                                            <option value="60">60</option>
+                                            <option value="120">120</option>
+                                        </select>
+                                        <small>in giorni</small>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-1">
-                        <!-- button to add a new persona -->
-                        <label for="btn-add-new-conto">&nbsp;</label>
-                        <button id="btn-add-new-conto" type="button"
-                        class="btn btn-success form-control" data-toggle="modal" data-target="#">
-                        crea
-                        </button>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-2">
-                        <!-- fattura cliente o fornitore? -->
-                        <label for="input-tipo-fattura">Fattura</label>
-                        <select class="form-control" id="input-tipo-fattura" name="invoice-type" required>
-                            <option value="true">cliente</option>
-                            <option value="false">fornitore</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <!-- persona, che sia o il fornitore o il clente -->
-                        <label for="input-persona">Persona</label>
-                        <select class="form-control" id="input-persona" required></select>
-                    </div>
-                    <div class="col-1">
-                        <!-- button to add a new persona -->
-                        <label for="btn-add-new-persona">&nbsp;</label>
-                        <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
-                        class="btn btn-success form-control" data-toggle="modal" data-target="#ilMioBelModal">
-                        crea
-                        </button>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-3">
-                        <!-- data della fattura -->
-                        <label for="input-data">Data</label>
-                        <input class="form-control" id="input-data" type="date" name="date" required>
-                    </div>
-                    <div class="col-2">
-                        <!-- scadenza della fattura in giorni -->
-                        <label for="input-scadenza">Scadenza</label>
-                        <select class="form-control" id="input-scadenza" name="deadline" required>
-                            <option value="0" selected>0</option>
-                            <option value="30">30</option>
-                            <option value="60">60</option>
-                            <option value="120">120</option>
-                        </select>
-                        <small>in giorni</small>
                     </div>
                 </div>
 
                 <!-- lista degli articoli -->
                 <div class="form-group" id="articoli">
-                    <label for="label">Articoli</label>
+                    <label id="labelArticoli" for="label">Articoli</label>
                     <div id="label"></div>
                 </div>
 
+                <div id="ultimoBlocco" class="form-group">
                 <div class="form-row">
                     <div class="col-8">
                         <!-- breve descrizione facoltativa -->
@@ -123,14 +134,12 @@
                         </div>
                     </div>
                 </div>
-                
+                </div>
                
-
-
-
                 <!-- button to save the new invoice-->
-                <br>
-                <button class="btn btn-primary" id="btn-submit" type="button">Salva</button>
+                <div id="submitBlocco" class="form-group">
+                    <button class="btn btn-primary btn-dark" id="btn-submit" type="button">Salva</button>
+                </div>
             </div>
 
             <!-- Modal -->

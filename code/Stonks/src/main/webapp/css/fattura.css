@@ -1,20 +1,36 @@
 #form-fattura {
     max-width: 1024px;
-    padding: 2rem;
+    padding: 1.5rem;
     margin: auto;
-    background-color: #b3cccc;
+    background-color: #222;
     border-radius: 25px;
 }
+/* b3cccc */
 
-#articoli {
+#primoBlocco, #articoli, #ultimoBlocco, #submitBlocco {
     background-color: darkturquoise;
-    padding: 1rem 3rem;
-    margin-top: 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 15px;
 }
 
+#articoli { padding: 0.5 1.5rem 1rem 1.5rem; }
+#ultimoBlocco, #submitBlocco { background-color: gold; }
+#submitBlocco { width: 25%; margin-left: 75%;}
 small { margin: 0; }
-.articolo { margin-top: 2px; }
+.articolo { margin-top: 0.1rem; }
 .add-person { margin: 1rem 0; }
 #input-note { min-height: 80px; }
 #label-iva-sul-totale { margin-top: 5px; }
+.btn-dark, .btn-dark:focus { background-color: #222; border: #222;}
+.btn-dark:hover { background-color: gold; border: #222;}
+#btn-submit:hover { background-color: rgba(34, 34, 34, 0.8);}
+#labelArticoli {
+    display: block;
+    background-color: lightgray;
+    color: #494949;
+    width: 75%;
+    margin: auto;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-bottom: 0.2rem;
+}
