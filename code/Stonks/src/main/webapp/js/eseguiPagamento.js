@@ -1,5 +1,5 @@
 $(document).ready( function () {
-
+ 
     $('#btnPagamento').click(function(){
         var value=  parseFloat($('#inputImporto').val()).toFixed(2);
 

@@ -2,7 +2,7 @@ $(document).ready( function () {
     var pagamentoObj=JSON.parse( localStorage.getItem("pagamentoModifica"));
     console.log(pagamentoObj.giaPagato);
     localStorage.removeItem("pagamentoModifica");
-
+ 
     $('#numeroFattura').text(pagamentoObj.fattura.numeroFattura);
 
     var giaPagatoParse=parseFloat(pagamentoObj.giaPagato).toFixed(2);

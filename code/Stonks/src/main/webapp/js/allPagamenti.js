@@ -1,5 +1,5 @@
 $(document).ready( function () {
-	
+	  
 	$('#cercaPagamenti').click(function(){
 		var user = JSON.parse(localStorage.getItem('user')  );
 		var userID = user.id;

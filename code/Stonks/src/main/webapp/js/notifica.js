@@ -1,6 +1,6 @@
 $(document).ready( function () {
 	
-		
+	 
 		 var users = JSON.parse(localStorage.getItem('user'));
 			user = users.id;
 			var firstAccess=users.dataOraUltimoLogin;
