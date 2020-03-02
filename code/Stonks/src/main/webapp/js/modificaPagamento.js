@@ -26,7 +26,8 @@ $(document).ready( function () {
             if(pagamentoObj.pagato==false && imput >=pagamentoObj.fattura.lordo){
                 alert("L'importo inserito è maggiore del lordo della fattura. Il pagamento verrà completato.Vuoi continuare?");
             }
-            
+            $('#idDiv').hide();
+
             $.ajax({
                 url: './modificaPagamento',
                 method: 'get',
@@ -35,6 +36,11 @@ $(document).ready( function () {
                         importoModifica: $("#inputImporto").val()
                     
                     }
+             })
+             .done(function(pagamento) {
+                 console.log(pagamento.giaPagato);
+                $("#modalPagamento").modal();
+
              })
 
 

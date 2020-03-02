@@ -28,7 +28,7 @@ public class ModificaPagamento extends HttpServlet {
         
     }
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("ho raggiunto la servlet modifica pagamento");
@@ -42,6 +42,10 @@ public class ModificaPagamento extends HttpServlet {
 		
 		
 		
+		
+		ObjectMapper om = new ObjectMapper();
+		response.setContentType("application/json");
+		response.getWriter().append(om.writeValueAsString(pagamento));
 		
 		
 		//System.out.println("Il pagamento preso id: "+pagamento.getIdPagamento()+" "+pagamento.getGiaPagato());

@@ -1,11 +1,17 @@
 $(document).ready( function () {
 
+    
 
 $('#bottone').click(function(){
+
+    
      
     var user = JSON.parse(localStorage.getItem('user')  );
     user = user.id;
     console.log(user);
+
+
+
 
 	$.ajax({
        url: './scadenza',
@@ -18,7 +24,8 @@ $('#bottone').click(function(){
            }
     })
     .done(function(fatture) {
-    	
+        
+        
     	
     	if(fatture.length>0){ 
 
@@ -39,15 +46,27 @@ $('#bottone').click(function(){
             console.log(fatture[0].data);
 
 
-
+           
+            $("#cercaPagamenti").attr("disabled",true);
+            
           // console.log(fatture[0].data); 
            //var dataS=new Date(fatture[0].data) ;
 
            //toLocaleDateString() -> giorno/mese/anno in numero
           // console.log(dataS.toLocaleDateString());
-    		
+          if($.fn.DataTable.isDataTable('#tblPagamenti'))  {
+              //$('#tblPagamenti').DataTable().clear().destroy();
+              //console.log("datatable ancora");
+              $('#tblPagamenti').DataTable().clear();
+              $('#tblPagamenti').DataTable().destroy();
+
+          }
+            
+            
+        
            var table= $('#tblPagamenti').DataTable({
-               
+                
+
                 data: fatture,
                 
                 columns: [
@@ -64,9 +83,13 @@ $('#bottone').click(function(){
                 console.log(dati);
                // $('#idDiv').show();
                // $('#fatturaSelezionata').text(dati.idFattura);
-               localStorage.removeItem("fatturaDaPagare");
-               localStorage.setItem("fatturaDaPagare",JSON.stringify(dati));
-               location.href='./pagamento.html';
+               if(dati!=undefined){
+                    localStorage.removeItem("fatturaDaPagare");
+                    localStorage.setItem("fatturaDaPagare",JSON.stringify(dati));
+                    location.href='./pagamento.html';
+                }else{
+                    console.log("è undefined")
+                }
                 
            });
            
@@ -84,6 +107,69 @@ $('#bottone').click(function(){
         console.log('dopo')
 
 
+});
+
+
+$('#btnGrafico').click(function(){
+
+    $.ajax({
+        url: './scadenza',
+        method: 'get',
+        data: { 
+                numMesi: "null",
+                numSettimane: "null",
+                entrataUscita: "null",
+                user
+            }
+     })
+     .done(function(fatture) {
+         if(fatture.length>0){
+
+            let myCanvas =document.getElementById("myCanvas").getContext("2d");
+            
+
+
+         }else{
+             alert("nin ci sono fatture da mostrare");
+         }
+
+     })
+     /*
+    let myCanvas =document.getElementById("myCanvas").getContext("2d");
+    let myLabels =["Roma","Milano","Napoli","Torino","Palermo","Genova","Bologna","Firenze","Bari","Catania"];
+    let myData = [2800000,1200000,900000,1100000,400000,550000,300000,750000,250000,340000];
+
+    let myData2=[1700000,400000,500000,200000,100000,1500000,700000,1200000,2300000,190000];
+
+    let chart=new Chart(myCanvas,{
+        type: "bar",
+        data: {
+            labels: myLabels,
+            datasets:[{
+                label: "Popolazione",
+                data: myData,
+                backgroundColor: "red",
+
+
+            },{
+                label: "Morti",
+                data: myData2,
+                backgroundColor: "blue",
+
+
+
+            }]
+
+
+        },
+        options :{
+
+        }
+
+
+
+    });
+    */
 });
 
 

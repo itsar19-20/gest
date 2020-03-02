@@ -1,0 +1,69 @@
+
+
+.form-input{
+position: absolute;
+    width: 384px;
+    top: 80px;
+    left: 40%;
+    right: 40%;
+    text-align: left;
+}
+
+#mesi{
+    position: relative;
+    width: 65px;
+    left: 70%;
+}
+
+#scrittaSettimana{
+    position: relative;
+    top: 20px;
+
+}
+
+#settimane{
+    position: relative;
+    top: 15px;
+    width: 65px;
+    left: 70%;
+
+}
+
+.form-check-inline{
+    position: relative;
+    top:30px;
+    
+}
+
+#bottone{
+    position: relative;
+    top: 100px;
+    right: 150px;
+    top:80px;
+
+}
+
+#divAnticipo{
+    position:absolute;
+    display: block;
+    width: 200px;
+    top:60px;
+    right: 40px;
+    text-align: left;
+
+}
+
+#divScadenziario{
+    position:relative;
+    top:150px;
+    
+}
+
+#divGrafico{
+    position: absolute;
+    display: block;
+    top: 285px;
+
+
+
+}

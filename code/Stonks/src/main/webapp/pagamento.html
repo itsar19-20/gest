@@ -1,29 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
+
 <meta charset="utf-8">
-<title>Pagamento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="menu di prova per la creazione e la visione delle fatture">
+<meta name="author" content="Alberto Sormani">
+<meta name="generator" content="invoice menu v0.1">
+
+<title>Fatturo.io</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- data tables css -->
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> 
+
+<link href="/css/index.css" rel="stylesheet" type="text/css">
+<link href="/css/pagamento.css" rel=stylesheet>
 </head>
 <body>
+  <header></header>
+  <br><br><br><br>
+
+
+
+
     <div id="idDiv">
-        <table id="pagaFattura">
-            <tr>
-                <td>Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></td>
+        
+            
+                <label> Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></label>
+                
+                <br>
+            
+                <label>Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></label>
                  
-            </tr>
-            <tr>	
-                <td>Inserisci importo: </td>
-                <td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="inputImporto" name="nuovoImporto"/></td>
-            </tr>
-            <tr>
-                <td><button id="btnPagamento"> paga </button></td>
-            </tr>
-            </table>
+            
+            	
+                <label>Inserisci importo: </label>
+                <input type="number" class="form-control text-primary" id="inputImporto" name="nuovoImporto"/>
+              <!--  <td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="inputImporto" name="nuovoImporto"/></td>  -->
+            
+            
+                <button class="btn btn-primary" id="btnPagamento"> paga </button>
+            
+            
         </div>
         
         <div class="modal fade" id="modalPagamento">
@@ -56,19 +74,21 @@
   
 
 
-
+    <footer></footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- jquery -->
-    
-    <!-- DataTable -->
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- jquery -->
+        
+        <!-- DataTable -->
+        <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
+    <script scr="./js/index.js"></script>
     <script src="./js/cercaPagamento.js"></script>
     <script src="./js/eseguiPagamento.js"></script>
+    
 
     <script>
       function toIndex(){
@@ -76,6 +96,7 @@
         location.href="/";
       }
     </script>
+    
    
 </body>
 </html>

@@ -59,7 +59,7 @@ public class ScadenzaController extends HttpServlet {
 
 		String idUserString = request.getParameter("user");
 		Integer idUser = Integer.parseInt(idUserString);
-		Persona persona = (Persona) DataBase.getObjectById("p", idUser);
+		//Persona persona = (Persona) DataBase.getObjectById("p", idUser);
 
 		// Persona persona = (Persona) request.getSession().getAttribute("user");
 
@@ -69,25 +69,25 @@ public class ScadenzaController extends HttpServlet {
 		if (mesiSuccessivi == null && settimaneSuccessive == null) {
 			if (entrataOUscita == null) {
 
-				scadenzeOttenute = Scadenziario.showFullScadenziario(persona, emTemp);
+				scadenzeOttenute = Scadenziario.showFullScadenziario(idUser, emTemp);
 			} else {
 
-				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(persona, entrataOUscita, emTemp);
+				scadenzeOttenute = Scadenziario.showEntrataDaConcludere(idUser, entrataOUscita, emTemp);
 			}
 
 		} else if (mesiSuccessivi != null) {
 
 			if (entrataOUscita == null) {
-				scadenzeOttenute = Scadenziario.showScadenziarioMese(persona, mesiSuccessivi, emTemp);
+				scadenzeOttenute = Scadenziario.showScadenziarioMese(idUser, mesiSuccessivi, emTemp);
 			} else {
-				scadenzeOttenute = Scadenziario.showMeseEntrata(persona, mesiSuccessivi, entrataOUscita, emTemp);
+				scadenzeOttenute = Scadenziario.showMeseEntrata(idUser, mesiSuccessivi, entrataOUscita, emTemp);
 			}
 		} else {
 
 			if (entrataOUscita == null) {
-				scadenzeOttenute = Scadenziario.showScadenziarioSettimana(persona, settimaneSuccessive, emTemp);
+				scadenzeOttenute = Scadenziario.showScadenziarioSettimana(idUser, settimaneSuccessive, emTemp);
 			} else {
-				scadenzeOttenute = Scadenziario.showSettimanaEntrata(persona, settimaneSuccessive, entrataOUscita,
+				scadenzeOttenute = Scadenziario.showSettimanaEntrata(idUser, settimaneSuccessive, entrataOUscita,
 						emTemp);
 			}
 		}

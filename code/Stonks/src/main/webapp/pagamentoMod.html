@@ -3,9 +3,16 @@
 <head>
 <meta charset="utf-8">
 <title>Modifica pagamento</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="/css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+    <header></header>
+    <br><br><br><br>
+
+
     <div id="idDiv">
         <table id="modificaPagamento">
             <tr>
@@ -20,18 +27,55 @@
             </tr>
             <tr>	
                 <td>Modifica importo: </td>
-                <td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="inputImporto" name="nuovoImporto"/></td>
+                <td><input type="number" id="inputImporto" name="nuovoImporto" class="form-control text-primary"/></td>
                
             </tr>
             <tr>
-                <td><button id="btnModifica"> modifica </button></td>
+                <td><button id="btnModifica" class="btn btn-primary"> modifica </button></td>
             </tr>
             <tr>
                 <td>Cancella pagamento</td>
-                <td><button id="btnCancella">cancella</button></td> 
+                <td><button id="btnCancella" class="btn btn-warning">cancella</button></td> 
             </tr>
             </table>
         </div>
+
+        
+        <div class="modal fade" id="modalPagamento">
+            <div class="modal-dialog">
+              <div class="modal-content">
+              
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">modifica</h4>
+                  <button type="button" id="btnChiudi" onclick="toIndex()" class="close">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <p> Modifica avvenuta con successo</p>
+                    <ul id="datiPagamento"></ul>
+                
+                </div>
+                  
+                  
+               
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" onclick="toIndex()" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="container">
+                <canvas id="myCanvas"></canvas>
+                
+
+            </div>
+          
+            <footer></footer>
 
 
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -41,9 +85,58 @@
         
         <!-- DataTable -->
         <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        
 
 
         <script src="./js/modificaPagamento.js"></script>
+        <script src="./js/index.js"></script>
+        <script>
+            function toIndex(){
+
+                location.href="/";
+            }
+
+        </script>
+
+
+
+<script>
+    let myCanvas =document.getElementById("myCanvas").getContext("2d");
+    let myLabels =["Roma","Milano","Napoli","Torino","Palermo","Genova","Bologna","Firenze","Bari","Catania"];
+    let myData = [2800000,1200000,900000,1100000,400000,550000,300000,750000,250000,340000];
+
+    let myData2=[1700000,400000,500000,200000,100000,1500000,700000,1200000,2300000,190000];
+
+    let chart=new Chart(myCanvas,{
+        type: "bar",
+        data: {
+            labels: myLabels,
+            datasets:[{
+                label: "Popolazione",
+                data: myData,
+                backgroundColor: "red",
+
+
+            },{
+                label: "Morti",
+                data: myData2,
+                backgroundColor: "blue",
+
+
+
+            }]
+
+
+        },
+        options :{
+
+        }
+
+
+
+    });
+
+</script>
 
 </body>
 </html>

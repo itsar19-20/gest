@@ -19,11 +19,11 @@ public class JPALuke {
 
 	// private List<Pagamento> listPagamento;
 
-	public static List<Fattura> selectPagamenti(Persona p, EntityManager em) {
+	public static List<Fattura> selectPagamenti(Integer idPersona, EntityManager em) {
 		// EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		TypedQuery<Fattura> query = em
 				.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE AND f.conto.utente=:id", Fattura.class)
-				.setParameter("id", p.getId());
+				.setParameter("id", idPersona);
 		// TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE
 		// f.pagata = FALSE", Fattura.class);
 
@@ -39,12 +39,12 @@ public class JPALuke {
 		return listCompleta;
 	}
 
-	public static List<Fattura> selectParziale(Persona p, boolean x, EntityManager em) {
+	public static List<Fattura> selectParziale(Integer idPersona, boolean x, EntityManager em) {
 		// EntityManager em=JPAUtil.getInstance().getEmf().createEntityManager();
 		TypedQuery<Fattura> query = em.createQuery("SELECT f FROM Fattura f WHERE f.pagata = FALSE"
 				+ " and f.conto.utente=:id and f.eUnaFatturaCliente=:si", Fattura.class);
 
-		query.setParameter("id", p.getId());
+		query.setParameter("id", idPersona);
 		query.setParameter("si", x);
 		List<Fattura> listEntrata = query.getResultList();
 		// em.close();

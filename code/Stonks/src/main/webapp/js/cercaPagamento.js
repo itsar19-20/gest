@@ -1,5 +1,8 @@
 $(document).ready( function () {
-    var fatturaObj=JSON.parse(localStorage.getItem('fatturaDaPagare'));
+	var fatturaObj=JSON.parse(localStorage.getItem('fatturaDaPagare'));
+	// rimuovo dal local storage visto che la fattura è in fatturaObj
+	//localStorage.removeItem('fatturaDaPagare');
+
         $('#fatturaDaPagare').text(fatturaObj.numeroFattura);
         
         

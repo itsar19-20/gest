@@ -44,11 +44,11 @@ public class NotificaController extends HttpServlet {
 		
 		String idUserString = request.getParameter("user");
 		Integer idUser = Integer.parseInt(idUserString);
-		Persona persona = (Persona) DataBase.getObjectById("p", idUser);
+		//Persona persona = (Persona) DataBase.getObjectById("p", idUser);
 		 
 		EntityManager emTemp= JPAUtil.getInstance().getEmf().createEntityManager();
 		
-		List<Fattura> listaFatture=Scadenziario.checkNotifica(persona, anticipoNotifica,emTemp);
+		List<Fattura> listaFatture=Scadenziario.checkNotifica(idUser, anticipoNotifica,emTemp);
 		
 		// emTemp.close(); 
 		
@@ -59,9 +59,6 @@ public class NotificaController extends HttpServlet {
 		 System.out.println("prima del append");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
 		 emTemp.close();
-		
-		
-		
 		
 	}
 

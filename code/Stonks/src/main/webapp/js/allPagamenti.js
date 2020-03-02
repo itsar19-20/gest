@@ -13,6 +13,15 @@ $(document).ready( function () {
 		 })
 		 .done(function(pagamenti){
 			if(pagamenti.length>0){
+				if($.fn.DataTable.isDataTable('#tblPagamenti'))  {
+					$('#tblPagamenti').DataTable().clear().destroy();
+					console.log("datatable ancora");
+				}
+				$("#bottone").attr("disabled",true);
+
+
+
+				
 				var table= $('#tblPagamenti').DataTable({
                
 					data: pagamenti,

@@ -23,7 +23,7 @@ public class Scadenziario {
 
 	// private List<Pagamento> entrataDaConcludere;
 
-	// private List<Pagamento> uscitaDaConcludere;
+	/// private List<Pagamento> uscitaDaConcludere;
 
 	private int anticipoNotifica;
 
@@ -39,9 +39,9 @@ public class Scadenziario {
 
 	}
 
-	public static List<Fattura> showFullScadenziario(Persona persona, EntityManager em) {
+	public static List<Fattura> showFullScadenziario(Integer idPersona, EntityManager em) {
 
-		List<Fattura> pagamentiDaConcludere = JPALuke.selectPagamenti(persona, em);
+		List<Fattura> pagamentiDaConcludere = JPALuke.selectPagamenti(idPersona, em);
 		for (Fattura f : pagamentiDaConcludere) {
 			System.out.println("Fattura: " + f.getIdFattura());
 
@@ -49,8 +49,8 @@ public class Scadenziario {
 		return pagamentiDaConcludere;
 	}
 
-	public static List<Fattura> showEntrataDaConcludere(Persona pers, boolean bol, EntityManager em) {
-		List<Fattura> entrataDaConcludere = JPALuke.selectParziale(pers, bol, em);
+	public static List<Fattura> showEntrataDaConcludere(Integer idPersona, boolean bol, EntityManager em) {
+		List<Fattura> entrataDaConcludere = JPALuke.selectParziale(idPersona, bol, em);
 		for (Fattura f : entrataDaConcludere) {
 			System.out.println("Id" + f.getIdFattura());
 		}
@@ -58,28 +58,28 @@ public class Scadenziario {
 		return entrataDaConcludere;
 	}
 
-	public static List<Fattura> showScadenziarioMese(Persona pers, Integer mese, EntityManager em) {
+	public static List<Fattura> showScadenziarioMese(Integer idPersona, Integer mese, EntityManager em) {
 		// select tutti i pagamenti dell'utnte non ancora completati
-		List<Fattura> scadenzaMese = JPALuke.selectPagamenti(pers, em);
+		List<Fattura> scadenzaMese = JPALuke.selectPagamenti(idPersona, em);
 		scadenzaMese = Scadenziario.searchByMese(mese, scadenzaMese);
 		return scadenzaMese;
 	}
 
-	public static List<Fattura> showScadenziarioSettimana(Persona pers, Integer settimana, EntityManager em) {
-		List<Fattura> scadenzaSettimana = JPALuke.selectPagamenti(pers, em);
+	public static List<Fattura> showScadenziarioSettimana(Integer idPersona, Integer settimana, EntityManager em) {
+		List<Fattura> scadenzaSettimana = JPALuke.selectPagamenti(idPersona, em);
 		scadenzaSettimana = Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
 		return scadenzaSettimana;
 	}
 
-	public static List<Fattura> showMeseEntrata(Persona pers, Integer mese, boolean bol, EntityManager em) {
-		List<Fattura> entrataDaConcludere = JPALuke.selectParziale(pers, bol, em);
+	public static List<Fattura> showMeseEntrata(Integer idPersona, Integer mese, boolean bol, EntityManager em) {
+		List<Fattura> entrataDaConcludere = JPALuke.selectParziale(idPersona, bol, em);
 		entrataDaConcludere = Scadenziario.searchByMese(mese, entrataDaConcludere);
 		return entrataDaConcludere;
 
 	}
 
-	public static List<Fattura> showSettimanaEntrata(Persona pers, Integer settimana, boolean bol, EntityManager em) {
-		List<Fattura> scadenzaSettimana = JPALuke.selectParziale(pers, bol, em);
+	public static List<Fattura> showSettimanaEntrata(Integer idPersona, Integer settimana, boolean bol, EntityManager em) {
+		List<Fattura> scadenzaSettimana = JPALuke.selectParziale(idPersona, bol, em);
 		scadenzaSettimana = Scadenziario.searchBySettimana(settimana, scadenzaSettimana);
 		return scadenzaSettimana;
 
@@ -160,17 +160,17 @@ public class Scadenziario {
 		return listaFatture;
 	}
 
-	public static List<Fattura> checkNotifica(Persona pers, Integer anticipoNotifica, EntityManager em) {
+	public static List<Fattura> checkNotifica(Integer idPersona, Integer anticipoNotifica, EntityManager em) {
 		// System.out.println("Entro dove non chiede boolean");
-		List<Fattura> pagamentiDaConcludere = JPALuke.selectPagamenti(pers, em);
+		List<Fattura> pagamentiDaConcludere = JPALuke.selectPagamenti(idPersona, em);
 		return Scadenziario.searchForNotifica(pagamentiDaConcludere, anticipoNotifica);
 
 	}
 
-	public static List<Fattura> checkNotifica(Persona pers, Integer anticipoNotifica, boolean entrataUscita,
+	public static List<Fattura> checkNotifica(Integer idPersona, Integer anticipoNotifica, boolean entrataUscita,
 			EntityManager em) {
 		// System.out.println("Entro dove chiede boolean");
-		List<Fattura> listaPagamento = JPALuke.selectParziale(pers, entrataUscita, em);
+		List<Fattura> listaPagamento = JPALuke.selectParziale(idPersona, entrataUscita, em);
 		return Scadenziario.searchForNotifica(listaPagamento, anticipoNotifica);
 	}
 }

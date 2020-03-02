@@ -10,74 +10,131 @@
 
         <title>Fatturo.io</title>
 
-        <!-- Bootstrap css -->
+		<!-- Bootstrap css -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <!-- data tables css -->
-          <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> 
+		  <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> 
+		  <link href="/css/scadenziario.css" rel="stylesheet">
+		  <link href="/css/index.css" rel="stylesheet" type="text/css">
         <!-- my css files -->
       <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
-	   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">  -->
-	   <link rel="stylesheet" href="/css/index.css">
+       <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">  -->
     </head>
     <body>
  
-		<header></header>
-		<main>
+        <header></header>
+        <br><br><br><br>
+        
+        
+		
 
-        <div>
+
+
+        <div class="form-input">
 		<table>
 		<tr>
-		<td>Inserisci mesi successivi :</td>
-		<td><input size ="8" maxlength="10"  style="background-color:yellow;" type="number" id="mesi" name="numMesi"/></td>
-		</tr>
-		<tr>
-		<td>Inserisci settimane successive : </td>
-		<td><input size ="8" maxlength="10" style="background-color:yellow;" type="number" id="settimane" name="numSettimane"/></td>
+			<td>Inserisci mesi successivi :</td>
 			
-		</tr>
-		<tr>
-		<td>ENTRATA<input type="radio" required id="entUsc" name="entrataUscita" value="true"/></td>
-		<td>USCITA<input type="radio" required id="entUsc" name="entrataUscita" value="false"/> </td>
-		<td>FULL<input type="radio" required id="entUsc" name="entrataUscita" value="null"/></td>
-		</tr>
-		<tr>
-		<td><button id="bottone">cerca</button> </td>
-		</tr>
-		<tr>
 			<td>
-				<label for="sel1">Selezione anticipo di notifica:</label>
-      			<select class="form-control" id="sel1" name="listaNotifica">
-        		<option value="1">1</option>
-       			 <option value="2">2</option>
-       			 <option value="3">3</option>
-       			 <option value="4">4</option>
-       			 <option value="5">5</option>
-       			 <option value="6">6</option>
-       			 <option value="7">7</option>
-       			 <option value="8">8</option>
-       			 <option value="9">9</option>
-       			 <option value="10">10</option>
-     			 </select>
-				
+				<select class="form-control" id="mesi" name="numMesi">
+					<option value="null"></option>
+					<option value="0">0</option>
+					<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					  </select>
+
 			</td>
 		
-		</tr>	
+		</tr>
+		<tr>
+			
+		
+		<td><p id="scrittaSettimana">Inserisci settimane successive :</p></td>
+		<td>
+			<select class="form-control" id="settimane" name="numSettimane">
+				<option value="null"></option>
+				<option value="0">0</option>
+				<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				  </select>
+
+		</td>
+		</tr>
 		
 		</table>
-		</div>
-		<div>
 		
+		<!--
+		ENTRATA<input type="radio" required id="entUsc" name="entrataUscita" value="true"/>
+		USCITA<input type="radio" required id="entUsc" name="entrataUscita" value="false"/>
+		FULL<input type="radio" required id="entUsc" name="entrataUscita" value="null"/>
+		  -->
+		<div class="form-check-inline">
+			<label class="form-check-label">
+			  <input type="radio" class="form-check-input" id="entUsc" name="entrataUscita" value="null" checked>Entrambi
+			</label>
+		  </div>
+		  <div class="form-check-inline">
+			<label class="form-check-label">
+			  <input type="radio" class="form-check-input" id="entUsc" name="entrataUscita" value="true">Entrata
+			</label>
+		  </div>
+		  <div class="form-check-inline">
+			<label class="form-check-label">
+			  <input type="radio" class="form-check-input" id="entUsc" name="entrataUscita" value="false">Uscita
+			</label>
+		  </div>
+		
+		<button id="bottone" class="btn btn-primary">cerca</button>
+		
+		
+		</div>
+		<div id="divAnticipo">
+			<label for="sel1">Selezione anticipo di notifica:</label>
+			  <select class="form-control" id="sel1" name="listaNotifica">
+			<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			  </select>
 			
-			<div>
-				<button id="cercaPagamenti"> Mostra Pagamenti</button>
+		</div>
 
+		
+			<div>
+				<button id="cercaPagamenti" class="btn btn-primary"> Mostra Pagamenti</button>
+				<button id="btnGrafico" class="btn btn-primary">Mostra grafico</button>	
 			</div>
 
+		<div id="divScadenziario">
+			<table id="tblPagamenti" class="display" style="width:100%"></table>
+		</div>
+		<div class="container" id="divGrafico">
+			<canvas id="myCanvas" height="100"></canvas>
+		</div>
 
-    	<table id="tblPagamenti" class="display" style="width:100%"></table>
-    	</div>
-		
-		</main>
         <footer></footer>
 
         <!-- Bootstrap js
@@ -124,8 +181,6 @@
 
         setSelectedIndex(document.getElementById("sel1"),localStorage.getItem("anticipo"));
 
-		
-        
 		</script>
 		
 		<script>
@@ -138,9 +193,8 @@
 			});
 
 		</script>
-
 		
-    
+
     </body>
 
 </html>
