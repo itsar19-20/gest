@@ -35,7 +35,7 @@ $(() => {
             element.lordo = `€ ` + element.lordo;
             // Inserisco l'oggetto in una nuova righa della tabella
             $('#tblFatture').append(`
-                <tr data-id="${element.id}" class="line">
+                <tr data-id="${element.id}" class="line" data-toggle="modal" data-target="#modal">
                     <td>${element.numeroFattura}</td>
                     <td>${element.data}</td>
                     <td>${element.scadenza}</td>
@@ -52,17 +52,10 @@ $(() => {
 
         });
         $( "#tblFatture" ).on( "click", ".line", function() {
-            var aaa = $(this).data('id');
-            console.log(aaa);
-            MyPopUpWin(aaa);
+            var idFattura = $(this).data('id');
+            console.log(idFattura);
+            $(`#modalTitle`).text(idFattura);
         });
-        function MyPopUpWin(aaa) {
-            var myHeight = window.screen.height / 2;
-            var myWidth = window.screen.width / 2;
-            //Open the window.
-            var win2 = window.open("/","Archivio - Fat-" + aaa,"status=no,height=" + myHeight + ",width=" + myWidth + ",resizable=yes,screenX=" + (myWidth/2) + ",screenY=" + (myHeight/2) + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
-            win2.focus();
-            }
     })
     .fail(() => {
         console.log(`fail`);
@@ -71,5 +64,13 @@ $(() => {
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
       })
+
+    function MyPopUpWin(idFattura) {
+        var myHeight = window.screen.height / 2;
+        var myWidth = window.screen.width / 2;
+        //Open the window.
+        var win2 = window.open("/","Archivio - Fat-" + idFattura,"status=no,height=" + myHeight + ",width=" + myWidth + ",resizable=yes,screenX=" + (myWidth/2) + ",screenY=" + (myHeight/2) + ",toolbar=no,menubar=no,scrollbars=no,location=no,directories=no");
+        win2.focus();
+        }
 
 });
