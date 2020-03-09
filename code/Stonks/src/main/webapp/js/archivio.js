@@ -1,8 +1,11 @@
 $(() => {
     // Richiedo la lista di tutte la fatture dell'utente loggato
+    var user = JSON.parse(localStorage.getItem('user'));
+    user = user.id;
     $.ajax({
         url: '/archivio/getAllMineInvoices',
-        method: 'get'
+        method: 'post',
+        data: {user}
     })
     .done(function(listaFatture) {
         console.log(listaFatture);

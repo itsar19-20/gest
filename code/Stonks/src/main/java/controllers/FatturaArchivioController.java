@@ -39,7 +39,11 @@ public class FatturaArchivioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Fattura> fatture = MenagementFattura.listaFatture(8);
+		// ajax passa l'id dell'utente loggato come stringa
+		String userIdString = request.getParameter("user");
+		// la stringa diventa un numero
+		Integer id = Integer.parseInt(userIdString);
+		List<Fattura> fatture = MenagementFattura.listaFatture(id);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
