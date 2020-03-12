@@ -30,7 +30,7 @@ public class RetrofitUtils {
     // Crea l'istanza Retrofit
 
     private static RetrofitUtils retrofitUtilsInstance = null;
-    public static final String BASE_URL = "http://localhost/8080";
+    public static final String BASE_URL = "http://localhost/8080/";
     private ApiEndPoint apiEndPoint;
 
     public static RetrofitUtils getInstance() {

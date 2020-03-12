@@ -13,6 +13,8 @@ import com.rizzoli.fatturoio.utils.ApiEndPoint;
 import com.rizzoli.fatturoio.utils.RetrofitUtils;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class TestActivity extends AppCompatActivity {
         Button btnGetSpecial = findViewById(R.id.buttonTestGetSpecial);
         Button btnPost = findViewById(R.id.buttonTestPost);
         Button btnPostMaxi = findViewById(R.id.buttonTestPostMaxi);
-        TextView tv_1 = findViewById(R.id.textView);
+        final TextView tv_1 = findViewById(R.id.textView);
         TextView tv_2 = findViewById(R.id.textView2);
         TextView tv_3 = findViewById(R.id.textView3);
         EditText et_1 = findViewById(R.id.editText);
@@ -39,7 +41,23 @@ public class TestActivity extends AppCompatActivity {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call<String> call =
+
+                Call<String> call = apiEndPoint.doTestMethodGet();
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        tv_1.setText(response.body());
+                    }
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
+
             }
         });
 
