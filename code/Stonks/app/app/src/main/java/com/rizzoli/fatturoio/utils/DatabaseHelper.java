@@ -16,6 +16,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "_id integer primary key autoincrement, " +
                     "note text not null," +
                     "lordo float not null)",
+            CREATE_TABLE_ARTICOLO = "CREATE TABLE articolo ("
+            		+ "_id integer primary key autoincrement, "
+            		+ "descrizione text no"
+            		+ "quantita",
+            CREATE_TABLE_PERSONA = "",
             CREATE_TABLE_USER = "CREATE TABLE user ( " +
                     "_id integer primary key autoincrement )";
 

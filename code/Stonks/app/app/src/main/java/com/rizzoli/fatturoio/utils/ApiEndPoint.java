@@ -18,8 +18,10 @@ public interface ApiEndPoint {
     @GET("/test")
     Call<String> doTestMethodGet();
 
-    @GET("/test/{x}")
-    Call<String> doTestMethodGetSpecial(@Path("x") String str);
+    // @GET("/test/{x}")
+    // Call<String> doTestMethodGetSpecial(@Path("x") String str);
+    @GET("/test")
+    Call<String> doTestMethodGetSpecial(@Query("x") String str)
 
     @POST("/test")
     Call<String> doTestMethodPost(@Field("str") String str);
