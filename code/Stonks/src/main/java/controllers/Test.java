@@ -26,20 +26,24 @@ public class Test extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Questa stringa arriva dalla Servlet.");
-		/*
+		System.out.print("Richiesta get");
 		String parameter = request.getParameter("x");
-		if (parameter.isEmpty())
-			message = "Questa stringa arriva dalla Servlet.";
-		else
-			message = "Hai scritto '" + parameter + "' alla Servlet.";
-		// response.setContentType("application/json");
+		if (parameter == null) {
+			System.out.println(" simple");
+			message = "{\"alfa\":\"Questa stringa arriva dalla Servlet.\"}";
+		} else {
+			System.out.println(" special");
+			message = "{\"alfa\":\"Questa stringa arriva dalla Servlet.\","
+					+ "\"bravo\":\"Hai scritto '" + parameter + "' alla Servlet.\","
+							+ "\"charlie\":11}";
+		}
+		response.setContentType("application/json");
 		response.getWriter().append(message);
-		*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("Richiesta post");
 		String alfa = request.getParameter("alfa");
 		String bravo = request.getParameter("bravo");
 		String charlie = request.getParameter("charlie");
@@ -50,6 +54,8 @@ public class Test extends HttpServlet {
 		else
 			message = "Hai scritto '" + alfa + "' + '" + bravo + "' + '" + charlie + "' alla Servlet.";
 		response.getWriter().append(message);
+
+		System.out.println("Risposta post");
 	}
 
 }

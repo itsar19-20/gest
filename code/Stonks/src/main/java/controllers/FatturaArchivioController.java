@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import business.MenagementFattura;
 import models.Fattura;
 import utils.JPAUtil;
+import utils.SizeOf;
 
 /**
  * Servlet implementation class FatturaController
@@ -47,6 +48,8 @@ public class FatturaArchivioController extends HttpServlet {
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(fatture));
+		System.out.println(SizeOf.getSizeInByte(om.writeValueAsString(fatture)) + " byte");
+		System.out.println(SizeOf.getSizeInMegabyte(om.writeValueAsString(fatture)) + " megabyte");
 	}
 
 	/**

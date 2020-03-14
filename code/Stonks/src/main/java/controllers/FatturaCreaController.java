@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,8 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import business.MenagementFattura;
 import models.Conto;
 import models.Persona;
-import models.Users;
-import sun.font.MFontConfiguration;
 
 /**
  * Servlet implementation class FatturaCreaController
