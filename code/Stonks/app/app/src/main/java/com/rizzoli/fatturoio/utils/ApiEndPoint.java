@@ -1,6 +1,7 @@
 package com.rizzoli.fatturoio.utils;
 
 import com.rizzoli.fatturoio.model.Fattura;
+import com.rizzoli.fatturoio.model.TTTesttt;
 
 import java.util.List;
 
@@ -17,12 +18,12 @@ public interface ApiEndPoint {
     // //////////// //////////// //////////// //////////// //////////// ////////////
 
     @GET("test")
-    Call<String> doTestMethodGet();
+    Call<TTTesttt> doTestMethodGet();
 
     // @GET("/test/{x}")
     // Call<String> doTestMethodGetSpecial(@Path("x") String str);
     @GET("test")
-    Call<String> doTestMethodGetSpecial(@Query("x") String str);
+    Call<TTTesttt> doTestMethodGetSpecial(@Query("x") String str);
 
     @POST("test")
     Call<String> doTestMethodPost(@Field("str") String str);

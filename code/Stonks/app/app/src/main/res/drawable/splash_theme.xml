@@ -4,6 +4,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/splash" />
+            android:src="@android:drawable/ic_menu_today" />
+        <!-- Riferimnto all'immagine PNG android:src="@mipmap/splash" -->
     </item>
 </layer-list>

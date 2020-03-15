@@ -2,6 +2,7 @@ package com.rizzoli.fatturoio.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rizzoli.fatturoio.R;
+import com.rizzoli.fatturoio.model.TTTesttt;
 import com.rizzoli.fatturoio.utils.ApiEndPoint;
 import com.rizzoli.fatturoio.utils.RetrofitUtils;
 
@@ -25,11 +27,12 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        Button btnCls = findViewById(R.id.buttonTestClear);
         Button btnGet = findViewById(R.id.buttonTestGet);
         Button btnGetSpecial = findViewById(R.id.buttonTestGetSpecial);
         Button btnPost = findViewById(R.id.buttonTestPost);
         Button btnPostMaxi = findViewById(R.id.buttonTestPostMaxi);
-        final TextView tv_1 = findViewById(R.id.textView);
+        TextView tv_1 = findViewById(R.id.textView);
         TextView tv_2 = findViewById(R.id.textView2);
         TextView tv_3 = findViewById(R.id.textView3);
         EditText et_1 = findViewById(R.id.editText);
@@ -38,33 +41,58 @@ public class TestActivity extends AppCompatActivity {
 
         apiEndPoint = RetrofitUtils.getInstance().getApiEndPoint();
 
+        btnCls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tv_1.setText("Clean");
+                tv_2.setText("Clean");
+                tv_3.setText("Clean");
+            }
+        });
+
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Call<String> call = apiEndPoint.doTestMethodGet();
-                call.enqueue(new Callback<String>() {
+                Call<TTTesttt> call = apiEndPoint.doTestMethodGet();
+                call.enqueue(new Callback<TTTesttt>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
                         if (!response.isSuccessful()) {
                             tv_1.setText("Code: " + response.code());
                             return;
                         }
-                        tv_1.setText(response.body());
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
                     }
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
                         tv_1.setText(t.getMessage());
                     }
                 });
-
             }
         });
 
         btnGetSpecial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Call<TTTesttt> call = apiEndPoint.doTestMethodGetSpecial(et_1.getText().toString());
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
+                        tv_2.setText(t.getBravo());
+                        tv_3.setText(String.valueOf(t.getCharlie()));
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
             }
         });
 
@@ -82,5 +110,11 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(TestActivity.this, MainActivity.class));
+        finish();
     }
 }
