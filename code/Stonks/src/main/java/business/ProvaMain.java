@@ -1,27 +1,9 @@
 package business;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import utils.JPAUtil;
-import utils.JPALuke;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
-import models.Admin;
-
-import models.Articolo;
-import models.Conto;
-import models.Fattura;
-
-import models.MetodoDiPagamento;
-import models.Pagamento;
-import models.Persona;
-import models.Users;
 import models.Utente;
 
 public class ProvaMain {
@@ -37,7 +19,7 @@ public class ProvaMain {
 		
 		Utente u=em.find(Utente.class, 1);
 		//em.close();
-		Scadenziario.showScadenziarioMese(u, 2, em);
+		Scadenziario.showScadenziarioMese(u.getId(), 2, em);
 		
 		//Scadenziario s=new Scadenziario(u);
 		//u.setScadenziario(s);
