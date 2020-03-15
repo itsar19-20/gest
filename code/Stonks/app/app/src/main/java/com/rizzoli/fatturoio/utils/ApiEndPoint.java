@@ -6,9 +6,13 @@ import com.rizzoli.fatturoio.model.TTTesttt;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -20,16 +24,26 @@ public interface ApiEndPoint {
     @GET("test")
     Call<TTTesttt> doTestMethodGet();
 
-    // @GET("/test/{x}")
-    // Call<String> doTestMethodGetSpecial(@Path("x") String str);
+    @GET("/test?x={paperino}")
+    Call<TTTesttt> doTestMethodGetPath(@Path("paperino") String str);
+
     @GET("test")
-    Call<TTTesttt> doTestMethodGetSpecial(@Query("x") String str);
+    Call<TTTesttt> doTestMethodGetQuery(@Query("x") String str);
+
+    @FormUrlEncoded
+    @POST("test")
+    Call<TTTesttt> doTestMethodPost(@Field("alfa") String str);
+
+    @FormUrlEncoded
+    @POST("test")
+    Call<TTTesttt> doTestMethodPostMaxi(@Field("alfa") String alfa, @Field("bravo") String bravo, @Field("charlie") int charlie);
 
     @POST("test")
-    Call<String> doTestMethodPost(@Field("str") String str);
+    Call<TTTesttt> doTestMethodPostBody(@Body TTTesttt test);
 
+    @Multipart
     @POST("test")
-    Call<String> doTestMethodPostMaxi(@Field("alfa") String alfa, @Field("bravo") String bravo, @Field("charlie") int charlie);
+    Call<TTTesttt> doTestMethodPostMultipart(@Part("alfa") String alfa, @Part("bravo") String bravo);
 
     // //////////// //////////// //////////// //////////// //////////// ////////////
 

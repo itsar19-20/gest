@@ -6,6 +6,12 @@ public class TTTesttt {
     private String bravo;
     private int charlie;
 
+    public TTTesttt(String alfa, String bravo, int charlie) {
+        this.alfa = alfa;
+        this.bravo = bravo;
+        this.charlie = charlie;
+    }
+
     public String getAlfa() {
         return alfa;
     }
