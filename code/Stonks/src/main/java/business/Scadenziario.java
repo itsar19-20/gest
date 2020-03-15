@@ -89,6 +89,10 @@ public class Scadenziario {
 		Date dataCorrente = new Date();
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataCorrente);
+		Calendar cal2=(Calendar)cal.clone();
+		cal2.add(Calendar.MONTH,+mese);
+		int annoRicerca=cal2.get(Calendar.YEAR);
+		cal2.clear();
 		List<Fattura> result = new ArrayList<>();
 		// ricerca in base a N mesi successivi a quello corrente delle scadenze fatture
 		for (Fattura f : scadenzaMese) {
@@ -98,22 +102,31 @@ public class Scadenziario {
 
 			Calendar d = (Calendar) cal.clone();
 			c.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
-			Scadenziario.calcolaMese(c, d, mese, f, result);
+			int annoScadenza=c.get(Calendar.YEAR);
+			if(annoScadenza==annoRicerca) {
+				Scadenziario.calcolaMese(c, d, mese, f, result);
+			}
 		}
 		return result;
 	}
-
 	private static List<Fattura> searchBySettimana(Integer settimana, List<Fattura> scadenzaSettimana) {
 		Date dataCorrente = new Date();
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataCorrente);
+		Calendar cal2=(Calendar)cal.clone();
+		cal2.add(Calendar.WEEK_OF_YEAR,+settimana);
+		int annoRicerca=cal2.get(Calendar.YEAR);
+		cal2.clear();
 		List<Fattura> result = new ArrayList<>();
 		for (Fattura f : scadenzaSettimana) {
 			Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 			c.setTime(f.getData());
 			Calendar d = (Calendar) cal.clone();
 			c.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
-			Scadenziario.calcolaSettimana(c, d, settimana, f, result);
+			int annoScadenza=c.get(Calendar.YEAR);
+			if(annoScadenza==annoRicerca) {
+				Scadenziario.calcolaSettimana(c, d, settimana, f, result);
+			}
 		}
 		return result;
 
@@ -141,17 +154,27 @@ public class Scadenziario {
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 		cal.setTime(dataOggi);
 		List<Fattura> listaFatture = new ArrayList<>();
-
+		Calendar cal2=(Calendar)cal.clone();
+		cal2.add(Calendar.DAY_OF_YEAR, + anticipoNotifica);
+		int annoRicerca=cal2.get(Calendar.YEAR);
+		cal2.clear();
+		
 		for (Fattura f : pagamentiDaConcludere) {
 			Calendar calFattura = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"), Locale.ITALY);
 
 			calFattura.setTime(f.getData());
 			Calendar calCorrente = (Calendar) cal.clone();
 			//
-			// l'anticipoNotifica � un valore memorizzato in localStorage con chiave
+			// l'anticipoNotifica � un valore memorizzat-+o in localStorage con chiave
 			// "anticipo"
 			calCorrente.add(Calendar.DAY_OF_YEAR, +anticipoNotifica);
 			calFattura.add(Calendar.DAY_OF_YEAR, +f.getScadenza());
+			int annoScadenza=calFattura.get(Calendar.YEAR);
+			
+			if(annoScadenza!=annoRicerca) {
+				continue;
+			}
+			
 			if (calCorrente.getTime().after(calFattura.getTime()) && cal.getTime().before(calFattura.getTime())) {
 				System.out.println("La fattura di id: " + f.getIdFattura() + " sta per scadere");
 				listaFatture.add(f);

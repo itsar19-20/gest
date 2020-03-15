@@ -54,8 +54,8 @@ position: absolute;
 }
 
 #divScadenziario{
-    position:relative;
-    top:150px;
+    position: relative;
+    top:200px;
     
 }
 
@@ -63,6 +63,15 @@ position: absolute;
     position: absolute;
     display: block;
     top: 285px;
+
+
+
+}#divBottoni{
+    position: absolute;
+    display: block;
+    top:150px;
+    left: 50px;
+
 
 
 

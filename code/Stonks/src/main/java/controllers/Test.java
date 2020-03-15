@@ -43,19 +43,33 @@ public class Test extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Richiesta post");
+		System.out.print("Richiesta post ");
 		String alfa = request.getParameter("alfa");
 		String bravo = request.getParameter("bravo");
 		String charlie = request.getParameter("charlie");
-		if (alfa.isEmpty())
-			doGet(request, response);
-		else if (bravo.isEmpty())
-			message = "Hai scritto '" + alfa + "' alla Servlet.";
-		else
-			message = "Hai scritto '" + alfa + "' + '" + bravo + "' + '" + charlie + "' alla Servlet.";
+		if (alfa == null) {
+			// doGet(request, response);
+			System.out.println();
+			System.out.println(request.getPart("alfa"));
+			System.out.println(request.getPart("bravo"));
+		} else if (bravo == null) {
+			message = "{\"alfa\":\"Hai scritto '" + alfa + "' alla Servlet.\"}";
+		} else {
+			int num = Integer.valueOf(charlie);
+			if (num > 0) num = num * 3;
+ 			message = "{\"alfa\":\"" + alfa + "\",\"bravo\":\"" + bravo + "\",\"charlie\":" + String.valueOf(num) + "}";
+		}
+		
+		response.setContentType("applcation/json");
 		response.getWriter().append(message);
-
-		System.out.println("Risposta post");
 	}
 
 }
+
+
+
+
+
+
+
+
