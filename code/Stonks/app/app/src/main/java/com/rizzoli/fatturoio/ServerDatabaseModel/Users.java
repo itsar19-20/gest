@@ -1,4 +1,4 @@
-package com.rizzoli.fatturoio.model;
+package com.rizzoli.fatturoio.ServerDatabaseModel;
 
 import java.util.Date;
 

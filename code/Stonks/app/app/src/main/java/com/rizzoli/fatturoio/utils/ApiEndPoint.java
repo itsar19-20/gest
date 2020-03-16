@@ -1,7 +1,7 @@
 package com.rizzoli.fatturoio.utils;
 
-import com.rizzoli.fatturoio.model.Fattura;
-import com.rizzoli.fatturoio.model.TTTesttt;
+import com.rizzoli.fatturoio.ServerDatabaseModel.Fattura;
+import com.rizzoli.fatturoio.ServerDatabaseModel.TTTesttt;
 
 import java.util.List;
 

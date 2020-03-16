@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rizzoli.fatturoio.R;
-import com.rizzoli.fatturoio.model.TTTesttt;
+import com.rizzoli.fatturoio.ServerDatabaseModel.TTTesttt;
 import com.rizzoli.fatturoio.utils.ApiEndPoint;
 import com.rizzoli.fatturoio.utils.RetrofitUtils;
 

@@ -1,6 +1,8 @@
-package com.rizzoli.fatturoio.model;
+package com.rizzoli.fatturoio.ServerDatabaseModel;
 
-public class TTTesttt {
+import org.json.JSONObject;
+
+public class TTTesttt extends JSONObject {
 
     private String alfa;
     private String bravo;
@@ -10,6 +12,9 @@ public class TTTesttt {
         this.alfa = alfa;
         this.bravo = bravo;
         this.charlie = charlie;
+    }
+
+    public TTTesttt(JSONObject response) {
     }
 
     public String getAlfa() {
@@ -34,5 +39,14 @@ public class TTTesttt {
 
     public void setCharlie(int charlie) {
         this.charlie = charlie;
+    }
+
+    @Override
+    public String toString() {
+        return "TTTesttt{" +
+                "alfa='" + alfa + '\'' +
+                ", bravo='" + bravo + '\'' +
+                ", charlie=" + charlie +
+                '}';
     }
 }
