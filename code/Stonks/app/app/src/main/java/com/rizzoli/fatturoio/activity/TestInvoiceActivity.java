@@ -9,7 +9,7 @@ import com.rizzoli.fatturoio.utils.ApiEndPoint;
 
 import retrofit2.Retrofit;
 
-public class InvoiceActivity extends AppCompatActivity {
+public class TestInvoiceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

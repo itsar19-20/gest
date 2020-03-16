@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.VolleyTestActivity"
+    tools:context=".activity.TestVolleyActivity"
     android:padding="16dp">
 
 
@@ -65,27 +65,50 @@
 
             <Button
                 android:id="@+id/btn_cls"
-                android:text="clear"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="clear" />
 
-            <Button
-                android:id="@+id/btn_get"
-                android:text="get"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_get_query"
-                android:text="get query"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <Button
+                    android:id="@+id/btn_get"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="get" />
 
-            <Button
-                android:id="@+id/btn_post"
-                android:text="post"
+                <Button
+                    android:id="@+id/btn_get_query"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="get query" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text=" post JsonObject" />
+
+                <Button
+                    android:id="@+id/btn_post_str"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="post string" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <EditText

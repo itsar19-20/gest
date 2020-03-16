@@ -1,7 +1,5 @@
 package com.rizzoli.fatturoio.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.rizzoli.fatturoio.R;
 import com.rizzoli.fatturoio.serverDatabaseModel.TTTesttt;
 import com.rizzoli.fatturoio.utils.VolleyUtils;
@@ -19,9 +21,11 @@ import com.rizzoli.fatturoio.utils.VolleyUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class VolleyTestActivity extends AppCompatActivity {
+import java.io.UnsupportedEncodingException;
 
-    private static Button btn_cls, btn_get, btn_get_query, btn_post;
+public class TestVolleyActivity extends AppCompatActivity {
+
+    private static Button btn_cls, btn_get, btn_get_query, btn_post, btn_post_str;
     private static TextView tv_0, tv_1, tv_2, tv_3, tv_url;
     private static EditText et_1, et_2, et_3;
     private static String url = VolleyUtils.url("test");
@@ -35,6 +39,7 @@ public class VolleyTestActivity extends AppCompatActivity {
         btn_get = findViewById(R.id.btn_get);
         btn_get_query = findViewById(R.id.btn_get_query);
         btn_post = findViewById(R.id.btn_post);
+        btn_post_str = findViewById(R.id.btn_post_str);
         tv_0 = findViewById(R.id.tv_0);
         tv_1 = findViewById(R.id.tv_1);
         tv_2 = findViewById(R.id.tv_2);
@@ -60,6 +65,8 @@ public class VolleyTestActivity extends AppCompatActivity {
                 tv_0.setText(e.toString());
             }
         });
+
+        btn_post_str.setOnClickListener(v -> postString());
     }
 
     private void cls() {
@@ -87,7 +94,10 @@ public class VolleyTestActivity extends AppCompatActivity {
                     }
                     Log.e("SERVLET_RESPONSE", response.toString());
                 },
-                error -> Log.d("ERROR_REQUEST", error.toString())
+                error -> {
+                    Log.d("ERROR_REQUEST", error.toString());
+                    tv_0.setText(error.toString());
+                }
         );
         VolleyUtils.getRequestQueueInstance(this).add(request);
     }
@@ -113,21 +123,17 @@ public class VolleyTestActivity extends AppCompatActivity {
                     }
                     Log.e("SERVLET_RESPONSE", response.toString());
                 },
-                error -> Log.d("ERROR_REQUEST", error.toString())
+                error -> {
+                    Log.d("ERROR_REQUEST", error.toString());
+                    tv_0.setText(error.toString());
+                }
         );
         VolleyUtils.getRequestQueueInstance(this).add(request);
     }
 
     private void post() throws JSONException {
         Toast.makeText(this, "POST", Toast.LENGTH_SHORT).show();
-
         TTTesttt oggettoDaInviare = new TTTesttt(et_1.getText().toString(), et_2.getText().toString(), Integer.valueOf(et_3.getText().toString()));
-        /*
-        HashMap oggettoDaInviare = new HashMap();
-        oggettoDaInviare.put("alfa", et_1.getText().toString());
-
-         */
-
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -145,14 +151,51 @@ public class VolleyTestActivity extends AppCompatActivity {
                     }
                     Log.e("SERVLET_RESPONSE", response.toString());
                 },
-                error -> Log.d("ERROR_REQUEST", error.toString())
+                error -> {
+                    Log.d("ERROR_REQUEST", error.toString());
+                    tv_0.setText(error.toString());
+                }
         );
+        VolleyUtils.getRequestQueueInstance(this).add(request);
+    }
+
+    private void postString() {
+        Toast.makeText(this, "POST String", Toast.LENGTH_SHORT).show();
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                url,
+                response -> {
+                    TTTesttt testtt = VolleyUtils.getGsonInstance().fromJson(response.toString(), TTTesttt.class);
+                    tv_0.setText("La servlet ha risposto con l'oggetto che hai inviato: " + response.toString());
+                    tv_1.setText(testtt.getAlfa());
+                    tv_2.setText(testtt.getBravo());
+                    tv_3.setText(String.valueOf(testtt.getCharlie()));
+                }, error -> {
+                    Log.d("ERROR_REQUEST", error.toString());
+                    tv_0.setText(error.toString());
+                }) {
+            @Override
+            public byte[] getBody() {
+                TTTesttt t = new TTTesttt(et_1.getText().toString(), et_2.getText().toString(), Integer.valueOf(et_3.getText().toString()));
+                try {
+                    return VolleyUtils.getGsonInstance().toJson(t).getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    VolleyLog.wtf("codifica non supportata", VolleyUtils.getGsonInstance().toJson(t), "utf-8");
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+        };
         VolleyUtils.getRequestQueueInstance(this).add(request);
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(VolleyTestActivity.this, MainActivity.class));
+        startActivity(new Intent(TestVolleyActivity.this, MainActivity.class));
         finish();
     }
 }

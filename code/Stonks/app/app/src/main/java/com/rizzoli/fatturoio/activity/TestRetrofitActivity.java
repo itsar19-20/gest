@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RetrofitTestActivity extends AppCompatActivity {
+public class TestRetrofitActivity extends AppCompatActivity {
 
     ApiEndPoint apiEndPoint;
 
@@ -219,7 +219,7 @@ public class RetrofitTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(RetrofitTestActivity.this, MainActivity.class));
+        startActivity(new Intent(TestRetrofitActivity.this, MainActivity.class));
         finish();
     }
 }
