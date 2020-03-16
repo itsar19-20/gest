@@ -27,18 +27,21 @@ public class Test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.print("Richiesta get");
-		String parameter = request.getParameter("x");
-		if (parameter == null) {
-			System.out.println(" simple");
+		String alfa = request.getParameter("alfa");
+		String bravo = request.getParameter("bravo");
+		String charlie = request.getParameter("charlie");
+		if (alfa == null && bravo == null && charlie == null) {
 			message = "{\"alfa\":\"Questa stringa arriva dalla Servlet.\"}";
 		} else {
-			System.out.println(" special");
-			message = "{\"alfa\":\"Questa stringa arriva dalla Servlet.\","
-					+ "\"bravo\":\"Hai scritto '" + parameter + "' alla Servlet.\","
-							+ "\"charlie\":11}";
+			int num = Integer.valueOf(charlie) * 3;
+			System.out.print(" special");
+			message = "{\"alfa\":\"alfa\" -> "+ alfa +","
+					+ "\"bravo\":\"bravo\" -> " + bravo + ","
+					+ "\"charlie\":" + num +"}";
 		}
 		response.setContentType("application/json");
 		response.getWriter().append(message);
+		System.out.println();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
