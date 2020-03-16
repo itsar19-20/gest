@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rizzoli.fatturoio.R;
-import com.rizzoli.fatturoio.model.TTTesttt;
+import com.rizzoli.fatturoio.ServerDatabaseModel.TTTesttt;
 import com.rizzoli.fatturoio.utils.ApiEndPoint;
 import com.rizzoli.fatturoio.utils.RetrofitUtils;
 
@@ -29,9 +29,12 @@ public class TestActivity extends AppCompatActivity {
 
         Button btnCls = findViewById(R.id.buttonTestClear);
         Button btnGet = findViewById(R.id.buttonTestGet);
-        Button btnGetSpecial = findViewById(R.id.buttonTestGetSpecial);
+        Button btnGetQuery = findViewById(R.id.buttonTestGetQuery);
+        Button btnGetPath = findViewById(R.id.buttonTestGetPath);
         Button btnPost = findViewById(R.id.buttonTestPost);
         Button btnPostMaxi = findViewById(R.id.buttonTestPostMaxi);
+        Button btnPostBody = findViewById(R.id.buttonTestPostBody);
+        Button btnPostMultipart = findViewById(R.id.buttonTestPostMultipart);
         TextView tv_1 = findViewById(R.id.textView);
         TextView tv_2 = findViewById(R.id.textView2);
         TextView tv_3 = findViewById(R.id.textView3);
@@ -72,10 +75,34 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        btnGetSpecial.setOnClickListener(new View.OnClickListener() {
+        btnGetQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<TTTesttt> call = apiEndPoint.doTestMethodGetSpecial(et_1.getText().toString());
+                Call<TTTesttt> call = apiEndPoint.doTestMethodGetQuery(et_1.getText().toString());
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
+                        tv_2.setText(t.getBravo());
+                        tv_3.setText(String.valueOf(t.getCharlie()));
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
+            }
+        });
+
+        btnGetPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<TTTesttt> call = apiEndPoint.doTestMethodGetPath(et_1.getText().toString());
                 call.enqueue(new Callback<TTTesttt>() {
                     @Override
                     public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
@@ -99,14 +126,92 @@ public class TestActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Call<TTTesttt> call = apiEndPoint.doTestMethodPost(et_1.getText().toString());
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
             }
         });
 
         btnPostMaxi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TTTesttt t = new TTTesttt("c", "r", 7);
+                Call<TTTesttt> call = apiEndPoint.doTestMethodPostBody(t);
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
+                        tv_2.setText(t.getBravo());
+                        tv_3.setText(String.valueOf(t.getCharlie()));
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
+            }
+        });
 
+        btnPostBody.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<TTTesttt> call = apiEndPoint.doTestMethodPostMaxi(et_1.getText().toString(), et_2.getText().toString(), Integer.valueOf(et_3.getText().toString()));
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        TTTesttt t = response.body();
+                        tv_1.setText(t.getAlfa());
+                        tv_2.setText(t.getBravo());
+                        tv_3.setText(String.valueOf(t.getCharlie()));
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
+            }
+        });
+
+        btnPostMultipart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Call<TTTesttt> call = apiEndPoint.doTestMethodPostMultipart(et_1.getText().toString(), et_2.getText().toString());
+                call.enqueue(new Callback<TTTesttt>() {
+                    @Override
+                    public void onResponse(Call<TTTesttt> call, Response<TTTesttt> response) {
+                        if (!response.isSuccessful()) {
+                            tv_1.setText("Code: " + response.code());
+                            return;
+                        }
+                        tv_2.setText("Richiesta multipart riuscita");
+                    }
+                    @Override
+                    public void onFailure(Call<TTTesttt> call, Throwable t) {
+                        tv_1.setText(t.getMessage());
+                    }
+                });
             }
         });
 

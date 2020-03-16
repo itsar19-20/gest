@@ -1,6 +1,4 @@
-package com.rizzoli.fatturoio.model;
-
-import com.google.gson.annotations.SerializedName;
+package com.rizzoli.fatturoio.ServerDatabaseModel;
 
 public class Admin extends Users {
 

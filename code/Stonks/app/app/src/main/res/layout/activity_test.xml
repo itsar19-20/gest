@@ -24,10 +24,16 @@
             android:text="get" />
 
         <Button
-            android:id="@+id/buttonTestGetSpecial"
+            android:id="@+id/buttonTestGetQuery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="get spacial" />
+            android:text="get query" />
+
+        <Button
+            android:id="@+id/buttonTestGetPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get path" />
 
         <Button
             android:id="@+id/buttonTestPost"
@@ -40,6 +46,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="post maxi" />
+
+        <Button
+            android:id="@+id/buttonTestPostBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="post body" />
+
+        <Button
+            android:id="@+id/buttonTestPostMultipart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="post multipart" />
 
         <TextView
             android:id="@+id/textView"

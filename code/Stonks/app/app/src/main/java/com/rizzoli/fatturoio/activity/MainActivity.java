@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         buttonToTestActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
+                startActivity(new Intent(MainActivity.this, VolleyTestActivity.class));
                 finish();
             }
         });

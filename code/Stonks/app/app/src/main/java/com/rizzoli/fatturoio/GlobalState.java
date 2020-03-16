@@ -2,7 +2,7 @@ package com.rizzoli.fatturoio;
 
 import android.app.Application;
 
-import com.rizzoli.fatturoio.model.Users;
+import com.rizzoli.fatturoio.ServerDatabaseModel.Users;
 
 public class GlobalState extends Application {
 
