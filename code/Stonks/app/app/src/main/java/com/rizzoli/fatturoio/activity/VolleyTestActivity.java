@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.rizzoli.fatturoio.R;
-import com.rizzoli.fatturoio.ServerDatabaseModel.TTTesttt;
+import com.rizzoli.fatturoio.serverDatabaseModel.TTTesttt;
 import com.rizzoli.fatturoio.utils.VolleyUtils;
 
 import org.json.JSONException;
@@ -51,6 +51,15 @@ public class VolleyTestActivity extends AppCompatActivity {
         btn_get.setOnClickListener(v -> get());
 
         btn_get_query.setOnClickListener(v -> getQuery());
+
+        btn_post.setOnClickListener(v -> {
+            try {
+                post();
+            } catch (JSONException e) {
+                e.printStackTrace();
+                tv_0.setText(e.toString());
+            }
+        });
     }
 
     private void cls() {
@@ -74,7 +83,7 @@ public class VolleyTestActivity extends AppCompatActivity {
                         tv_1.setText(testtt.getAlfa());
                     } catch (Exception e) {
                         e.printStackTrace();
-                        tv_1.setText(e.toString());
+                        tv_0.setText(e.toString());
                     }
                     Log.e("SERVLET_RESPONSE", response.toString());
                 },
@@ -84,24 +93,55 @@ public class VolleyTestActivity extends AppCompatActivity {
     }
 
     private void getQuery() {
-        // I/HwPointEventFilter: do not support AFT because of no config
         Toast.makeText(this, "GET QUERY", Toast.LENGTH_SHORT).show();
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                // Imposto i paramenti "alfa", "bravo", "charlie" con il valore delle EditText
+                // Imposto i paramenti "alfa", "bravo", "charlie" con i valori delle EditText
                 VolleyUtils.url("test?alfa=" + et_1.getText().toString() + "&bravo=" + et_2.getText().toString() + "&charlie=" + et_3.getText().toString()),
-                // VolleyUtils.url("test"),
                 new JSONObject(),
                 response -> {
                     try {
+                        // Converto la risposta in un oggetto di tipo "TTTesttt" grazie alla libreria Gson
                         TTTesttt testtt = VolleyUtils.getGsonInstance().fromJson(response.toString(), TTTesttt.class);
                         tv_0.setText(response.toString());
+                        tv_1.setText(testtt.getAlfa());
+                        tv_2.setText(testtt.getBravo());
+                        tv_3.setText("#Valore immesso * 3# : " + String.valueOf(testtt.getCharlie()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        tv_0.setText(e.toString());
+                    }
+                    Log.e("SERVLET_RESPONSE", response.toString());
+                },
+                error -> Log.d("ERROR_REQUEST", error.toString())
+        );
+        VolleyUtils.getRequestQueueInstance(this).add(request);
+    }
+
+    private void post() throws JSONException {
+        Toast.makeText(this, "POST", Toast.LENGTH_SHORT).show();
+
+        TTTesttt oggettoDaInviare = new TTTesttt(et_1.getText().toString(), et_2.getText().toString(), Integer.valueOf(et_3.getText().toString()));
+        /*
+        HashMap oggettoDaInviare = new HashMap();
+        oggettoDaInviare.put("alfa", et_1.getText().toString());
+
+         */
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                new JSONObject(VolleyUtils.getGsonInstance().toJson(oggettoDaInviare)),
+                response -> {
+                    try {
+                        TTTesttt testtt = VolleyUtils.getGsonInstance().fromJson(response.toString(), TTTesttt.class);
+                        tv_0.setText("La servlet ha risposto con l'oggetto che hai inviato: " + response.toString());
                         tv_1.setText(testtt.getAlfa());
                         tv_2.setText(testtt.getBravo());
                         tv_3.setText(String.valueOf(testtt.getCharlie()));
                     } catch (Exception e) {
                         e.printStackTrace();
-                        tv_1.setText(e.toString());
+                        tv_0.setText(e.toString());
                     }
                     Log.e("SERVLET_RESPONSE", response.toString());
                 },

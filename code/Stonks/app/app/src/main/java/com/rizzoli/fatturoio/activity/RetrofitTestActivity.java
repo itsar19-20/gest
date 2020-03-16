@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.rizzoli.fatturoio.R;
-import com.rizzoli.fatturoio.ServerDatabaseModel.TTTesttt;
+import com.rizzoli.fatturoio.serverDatabaseModel.TTTesttt;
 import com.rizzoli.fatturoio.utils.ApiEndPoint;
 import com.rizzoli.fatturoio.utils.RetrofitUtils;
 
@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TestActivity extends AppCompatActivity {
+public class RetrofitTestActivity extends AppCompatActivity {
 
     ApiEndPoint apiEndPoint;
 
@@ -219,7 +219,7 @@ public class TestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(TestActivity.this, MainActivity.class));
+        startActivity(new Intent(RetrofitTestActivity.this, MainActivity.class));
         finish();
     }
 }

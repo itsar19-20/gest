@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.RetrofitTestActivity" />
         <activity android:name=".activity.InvoiceActivity" />
         <activity android:name=".activity.MainActivity" />
     </application>
