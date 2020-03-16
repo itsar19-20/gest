@@ -38,5 +38,13 @@ public class JsonUtil {
 		}
 		return output;
 	}
+	
+	public static String getRealJsonFromAndroidJson(String s) {
+		String _return = "";
+		int n = s.length() - 21;
+		for (int i = 4; i < (s.length() - 21); i++)
+			_return += s.charAt(i);
+		return _return += "}";
+	}
 
 }

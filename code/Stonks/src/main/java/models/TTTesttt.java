@@ -1,8 +1,16 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TTTesttt {
 	
-	private String alfa, bravo;
+	@JsonProperty("alfa")
+	private String alfa;
+	
+	@JsonProperty("bravo")
+	private String bravo;
+	
+	@JsonProperty("charlie")
 	private int charlie;
 	
 	public TTTesttt() {
