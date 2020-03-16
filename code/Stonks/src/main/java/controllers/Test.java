@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.Text;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import models.TTTesttt;
+import net.bytebuddy.description.method.MethodDescription.TypeToken;
+import utils.JsonUtil;
+
 /**
  * Servlet implementation class FatturaController
  */
@@ -27,16 +33,19 @@ public class Test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.print("Richiesta get");
+		String x = request.getParameter("x");
 		String alfa = request.getParameter("alfa");
 		String bravo = request.getParameter("bravo");
 		String charlie = request.getParameter("charlie");
 		if (alfa == null && bravo == null && charlie == null) {
 			message = "{\"alfa\":\"Questa stringa arriva dalla Servlet.\"}";
 		} else {
-			int num = Integer.valueOf(charlie) * 3;
+			int num = 0;
+			if (charlie != null)
+				num = Integer.valueOf(charlie) * 3;
 			System.out.print(" special");
-			message = "{\"alfa\":\"alfa\" -> "+ alfa +","
-					+ "\"bravo\":\"bravo\" -> " + bravo + ","
+			message = "{\"alfa\":"+ alfa +","
+					+ "\"bravo\":" + bravo + ","
 					+ "\"charlie\":" + num +"}";
 		}
 		response.setContentType("application/json");
@@ -46,6 +55,7 @@ public class Test extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		/*
 		System.out.print("Richiesta post ");
 		String alfa = request.getParameter("alfa");
 		String bravo = request.getParameter("bravo");
@@ -65,6 +75,11 @@ public class Test extends HttpServlet {
 		
 		response.setContentType("applcation/json");
 		response.getWriter().append(message);
+		*/
+		ObjectMapper om = new ObjectMapper();
+		// TTTesttt t = om.readValue(JsonUtil.getJsonFromAnObject(request.getParameter("oggettoDaInviare")), TTTesttt.class);
+		// System.out.println(t.toString());
+		response.getWriter().append(request.toString());
 	}
 
 }
