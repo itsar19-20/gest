@@ -20,6 +20,13 @@ $(() => {
             location.href = '/login.html';
         }
     }
+    
+    if(window.location.href.indexOf("pagamento")<=0){
+        localStorage.removeItem("fatturaDaPagare");
+        localStorage.removeItem("prevPagamento");
+
+    }
+
 
     //  load the header
     $.ajax({
