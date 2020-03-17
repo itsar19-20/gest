@@ -1,6 +1,8 @@
 $(document).ready( function () {
+let chart=0;
 var user = JSON.parse(localStorage.getItem('user')  );
 user = user.id;
+var table=0;
 
 $('#bottone').click(function(){
 
@@ -44,7 +46,10 @@ $('#bottone').click(function(){
             });
             console.log(fatture[0].data);
 
-
+            if(chart!=0){
+                chart.destroy();
+                chart=0;
+            }
            
             $("#cercaPagamenti").attr("disabled",true);
             
@@ -63,7 +68,7 @@ $('#bottone').click(function(){
             
             
         
-           var table= $('#tblPagamenti').DataTable({
+            table= $('#tblPagamenti').DataTable({
                 
 
                 data: fatture,
@@ -188,7 +193,7 @@ $('#btnGrafico').click(function(){
                 let myData=entSett;
                 let myData2=uscSett;
 
-                let chart=new Chart(myCanvas,{
+                chart=new Chart(myCanvas,{
                     type: "bar",
                     data: {
                         labels: myLabels,
@@ -213,13 +218,27 @@ $('#btnGrafico').click(function(){
                         title:{
                             display: true,
                             text: "Settimana"
+                        },
+                        onClick: function(e){
+                            var element=this.getElementAtEvent(e);
+                            console.log(element);
+                        }   
+                        /*
+                        function graphClickEvent(event,array){
+                            if(array[0]){
+                                console.log("cliccato");
+                            }
                         }
+                        */
             
                     }
+                    
             
             
             
                 });
+
+               
 
 
             }else if(valMesi>=0){
@@ -262,14 +281,17 @@ $('#btnGrafico').click(function(){
                         numGiorni=30;
                         console.log("mese con 30 giorni");
                     }
-
+                    var newListaFatture=[];
                     for(var i=0;i<numGiorni;i++){
                         
                         myLabels.push((i+1).toString());
                         entMes.push(0);
                         uscMes.push(0);
+                        newListaFatture[i]=new Array();
 
                     }
+                    
+
                     fatture.forEach(f => {
 
 
@@ -284,6 +306,12 @@ $('#btnGrafico').click(function(){
     
                         var giornoMese=data1.getDate();
                         console.log(giornoMese);
+
+                       
+                        
+                        newListaFatture[giornoMese-1].push(f);
+                        
+                        
     
                         if(f.eUnaFatturaCliente){
                             entMes[giornoMese-1]+=f.lordo;
@@ -301,7 +329,7 @@ $('#btnGrafico').click(function(){
                 let myData2=uscMes;
                 //let myData2=[17000,4000,5000,20000,10000,15000,7000,12000,230000,19000];
 
-                let chart=new Chart(myCanvas,{
+                 chart=new Chart(myCanvas,{
                     type: "bar",
                     data: {
                         labels: myLabels,
@@ -324,9 +352,54 @@ $('#btnGrafico').click(function(){
                         title:{
                             display: true,
                             text: meseStringa.toString()
+                        },
+                        onClick: function(e){
+                            var element=this.getElementAtEvent(e);
+                            console.log(element);
+                            if(element[0]){
+                                var index=element[0]._index;
+                                var datasetIndex=element[0]._datasetIndex;
+                                console.log(index);
+                                console.log(datasetIndex);  
+                                console.log(newListaFatture);
+                                
+                                var fatture=[];
+                                
+                                newListaFatture[index].forEach(f=>{
+                                    var entrataUsc=false;
+                                    if(datasetIndex===0){
+                                        entrataUsc=true;
+                                    }
+
+                                    if(f.eUnaFatturaCliente==entrataUsc){
+                                        fatture.push(f);
+                                    }
+                                     
+                                });
+
+                                chart.destroy();
+
+                                table= $('#tblPagamenti').DataTable({
+                
+
+                                    data: fatture,
+                                    
+                                    columns: [
+                                        { title: 'Numero fattura:',data: 'numeroFattura'},
+                                        { title: 'Data', data: 'data'},
+                                        { title: 'Scadenza: ', data: 'scadenza'},
+                                        { title: 'Lordo',data: 'lordo'},
+                                        { title: 'Tipo', data: 'eUnaFatturaCliente'}
+                                       
+                                    ]
+                                });
+
+
+                            }
+                            
                         }
             
-                    }
+                    }       
             
             
             
@@ -381,6 +454,8 @@ $('#btnGrafico').click(function(){
     });
     */
 });
+
+
 
 
 });
