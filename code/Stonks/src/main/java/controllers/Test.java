@@ -13,6 +13,7 @@ import com.mysql.cj.log.Log;
 
 import antlr.StringUtils;
 import models.TTTesttt;
+import utils.God;
 import utils.JsonUtil;
 
 /**
@@ -31,6 +32,7 @@ public class Test extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		God.seesEverythings(request);
 		System.out.print("Richiesta get");
 		String x = request.getParameter("x");
 		String alfa = request.getParameter("alfa");
