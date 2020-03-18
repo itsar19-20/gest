@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.GestisciPagamento;
 import models.Pagamento;
+import utils.God;
 import utils.JPAUtil;
 
 @WebServlet("/paga")
@@ -57,6 +58,8 @@ public class EseguiPagamento extends HttpServlet {
 		System.out.println(om.writeValueAsString(pagamento));
 		response.getWriter().append(om.writeValueAsString(pagamento));
 		System.out.println("[post write]");
+		
+		God.seesEverythings(request, response, om.writeValueAsString(pagamento));
 
 		emTemp.close();
 		System.out.println("[emTemp.close()]");

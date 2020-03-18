@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.Login;
 import models.Users;
+import utils.God;
 
 /**
  * Servlet implementation class LoginController
@@ -35,6 +36,7 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		if (username == null || password == null) {
 			response.sendError(400, "username e password sono obbligatorie!!");
+			God.seesEverythings(request, response, "username e password sono obbligatorie!!");
 			return;
 		}
 		Login lm = new Login();
@@ -43,6 +45,7 @@ public class LoginController extends HttpServlet {
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(u));
+		God.seesEverythings(request, response, om.writeValueAsString(u));
 	}
 
 }

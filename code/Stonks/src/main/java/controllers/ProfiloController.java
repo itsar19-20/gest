@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.God;
+
 /**
  * Servlet implementation class FatturaCreaController
  */
@@ -31,6 +33,7 @@ public class ProfiloController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		God.seesEverythings(request, response, "Served at: " + request.getContextPath());
 	}
 
 	/**

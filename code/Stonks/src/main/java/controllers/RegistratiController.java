@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import business.Registrati;
 import business.Saldo;
+import utils.God;
 import utils.JPAUtil;
 
 @WebServlet("/registrati")
@@ -55,6 +56,7 @@ public class RegistratiController extends HttpServlet {
 		}
 		Registrati r = new Registrati(nome, cognome, pIVA, mail, indirizzo, telefono, username, password, metodoDiRegistrazione);
 		response = (HttpServletResponse) r;
+		God.seesEverythings(request, response, null);
 	}
 	
 }

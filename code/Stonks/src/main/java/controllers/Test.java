@@ -32,8 +32,7 @@ public class Test extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		God.seesEverythings(request);
-		System.out.print("Richiesta get");
+		// System.out.print("Richiesta get");
 		String x = request.getParameter("x");
 		String alfa = request.getParameter("alfa");
 		String bravo = request.getParameter("bravo");
@@ -52,6 +51,7 @@ public class Test extends HttpServlet {
 		response.setContentType("application/json");
 		response.getWriter().append(message);
 		System.out.println();
+		God.seesEverythings(request, response, message);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

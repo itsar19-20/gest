@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import business.GestisciPagamento;
 import models.Pagamento;
+import utils.God;
 import utils.JPALuke;
 import utils.JPAUtil;
 
@@ -30,6 +31,8 @@ public class CancellaPagamento extends HttpServlet {
 		EntityManager emTemp = JPAUtil.getInstance().getEmf().createEntityManager();
 		Pagamento pagamento = JPALuke.searchPagamento(idFattura, emTemp);
 		GestisciPagamento.cancellaPagamento(pagamento, emTemp);
+		
+		God.seesEverythings(request, response, null);
 
 		emTemp.close();
 

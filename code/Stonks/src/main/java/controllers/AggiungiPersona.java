@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.Persona;
 import utils.DataBase;
+import utils.God;
 import utils.JsonUtil;
 
 /**
@@ -64,6 +65,7 @@ public class AggiungiPersona extends HttpServlet {
 		}
 		// invio la persona appena aggiunta al browser
 		response.getWriter().append(om.writeValueAsString(DataBase.getObjectById("p", p.getId())));
+		God.seesEverythings(request, response, om.writeValueAsString(DataBase.getObjectById("p", p.getId())));
 
 	}
 

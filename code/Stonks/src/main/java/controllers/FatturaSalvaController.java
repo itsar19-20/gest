@@ -21,6 +21,7 @@ import models.Conto;
 import models.Fattura;
 import models.Persona;
 import utils.DataBase;
+import utils.God;
 import utils.JsonUtil;
 
 /**
@@ -84,6 +85,7 @@ public class FatturaSalvaController extends HttpServlet {
 			// salvo l'articolo nel database
 			DataBase.create(a);
 		}
+		God.seesEverythings(request, response, null);
 
 	}
 

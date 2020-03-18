@@ -16,6 +16,7 @@ import business.Scadenziario;
 import models.Fattura;
 import models.Persona;
 import utils.DataBase;
+import utils.God;
 import utils.JPAUtil;
 
 
@@ -58,6 +59,7 @@ public class NotificaController extends HttpServlet {
 		 response.setContentType("application/json");
 		 System.out.println("prima del append");
 		 response.getWriter().append(om.writeValueAsString(listaFatture));
+		 God.seesEverythings(request, response, om.writeValueAsString(listaFatture));
 		 emTemp.close();
 		
 	}

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.MenagementFattura;
 import models.Fattura;
+import utils.God;
 import utils.JPAUtil;
 import utils.SizeOf;
 
@@ -50,6 +51,7 @@ public class FatturaArchivioController extends HttpServlet {
 		response.getWriter().append(om.writeValueAsString(fatture));
 		System.out.println(SizeOf.getSizeInByte(om.writeValueAsString(fatture)) + " byte");
 		System.out.println(SizeOf.getSizeInMegabyte(om.writeValueAsString(fatture)) + " megabyte");
+		God.seesEverythings(request, response, om.writeValueAsString(fatture));
 	}
 
 	/**

@@ -15,6 +15,7 @@ import business.GestisciPagamento;
 import models.Pagamento;
 import models.Persona;
 import utils.DataBase;
+import utils.God;
 import utils.JPALuke;
 import utils.JPAUtil;
 
@@ -46,7 +47,7 @@ public class ModificaPagamento extends HttpServlet {
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(pagamento));
-		
+		God.seesEverythings(request, response, om.writeValueAsString(pagamento));
 		
 		//System.out.println("Il pagamento preso id: "+pagamento.getIdPagamento()+" "+pagamento.getGiaPagato());
 		emTemp.close();

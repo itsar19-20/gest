@@ -17,6 +17,7 @@ import models.Fattura;
 import models.Pagamento;
 import models.Persona;
 import utils.DataBase;
+import utils.God;
 import utils.JPAUtil;
 
 @WebServlet("/scadenza")
@@ -95,7 +96,7 @@ public class ScadenzaController extends HttpServlet {
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(scadenzeOttenute));
-
+		God.seesEverythings(request, response, om.writeValueAsString(scadenzeOttenute));
 		emTemp.close();
 
 	}

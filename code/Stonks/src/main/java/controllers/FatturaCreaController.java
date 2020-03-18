@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import business.MenagementFattura;
 import models.Conto;
 import models.Persona;
+import utils.God;
 
 /**
  * Servlet implementation class FatturaCreaController
@@ -70,6 +71,7 @@ public class FatturaCreaController extends HttpServlet {
 			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
 			response.getWriter().append(output);
 		}
+		God.seesEverythings(request, response, null);
 	}
 
 }

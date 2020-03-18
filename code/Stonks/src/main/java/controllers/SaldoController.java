@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import business.Saldo;
 import business.TipoSaldo;
 import utils.DataBase;
+import utils.God;
 import models.Conto;
 
 /**
@@ -38,6 +39,7 @@ public class SaldoController extends HttpServlet {
 		Conto c = (Conto) DataBase.getObjectById("c", Integer.parseInt(contoStr));
     	Date date = new Date();
     	response = (HttpServletResponse) Saldo.saldo(c, date, tS);
+    	God.seesEverythings(request, response, null);
 	}
 
 }

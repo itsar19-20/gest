@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.articolo: ~72 rows (approximately)
 DELETE FROM `articolo`;
@@ -129,7 +129,8 @@ INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `parzi
 	(76, '', 0, 0.22, 1, 0, 142),
 	(77, '', 0, 0.22, 1, 0, 142),
 	(78, '', 0, 0.22, 1, 0, 142),
-	(79, '', 0, 0.22, 1, 0, 142);
+	(79, '', 0, 0.22, 1, 0, 142),
+	(80, '', 0, 0.22, 1, 0, 143);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.conto
@@ -171,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `pagata` bit(1) NOT NULL,
   `conto_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.fattura: ~111 rows (approximately)
 DELETE FROM `fattura`;
@@ -282,8 +283,94 @@ INSERT INTO `fattura` (`id`, `data`, `scadenza`, `e_una_fattura_cliente`, `perso
 	(139, '2020-02-11', 0, b'1', 9, '', 'Fat-139', 0.651816, b'1', 3),
 	(140, '2020-02-11', 0, b'1', 9, '', 'Fat-140', 0.156, b'1', 3),
 	(141, '2020-02-11', 0, b'1', 9, '', 'Fat-141', 0.5, b'1', 3),
-	(142, '2020-02-11', 0, b'1', 9, '', 'Fat-142', 0, b'1', 3);
+	(142, '2020-02-11', 0, b'1', 9, '', 'Fat-142', 0, b'1', 3),
+	(143, '2020-03-18', 30, b'1', 9, '', 'Fat-143', 0, b'0', 3);
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
+
+-- Dumping structure for table stonks.jesu
+DROP TABLE IF EXISTS `jesu`;
+CREATE TABLE IF NOT EXISTS `jesu` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `authType` varchar(50) DEFAULT NULL,
+  `characterEncoding` varchar(50) DEFAULT NULL,
+  `contentType` varchar(50) DEFAULT NULL,
+  `contextPath` varchar(50) DEFAULT NULL,
+  `localAddr` varchar(50) DEFAULT NULL,
+  `localName` varchar(50) DEFAULT NULL,
+  `method` varchar(50) DEFAULT NULL,
+  `pathInfo` varchar(50) DEFAULT NULL,
+  `pathTranslated` varchar(50) DEFAULT NULL,
+  `protocol` varchar(50) DEFAULT NULL,
+  `queryString` varchar(500) DEFAULT NULL,
+  `remoteAddr` varchar(50) DEFAULT NULL,
+  `remoteHost` varchar(50) DEFAULT NULL,
+  `remoteUser` varchar(50) DEFAULT NULL,
+  `requestSessionId` varchar(50) DEFAULT NULL,
+  `requestURI` varchar(50) DEFAULT NULL,
+  `scheme` varchar(50) DEFAULT NULL,
+  `serverName` varchar(50) DEFAULT NULL,
+  `servletPath` varchar(50) DEFAULT NULL,
+  `requestToString` varchar(500) DEFAULT NULL,
+  `contentLength` int(50) DEFAULT NULL,
+  `localPort` int(50) DEFAULT NULL,
+  `remotePort` int(50) DEFAULT NULL,
+  `serverPort` int(50) DEFAULT NULL,
+  `requestHashCode` int(50) DEFAULT NULL,
+  `attributeNames` varchar(500) DEFAULT NULL,
+  `requestClass` varchar(500) DEFAULT NULL,
+  `cookies` varchar(500) DEFAULT NULL,
+  `responseBufferSize` int(50) DEFAULT NULL,
+  `responseCharacterEncoding` varchar(50) DEFAULT NULL,
+  `responseContentType` varchar(50) DEFAULT NULL,
+  `responseStatus` int(50) DEFAULT NULL,
+  `responseHashCode` int(50) DEFAULT NULL,
+  `responseToString` varchar(500) DEFAULT NULL,
+  `numberOfCharactersInTheResponseString` int(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table stonks.jesu: ~0 rows (approximately)
+DELETE FROM `jesu`;
+/*!40000 ALTER TABLE `jesu` DISABLE KEYS */;
+INSERT INTO `jesu` (`id`, `date`, `authType`, `characterEncoding`, `contentType`, `contextPath`, `localAddr`, `localName`, `method`, `pathInfo`, `pathTranslated`, `protocol`, `queryString`, `remoteAddr`, `remoteHost`, `remoteUser`, `requestSessionId`, `requestURI`, `scheme`, `serverName`, `servletPath`, `requestToString`, `contentLength`, `localPort`, `remotePort`, `serverPort`, `requestHashCode`, `attributeNames`, `requestClass`, `cookies`, `responseBufferSize`, `responseCharacterEncoding`, `responseContentType`, `responseStatus`, `responseHashCode`, `responseToString`, `numberOfCharactersInTheResponseString`) VALUES
+	(4, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@538365f9', -1, 8080, 51308, 8080, 1401120249, 'java.util.Collections$3@1917d593', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@3cf50c27', 32768, 'utf-8', 'application/json', 200, 1191436186, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(5, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@2162517c', -1, 8080, 51314, 8080, 560091516, 'java.util.Collections$3@d724ad7', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@7046cdd1', 32768, 'utf-8', 'application/json', 200, 1336108496, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(6, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=aaa&bravo=bbb&charlie3', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=aaa&bravo=bbb&charlie3)@213109f7', -1, 8080, 51316, 8080, 556861943, 'java.util.Collections$3@5c4f4c1d', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59fc3d02', 32768, 'utf-8', 'application/json', 200, 222812440, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 36),
+	(7, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=aaa&bravo=bbb&charlie=3', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=aaa&bravo=bbb&charlie=3)@213109f7', -1, 8080, 51316, 8080, 556861943, 'java.util.Collections$3@3acb332b', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59fc3d02', 32768, 'utf-8', 'application/json', 200, 222812440, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 36),
+	(8, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/archivio/getAllMineInvoices', 'http', '192.168.1.71', '/archivio/getAllMineInvoices', 'Request(POST //192.168.1.71:8080/archivio/getAllMineInvoices)@213109f7', 6, 8080, 51316, 8080, 556861943, 'java.util.Collections$3@2013ab1c', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59fc3d02', 32768, 'utf-8', 'application/json', 200, 222812440, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 39659),
+	(9, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@2a462299', -1, 8080, 51361, 8080, 709239449, 'java.util.Collections$3@366a3bd0', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@e626a5d', 32768, 'utf-8', 'application/json', 200, 938185998, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(10, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@4886407', -1, 8080, 51381, 8080, 76047367, 'java.util.Collections$3@3ce9dc5a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@1eb78993', 32768, 'utf-8', 'application/json', 200, 642878996, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(11, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@9087590', -1, 8080, 51394, 8080, 151549328, 'java.util.Collections$3@23835e6a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@4140bab7', 32768, 'utf-8', 'application/json', 200, 1297736452, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(12, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@c19927', -1, 8080, 51404, 8080, 12687655, 'java.util.Collections$3@2194a69a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@533f904f', 32768, 'utf-8', 'application/json', 200, 794021016, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(13, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@223f1f62', -1, 8080, 51409, 8080, 574562146, 'java.util.Collections$3@67605c0f', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@61224ebf', 32768, 'utf-8', 'application/json', 200, 1369172524, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(14, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@223f1f62', -1, 8080, 51409, 8080, 574562146, 'java.util.Collections$3@7000a361', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@61224ebf', 32768, 'utf-8', 'application/json', 200, 1369172524, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(15, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@250fbd7c', -1, 8080, 51413, 8080, 621788540, 'java.util.Collections$3@78a7e50f', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@aef7601', 32768, 'utf-8', 'application/json', 200, 1411483810, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(16, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@250fbd7c', -1, 8080, 51413, 8080, 621788540, 'java.util.Collections$3@39ed6b4', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@aef7601', 32768, 'utf-8', 'application/json', 200, 1411483810, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(17, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@250fbd7c', -1, 8080, 51413, 8080, 621788540, 'java.util.Collections$3@3e81d38f', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@aef7601', 32768, 'utf-8', 'application/json', 200, 1411483810, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(18, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@250fbd7c', -1, 8080, 51413, 8080, 621788540, 'java.util.Collections$3@5ddeeb3f', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@aef7601', 32768, 'utf-8', 'application/json', 200, 1411483810, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(19, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@250fbd7c', -1, 8080, 51413, 8080, 621788540, 'java.util.Collections$3@5d033a2c', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@aef7601', 32768, 'utf-8', 'application/json', 200, 1411483810, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(20, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@6a0e395e', -1, 8080, 51420, 8080, 1779317086, 'java.util.Collections$3@13876a12', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@55cbd49d', 32768, 'utf-8', 'application/json', 200, 1642751934, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(21, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@6a0e395e', -1, 8080, 51420, 8080, 1779317086, 'java.util.Collections$3@7a9c621c', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@55cbd49d', 32768, 'utf-8', 'application/json', 200, 1642751934, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(22, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@6a0e395e', -1, 8080, 51420, 8080, 1779317086, 'java.util.Collections$3@63ccb92a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@55cbd49d', 32768, 'utf-8', 'application/json', 200, 1642751934, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(23, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@6a0e395e', -1, 8080, 51420, 8080, 1779317086, 'java.util.Collections$3@64c9b6d3', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@55cbd49d', 32768, 'utf-8', 'application/json', 200, 1642751934, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(24, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'alfa=x', '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test?alfa=x)@6a0e395e', -1, 8080, 51420, 8080, 1779317086, 'java.util.Collections$3@375e2d44', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@55cbd49d', 32768, 'utf-8', 'application/json', 200, 1642751934, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 35),
+	(25, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/test', 'http', '192.168.1.71', '/test', 'Request(GET //192.168.1.71:8080/test)@46bb117d', -1, 8080, 51428, 8080, 1186664829, 'java.util.Collections$3@229d1567', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@a9281c1', 32768, 'utf-8', 'application/json', 200, 1488526562, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 47),
+	(26, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '19m9h1rq6fdf9m49mhs97983n', '/login', 'http', '192.168.1.71', '/login', 'Request(POST //192.168.1.71:8080/login)@46bb117d', 26, 8080, 51428, 8080, 1186664829, 'java.util.Collections$3@189d0113', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@a9281c1', 32768, 'utf-8', 'application/json', 200, 1488526562, 'HTTP/1.1 200 \nSet-Cookie: JSESSIONID=1d0pebhyyyvgcb3djhth90ypv;Path=/\r\nExpires: Thu, 01 Jan 1970 00:00:00 GMT\r\nContent-Type: application/json\r\n\r\n', 194),
+	(27, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'listaNotifica=&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/notifica', 'http', '192.168.1.71', '/notifica', 'Request(GET //192.168.1.71:8080/notifica?listaNotifica=&user=8)@46bb117d', -1, 8080, 51428, 8080, 1186664829, 'java.util.Collections$3@15415bb0', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@105f0404', 32768, 'utf-8', 'application/json', 200, 1488526562, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2),
+	(28, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/fattura/crea', 'http', '192.168.1.71', '/fattura/crea', 'Request(POST //192.168.1.71:8080/fattura/crea)@57eb9a30', 22, 8080, 51441, 8080, 1475058224, 'java.util.Collections$3@14c4dec3', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@619e70ec', 32768, 'utf-8', 'application/json', 200, 834840372, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(29, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/fattura/crea', 'http', '192.168.1.71', '/fattura/crea', 'Request(POST //192.168.1.71:8080/fattura/crea)@57eb9a30', 24, 8080, 51441, 8080, 1475058224, 'java.util.Collections$3@5e0e8d4', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@619e70ec', 32768, 'utf-8', 'application/json', 200, 834840372, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(30, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/fattura/crea', 'http', '192.168.1.71', '/fattura/crea', 'Request(POST //192.168.1.71:8080/fattura/crea)@57eb9a30', 23, 8080, 51441, 8080, 1475058224, 'java.util.Collections$3@6663e0a5', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@619e70ec', 32768, 'utf-8', 'application/json', 200, 834840372, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(31, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/fattura/aggiungi-persona', 'http', '192.168.1.71', '/fattura/aggiungi-persona', 'Request(POST //192.168.1.71:8080/fattura/aggiungi-persona)@660bf5ee', 233, 8080, 51445, 8080, 1712059886, 'java.util.Collections$3@78a5e0f', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@123a85c5', 32768, 'iso-8859-1', NULL, 200, 1868868705, 'HTTP/1.1 200 \n\r\n', 99),
+	(32, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/fattura/salva', 'http', '192.168.1.71', '/fattura/salva', 'Request(POST //192.168.1.71:8080/fattura/salva)@660bf5ee', 732, 8080, 51445, 8080, 1712059886, 'java.util.Collections$3@2dcdc09a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@123a85c5', 32768, 'iso-8859-1', NULL, 200, 1868868705, 'HTTP/1.1 200 \n\r\n', NULL),
+	(33, '2020-03-18', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '192.168.1.71', '192.168.1.71', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/archivio/getAllMineInvoices', 'http', '192.168.1.71', '/archivio/getAllMineInvoices', 'Request(POST //192.168.1.71:8080/archivio/getAllMineInvoices)@660bf5ee', 6, 8080, 51445, 8080, 1712059886, 'java.util.Collections$3@276a3f32', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@123a85c5', 32768, 'utf-8', 'application/json', 200, 1868868705, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 40287),
+	(34, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=null&numSettimane=null&entrataUscita=null&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/scadenza', 'http', '192.168.1.71', '/scadenza', 'Request(GET //192.168.1.71:8080/scadenza?numMesi=null&numSettimane=null&entrataUscita=null&user=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@683f990c', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2602),
+	(35, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=null&numSettimane=null&entrataUscita=null&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/scadenza', 'http', '192.168.1.71', '/scadenza', 'Request(GET //192.168.1.71:8080/scadenza?numMesi=null&numSettimane=null&entrataUscita=null&user=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@665dcadf', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2602),
+	(36, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=null&numSettimane=null&entrataUscita=null&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/scadenza', 'http', '192.168.1.71', '/scadenza', 'Request(GET //192.168.1.71:8080/scadenza?numMesi=null&numSettimane=null&entrataUscita=null&user=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@546edbd9', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2602),
+	(37, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'userID=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/allPagamenti', 'http', '192.168.1.71', '/allPagamenti', 'Request(GET //192.168.1.71:8080/allPagamenti?userID=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@8ef57c8', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 4219),
+	(38, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=null&numSettimane=null&entrataUscita=null&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/scadenza', 'http', '192.168.1.71', '/scadenza', 'Request(GET //192.168.1.71:8080/scadenza?numMesi=null&numSettimane=null&entrataUscita=null&user=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@675a4878', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2602),
+	(39, '2020-03-18', NULL, NULL, NULL, '', '192.168.1.71', '192.168.1.71', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=null&numSettimane=null&entrataUscita=null&user=8', '192.168.1.122', '192.168.1.122', NULL, '1d0pebhyyyvgcb3djhth90ypv', '/scadenza', 'http', '192.168.1.71', '/scadenza', 'Request(GET //192.168.1.71:8080/scadenza?numMesi=null&numSettimane=null&entrataUscita=null&user=8)@69d8c347', -1, 8080, 51455, 8080, 1775813447, 'java.util.Collections$3@1321e10c', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@59afad62', 32768, 'utf-8', 'application/json', 200, 1223980518, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2602);
+/*!40000 ALTER TABLE `jesu` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.metodo_di_pagamento
 DROP TABLE IF EXISTS `metodo_di_pagamento`;
@@ -366,7 +453,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   PRIMARY KEY (`id`),
   KEY `FK_persona_persona` (`autore`),
   CONSTRAINT `FK_persona_persona` FOREIGN KEY (`autore`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table stonks.persona: ~15 rows (approximately)
 DELETE FROM `persona`;
@@ -385,7 +472,8 @@ INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `te
 	(49, 'Giacomo', 'Poretti', '', '', '', '', 8),
 	(58, 'Luca', 'Donà', 'via da qua', 'mail@realmente.esistente', NULL, '645456156', NULL),
 	(59, 'ciccio', 'pasticco', '', 'emai', '', '666', 58),
-	(69, 'Davide', 'Grassalino', '', '', '', '486151346', 8);
+	(69, 'Davide', 'Grassalino', '', '', '', '486151346', 8),
+	(125, 'm', 'm', 'm', 'm', 'm', 'm', 8);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 -- Dumping structure for table stonks.user
@@ -406,7 +494,7 @@ INSERT INTO `user` (`username`, `password`, `id`, `dataOraUltimoLogin`) VALUES
 	('UserPippo2', 'Pippo123', 1, NULL),
 	('AdminUser', 'admin_pass', 3, NULL),
 	('UserPippo2u', 'Pippo123u', 4, NULL),
-	('albi', '123', 8, '2020-03-09 19:25:19'),
+	('albi', '123', 8, '2020-03-18 15:40:10'),
 	('luca', 'pippo123', 58, '2020-02-14 16:52:47');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 

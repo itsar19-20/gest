@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import models.Pagamento;
+import utils.God;
 import utils.JPALuke;
 import utils.JPAUtil;
 
@@ -37,17 +38,22 @@ public class CercaPagamento extends HttpServlet {
 		
 		
 		if(pagamento!=null) {
-		System.out.println("il gia pagato è: "+pagamento.getGiaPagato());
+		System.out.println("il gia pagato ï¿½: "+pagamento.getGiaPagato());
 		request.getSession().removeAttribute("pagamento");
 		request.getSession().setAttribute("pagamento", pagamento);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json");
 		response.getWriter().append(om.writeValueAsString(pagamento));
+		
+		God.seesEverythings(request, response, om.writeValueAsString(pagamento));
+		
 		emTemp.close();
 		}else {
 			request.getSession().setAttribute("pagamento", null);
 			request.getSession().removeAttribute("fatturaId");
 			request.getSession().setAttribute("fatturaId", idFattura);
+			
+			God.seesEverythings(request, response, null);
 		}
 	}
 
