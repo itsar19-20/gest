@@ -1,9 +1,9 @@
 
 
 .form-input{
-position: absolute;
+position: relative;
     width: 384px;
-    top: 80px;
+    top: 0px;
     left: 40%;
     right: 40%;
     text-align: left;
@@ -35,8 +35,13 @@ position: absolute;
     
 }
 
+#entUsc{
+    cursor:pointer;
+}
+
 #bottone{
     position: relative;
+    cursor: pointer;
     top: 100px;
     right: 150px;
     top:80px;
@@ -44,35 +49,58 @@ position: absolute;
 }
 
 #divAnticipo{
-    position:absolute;
-    display: block;
+    position:relative;
+    
     width: 200px;
-    top:60px;
-    right: 40px;
+    top:-120px;
+    left: 940px;
     text-align: left;
 
 }
 
 #divScadenziario{
     position: relative;
-    top:200px;
+    top:-50px;    
+  
+}
+#tblPagamenti tr.even{
+    background-color:#0d8bd3;
+    color: white;
+    
+}
+#tblPagamenti tr.odd{
+    background-color:#0f9df0;
+    color: white;
     
 }
 
+#tblPagamenti tr.even:hover{
+    background-color: #00FFFF;
+    color: black;
+
+}
+
+#tblPagamenti tr.odd:hover{
+    background-color: #00FFFF;
+    color:black;
+
+}
+
+
+#tblPagamenti tbody{
+    cursor: pointer;
+}
+
+
 #divGrafico{
-    position: absolute;
-    display: block;
-    top: 285px;
+    position: relative;
+    top: 0px;
 
-
-
-}#divBottoni{
-    position: absolute;
-    display: block;
-    top:150px;
-    left: 50px;
-
-
-
-
+}
+#divBottoni{
+    position: relative;
+    
+    top:-150px;
+    right: 500px;
+    
 }
