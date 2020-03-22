@@ -3,8 +3,8 @@ $(() => {
     var user = JSON.parse(localStorage.getItem('user'));
     user = user.id;
     $.ajax({
-        url: '/archivio/getAllMineInvoices',
-        method: 'post',
+        url: `/archivio/getAllMineInvoices`,
+        method: `get`,
         data: {user}
     })
     .done(function(listaFatture) {
@@ -12,12 +12,7 @@ $(() => {
         // Per ogni fattura ricevuta
         listaFatture.forEach(element => {
             // Converto la data in un formato umano
-            var date = new Date(element.data);
-            var month = date.getMonth()+1;
-            if (month < 10) month = "0" + month;
-            var day = date.getDate();
-            if (day < 10) day = "0" + day;
-            var convertedDate = day+'-'+month+'-'+date.getFullYear();
+            var convertedDate = convertData(element.data);
             element.data = convertedDate;
             // Aggingo una formattazione al numero di giorni di scadenza
             element.scadenza += ` gg`;
@@ -36,37 +31,97 @@ $(() => {
             element.iva = `€ ` + element.iva;
             // Formatto il lordo
             element.lordo = `€ ` + element.lordo;
+            // Segnalo l'eventuale emissione di unna nota di credito
+            element.notaDiCredito ? element.notaDiCredito = 'emessa' : element.notaDiCredito = 'no';
             // Inserisco l'oggetto in una nuova righa della tabella
             $('#tblFatture').append(`
-                <tr data-id="${element.id}" class="line" data-toggle="modal" data-target="#modal">
-                    <td>${element.numeroFattura}</td>
-                    <td>${element.data}</td>
-                    <td>${element.scadenza}</td>
-                    <td>${element.pagata}</td>
-                    <td>${element.eUnaFatturaCliente}</td>
-                    <td>${element.persona}</td>
-                    <td>${element.conto}</td>
-                    <td>${element.numeroArticoli}</td>
-                    <td>${element.lordo}</td>
-                    <td>${element.iva}</td>
-                    <td>${element.nota}</td>
+                <tr data-id="${element.id}" class="line column" data-toggle="modal" data-target="#modal">
+                    <td id="numeroFattura">${element.numeroFattura}</td>
+                    <td class="column-small" data-toggle="tooltip" data-placement="bottom" title="Nota di credito">${element.notaDiCredito}</td>
+                    <td class="column">${element.data}</td>
+                    <td class="column">${element.scadenza}</td>
+                    <td class="column">${element.pagata}</td>
+                    <td class="column">${element.eUnaFatturaCliente}</td>
+                    <td class="column">${element.persona}</td>
+                    <td class="column">${element.conto}</td>
+                    <td class="column">${element.numeroArticoli}</td>
+                    <td class="column">${element.lordo}</td>
+                    <!-- <td class="column">${element.iva}</td> -->
+                    <!-- <td>${element.nota}</td> -->
                 </tr>
             `);
 
         });
+        // Al clic su una linea della tabella
         $( "#tblFatture" ).on( "click", ".line", function() {
-            var idFattura = $(this).data('id');
-            console.log(idFattura);
-            $(`#modalTitle`).text(idFattura);
-        });
-    })
-    .fail(() => {
-        console.log(`fail`);
-    })
+            var id = $(this).data('id');
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                timeout: 2000,
+                url: '/archivio/getThisInvoice',
+                data: { id },
+                dataType: 'json',
+                success: (data, textStatus, jqXHR) => { showInvoice(data); },
+                error: (data, textStatus, jqXHR) => { console.log(data, textStatus, jqXHR); showProblem(); },
+                complete: () => { console.log('End ajax request') },
+            });
+            function showInvoice(invoice) {
+                $('.invoice-sheet').show();
+                $('#btn-nota-credito').show();
+                $('.problem-sheet').hide();
 
+                invoice.notaDiCredito ? $('#btn-nota-credito').prop('disabled', true) : $('#btn-nota-credito').prop('disabled', false)
+
+                $(`#modal-title`).text(invoice.numeroFattura);
+                $(`#conto`).text(invoice.conto.nome);
+                $(`#tipo-fattura`).text(invoice.eUnaFatturaCliente ? 'cliente' : 'fornitore');
+                $(`#persona`).text(invoice.persona.nome + ' ' + invoice.persona.cognome);
+                $(`#data`).text(convertData(invoice.data));
+                $(`#scadenza`).text(invoice.scadenza + ' giorni');
+                $('#tbl-articles').empty();
+                invoice.articolo.forEach(element => {
+                $('#tbl-articles').append(`<tr>
+                    <td class="col-descrizione">${element.descrizione}</td>
+                    <td>${'€ ' + element.quantita}</td>
+                    <td>${'€ ' + element.prezzo}</td>
+                    <td>${'€ ' + element.parziale}</td>
+                </tr>`)
+                });
+                $(`#note`).text(invoice.nota);
+                $(`#totale`).text('€ ' + invoice.lordo);
+                $(`#iva`).text('€ ' + invoice.lordo * invoice.iva);
+            }
+            function showProblem() {
+                $(`#modal-title`).text('Qualcosa non va...');
+                $('.invoice-sheet').hide();
+                $('#btn-nota-credito').hide();
+                $('.problem-sheet').show();
+            }
+        });
+        $('#btn-nota-credito').click(() => {
+            if (confirm('Stai per emettere una nota di credito,\nse decidi di continuare non sarà più possibile tornare indietro.\nVuoi procedere?')) {
+                $.ajax({
+                    cache: false,
+                    type: 'PUT',
+                    timeout: 2000,
+                    url: 'archivio/emetti-nota-di-credito',
+                    data: { id },
+                    dataType: '',
+                    success: (data, textStatus, jqXHR) => { $('#btn-nota-credito').prop('disabled', true); },
+                    error: (data, textStatus, jqXHR) => { alert('Si è verififato un problema.\nRiprova.') },
+                    complete: () => { console.log('End ajax request') },
+                });
+            }
+        });
+    }).fail(() => { console.log(`fail`); });
+
+
+    /*
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
-      })
+    });
+    */
 
     function MyPopUpWin(idFattura) {
         var myHeight = window.screen.height / 2;
@@ -77,3 +132,15 @@ $(() => {
         }
 
 });
+
+function convertData(element) {
+    var date = new Date(element);
+    var month = date.getMonth() + 1;
+    if (month < 10)
+        month = "0" + month;
+    var day = date.getDate();
+    if (day < 10)
+        day = "0" + day;
+    var convertedDate = date.getFullYear() + '/' + month + '/' + day;
+    return convertedDate;
+}

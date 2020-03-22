@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,7 +58,7 @@ public class Fattura {
 	@JsonProperty("nota")
 	private String nota;
 
-	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fattura", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Articolo> articoli;
 
 	@Column(name = "numero_fattura")
@@ -72,6 +73,9 @@ public class Fattura {
 
 	@Column(name = "pagata")
 	private boolean pagata = false;
+	
+	@Column(name = "notaDiCredito")
+	private boolean notaDiCredito = false;
 
 	@ManyToOne
 	private Conto conto;
@@ -220,6 +224,14 @@ public class Fattura {
 
 	public void setConto(Conto conto) {
 		this.conto = conto;
+	}
+
+	public boolean isNotaDiCredito() {
+		return notaDiCredito;
+	}
+
+	public void setNotaDiCredito(boolean notaDiCredito) {
+		this.notaDiCredito = notaDiCredito;
 	}
 
 }

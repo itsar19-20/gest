@@ -9,9 +9,7 @@ import models.Persona;
 import models.Users;
 
 public class DataBase {
-
-	protected static EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-
+	
 	public static void create(Object o) {
 		trans("create", o);
 		if (o instanceof Fattura) {
@@ -30,6 +28,7 @@ public class DataBase {
 	}
 
 	public static void trans(String s, Object o) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		em.getTransaction().begin();
 		switch (s) {
 		case "create":
@@ -46,10 +45,11 @@ public class DataBase {
 			break;
 		}
 		em.getTransaction().commit();
-		// em.close();
+		em.close();
 	}
 
 	public static Object getObjectById(String classe, Integer id) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		Object o = null;
 		switch (classe) {
 		case "a":
@@ -72,7 +72,7 @@ public class DataBase {
 			System.out.println("[utils.DataBase.getObjectById(classe, id)] inserire un corretto riferimento alla classe");
 			break;
 		}
-		// em.close();
+		em.close();
 		return o;
 	}
 

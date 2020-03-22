@@ -66,9 +66,10 @@ public class FatturaCreaController extends HttpServlet {
 			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lp));
 		} else if (whatIWant.contentEquals("minMax")) {
-			int min = MenagementFattura.getMinIdOfContiAndFatture(id),
-					max = MenagementFattura.getMaxIdOfContiAndFatture(id);
+			int min = MenagementFattura.getMinIdOfContiAndPersone(id),
+					max = MenagementFattura.getMaxIdOfContiAndPersone(id);
 			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
+			response.setContentType("application/json;charset=utf-8");
 			response.getWriter().append(output);
 		}
 		God.seesEverythings(request, response, null);

@@ -1,0 +1,16 @@
+#tbl-invoices { background-color: darkturquoise; }
+.column { max-width: 102px; }
+.column-small { max-width: 51px; }
+th { background-color: gold; }
+.titoletto { color: darkturquoise; font-size: small; }
+
+.invoice-sheet { text-align: left; }
+.invoice-line-side-by-side { float: left; }
+.side-5 { min-width: 5%; }
+.side-35 { width: 35%; }
+.side-40 { width: 40%; }
+.side-60 { width: 60%; }
+#articles-list { text-align: center; }
+.articles-tbl-head { background-color: darkturquoise; font-size: small; }
+.col-descrizione { text-align: left; }
+#secret-space { color: rgba(0, 0, 0, 0); }

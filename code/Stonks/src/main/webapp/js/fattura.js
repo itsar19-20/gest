@@ -58,20 +58,10 @@ $(() => {
                 method: 'post',
                 data: {user, whatIWant}
             })
-            .done((fromControler) => {
-                localStorage.setItem(`minMax`, JSON.stringify(fromControler));
-            })
-            .fail(() => {
-                console.log(`problema nel caricamento dell'indice minMax`);
-            });
-        })
-        .fail(() => {
-            console.log('problema nel caricamento delle persone')
-        });
-    })
-    .fail(() => {
-        console.log('problema nel caricamento dei conti')
-    });
+            .done((fromControler) => { localStorage.setItem(`minMax`, JSON.stringify(fromControler)); })
+            .fail(() => { console.log(`problema nel caricamento dell'indice minMax`); });
+        }) .fail(() => { console.log('problema nel caricamento delle persone') });
+    }) .fail(() => { console.log('problema nel caricamento dei conti') });
 
     // Add the first
     var numeroArticoli = 1;
@@ -105,7 +95,7 @@ $(() => {
             $('#articoli').append(html
                 .replace('articolo-list-item-1', 'articolo-list-item-' + numeroArticoli)
                 .replace(labelDescrizione, '')
-                .replace(str + 'descrizione-1', str + `item-` + numeroArticoli)
+                .replace(str + 'descrizione-1', str + `descrizione-` + numeroArticoli)
                 .replace(labelQuantita, '')
                 .replace(str + `quantita-1`, str + `quantita-` + numeroArticoli)
                 .replace(labelPrezzo, '')
@@ -185,23 +175,8 @@ $(() => {
             removeContiAndPersoneFromLocalStorage();
             location.href = `/`;
         })
-        .fail(() => {
-            console.log('fattura non salvata');
-        });
+        .fail(() => { console.log('fattura non salvata'); });
     });
-
-        /*
-    function allStorage() {
-        var values = [],
-            keys = Object.keys(localStorage),
-            i = keys.length;
-        while ( i-- ) {
-            values.push( localStorage.getItem(keys[i]) );
-        }
-        return values;
-    }
-    console.log(allStorage());
-    */
 
     function removeContiAndPersoneFromLocalStorage() {
         // costruire un meccanismo che esegue una query che restituisce il numero massimo e minimo degli id

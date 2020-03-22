@@ -47,10 +47,8 @@ public class FatturaArchivioController extends HttpServlet {
 		Integer id = Integer.parseInt(userIdString);
 		List<Fattura> fatture = MenagementFattura.listaFatture(id);
 		ObjectMapper om = new ObjectMapper();
-		response.setContentType("application/json");
+		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().append(om.writeValueAsString(fatture));
-		System.out.println(SizeOf.getSizeInByte(om.writeValueAsString(fatture)) + " byte");
-		System.out.println(SizeOf.getSizeInMegabyte(om.writeValueAsString(fatture)) + " megabyte");
 		God.seesEverythings(request, response, om.writeValueAsString(fatture));
 	}
 

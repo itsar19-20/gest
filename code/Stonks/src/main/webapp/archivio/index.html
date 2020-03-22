@@ -21,159 +21,88 @@
         
         <main>
 
-            <!-- Button trigger modal
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                Launch demo modal
-            </button> -->
-            
-            <!-- Modal -->
-            <!-- -->
-            <div class="modal fade " id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <!-- form fattura -->
-                        <div id="form-fattura" class="">
-
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <div class="col">
-
-                                        <div id="primoBlocco" class="form-group">
-                                            <!-- scegliere la propria azienda (alisa conto) -->
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <label for="input-conto" class="input-group-text">Conto</label>
-                                                        <select class="form-control" id="input-conto" name="conto" required></select>
-                                                        <small>I Conti rapprsentano le dierse Aziende che gestisci</small>
-                                                    </div>
-                                                </div>                                               
-                                            </div>
-
-                                            <div class="form-row">
-                                                <div class="col-4">
-                                                    <!-- fattura cliente o fornitore? -->
-                                                    <label for="input-tipo-fattura" class="input-group-text">Fattura</label>
-                                                    <select class="form-control" id="input-tipo-fattura" name="invoice-type" required>
-                                                        <option value="true">cliente</option>
-                                                        <option value="false">fornitore</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-6">
-                                                    <!-- persona, che sia o il fornitore o il clente -->
-                                                    <label for="input-persona" class="input-group-text">Persona</label>
-                                                    <select class="form-control" id="input-persona" required></select>
-                                                </div>
-                                                <div class="col-2">
-                                                    <!-- button to add a new persona -->
-                                                    <label for="btn-add-new-persona">&nbsp;</label>
-                                                    <button id="btn-add-new-persona" type="button" name="aggiungiPersona" 
-                                                    class="btn btn-success btn-dark form-control" data-toggle="modal" data-target="#ilMioBelModal">
-                                                    crea
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <br>
-
-                                            <div class="form-row">
-                                                <div class="col-6">
-                                                    <!-- data della fattura -->
-                                                    <label for="input-data" class="input-group-text">Data</label>
-                                                    <input class="form-control" id="input-data" type="date" name="date" required>
-                                                </div>
-                                                <div class="col-4">
-                                                    <!-- scadenza della fattura in giorni -->
-                                                    <label for="input-scadenza" class="input-group-text">Scadenza</label>
-                                                    <select class="form-control" id="input-scadenza" name="deadline" required>
-                                                        <option value="0" selected>0</option>
-                                                        <option value="30">30</option>
-                                                        <option value="60">60</option>
-                                                        <option value="120">120</option>
-                                                    </select>
-                                                    <small>in giorni</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- lista degli articoli -->
-                            <div class="form-group" id="articoli">
-                                <label id="labelArticoli" for="label">Articoli</label>
-                                <div id="label"></div>
-                            </div>
-
-                            <div id="ultimoBlocco" class="form-group">
-                            <div class="form-row">
-                                <div class="col-8">
-                                    <!-- breve descrizione facoltativa -->
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Note</span>
-                                        </div>
-                                        <textarea id="input-note" class="form-control" placeholder="facoltativo" ></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <!-- totale -->
-                                    <div class="input-group totali">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">Totale</span>
-                                            <span class="input-group-text">€</span>
-                                        </div>
-                                        <span id="totale" class="form-control">0</span>
-                                    </div>
-                                    <!-- di cui IVA -->
-                                    <div id="label-iva-sul-totale" class="input-group totali">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">di cui IVA</span>
-                                            <span class="input-group-text">€</span>
-                                        </div>
-                                        <span id="iva-sul-totale" class="form-control">0</span>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            
-            <!-- <table id="tblFatture"></table> -->
-            <table class="table table-striped">
+            <!-- Table -->
+            <table id="tbl-invoices" class="table table-striped">
                 <thead>
                     <tr>
-                    <th scope="col">N° fattura</th>
-                    <th scope="col">Data</th>
-                    <th scope="col">Scadenza</th>
-                    <th scope="col">Pagata</th>
-                    <th scope="col">Tipo fattura</th>
-                    <th scope="col">Persona</th>
-                    <th scope="col">Conto</th>
-                    <th scope="col">N° articoli</th>
-                    <th scope="col">Lordo</th>
-                    <th scope="col">di cui IVA</th>
-                    <th scope="col">Nota</th>
+                    <th class="column" scope="col">N° fattura</th>
+                    <th class="column" scope="col" data-toggle="tooltip" data-placement="bottom" title="Nota di credito">NdC</th>
+                    <th class="column" scope="col">Data</th>
+                    <th class="column" scope="col">Scadenza</th>
+                    <th class="column" scope="col">Pagata</th>
+                    <th class="column" scope="col">Tipo</th>
+                    <th class="column" scope="col">Persona</th>
+                    <th class="column" scope="col">Conto</th>
+                    <th class="column" scope="col">N° articoli</th>
+                    <th class="column" scope="col">Lordo</th>
+                    <!-- <th class="column" scope="col">di cui IVA</th> -->
+                    <!-- <th scope="col">Nota</th> -->
                     </tr>
                 </thead>
                 <tbody id="tblFatture"></tbody>
                 </table>
+                                   
+                <!-- Modal -->
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title">Title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+    
+                            <div class="invoice-sheet">
+                                <div class="invoice-line"><h5 class="titoletto">Conto</h5><p id="conto" class="testo">§</p></div>
+                                <div id="fornitore-cliente" class="invoice-line">
+                                    <div class="invoice-line-side-by-side side-40"><h5 class="titoletto">Fattura</h5><p id="tipo-fattura" class="testo">...</p></div>
+                                    <div class="invoice-line-side-by-side side-60"><h5 class="titoletto">Persona</h5><p id="persona" class="testo">...</p></div>
+                                </div>
+                                <div class="invoice-line">
+                                    <div class="invoice-line-side-by-side side-40"><h5 class="titoletto">Data</h5><p id="data" class="testo">...</p></div>
+                                    <div class="invoice-line-side-by-side side-60"><h5 class="titoletto">Scadenza</h5><p id="scadenza" class="testo">...</p></div>
+                                </div>
+                                <div id="articles-list">
+                                    <div id="articles-title"><h5 class="titoletto">Articoli</h5></div>
+                                    <table class="table table-striped">
+                                        <thead><tr>
+                                            <th scope="col" class="articles-tbl-head">Descrizione</th>
+                                            <th scope="col" class="articles-tbl-head">Quantità</th>
+                                            <th scope="col" class="articles-tbl-head">Prezzo</th>
+                                            <th scope="col" class="articles-tbl-head">Parziale</th>
+                                        </tr></thead>
+                                        <tbody id="tbl-articles"></tbody>
+                                    </table>
+                                </div>
+                                <div class="invoice-line">
+                                    <div class="invoice-line-side-by-side side-60">
+                                        <div><h5 class="titoletto">Nota</h5></div>
+                                        <div id="note" class="alert alert-info">...</div>
+                                    </div>
+                                    <div id="secret-space" class="invoice-line-side-by-side side-5">...</div>
+                                    <div class="invoice-line-side-by-side side-35">
+                                        <div><h5 class="titoletto">Totale</h5></div>
+                                        <div id="totale" class="totali">...</div>
+                                        <div><h5 class="titoletto">di cui IVA</h5></div>
+                                        <div id="iva" class="totali">...</div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="problem-sheet">
+                                <p class="problem-title alert alert-danger">Problema nel caricamento della fattura.<br>Ritenta, magari andarà meglio.</p>
+                            </div>
+    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btn-nota-credito" class="btn btn-danger">Emetti nota di credito</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">x</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
 
         </main>
 
@@ -189,9 +118,21 @@
         <!-- my js file -->
         <script src="/js/index.js"></script>
         <script src="/js/archivio.js"></script>
-        <script src="/js/fatturaa.js"></script>
-    
       
     </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

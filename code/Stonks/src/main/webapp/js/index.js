@@ -67,12 +67,12 @@ $(() => {
         $('footer').html(html);
     });
 
-    // i remove the unused data from local storage
-    // se non ti trovi nella pagina `/fattura/*` fai questo
-    if (window.location.href.indexOf("fattura") < 0) removeContiAndPersoneFromLocalStorage();
-    // rimuovo i dati, dei conti e delle persone collegate all'utente loggato, dal local storage 
+    // Remove the unused data from local storage
+    // Se non ti trovi nella pagina `/fattura/*` fai questo
+    if (window.location.href.indexOf("fattura") < 0) removeUnusedElementsFromLocaclStorage();
+    // Rimuovo i dati dei conti e delle persone collegate all'utente loggato, dal local storage 
     // utilizzati per la creazione di una fattura
-    function removeContiAndPersoneFromLocalStorage() {
+    function removeUnusedElementsFromLocaclStorage() {
         // costruire un meccanismo che esegue una query che restituisce il numero massimo e minimo degli id
         // di conti e persone collegati all'utente loggato, così da impostare min e max del ciclo for
         var minMax = JSON.parse(localStorage.getItem(`minMax`));

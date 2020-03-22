@@ -61,9 +61,11 @@ public class Conto {
 	private Integer idPagamenti = 0;
 
 	@JsonProperty("saldoDisponibile")
+	@JsonIgnore
 	private float saldoDisponibile = 0f;
 
 	@JsonProperty("saldoUtile")
+	@JsonIgnore
 	private float saldoUtile = 0f;
 
 	@Column(name = "utente_id")
