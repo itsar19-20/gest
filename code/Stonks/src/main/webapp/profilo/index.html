@@ -1,25 +1,70 @@
+<!doctype html>
 <html>
     <head>
     	<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     	<meta name="description" content="User profile">
     	<meta name="author" content="Alberto Sormani">
-    	<meta name="generator" content="profile v0.1">
+    	<meta name="generator" content="profile v1.0">
 
         <title>Fatturo.IO</title>
 
         <!-- Bootstrap css -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <!-- My CSS file -->
-        <link rel="stylesheet" href="/css/index.css">
-        <link rel="stylesheet" href="/css/profilo.css">
+        <link rel="stylesheet" href="/css/index.css" type="text/css">
+        <link rel="stylesheet" href="/css/profilo.css" type="text/css">
 
     </head>
     <body>
 
         <header></header>
         <main>
-            <p>Profilo</p>
+
+            <div class="row">
+                <div class="col-4">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item text-primary">Il tuo profilo</a>
+                    <a class="list-group-item list-group-item-action active" id="list-persone-list" data-toggle="list" href="#list-persone" role="tab" aria-controls="profile">Persone</a>
+                    <a class="list-group-item list-group-item-action" id="list-conti-list" data-toggle="list" href="#list-conti" role="tab" aria-controls="home">Conti</a>
+                    <a class="list-group-item list-group-item-action" id="list-profilo-list" data-toggle="list" href="#list-profilo" role="tab" aria-controls="messages">Profilo</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                  </div>
+                </div>
+                <div class="col-8">
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade alert alert-secondary active" id="list-persone" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+                    <div class="tab-pane fade show alert alert-secondary" id="list-conti" role="tabpanel" aria-labelledby="list-home-list">...</div>
+                    <div class="tab-pane fade" id="list-profilo" role="tabpanel" aria-labelledby="list-messages-list">
+                        <ul class="list-group">
+                            <!-- Nome utente -->
+                            <li class="list-group-item">
+                                <div class="form-inline">
+                                    <input type="text" id="profilo-nome-utente" class="form-control">
+                                    <button id="profilo-cambia-nome-utente" class="btn btn-primary float-right">Cambia</button>
+                                    <div class="invalid-feedback"><p id="profilo-cambia-nome-utente-invalid-feedback">...</p></div>
+                                </div>
+                            </li>
+                            <!-- Password -->
+                            <li class="list-group-item">
+                                <div class="">
+                                    <input type="password" id="profilo-vecchia-password" class="form-control" placeholder="password attuale">
+                                    <input type="password" id="profilo-nuova-password" class="form-control" placeholder="nuova password">
+                                    <input type="password" id="profilo-nuova-password-controllo" class="form-control" placeholder="nuova password">
+                                    <div class="invalid-feedback"><p id="profilo-cambia-password-invalid-feedback">...</p></div>
+                                    <button id="profilo-cambia-password" class="btn btn-primary float-right">Cambia</button>
+                                </div>
+                            </li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                          </ul>
+                    </div>
+                    <div class="tab-pane fade alert alert-secondary" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+                  </div>
+                </div>
+              </div>
+            
         </main>
         <footer></footer>
     
@@ -29,15 +74,15 @@
                 crossorigin="anonymous"></script>
                 
         <!-- Bootstrap js-->
-        <!-- 
-            this is the jquery slim, for Boostrap, normal version below
+        <!-- this is the jquery slim, for Boostrap, normal version below -->
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        -->
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <!-- my js file -->
         <script src="/js/index.js"></script>
+        <script src="/js/profilo.js"></script>
 
     </body>
 </html>

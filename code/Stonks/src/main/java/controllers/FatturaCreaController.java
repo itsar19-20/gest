@@ -16,42 +16,25 @@ import models.Conto;
 import models.Persona;
 import utils.God;
 
-/**
- * Servlet implementation class FatturaCreaController
- */
 @WebServlet("/fattura/crea")
 public class FatturaCreaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public FatturaCreaController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ObjectMapper om = new ObjectMapper();
-		// ajax passa l'id dell'utente loggato come stringa
-		String userIdString = request.getParameter("user");
-		// la stringa diventa un numero
-		Integer id = Integer.parseInt(userIdString);
+		Integer id = Integer.parseInt(request.getParameter("user"));
 		// capisco cosa mi sta richiedendo il client
 		String whatIWant = request.getParameter("whatIWant");
 		response.setContentType("application/json");

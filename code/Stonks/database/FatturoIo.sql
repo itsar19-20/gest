@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4;
 
 -- L’esportazione dei dati non era selezionata.
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `conto_id` int(11) NOT NULL,
   `notaDiCredito` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4;
 
 -- L’esportazione dei dati non era selezionata.
 
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `jesu` (
   `responseToString` varchar(500) DEFAULT NULL,
   `numberOfCharactersInTheResponseString` int(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=814 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8mb4;
 
 -- L’esportazione dei dati non era selezionata.
 

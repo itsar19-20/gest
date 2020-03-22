@@ -6,7 +6,7 @@ import models.Articolo;
 import models.Conto;
 import models.Fattura;
 import models.Persona;
-import models.Users;
+import models.User;
 
 public class DataBase {
 	
@@ -65,7 +65,7 @@ public class DataBase {
 			o = em.find(Persona.class, id);
 			break;
 		case "u":
-			o = em.find(Users.class, id);
+			o = em.find(User.class, id);
 			break;
 
 		default:
@@ -74,6 +74,45 @@ public class DataBase {
 		}
 		em.close();
 		return o;
+	}
+	
+	public static User getUserById(Integer id) {
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		User x = em.find(User.class, id);
+		em.close();
+		return x;		
+	}
+	
+	public static User getUserByUsername(String username) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			User x = (User) em
+					.createQuery("SELECT x FROM User x WHERE x.username=:username")
+					.setParameter("username", username)
+					.getSingleResult();
+			em.close();
+			return x;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;		
+	}
+	
+	public static String getPasswordByUserId(Integer id) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			String x = (String) em
+					.createQuery("SELECT x.password FROM User x WHERE x.id=:id")
+					.setParameter("id", id)
+					.getSingleResult();
+			em.close();
+			return x;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

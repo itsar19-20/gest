@@ -14,7 +14,7 @@ import models.Persona;
 @Entity
 // @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user")
-public class Users extends Persona{
+public class User extends Persona{
 	
 	private String username;
 	
@@ -25,11 +25,11 @@ public class Users extends Persona{
 	
 //	private boolean attivita = false;
 	
-	public Users() {
+	public User() {
 		
 	}
 
-	public Users( String nome, String cognome, String pIVA, String mail, String indirizzo, 
+	public User( String nome, String cognome, String pIVA, String mail, String indirizzo, 
 				String telefono, String username, String password) {
 		super( nome, cognome, pIVA, mail, indirizzo, telefono);
 		this.username = username;

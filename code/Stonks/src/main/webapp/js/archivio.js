@@ -37,7 +37,7 @@ $(() => {
             $('#tblFatture').append(`
                 <tr data-id="${element.id}" class="line column" data-toggle="modal" data-target="#modal">
                     <td id="numeroFattura">${element.numeroFattura}</td>
-                    <td class="column-small" data-toggle="tooltip" data-placement="bottom" title="Nota di credito">${element.notaDiCredito}</td>
+                    <td id="ndr-${element.id}" class="column-small" data-toggle="tooltip" data-placement="bottom" title="Nota di credito">${element.notaDiCredito}</td>
                     <td class="column">${element.data}</td>
                     <td class="column">${element.scadenza}</td>
                     <td class="column">${element.pagata}</td>
@@ -59,7 +59,7 @@ $(() => {
                 cache: false,
                 type: 'GET',
                 timeout: 2000,
-                url: '/archivio/getThisInvoice',
+                url: '/archivio/SingleInvoice',
                 data: { id },
                 dataType: 'json',
                 success: (data, textStatus, jqXHR) => { showInvoice(data); },
@@ -98,21 +98,25 @@ $(() => {
                 $('#btn-nota-credito').hide();
                 $('.problem-sheet').show();
             }
-        });
-        $('#btn-nota-credito').click(() => {
-            if (confirm('Stai per emettere una nota di credito,\nse decidi di continuare non sarà più possibile tornare indietro.\nVuoi procedere?')) {
-                $.ajax({
-                    cache: false,
-                    type: 'PUT',
-                    timeout: 2000,
-                    url: 'archivio/emetti-nota-di-credito',
-                    data: { id },
-                    dataType: '',
-                    success: (data, textStatus, jqXHR) => { $('#btn-nota-credito').prop('disabled', true); },
-                    error: (data, textStatus, jqXHR) => { alert('Si è verififato un problema.\nRiprova.') },
-                    complete: () => { console.log('End ajax request') },
-                });
-            }
+            $('#btn-nota-credito').click(() => {
+                if (confirm('Stai per emettere una nota di credito,\nse decidi di continuare non sarà più possibile tornare indietro.\nVuoi procedere?')) {
+                    $.ajax({
+                        cache: false,
+                        type: 'PUT',
+                        timeout: 2000,
+                        url: '/archivio/SingleInvoice',
+                        data: { id },
+                        dataType: '',
+                        success: (data, textStatus, jqXHR) => {
+                            alert('La nota di credito è stata emessa correttamente');
+                            $('#btn-nota-credito').prop('disabled', true);
+                            $('#ndr-' + id).text('emessa');
+                        },
+                        error: (data, textStatus, jqXHR) => { alert('Si è verififato un problema.\nRiprova.') },
+                        complete: () => { console.log('End ajax request') },
+                    });
+                }
+            });
         });
     }).fail(() => { console.log(`fail`); });
 

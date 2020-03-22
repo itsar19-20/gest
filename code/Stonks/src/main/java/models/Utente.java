@@ -3,11 +3,11 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import models.Users;
+import models.User;
 
 @Entity
 @Table(name = "utente")
-public class Utente extends Users {
+public class Utente extends User {
 	
 	public Utente() {
 		

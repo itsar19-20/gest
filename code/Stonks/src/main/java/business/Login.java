@@ -5,17 +5,17 @@ import java.util.Date;
 import javax.management.Query;
 import javax.persistence.EntityManager;
 
-import models.Users;
+import models.User;
 import utils.JPAUtil;
 
 public class Login {
 
-		public Users login(String username, String password) {
-			Users _return = null;
+		public User login(String username, String password) {
+			User _return = null;
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			
 			//	_return = em.find(Users.class, username);
-			_return = (Users) em.createQuery("Select x from Users x where x.username = :username")
+			_return = (User) em.createQuery("Select x from Users x where x.username = :username")
 					.setParameter("username", username).getSingleResult();
 			if (_return != null) {
 				

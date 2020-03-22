@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.MenagementFattura;
+import models.Fattura;
+import utils.DataBase;
 import utils.God;
 
-@WebServlet("/archivio/getThisInvoice")
+@WebServlet("/archivio/SingleInvoice")
 public class ArchivioSingolaFattura extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,9 +33,14 @@ public class ArchivioSingolaFattura extends HttpServlet {
 		God.seesEverythings(request, response, output);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// super.doPut(req, resp);
+		Integer id = Integer.valueOf(req.getParameter("id"));
+		Fattura f = MenagementFattura.getFatturaById(id);
+		f.setNotaDiCredito(true);
+		DataBase.update(f);
+		God.seesEverythings(req, resp, null);
 	}
 
 }
