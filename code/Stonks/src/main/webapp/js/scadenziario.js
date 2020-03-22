@@ -1,18 +1,15 @@
+document.body.style.backgroundColor = "#99FFFF";
 $(document).ready( function () {
 let chart=0;
 var user = JSON.parse(localStorage.getItem('user')  );
 user = user.id;
 var table=0;
 
+
 $('#bottone').click(function(){
 
     
-     
-    
     console.log(user);
-
-
-
 
 	$.ajax({
        url: './scadenza',
@@ -29,73 +26,25 @@ $('#bottone').click(function(){
         
     	
     	if(fatture.length>0){ 
-
-                fatture.forEach(f => {
-                var dataS=new Date(f.data).toLocaleDateString();
-                f.data=dataS;
-                console.log(f.eUnaFatturaCliente);
-                if(f.eUnaFatturaCliente==true){
-                    f.eUnaFatturaCliente="entrata";
-                }else{
-                    f.eUnaFatturaCliente="uscita";
-                }
-
-                var lordoStringa= parseFloat(f.lordo).toFixed(2);
-                 lordoStringa+=" €";
-                 f.lordo=lordoStringa;
-            });
-            console.log(fatture[0].data);
-
-            if(chart!=0){
-                chart.destroy();
-                chart=0;
-            }
-           
-            $("#cercaPagamenti").attr("disabled",true);
             
-          // console.log(fatture[0].data); 
-           //var dataS=new Date(fatture[0].data) ;
-
-           //toLocaleDateString() -> giorno/mese/anno in numero
-          // console.log(dataS.toLocaleDateString());
+         
           if($.fn.DataTable.isDataTable('#tblPagamenti'))  {
-              //$('#tblPagamenti').DataTable().clear().destroy();
-              //console.log("datatable ancora");
+              
+
               $('#tblPagamenti').DataTable().clear();
               $('#tblPagamenti').DataTable().destroy();
+              $("#tblPagamenti thead").remove();
+              
 
           }
             
-            
-        
-            table= $('#tblPagamenti').DataTable({
-                
+          if(chart!=0){
+            chart.destroy();
+            chart=0;
+        }
 
-                data: fatture,
-                
-                columns: [
-                    { title: 'Numero fattura:',data: 'numeroFattura'},
-                    { title: 'Data', data: 'data'},
-                    { title: 'Scadenza: ', data: 'scadenza'},
-                    { title: 'Lordo',data: 'lordo'},
-                    { title: 'Tipo', data: 'eUnaFatturaCliente'}
-                   
-                ]
-            });
-           $('#tblPagamenti tbody').on('click','tr',function(){
-                var dati=table.row(this).data();
-                console.log(dati);
-               // $('#idDiv').show();
-               // $('#fatturaSelezionata').text(dati.idFattura);
-               if(dati!=undefined){
-                    localStorage.removeItem("fatturaDaPagare");
-                    localStorage.setItem("fatturaDaPagare",JSON.stringify(dati));
-                    location.href='./pagamento.html';
-                }else{
-                    console.log("è undefined")
-                }
-                
-           });
+            showDatatable(fatture);
+        
            
     	}else{
             alert("non ci sono fatture da mostrare con queste impostazioni");
@@ -133,7 +82,12 @@ $('#btnGrafico').click(function(){
                 
                 $('#tblPagamenti').DataTable().clear();
                 $('#tblPagamenti').DataTable().destroy();
+                $("#tblPagamenti thead").remove();
   
+            }
+            if(chart!=0){
+                chart.destroy();
+                chart=0;
             }
 
             var valSett=$('#settimane').val();
@@ -143,9 +97,11 @@ $('#btnGrafico').click(function(){
                 
                var entSett=[];
                var uscSett=[];
+               var newListaFatture=[];
                for(var i=0;i<7;i++){
                     entSett.push(0);
                     uscSett.push(0);
+                    newListaFatture[i]=new Array();
                }
               
               
@@ -165,18 +121,24 @@ $('#btnGrafico').click(function(){
                     var giornoSett=data1.getDay();
                     console.log(giornoSett);
 
+                    
+
                     if(f.eUnaFatturaCliente){
                         if(giornoSett===0){
                             entSett[6]+=f.lordo;
+                            newListaFatture[6].push(f);
                         }else{
 
                         entSett[giornoSett-1]+=f.lordo;
+                        newListaFatture[giornoSett-1].push(f);
                         }
                     }else{
                         if(giornoSett===0){
                             uscSett[6]+=f.lordo;
+                            newListaFatture[6].push(f);
                         }else{
                             uscSett[giornoSett-1]+=f.lordo;
+                            newListaFatture[giornoSett-1].push(f);
 
                         }
                         
@@ -200,13 +162,21 @@ $('#btnGrafico').click(function(){
                         datasets:[{
                             label: "Entrate",
                             data: myData,
-                            backgroundColor: "green",
+                            backgroundColor:"rgba(0,235,16,0.4)",
+                            borderColor: "rgba(0, 235, 16, 1)",
+                            borderWidth: 3,
+                            hoverBackgroundColor:"rgba(0,235,16,0.6)",
+                            hoverBorderWidth: 6,
             
             
                         },{
                             label: "Uscite",
                             data: myData2,
-                            backgroundColor: "red",
+                            backgroundColor: "rgba(250, 0, 0, 0.4)",
+                            borderColor: "rgba(250, 0, 0, 1)",
+                            borderWidth: 3,
+                            hoverBackgroundColor:"rgba(250,0,0,0.6)",
+                            hoverBorderWidth: 6,
             
             
             
@@ -221,19 +191,22 @@ $('#btnGrafico').click(function(){
                         },
                         onClick: function(e){
                             var element=this.getElementAtEvent(e);
-                            console.log(element);
-                        }   
-                        /*
-                        function graphClickEvent(event,array){
-                            if(array[0]){
-                                console.log("cliccato");
-                            }
+                            getFattureGiorno(element,newListaFatture);
+                        
+                           
+                    },
+                    onHover: function(e){
+                        var element=this.getElementAtEvent(e);
+                        if(element[0]){
+                            e.target.style.cursor ="pointer"
+                           // console.log("preso");
+                        }else{
+                            e.target.style.cursor ="default"
+                           // console.log("lasciato 1");
                         }
-                        */
-            
                     }
-                    
-            
+                }
+                
             
             
                 });
@@ -327,88 +300,85 @@ $('#btnGrafico').click(function(){
                     
                 let myData=entMes;
                 let myData2=uscMes;
-                //let myData2=[17000,4000,5000,20000,10000,15000,7000,12000,230000,19000];
+                
 
                  chart=new Chart(myCanvas,{
                     type: "bar",
+                    
                     data: {
                         labels: myLabels,
                         datasets:[{
                             label: "Entrate",
                             data: myData,
-                            backgroundColor: "red",
+                            backgroundColor:"rgba(0,235,16,0.4)",
+                            borderColor: "rgba(0, 235, 16, 1)",
+                            borderWidth: 1,
+                            hoverBackgroundColor:"rgba(0,235,16,0.6)",
+                            hoverBorderWidth: 2,
+                            
             
             
                         },{
                             label: "Uscite",
                             data: myData2,
-                            backgroundColor: "blue",
+                            backgroundColor: "rgba(250, 0, 0, 0.4)",
+                            borderColor: "rgba(250, 0, 0, 1)",
+                            borderWidth: 1,
+                            hoverBackgroundColor:"rgba(250,0,0,0.6)",
+                            hoverBorderWidth: 2,
+                            
             
                         }]
             
             
                     },
                     options :{
+                        
+                          
                         title:{
                             display: true,
                             text: meseStringa.toString()
                         },
                         onClick: function(e){
                             var element=this.getElementAtEvent(e);
-                            console.log(element);
-                            if(element[0]){
-                                var index=element[0]._index;
-                                var datasetIndex=element[0]._datasetIndex;
-                                console.log(index);
-                                console.log(datasetIndex);  
-                                console.log(newListaFatture);
-                                
-                                var fatture=[];
-                                
-                                newListaFatture[index].forEach(f=>{
-                                    var entrataUsc=false;
-                                    if(datasetIndex===0){
-                                        entrataUsc=true;
-                                    }
-
-                                    if(f.eUnaFatturaCliente==entrataUsc){
-                                        fatture.push(f);
-                                    }
-                                     
-                                });
-
-                                chart.destroy();
-
-                                table= $('#tblPagamenti').DataTable({
-                
-
-                                    data: fatture,
-                                    
-                                    columns: [
-                                        { title: 'Numero fattura:',data: 'numeroFattura'},
-                                        { title: 'Data', data: 'data'},
-                                        { title: 'Scadenza: ', data: 'scadenza'},
-                                        { title: 'Lordo',data: 'lordo'},
-                                        { title: 'Tipo', data: 'eUnaFatturaCliente'}
-                                       
-                                    ]
-                                });
-
-
-                            }
+                            getFattureGiorno(element,newListaFatture);
                             
+                            
+                            
+                        },
+                        onHover: function(e){
+                            var element=this.getElementAtEvent(e);
+                            if(element[0]){
+                                e.target.style.cursor ="pointer"
+                               // console.log("preso");
+                            }else{
+                                e.target.style.cursor ="default"
+                               // console.log("lasciato 1");
+                            }
                         }
+                       
+                        
             
-                    }       
-            
+                    } 
+                    
             
             
                 });
 
 
                 }
-            
+                function disattivaBtn(){
+                    $("#cercaPagamenti").attr("disabled",true);
+                    setTimeout(attivaBtn, 1000);
+                    
 
+					 }
+				function attivaBtn(){
+                    $("#cercaPagamenti").attr("disabled",false);
+				}
+				
+				disattivaBtn();
+               
 
 
 
@@ -417,43 +387,109 @@ $('#btnGrafico').click(function(){
          }
 
      })
-     /*
-    let myCanvas =document.getElementById("myCanvas").getContext("2d");
-    let myLabels =["Roma","Milano","Napoli","Torino","Palermo","Genova","Bologna","Firenze","Bari","Catania"];
-    let myData = [2800000,1200000,900000,1100000,400000,550000,300000,750000,250000,340000];
-
-    let myData2=[1700000,400000,500000,200000,100000,1500000,700000,1200000,2300000,190000];
-
-    let chart=new Chart(myCanvas,{
-        type: "bar",
-        data: {
-            labels: myLabels,
-            datasets:[{
-                label: "Entrate",
-                data: myData,
-                backgroundColor: "red",
+   
+});
 
 
-            },{
-                label: "Uscite",
-                data: myData2,
-                backgroundColor: "blue",
+function getFattureGiorno(element,newListaFatture){
+
+   
+    console.log(element);
+    if(element[0]){
+        var index=element[0]._index;
+        var datasetIndex=element[0]._datasetIndex;
+        console.log(index);
+        console.log(datasetIndex);  
+        console.log(newListaFatture);
+        
+        var fatture=[];
+        
+        newListaFatture[index].forEach(f=>{
+            var entrataUsc=false;
+            if(datasetIndex===0){
+                entrataUsc=true;
+            }
+
+            if(f.eUnaFatturaCliente==entrataUsc){
+                fatture.push(f);
+            }
+             
+        });
+        
+        chart.destroy();
+
+        chart=0;
+
+        showDatatable(fatture);
+
+       
+    }
+
+}
 
 
 
-            }]
 
+function showDatatable(fatture){
 
-        },
-        options :{
-
+    fatture.forEach(f => {
+        var dataS=new Date(f.data).toLocaleDateString();
+        f.data=dataS;
+        console.log(f.eUnaFatturaCliente);
+        if(f.eUnaFatturaCliente==true){
+            f.eUnaFatturaCliente="entrata";
+        }else{
+            f.eUnaFatturaCliente="uscita";
         }
 
-
-
+        var lordoStringa= parseFloat(f.lordo).toFixed(2);
+         lordoStringa+=" €";
+         f.lordo=lordoStringa;
     });
-    */
-});
+    console.log(fatture[0].data);
+
+    
+   
+    //$("#cercaPagamenti").attr("disabled",true);
+
+
+
+    table= $('#tblPagamenti').DataTable({
+                
+
+        data: fatture,
+
+        
+        columns: [
+            { title: 'Numero fattura:',data: 'numeroFattura'},
+            { title: 'Data', data: 'data'},
+            { title: 'Scadenza: ', data: 'scadenza'},
+            { title: 'Lordo',data: 'lordo'},
+            { title: 'Tipo', data: 'eUnaFatturaCliente'}
+           
+        ]
+        /*,
+        "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+            $('td', nRow).css('background-color', 'Red');
+        }
+        */
+    });
+    $('#tblPagamenti tbody').on('click','tr',function(){
+        var dati=table.row(this).data();
+        console.log(dati);
+      
+
+       if(dati!=undefined){
+            localStorage.removeItem("fatturaDaPagare");
+            localStorage.setItem("fatturaDaPagare",JSON.stringify(dati));
+            location.href='./pagamento.html';
+        }else{
+            console.log("è undefined")
+        }
+        
+   });
+
+}
 
 
 

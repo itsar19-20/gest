@@ -14,10 +14,16 @@ $(document).ready( function () {
 		 .done(function(pagamenti){
 			if(pagamenti.length>0){
 				if($.fn.DataTable.isDataTable('#tblPagamenti'))  {
-					$('#tblPagamenti').DataTable().clear().destroy();
+					$('#tblPagamenti').DataTable().clear();
+					$('#tblPagamenti').DataTable().destroy();
+					$("#tblPagamenti thead").remove();
 					console.log("datatable ancora");
 				}
-				$("#bottone").attr("disabled",true);
+				//$("#bottone").attr("disabled",true);
+				let myCanvas =document.getElementById("myCanvas");
+				let myContext=myCanvas.getContext("2d");
+				myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
+				
 
 
 
