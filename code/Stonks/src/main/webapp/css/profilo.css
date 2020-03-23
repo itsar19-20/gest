@@ -7,3 +7,17 @@
 }
 
 .tab-pane { text-align: left; }
+.btn-persone-elimena { margin-right: 1rem; }
+.btn-image:before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+}
+.btn-image-add:before { background-image: url(/icon/plus.png); }
+.btn-image-edit:before { background-image: url(/icon/pencil.png); }
+.btn-image-delete:before { background-image: url(/icon/delete.png); }

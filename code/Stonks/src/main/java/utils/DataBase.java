@@ -77,10 +77,16 @@ public class DataBase {
 	}
 	
 	public static User getUserById(Integer id) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		User x = em.find(User.class, id);
-		em.close();
-		return x;		
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			User x = em.find(User.class, id);
+			em.close();
+			return x;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;		
 	}
 	
 	public static User getUserByUsername(String username) {
@@ -110,6 +116,19 @@ public class DataBase {
 			return x;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Persona getPersonaById(Integer id) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			Persona x = em.find(Persona.class, id);
+			em.close();
+			return x;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

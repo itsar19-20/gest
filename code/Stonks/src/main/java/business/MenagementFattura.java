@@ -45,30 +45,54 @@ public class MenagementFattura {
 	}
 
 	public static List<Fattura> listaFatture(Integer id) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		// restituisce la lista delle fatture create dell'utente che gli viene passato
-		List<Fattura> l = em.createQuery("SELECT x FROM Fattura x WHERE x.conto.utente=:user ORDER BY x.id DESC").setParameter("user", id)
-				.getResultList();
-		em.close();
-		return l;
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Fattura> l = em
+					.createQuery("SELECT x FROM Fattura x WHERE x.conto.utente=:user ORDER BY x.id DESC")
+					.setParameter("user", id)
+					.getResultList();
+			em.close();
+			return l;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static List<Persona> listaPersone(Integer id) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		// restituisce la lista delle presone create dell'utente che gli viene passato
-		List<Persona> lp = em.createQuery("SELECT x FROM Persona x WHERE x.autore=:user").setParameter("user", id)
-				.getResultList();
-		em.close();
-		return lp;
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Persona> lp = em
+					.createQuery("SELECT x FROM Persona x WHERE x.autore=:user")
+					.setParameter("user", id)
+					.getResultList();
+			em.close();
+			return lp;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static List<Conto> listaConti(Integer id) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		// restituisce la lista delle presone create dell'utente che gli viene passato
-		List<Conto> lc = em.createQuery("SELECT x FROM Conto x WHERE x.utente=:user").setParameter("user", id)
-				.getResultList();
-		em.close();
-		return lc;
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Conto> lc = em
+					.createQuery("SELECT x FROM Conto x WHERE x.utente=:user")
+					.setParameter("user", id)
+					.getResultList();
+			em.close();
+			return lc;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static Integer getMinIdOfContiAndPersone(Integer id) {

@@ -1,6 +1,87 @@
 $(() => {
     var user = JSON.parse(localStorage.getItem('user'));
     user= user.id;
+
+    ////////////      PERSONE      ////////////
+
+    $('#list-persone-list').click(() => {
+        $.ajax({
+            cache: false,
+            type: 'GET',
+            timeout: 1000,
+            url: '/profilo/persone',
+            data: { user },
+            dataType: 'json',
+            success: (data) => { persone(data); },
+            error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+        });
+    });
+
+    function persone(p) {
+        console.log(p);
+        var numeroPerone = 0;
+        $('#persone-lista').empty();
+        $('#persone-lista').append(`
+            <li class="list-group-item">
+                <span>Persone aggiunte:</span>
+                <span id="persone-numero"></span>
+                <button id="btn-persone-aggiungi" class="btn btn-success float-right btn-image btn-image-add"></button>
+            </li>
+        `);
+        p.forEach(i => {
+            numeroPerone++;
+            $('#persone-lista').append(`
+                <li class="list-group-item">
+                    <span>${i.nome}</span>
+                    <span>${i.cognome}</span>
+                    <button id="e${i.id}" class="btn btn-warning float-right btn-image btn-image-edit"></button>
+                    <button data-id="${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                </li>
+            `);
+        });
+        $('#persone-numero').text(numeroPerone);
+        $(".btn-image-edit").click(function(event) {
+            var idBtn = event.target.id;
+            var idPersona = '';
+            for (var i = 1; i < idBtn.length; i++) {
+                idPersona += idBtn.charAt(i);
+            }
+            $.ajax({
+                cache: false,
+                type: 'GET',
+                timeout: 1000,
+                url: '/profilo/persone',
+                data: { user, idPersona },
+                dataType: 'json',
+                success: (data) => { modificaPersona(data); },
+                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+            });
+        });
+        $(".btn-image-delete").click(function(event) {
+            var idBtn = event.target.id;
+            var idPersona = '';
+            for (var i = 1; i < idBtn.length; i++) {
+                idPersona += idBtn.charAt(i);
+            }
+            $.ajax({
+                cache: false,
+                type: 'DELETE   ',
+                timeout: 1000,
+                url: '/profilo/persone',
+                data: { user, idPersona },
+                // dataType: 'json',
+                success: (data) => { /*  */ },
+                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+            });
+        });
+    }
+
+    function modificaPersona(persona) {
+        console.log(persona)
+    }
+
+    ////////////      PROFILO      ////////////
+
     $('#list-profilo-list').click(() => {
         $.ajax({
             cache: false,
@@ -15,7 +96,6 @@ $(() => {
     });
 
     function profilo(u) {
-        console.log(u);
         $('#profilo-nome-utente').val(u.username);
         $('#profilo-nome').val(u.nome);
         $('#profilo-cognome').val(u.cognome);
