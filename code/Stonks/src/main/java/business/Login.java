@@ -15,7 +15,7 @@ public class Login {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			
 			//	_return = em.find(Users.class, username);
-			_return = (User) em.createQuery("Select x from Users x where x.username = :username")
+			_return = (User) em.createQuery("Select x from User x where x.username = :username")
 					.setParameter("username", username).getSingleResult();
 			if (_return != null) {
 				

@@ -43,7 +43,6 @@ public class ProfiloProfilo extends HttpServlet {
 				output = "ok";
 			} else output = "no";
 			break;
-			
 		case "password":
 			String vecchiaPassword = request.getParameter("vecchiaPassword");
 			String nuovaPassword = request.getParameter("nuovaPassword");
@@ -54,7 +53,17 @@ public class ProfiloProfilo extends HttpServlet {
 				output = "ok";
 			} else output = "no";
 			break;
-
+		case "anagrafe":
+			User updatedUser = new ObjectMapper().readValue(request.getParameter("updatedUser"), User.class);
+			User oldUser = DataBase.getUserById(id);
+			updatedUser.setPassword(oldUser.getPassword());
+			updatedUser.setDataOraUltimoLogin(oldUser.getDataOraUltimoLogin());
+			DataBase.update(updatedUser);
+			// User actualUser = DataBase.getUserById(id);
+			// if (updatedUser.equals(actualUser)) output = "ok";
+			// else output = "no";
+			output = "ok";
+			break;
 		default:
 			break;
 		}

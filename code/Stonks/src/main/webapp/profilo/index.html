@@ -39,25 +39,68 @@
                         <ul class="list-group">
                             <!-- Nome utente -->
                             <li class="list-group-item">
-                                <div class="form-inline">
-                                    <input type="text" id="profilo-nome-utente" class="form-control">
-                                    <button id="profilo-cambia-nome-utente" class="btn btn-primary float-right">Cambia</button>
-                                    <div class="invalid-feedback"><p id="profilo-cambia-nome-utente-invalid-feedback">...</p></div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" id="profilo-nome-utente" class="form-control" placeholder="nome utente">
+                                        <div class="invalid-feedback"><p id="profilo-cambia-nome-utente-invalid-feedback">...</p></div>
+                                    </div>
+                                    <div class="col">
+                                          <button id="profilo-cambia-nome-utente" class="btn btn-primary float-right">Cambia</button>
+                                    </div>
                                 </div>
-                            </li>
+                               </li>
                             <!-- Password -->
                             <li class="list-group-item">
-                                <div class="">
-                                    <input type="password" id="profilo-vecchia-password" class="form-control" placeholder="password attuale">
-                                    <input type="password" id="profilo-nuova-password" class="form-control" placeholder="nuova password">
-                                    <input type="password" id="profilo-nuova-password-controllo" class="form-control" placeholder="nuova password">
-                                    <div class="invalid-feedback"><p id="profilo-cambia-password-invalid-feedback">...</p></div>
-                                    <button id="profilo-cambia-password" class="btn btn-primary float-right">Cambia</button>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="password" id="profilo-vecchia-password" class="form-control" placeholder="password attuale">
+                                        <input type="password" id="profilo-nuova-password" class="form-control" placeholder="conferma nuova password">
+                                        <input type="password" id="profilo-nuova-password-controllo" class="form-control" placeholder="nuova password">
+                                        <div class="invalid-feedback"><p id="profilo-cambia-password-invalid-feedback">...</p></div>
+                                    </div>
+                                    <div class="col">
+                                        <button id="profilo-cambia-password" class="btn btn-primary float-right">Cambia</button>
+                                    </div>
                                 </div>
                             </li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                            <!-- Dati anagrafici -->
+                            <li class="list-group-item">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" id="profilo-nome" class="form-control" placeholder="nome">
+                                        <div class="invalid-feedback"><p>Questo campo non può essere vuoto</p></div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" id="profilo-cognome" class="form-control" placeholder="cognome">
+                                        <div class="invalid-feedback"><p>Questo campo non può essere vuoto</p></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" id="profilo-mail" class="form-control" placeholder="mail">
+                                        <div class="invalid-feedback"><p>Questo campo non può essere vuoto</p></div>
+                                    </div>
+                                    <div class="col">
+                                        <input type="tel" id="profilo-tel" class="form-control" placeholder="tel">
+                                        <div class="invalid-feedback"><p>Questo campo non può essere vuoto</p></div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" id="profilo-piva" class="form-control" placeholder="partita IVA">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" id="profilo-indirizzo" class="form-control" placeholder="indirizzo">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col"></div>
+                                    <div class="col">
+                                        <button id="profilo-cambia-dati-anagrafici" class="btn btn-primary float-right">Cambia</button>
+                                    </div>
+                                </div>
+                            </li>
                           </ul>
                     </div>
                     <div class="tab-pane fade alert alert-secondary" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>

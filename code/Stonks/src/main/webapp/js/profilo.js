@@ -10,15 +10,22 @@ $(() => {
             data: { user },
             dataType: 'json',
             success: (data) => { profilo(data); },
-            error: (data) => { console.log(data); }
+            error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
         });
     });
 
     function profilo(u) {
         console.log(u);
         $('#profilo-nome-utente').val(u.username);
+        $('#profilo-nome').val(u.nome);
+        $('#profilo-cognome').val(u.cognome);
+        $('#profilo-mail').val(u.mail);
+        $('#profilo-tel').val(u.telefono);
+        $('#profilo-piva').val(u.pIVA);
+        $('#profilo-indirizzo').val(u.indirizzo);
         $('#profilo-cambia-nome-utente').click(() => { cambiaNomeUtente(); });
         $('#profilo-cambia-password').click(() => { cambiaPassword(); });
+        $('#profilo-cambia-dati-anagrafici').click(() => { cambiaDatiAnagrafici(); });
     }
 
     function cambiaNomeUtente() {
@@ -98,6 +105,53 @@ $(() => {
             $('#profilo-cambia-password-invalid-feedback').append('Password troppo corta. Lunghezza minima 8 caratteri.');
             $('#profilo-nuova-password').addClass('is-invalid');
             $('#profilo-nuova-password-controllo').addClass('is-invalid');
+        }
+    }
+
+    function cambiaDatiAnagrafici() {
+        $('#profilo-nome').removeClass('is-valid');
+        $('#profilo-cognome').removeClass('is-valid');
+        $('#profilo-mail').removeClass('is-valid');
+        $('#profilo-tel').removeClass('is-valid');
+        $('#profilo-piva').removeClass('is-valid');
+        $('#profilo-indirizzo').removeClass('is-valid');
+        $('#profilo-nome').removeClass('is-invalid');
+        $('#profilo-cognome').removeClass('is-invalid');
+        $('#profilo-mail').removeClass('is-invalid');
+        $('#profilo-tel').removeClass('is-invalid');
+        if (!$('#profilo-nome').val() || !$('#profilo-cognome').val()) {
+            if (!$('#profilo-nome').val()) $('#profilo-nome').addClass('is-invalid');
+            if (!$('#profilo-cognome').val()) $('#profilo-cognome').addClass('is-invalid');
+            if (!$('#profilo-mail').val()) $('#profilo-mail').addClass('is-invalid');
+            if (!$('#profilo-tel').val()) $('#profilo-tel').addClass('is-invalid');
+        } else {
+            updatedUser = JSON.parse(localStorage.getItem('user'));
+            updatedUser.nome = $('#profilo-nome').val();
+            updatedUser.cognome = $('#profilo-cognome').val();
+            updatedUser.mail = $('#profilo-mail').val();
+            updatedUser.telefono = $('#profilo-tel').val();
+            updatedUser.pIVA = $('#profilo-piva').val();
+            updatedUser.indirizzo = $('#profilo-indirizzo').val();
+            updatedUser = JSON.stringify(updatedUser);
+            var put = 'anagrafe';
+            $.ajax({
+                cache: false,
+                type: 'PUT',
+                timeout: 1000,
+                url: '/profilo/profilo',
+                data: { user, put, updatedUser },
+                success: (data) => {
+                    if (data == 'ok') {
+                        $('#profilo-nome').addClass('is-valid');
+                        $('#profilo-cognome').addClass('is-valid');
+                        $('#profilo-mail').addClass('is-valid');
+                        $('#profilo-tel').addClass('is-valid');
+                        $('#profilo-piva').addClass('is-valid');
+                        $('#profilo-indirizzo').addClass('is-valid');
+                    } else { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                },
+                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+            });
         }
     }
 });
