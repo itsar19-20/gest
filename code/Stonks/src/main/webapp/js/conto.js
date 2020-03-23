@@ -1,13 +1,23 @@
 $(() => {
-    $('#btnSaldo').click(() => {
+    var user = JSON.parse(localStorage.getItem('user'));
+    user= user.id;
         $.ajax({
             url: '/conto',
             method: 'get',
-            data: { 
-                scelta: $('#idSaldo').val(),
-            }
+            data: { user },
+            datatype: "JSON"
         })
-        .done(function()  {
+        .done(function(conti)  {
+            conti.forEach(element => {
+                $('#listaMia').append(`
+                <li>
+                <div>Nome<span>${element.nome}</span></div>
+                <div>Saldo Disponibile<span>${element.saldoDisponibile}</span></div>
+                <div>Saldo Utile<span>${element.saldoUtile}</span></div>
+                </li>                
+                `);
+            });
+
             })
         .fail(function() {
             console.log(btn, '.fail');
@@ -16,6 +26,5 @@ $(() => {
             console.log(btn, '.always');
         });
         console.log(btn, '.EndClick');
-    });
   
 });
