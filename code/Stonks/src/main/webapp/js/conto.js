@@ -10,8 +10,8 @@ $(() => {
         .done(function(conti)  {
             conti.forEach(element => {
                 $('#listaMia').append(`
-                <li>
-                <div>Nome<span>${element.nome}</span></div>
+                <li class="list-group-item">
+                <div>Nome <span>${element.nome}</span></div>
                 <div>Saldo Disponibile<span>${element.saldoDisponibile}</span></div>
                 <div>Saldo Utile<span>${element.saldoUtile}</span></div>
                 </li>                
