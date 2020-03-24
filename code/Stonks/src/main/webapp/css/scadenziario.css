@@ -2,30 +2,59 @@
 
 .form-input{
 position: relative;
-    width: 384px;
+    width: 415px;
     top: 0px;
-    left: 40%;
+    left: 36%;
     right: 40%;
     text-align: left;
 }
 
 #mesi{
     position: relative;
-    width: 65px;
-    left: 70%;
+    /*
+    font-family: 'Courier New';
+    */
+    
+    padding-left: 40px;
+    width: 190px;
+    left: 90px;
 }
+
+#divSwitchMese{
+    position: relative;
+    right:150px;
+
+}
+#scrittaMese{
+    position: relative;
+    top:10px;
+    right: 50px;
+}
+
 
 #scrittaSettimana{
     position: relative;
+    right:50px;
     top: 20px;
 
 }
 
+
+
 #settimane{
     position: relative;
-    top: 15px;
-    width: 65px;
-    left: 70%;
+    padding-left: 35px;
+    white-space:pre;
+    top: 10px;
+    width: 190px;
+    left: 90px;
+
+}
+
+#divSwitchSettimana{
+    position:relative;
+    right: 150px;
+    top: 10px;
 
 }
 
