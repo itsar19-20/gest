@@ -46,9 +46,9 @@ public class Persona {
 	@JsonProperty("autore")
 	private Integer autore;
 
-	// @OneToMany //(mappedBy = "persona")
-	// @Transient
-	// private List<Fattura> fatture;
+	@Transient
+	@JsonProperty("eliminabile")
+	private boolean eliminabile = false;
 
 	public Persona() {
 
@@ -149,5 +149,13 @@ public class Persona {
 
 	public void setAutore(Integer autore) {
 		this.autore = autore;
+	}
+
+	public boolean isEliminabile() {
+		return eliminabile;
+	}
+
+	public void setEliminabile(boolean eliminabile) {
+		this.eliminabile = eliminabile;
 	}
 }

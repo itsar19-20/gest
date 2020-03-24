@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import business.MenagementFattura;
+import business.FatturaManager;
 import models.Articolo;
 import models.Conto;
 import models.Fattura;

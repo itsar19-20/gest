@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import business.MenagementFattura;
+import business.FatturaManager;
 import models.Fattura;
 import utils.DataBase;
 import utils.God;
@@ -27,7 +27,7 @@ public class ArchivioSingolaFattura extends HttpServlet {
 			throws ServletException, IOException {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		ObjectMapper om = new ObjectMapper();
-		String output = om.writeValueAsString(MenagementFattura.getFatturaById(id));
+		String output = om.writeValueAsString(FatturaManager.getFatturaById(id));
 		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().append(output);
 		God.seesEverythings(request, response, output);
@@ -37,7 +37,7 @@ public class ArchivioSingolaFattura extends HttpServlet {
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// super.doPut(req, resp);
 		Integer id = Integer.valueOf(req.getParameter("id"));
-		Fattura f = MenagementFattura.getFatturaById(id);
+		Fattura f = FatturaManager.getFatturaById(id);
 		f.setNotaDiCredito(true);
 		DataBase.update(f);
 		God.seesEverythings(req, resp, null);

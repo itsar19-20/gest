@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import business.MenagementFattura;
+import business.FatturaManager;
 import models.Fattura;
 import utils.God;
 import utils.JPAUtil;
@@ -45,7 +45,7 @@ public class FatturaArchivioController extends HttpServlet {
 		String userIdString = request.getParameter("user");
 		// la stringa diventa un numero
 		Integer id = Integer.parseInt(userIdString);
-		List<Fattura> fatture = MenagementFattura.listaFatture(id);
+		List<Fattura> fatture = FatturaManager.listaFatture(id);
 		ObjectMapper om = new ObjectMapper();
 		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().append(om.writeValueAsString(fatture));

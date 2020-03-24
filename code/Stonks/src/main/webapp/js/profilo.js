@@ -1,10 +1,13 @@
 $(() => {
     var user = JSON.parse(localStorage.getItem('user'));
     user= user.id;
+    var idPersona;
 
     ////////////      PERSONE      ////////////
+ 
+    $('#list-persone-list').click(() => { listaPersone(); });
 
-    $('#list-persone-list').click(() => {
+    function listaPersone() {
         $.ajax({
             cache: false,
             type: 'GET',
@@ -15,7 +18,7 @@ $(() => {
             success: (data) => { persone(data); },
             error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
         });
-    });
+    }
 
     function persone(p) {
         var numeroPerone = 0;
@@ -31,16 +34,23 @@ $(() => {
                 </button>
             </li>
         `);
+        console.log(p)
         p.forEach(i => {
             numeroPerone++;
             $('#persone-lista').append(`
                 <li id="li-${i.id}" class="list-group-item">
-                    <span>${i.nome}</span>
                     <span>${i.cognome}</span>
+                    <span>${i.nome}</span>
                     <button id="e${i.id}" class="btn btn-warning float-right btn-image btn-image-edit" data-toggle="modal" data-target="#modal"></button>
-                    <button id="d${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
                 </li>
             `);
+            console.log(i)
+            if (i.eliminabile == true) {
+                console.log('cccccccccccc')
+                $(`#li-${i.id}`).append(`
+                    <button id="d${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                `);
+            }
         });
         $('#persone-numero').text(numeroPerone);
 
@@ -48,14 +58,13 @@ $(() => {
         $("#btn-persone-aggiungi").click(() => {
             pulisciModal();
             $('#modalTitle').text('Aggiungi');
-            $(`#btnAggiungi`).show();
-            aggiungiPersona();
+            $(`#btnAggiungi`).show(); 
         });
         
         // Modifica
         $(".btn-image-edit").click(function(event) {
             var idBtn = event.target.id;
-            var idPersona = '';
+            idPersona = '';
             for (var i = 1; i < idBtn.length; i++) {
                 idPersona += idBtn.charAt(i);
             }
@@ -69,7 +78,8 @@ $(() => {
                 success: (data) => { 
                     pulisciModal();
                     $('#modalTitle').text('Modifica');
-                    $(`#btnModifica`).show();modificaPersona(data); 
+                    $(`#btnModifica`).show();
+                    caricaPersona(data); 
                 },
                 error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
             });
@@ -78,50 +88,79 @@ $(() => {
         // Elimina
         $(".btn-image-delete").click(function(event) {
             var idBtn = event.target.id;
-            var idPersona = '';
+            idPersona = '';
             for (var i = 1; i < idBtn.length; i++) {
                 idPersona += idBtn.charAt(i);
             }
             if (confirm('Sei davvero sicuro di volere eliminare questa persona.\nNon potrai più tornare indiatro, procedere?')) eliminaPersona(idPersona);
         });
     }
-
+    
     // Aggiungi
-    function aggiungiPersona() {
-        $('#btnAggiungi').click(() => {
-            $('#inputName').removeClass('is-invalid');
-            $('#inputSurname').removeClass('is-invalid');
-            if($('#inputName').val() && $('#inputSurname').val()) {
-                
-                creaOggettoPersona();
-                var persona = creaOggettoPersona();
-                persona = JSON.stringify(persona);
-                $.ajax({
-                    cache: false,
-                    type: 'POST',
-                    timeout: 1000,
-                    url: '/profilo/persone',
-                    data: { persona },
-                    success: (msg) => {
-                        if (msg = 'ok') {
-                            tuttoVerde();
-                            $('#btnAggiungi').addClass('disabled');
-                            var num = $('#persone-numero').text();
-                            $('#persone-numero').text(++num);
-                        } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
-                    },
-                    error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
-                });
-            } else {
-                if(!$('#inputName').val()) $('#inputName').addClass('is-invalid');
-                if(!$('#inputSurname').val()) $('#inputSurname').addClass('is-invalid');
-            }
+    $('#btnAggiungi').click(() => { nomeCognomeValidi(); });
+    
+    function aggiungiPersona() {  
+        creaOggettoPersona();
+        var persona = creaOggettoPersona();
+        persona = JSON.stringify(persona);
+        $.ajax({
+            cache: false,
+            type: 'POST',
+            timeout: 1000,
+            url: '/profilo/persone',
+            dataType: 'JSON',
+            data: { persona },
+            success: (p) => {
+                if (p != null) {
+                    tuttoVerde();
+                    $('#btnAggiungi').addClass('disable');
+                    $('#persone-lista').append(`
+                        <li id="li-${p.id}" class="list-group-item">
+                            <span>${p.nome}</span>
+                            <span>${p.cognome}</span>
+                            <button id="e${p.id}" class="btn btn-warning float-right btn-image btn-image-edit" data-toggle="modal" data-target="#modal"></button>
+                            <button id="d${p.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                        </li>
+                    `);
+                    var num = $('#persone-numero').text();
+                    $('#persone-numero').text(++num);
+                } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
+            },
+            error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
         });
     }
 
     // Modifica
-    function modificaPersona(persona) {
-        console.log(persona)
+    function caricaPersona(p) {
+        $(`#inputName`).val(p.nome);
+        $(`#inputSurname`).val(p.cognome);
+        $(`#inputMail`).val(p.mail);
+        $(`#inputPhone`).val(p.telefono);
+        $(`#inputAddress`).val(p.indirizzo);
+        $(`#inputPIVA`).val(p.pIVA);
+    }
+
+    $('#btnModifica').click(() => { nomeCognomeValidi(); });
+
+    function modificaPersona() {
+        creaOggettoPersona();
+        var persona = creaOggettoPersona();
+        persona.id = idPersona;
+        persona = JSON.stringify(persona);
+        $.ajax({
+            cache: false,
+            type: 'PUT',
+            timeout: 1000,
+            url: '/profilo/persone',
+            data: { persona },
+            success: (msg) => {
+                if (msg == 'ok') {
+                    tuttoVerde();
+                    listaPersone();
+                } else alert ('Si è verificato un errore con il server.\nProva ad aggiornare la pagina.');
+            },
+            error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+        });
     }
 
     function pulisciModal(){
@@ -133,6 +172,12 @@ $(() => {
         $(`#inputPIVA`).val(``);
         $(`#btnAggiungi`).hide();
         $(`#btnModifica`).hide();
+        $('#btnAggiungi').removeClass('disabled');
+        $('#btnModifica').removeClass('disabled');
+        pulisciValidatori();
+    }
+
+    function pulisciValidatori () {
         $(`#inputName`).removeClass('is-valid');
         $(`#inputSurname`).removeClass('is-valid');
         $(`#inputMail`).removeClass('is-valid');
@@ -141,8 +186,6 @@ $(() => {
         $(`#inputPIVA`).removeClass('is-valid');
         $(`#btnAggiungi`).removeClass('is-valid');
         $(`#btnModifica`).removeClass('is-valid');
-        $('#btnAggiungi').removeClass('disabled');
-        $('#btnModifica').removeClass('disabled');
     }
     
     function creaOggettoPersona() {
@@ -168,6 +211,20 @@ $(() => {
         $(`#inputPIVA`).addClass('is-valid');
         $(`#btnAggiungi`).addClass('is-valid');
         $(`#btnModifica`).addClass('is-valid');
+    }
+
+    function nomeCognomeValidi() {
+        pulisciValidatori();
+        $('#inputName').removeClass('is-invalid');
+        $('#inputSurname').removeClass('is-invalid');
+        if($('#inputName').val() && $('#inputSurname').val()) {
+            if ($('#modalTitle').text() == 'Aggiungi') aggiungiPersona();
+            else modificaPersona();
+            return;
+        } else {
+            if(!$('#inputName').val()) $('#inputName').addClass('is-invalid');
+            if(!$('#inputSurname').val()) $('#inputSurname').addClass('is-invalid');
+        }
     }
 
     // Elimina

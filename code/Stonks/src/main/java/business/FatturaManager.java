@@ -10,7 +10,7 @@ import models.Fattura;
 import models.Persona;
 import utils.JPAUtil;
 
-public class MenagementFattura {
+public class FatturaManager {
 
 	// protected static EntityManager em =
 	// JPAUtil.getInstance().getEmf().createEntityManager();
@@ -61,23 +61,6 @@ public class MenagementFattura {
 		return null;
 	}
 
-	public static List<Persona> listaPersone(Integer id) {
-		// restituisce la lista delle presone create dell'utente che gli viene passato
-		try {
-			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			List<Persona> lp = em
-					.createQuery("SELECT x FROM Persona x WHERE x.autore=:user")
-					.setParameter("user", id)
-					.getResultList();
-			em.close();
-			return lp;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public static List<Conto> listaConti(Integer id) {
 		// restituisce la lista delle presone create dell'utente che gli viene passato
 		try {
@@ -119,6 +102,21 @@ public class MenagementFattura {
 			output = qp.getSingleResult();
 		em.close();
 		return output;
+	}
+
+	public static List<Fattura> getListByPersonaId(Integer id) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Fattura> list = em
+					.createQuery("SELECT x FROM Fattura x WHERE x.persona=:id")
+					.setParameter("id", id)
+					.getResultList();
+			em.close();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

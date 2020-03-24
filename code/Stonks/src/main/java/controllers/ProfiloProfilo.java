@@ -59,12 +59,7 @@ public class ProfiloProfilo extends HttpServlet {
 			updatedUser.setPassword(oldUser.getPassword());
 			updatedUser.setDataOraUltimoLogin(oldUser.getDataOraUltimoLogin());
 			DataBase.update(updatedUser);
-			// User actualUser = DataBase.getUserById(id);
-			// if (updatedUser.equals(actualUser)) output = "ok";
-			// else output = "no";
 			output = "ok";
-			break;
-		default:
 			break;
 		}
 		response.setContentType("charset=utf-8");

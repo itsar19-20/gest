@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import business.MenagementFattura;
+import business.FatturaManager;
+import business.PersonaManager;
 import models.Conto;
 import models.Persona;
 import utils.God;
@@ -40,17 +41,17 @@ public class FatturaCreaController extends HttpServlet {
 		response.setContentType("application/json");
 		if (whatIWant.contentEquals("conti")) {
 			// richiedo la lista dei conti collegati all'utente loggato
-			List<Conto> lc = MenagementFattura.listaConti(id);
+			List<Conto> lc = FatturaManager.listaConti(id);
 			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lc));
 		} else if (whatIWant.contentEquals("persone")) {
 			// richiedo la lista delle persone create da questo utente
-			List<Persona> lp = MenagementFattura.listaPersone(id);
+			List<Persona> lp = PersonaManager.getListByAuthorId(id);
 			// passo queste informazioni al client
 			response.getWriter().append(om.writeValueAsString(lp));
 		} else if (whatIWant.contentEquals("minMax")) {
-			int min = MenagementFattura.getMinIdOfContiAndPersone(id),
-					max = MenagementFattura.getMaxIdOfContiAndPersone(id);
+			int min = FatturaManager.getMinIdOfContiAndPersone(id),
+					max = FatturaManager.getMaxIdOfContiAndPersone(id);
 			String output = "{\"min\":" + min + ",\"max\":" + max + "}";
 			response.setContentType("application/json;charset=utf-8");
 			response.getWriter().append(output);

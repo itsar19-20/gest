@@ -143,14 +143,5 @@ public class DataBase {
 		}
 		return null;
 	}
-	
-	public static void delatePersona(Persona p) {
-		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		//em.getTransaction().begin();
-		//em.createQuery("DELETE FROM Persona x WHERE x.id=" + id)
-		//em.remove(p).executeUpdate();
-		// em.getTransaction().commit();
-		em.close();
-	}
 
 }
