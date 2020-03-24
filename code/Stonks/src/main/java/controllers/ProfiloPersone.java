@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.MenagementFattura;
+import business.PersonaMenager;
+import models.Persona;
 import utils.DataBase;
 import utils.God;
 
@@ -31,15 +33,34 @@ public class ProfiloPersone extends HttpServlet {
 		} else {
 			output = new ObjectMapper().writeValueAsString(DataBase.getPersonaById(idPersona));
 		}
-		response.setContentType("application/json;charset=utf-8");
+		// response.setContentType("application/json;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
 		response.getWriter().append(output);
 		God.seesEverythings(request, response, output);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
-		God.seesEverythings(request, response, null);
+		String output = null;
+		if (PersonaMenager.add(new ObjectMapper().readValue(request.getParameter("persona"), Persona.class)))
+			output = "ok";
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().append(output);
+		God.seesEverythings(request, response, output);
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Integer id = Integer.valueOf(request.getParameter("idPersona"));
+		Persona p = (Persona) DataBase.getObjectById("p", id);
+		//DataBase.delatePersona(id);
+		//DataBase.trans("delete", p);
+		String output = null;
+		if (DataBase.getObjectById("p", id) == null) output = "ok";
+		else output = "La persona non è stata eliminata";
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().append(output);
+		God.seesEverythings(request, response, output);
 	}
 
 }

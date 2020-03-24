@@ -13,33 +13,46 @@ $(() => {
             data: { user },
             dataType: 'json',
             success: (data) => { persone(data); },
-            error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+            error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
         });
     });
 
     function persone(p) {
-        console.log(p);
         var numeroPerone = 0;
         $('#persone-lista').empty();
         $('#persone-lista').append(`
             <li class="list-group-item">
                 <span>Persone aggiunte:</span>
                 <span id="persone-numero"></span>
-                <button id="btn-persone-aggiungi" class="btn btn-success float-right btn-image btn-image-add"></button>
+                <button 
+                    id="btn-persone-aggiungi" 
+                    class="btn btn-success float-right btn-image btn-image-add" 
+                    data-toggle="modal" data-target="#modal">
+                </button>
             </li>
         `);
         p.forEach(i => {
             numeroPerone++;
             $('#persone-lista').append(`
-                <li class="list-group-item">
+                <li id="li-${i.id}" class="list-group-item">
                     <span>${i.nome}</span>
                     <span>${i.cognome}</span>
-                    <button id="e${i.id}" class="btn btn-warning float-right btn-image btn-image-edit"></button>
-                    <button data-id="${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                    <button id="e${i.id}" class="btn btn-warning float-right btn-image btn-image-edit" data-toggle="modal" data-target="#modal"></button>
+                    <button id="d${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
                 </li>
             `);
         });
         $('#persone-numero').text(numeroPerone);
+
+        //Aggiungi
+        $("#btn-persone-aggiungi").click(() => {
+            pulisciModal();
+            $('#modalTitle').text('Aggiungi');
+            $(`#btnAggiungi`).show();
+            aggiungiPersona();
+        });
+        
+        // Modifica
         $(".btn-image-edit").click(function(event) {
             var idBtn = event.target.id;
             var idPersona = '';
@@ -53,31 +66,126 @@ $(() => {
                 url: '/profilo/persone',
                 data: { user, idPersona },
                 dataType: 'json',
-                success: (data) => { modificaPersona(data); },
-                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                success: (data) => { 
+                    pulisciModal();
+                    $('#modalTitle').text('Modifica');
+                    $(`#btnModifica`).show();modificaPersona(data); 
+                },
+                error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
             });
         });
+
+        // Elimina
         $(".btn-image-delete").click(function(event) {
             var idBtn = event.target.id;
             var idPersona = '';
             for (var i = 1; i < idBtn.length; i++) {
                 idPersona += idBtn.charAt(i);
             }
-            $.ajax({
-                cache: false,
-                type: 'DELETE   ',
-                timeout: 1000,
-                url: '/profilo/persone',
-                data: { user, idPersona },
-                // dataType: 'json',
-                success: (data) => { /*  */ },
-                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
-            });
+            if (confirm('Sei davvero sicuro di volere eliminare questa persona.\nNon potrai più tornare indiatro, procedere?')) eliminaPersona(idPersona);
         });
     }
 
+    // Aggiungi
+    function aggiungiPersona() {
+        $('#btnAggiungi').click(() => {
+            $('#inputName').removeClass('is-invalid');
+            $('#inputSurname').removeClass('is-invalid');
+            if($('#inputName').val() && $('#inputSurname').val()) {
+                
+                creaOggettoPersona();
+                var persona = creaOggettoPersona();
+                persona = JSON.stringify(persona);
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    timeout: 1000,
+                    url: '/profilo/persone',
+                    data: { persona },
+                    success: (msg) => {
+                        if (msg = 'ok') {
+                            tuttoVerde();
+                            $('#btnAggiungi').addClass('disabled');
+                            var num = $('#persone-numero').text();
+                            $('#persone-numero').text(++num);
+                        } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
+                    },
+                    error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+                });
+            } else {
+                if(!$('#inputName').val()) $('#inputName').addClass('is-invalid');
+                if(!$('#inputSurname').val()) $('#inputSurname').addClass('is-invalid');
+            }
+        });
+    }
+
+    // Modifica
     function modificaPersona(persona) {
         console.log(persona)
+    }
+
+    function pulisciModal(){
+        $(`#inputName`).val(``);
+        $(`#inputSurname`).val(``);
+        $(`#inputMail`).val(``);
+        $(`#inputPhone`).val(``);
+        $(`#inputAddress`).val(``);
+        $(`#inputPIVA`).val(``);
+        $(`#btnAggiungi`).hide();
+        $(`#btnModifica`).hide();
+        $(`#inputName`).removeClass('is-valid');
+        $(`#inputSurname`).removeClass('is-valid');
+        $(`#inputMail`).removeClass('is-valid');
+        $(`#inputPhone`).removeClass('is-valid');
+        $(`#inputAddress`).removeClass('is-valid');
+        $(`#inputPIVA`).removeClass('is-valid');
+        $(`#btnAggiungi`).removeClass('is-valid');
+        $(`#btnModifica`).removeClass('is-valid');
+        $('#btnAggiungi').removeClass('disabled');
+        $('#btnModifica').removeClass('disabled');
+    }
+    
+    function creaOggettoPersona() {
+        var user = JSON.parse(localStorage.getItem(`user`));
+        var persona = {
+            nome: $(`#inputName`).val(),
+            cognome: $(`#inputSurname`).val(),
+            mail: $(`#inputMail`).val(),
+            telefono: $(`#inputPhone`).val(),
+            indirizzo: $(`#inputAddress`).val(),
+            pIVA: $(`#inputPIVA`).val(),
+            autore: user = user.id
+        }
+        return persona;
+    }
+
+    function tuttoVerde() {
+        $(`#inputName`).addClass('is-valid');
+        $(`#inputSurname`).addClass('is-valid');
+        $(`#inputMail`).addClass('is-valid');
+        $(`#inputPhone`).addClass('is-valid');
+        $(`#inputAddress`).addClass('is-valid');
+        $(`#inputPIVA`).addClass('is-valid');
+        $(`#btnAggiungi`).addClass('is-valid');
+        $(`#btnModifica`).addClass('is-valid');
+    }
+
+    // Elimina
+    function eliminaPersona(idPersona) {
+        $.ajax({
+            cache: false,
+            type: 'DELETE',
+            timeout: 1000,
+            url: '/profilo/persone' + '?idPersona=' + idPersona,
+            success: (msg) => {
+                if (msg == 'ok') {
+                    $('#li-' + idPersona).remove();
+                    var num = $('#persone-numero').text();
+                    $('#persone-numero').text(--num);
+                } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
+            },
+            error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+        });
     }
 
     ////////////      PROFILO      ////////////
@@ -91,7 +199,7 @@ $(() => {
             data: { user },
             dataType: 'json',
             success: (data) => { profilo(data); },
-            error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+            error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
         });
     });
 
@@ -129,7 +237,7 @@ $(() => {
                         $('#profilo-cambia-nome-utente-invalid-feedback').append('Nome utente non disponibile.');
                     }
                 },
-                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
             });
         } else {
             $('#profilo-cambia-nome-utente-invalid-feedback').empty();
@@ -172,7 +280,7 @@ $(() => {
                             $('#profilo-cambia-password-invalid-feedback').append('La vecchia password non è corretta.');
                         }
                     },
-                    error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                    error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
                 });
             } else {
                 $('#profilo-cambia-password-invalid-feedback').empty();
@@ -228,9 +336,9 @@ $(() => {
                         $('#profilo-tel').addClass('is-valid');
                         $('#profilo-piva').addClass('is-valid');
                         $('#profilo-indirizzo').addClass('is-valid');
-                    } else { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                    } else { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
                 },
-                error: (data) => { alert('Si è verificato un problema con il server\nPerfavore riprovare.'); }
+                error: (data) => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
             });
         }
     }
