@@ -36,58 +36,73 @@
         <div class="form-input">
 		<table>
 		<tr>
-			<td>Inserisci mesi successivi :</td>
+			<td><p id="scrittaMese">Imposta mese</p></td>
 			
 			<td>
 				<select class="form-control" id="mesi" name="numMesi">
-					<option value="null"></option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
+					<option value="0" id="month0">0</option>
+					<option value="1" id="month1">1</option>
+						<option value="2" id="month2">2</option>
+						<option value="3" id="month3">3</option>
+						<option value="4" id="month4">4</option>
+						<option value="5" id="month5">5</option>
+						<option value="6" id="month6">6</option>
+						<option value="7" id="month7">7</option>
+						<option value="8" id="month8">8</option>
+						<option value="9" id="month9">9</option>
+						<option value="10" id="month10">10</option>
+						<option value="11" id="month11">11</option>
 					  </select>
 
+			</td>
+			<td>
+				<div class="custom-control custom-switch" id="divSwitchMese">
+					<input type="checkbox" checked class="custom-control-input" id="switchMese" name="nSwitchMese">
+					<label class="custom-control-label" for="switchMese"></label>
+				  </div>
+				  
+				  
+				</form>
+			  </div>
 			</td>
 		
 		</tr>
 		<tr>
 			
 		
-		<td><p id="scrittaSettimana">Inserisci settimane successive :</p></td>
+		<td><p id="scrittaSettimana">Imposta settimana</p></td>
 		<td>
 			<select class="form-control" id="settimane" name="numSettimane">
-				<option value="null"></option>
-				<option value="0">0</option>
-				<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
+				<option value="0"></option>
+				<option value="1"></option>
+					<option value="2"></option>
+					<option value="3"></option>
+					<option value="4"></option>
+					<option value="5"></option>
+					<option value="6"></option>
+					<option value="7"></option>
+					<option value="8"></option>
+					<option value="9"></option>
+					<option value="10"></option>
+					
 				  </select>
 
+		</td>
+		<td>
+			<div class="custom-control custom-switch" id="divSwitchSettimana">
+				<input type="checkbox" class="custom-control-input" id="switchSettimana" name="nSwitchSettimana">
+				<label class="custom-control-label" for="switchSettimana"></label>
+			  </div>
+			  
+			  
+			</form>
+		  </div>
 		</td>
 		</tr>
 		
 		</table>
 		
-		<!--
-		ENTRATA<input type="radio" required id="entUsc" name="entrataUscita" value="true"/>
-		USCITA<input type="radio" required id="entUsc" name="entrataUscita" value="false"/>
-		FULL<input type="radio" required id="entUsc" name="entrataUscita" value="null"/>
-		  -->
+		
 		<div class="form-check-inline">
 			<label class="form-check-label">
 			  <input type="radio" class="form-check-input" id="entUsc" name="entrataUscita" value="null" checked>Entrambi
@@ -125,7 +140,6 @@
 			
 		</div>
 
-		
 		<div id="divBottoni">
 			<button id="cercaPagamenti" class="btn btn-primary"> Mostra Pagamenti</button>
 			<button id="btnGrafico" class="btn btn-primary">Mostra grafico</button>	
@@ -163,6 +177,7 @@
 		</script>
 
 		<script src="./js/index.js"></script>
+		<script src="./js/dateUtil.js"></script>
 		<script src="./js/scadenziario.js"></script>
 		<script src="./js/allPagamenti.js"></script>
         
