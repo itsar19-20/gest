@@ -28,21 +28,33 @@
                     <a class="list-group-item list-group-item-action" id="list-persone-list" data-toggle="list" href="#list-persone" role="tab" aria-controls="profile">Persone</a>
                     <a class="list-group-item list-group-item-action" id="list-conti-list" data-toggle="list" href="#list-conti" role="tab" aria-controls="home">Conti</a>
                     <a class="list-group-item list-group-item-action" id="list-profilo-list" data-toggle="list" href="#list-profilo" role="tab" aria-controls="messages">Profilo</a>
-                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
                   </div>
                 </div>
                 <div class="col-8">
                   <div class="tab-content" id="nav-tabContent">
-                    <!-- Persone -->
-                    <div class="tab-pane fade active" id="list-persone" role="tabpanel" aria-labelledby="list-profile-list">
-                        <ul id="persone-lista" class="list-group">
-                            
+
+                    <!-- Generale -->
+                    <div class="tab-pane fade active show" id="list-generale" role="tabpanel" aria-labelledby="list-profile-list">
+                        <ul class="list-group text-primary">
+                            <li id="li-generale" class="list-group-item">
+                                <span>Ciao</span>
+                                <span id="generale-nome">...</span>
+                                <br>
+                                <span>Qui puoi vedere il tuo profilo e modificarlo a tuo piacimento.</span>
+                            </li>
                         </ul>
                     </div>
-                    <!-- Conti -->
-                    <div class="tab-pane fade show" id="list-conti" role="tabpanel" aria-labelledby="list-home-list">
 
+                    <!-- Persone -->
+                    <div class="tab-pane fade" id="list-persone" role="tabpanel" aria-labelledby="list-profile-list">
+                        <ul id="persone-lista" class="list-group"></ul>
                     </div>
+
+                    <!-- Conti -->
+                    <div class="tab-pane fade" id="list-conti" role="tabpanel" aria-labelledby="list-home-list">
+                        <ul id="conti-lista" class="list-group"></ul>
+                    </div>
+
                     <!-- Profilo -->
                     <div class="tab-pane fade" id="list-profilo" role="tabpanel" aria-labelledby="list-messages-list">
                         <ul class="list-group">
@@ -63,8 +75,8 @@
                                 <div class="form-row">
                                     <div class="col">
                                         <input type="password" id="profilo-vecchia-password" class="form-control" placeholder="password attuale">
-                                        <input type="password" id="profilo-nuova-password" class="form-control" placeholder="conferma nuova password">
-                                        <input type="password" id="profilo-nuova-password-controllo" class="form-control" placeholder="nuova password">
+                                        <input type="password" id="profilo-nuova-password" class="form-control" placeholder="nuova password">
+                                        <input type="password" id="profilo-nuova-password-controllo" class="form-control" placeholder="conferma nuova password">
                                         <div class="invalid-feedback"><p id="profilo-cambia-password-invalid-feedback">...</p></div>
                                     </div>
                                     <div class="col">
@@ -117,7 +129,7 @@
                 </div>
               </div>
 
-                <!-- Modal -->
+                <!-- Modal persona -->
                 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -132,39 +144,66 @@
                             <div class="form-group">
                             <div class=" add-person">
                                 <label for="inputName" class="float-right">Nome</label>
-                                <input type="text" id="inputName" class="form-control">
+                                <input type="text" id="inputName" class="form-control" placeholder="nome">
                             </div>
     
                             <div class="add-person">
                                 <label for="inputSurname" class="float-right">Cognome</label>
-                                <input type="text" id="inputSurname" class="form-control">
+                                <input type="text" id="inputSurname" class="form-control" placeholder="cognome">
                             </div>
     
                             <div class="add-person">
                                 <label for="inputMail" class="float-right">Email</label>
-                                <input type="text" id="inputMail" class="form-control">
+                                <input type="text" id="inputMail" class="form-control" placeholder="mail">
                             </div>
     
                             <div class="add-person">
                                 <label for="inputPhone" class="float-right">Telefono</label>
-                                <input type="text" id="inputPhone" class="form-control">
+                                <input type="text" id="inputPhone" class="form-control" placeholder="tel">
                             </div>
     
                             <div class="add-person">
                                 <label for="inputAddress" class="float-right">Indirizzo</label>
-                                <input type="text" id="inputAddress" class="form-control">
+                                <input type="text" id="inputAddress" class="form-control" placeholder="indirizzo">
                             </div>
                             
                             <div class="add-person">
                                 <label for="inputPIVA" class="float-right">Partita IVA</label>
-                                <input type="text" id="inputPIVA" class="form-control">
+                                <input type="text" id="inputPIVA" class="form-control" placeholder="partita IVA">
                             </div>
                             </div>
 
                         </div>
                         <div id="modalFooter" class="modal-footer">
-                            <button id="btnAggiungi" class="btn btn-success float-center">Aggiungi</button>
-                            <button id="btnModifica" class="btn btn-warning float-center">Modifica</button>
+                            <button id="btnAggiungi" class="btn btn-success">Aggiungi</button>
+                            <button id="btnModifica" class="btn btn-warning">Modifica</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Modal conto -->
+                <div class="modal fade" id="modalConto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleConto">Aggiungi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                            <div class=" add-person">
+                                <label for="inputNomeConto" class="float-left">Nome</label>
+                                <input type="text" id="inputNomeConto" class="form-control" placeholder="nome">
+                                <div class="invalid-feedback">Nome troppo corto, lunghezza minima 4 caratteri.</div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnAggiungiConto" class="btn btn-success">Aggiungi</button>
                         </div>
                     </div>
                     </div>

@@ -7,18 +7,18 @@ import javax.persistence.TypedQuery;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import models.Conto;
 import models.Fattura;
-import models.Persona;
 import utils.JPAUtil;
 
-public class PersonaManager {
-
-	public static Integer getMaxId(Integer autore) {
+public class ContoManager {
+	
+	public static Integer getMaxId(Integer utente) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			TypedQuery<Integer> tq = (TypedQuery<Integer>) em
-					.createQuery("SELECT max(x.id) FROM Persona x WHERE x.autore=:id")
-					.setParameter("id", autore);
+					.createQuery("SELECT max(x.id) FROM Conto x WHERE x.utente=:id")
+					.setParameter("id", utente);
 			Integer maxId = tq.getSingleResult();
 			em.close();
 			return maxId;
@@ -28,23 +28,23 @@ public class PersonaManager {
 		}
 	}
 	
-	public static Persona getById(Integer id) {
+	public static Conto getById(Integer id) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			Persona p = em.find(Persona.class, id);
+			Conto c = em.find(Conto.class, id);
 			em.close();
-			return p;
+			return c;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public static Boolean add(Persona p) {
+	public static Boolean add(Conto c) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			em.getTransaction().begin();
-			em.persist(p);
+			em.persist(em.merge(c));
 			em.getTransaction().commit();
 			em.close();
 			return true;
@@ -54,11 +54,11 @@ public class PersonaManager {
 		return false;
 	}
 	
-	public static boolean update(Persona p) {
+	public static boolean update(Conto c) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			em.getTransaction().begin();
-			em.merge(p);
+			em.merge(c);
 			em.getTransaction().commit();
 			em.close();
 			return true;
@@ -68,26 +68,26 @@ public class PersonaManager {
 		return false;
 	}
 
-	public static List<Persona> getListByAuthorId(Integer id) {
+	public static List<Conto> getListByUtenteId(Integer id) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-			List<Persona> lp = em
-					.createQuery("SELECT x FROM Persona x WHERE x.autore=:user ORDER BY x.cognome")
+			List<Conto> list = em
+					.createQuery("SELECT x FROM Conto x WHERE x.utente=:user ORDER BY x.nome")
 					.setParameter("user", id)
 					.getResultList();
 			em.close();
-			return lp;
+			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public static boolean delate(Persona p) {
+	public static boolean delate(Conto c) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			em.getTransaction().begin();
-			em.remove(em.merge(p));
+			em.remove(em.merge(c));
 			em.getTransaction().commit();
 			em.close();
 			return true;
@@ -97,16 +97,16 @@ public class PersonaManager {
 		return false;
 	}
 	
-	public static List<Persona> listaEliminabiliENon(List<Persona> list) {
+	public static List<Conto> listaEliminabiliENon(List<Conto> list) {
 		try {
-			for (Persona persona : list) {
-				List<Fattura> fatture = FatturaManager.getListByPersona(persona);
+			for (Conto conto : list) {
+				List<Fattura> fatture = FatturaManager.getListByConto(conto);
 				int num = 0;
-				for (Fattura fattura : fatture) {
+				for (Fattura f: fatture) {
 					num++;
 				}
 				if (!(num > 0))
-					persona.setEliminabile(true);
+					conto.setEliminabile(true);
 			}
 			return list;
 		} catch (Exception e) {
@@ -114,5 +114,5 @@ public class PersonaManager {
 		}
 		return null;
 	}
-	
+
 }

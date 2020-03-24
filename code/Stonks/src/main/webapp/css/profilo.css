@@ -21,3 +21,6 @@
 .btn-image-add:before { background-image: url(/icon/plus.png); }
 .btn-image-edit:before { background-image: url(/icon/pencil.png); }
 .btn-image-delete:before { background-image: url(/icon/delete.png); }
+
+#list-generale { text-align: center; vertical-align: middle }
+#li-generale { padding: 3rem 0; }

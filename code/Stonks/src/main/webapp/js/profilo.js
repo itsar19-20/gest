@@ -1,7 +1,8 @@
 $(() => {
     var user = JSON.parse(localStorage.getItem('user'));
+    $('#generale-nome').text(user.username);
     user= user.id;
-    var idPersona;
+    var idPersona, idConto;
 
     ////////////      PERSONE      ////////////
  
@@ -34,7 +35,6 @@ $(() => {
                 </button>
             </li>
         `);
-        console.log(p)
         p.forEach(i => {
             numeroPerone++;
             $('#persone-lista').append(`
@@ -44,9 +44,7 @@ $(() => {
                     <button id="e${i.id}" class="btn btn-warning float-right btn-image btn-image-edit" data-toggle="modal" data-target="#modal"></button>
                 </li>
             `);
-            console.log(i)
             if (i.eliminabile == true) {
-                console.log('cccccccccccc')
                 $(`#li-${i.id}`).append(`
                     <button id="d${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
                 `);
@@ -113,15 +111,8 @@ $(() => {
             success: (p) => {
                 if (p != null) {
                     tuttoVerde();
-                    $('#btnAggiungi').addClass('disable');
-                    $('#persone-lista').append(`
-                        <li id="li-${p.id}" class="list-group-item">
-                            <span>${p.nome}</span>
-                            <span>${p.cognome}</span>
-                            <button id="e${p.id}" class="btn btn-warning float-right btn-image btn-image-edit" data-toggle="modal" data-target="#modal"></button>
-                            <button id="d${p.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
-                        </li>
-                    `);
+                    $('#btnAggiungi').addClass('disabled');
+                    listaPersone();
                     var num = $('#persone-numero').text();
                     $('#persone-numero').text(++num);
                 } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
@@ -243,6 +234,153 @@ $(() => {
             },
             error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
         });
+    }
+
+    ////////////      CONTI      ////////////
+
+    $('#list-conti-list').click(() => { listaConti(); });
+
+    function listaConti() {
+        $.ajax({
+            cache: false,
+            type: 'GET',
+            timeout: 1000,
+            url: '/profilo/conti',
+            data: { user },
+            dataType: 'json',
+            success: (data) => { conti(data); },
+            error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+        });
+    }
+
+    function conti(c) {
+        var numeroConti = 0;
+        $('#conti-lista').empty();
+        $('#conti-lista').append(`
+            <li class="list-group-item">
+                <span>Conti registrati:</span>
+                <span id="conti-numero"></span>
+                <button 
+                    id="btn-conti-aggiungi" 
+                    class="btn btn-success float-right btn-image btn-image-add" 
+                    data-toggle="modal" data-target="#modalConto">
+                </button>
+            </li>
+        `);
+        c.forEach(i => {
+            numeroConti++;
+            $('#conti-lista').append(`
+                <li id="cli-${i.id}" class="list-group-item form-inline">
+                    <input id="ci-${i.id}" type="text" class="form-control" value="${i.nome}">
+                    <div class="invalid-feedback">Llunghezza minima 4 caratteri.</div>
+                    <button id="ce${i.id}" class="btn btn-warning float-right btn-image btn-image-edit"></button>
+                </li>
+            `);
+            if (i.eliminabile == true) {
+                $(`#cli-${i.id}`).append(`
+                    <button id="cd${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                `);
+            }
+        });
+        $('#conti-numero').text(numeroConti);
+
+        // Aggiungi
+        $('#btn-conti-aggiungi').click(() => {
+            $('#inputNomeConto').val('');
+            $('#inputNomeConto').removeClass('is-valid');
+            $('#inputNomeConto').removeClass('is-invalid');
+            $('#btnAggiungiConto').removeClass('disabled');
+        });
+
+        // Questo click genera una ridondanza esponenziale fino al ricaricamento della pagina
+        // che #!%$%§ù !!!11!
+        $('#btnAggiungiConto').click(() => { inviaConto() });
+
+        function inviaConto() {
+            $('#inputNomeConto').removeClass('is-valid');
+            $('#inputNomeConto').removeClass('is-invalid');
+            var nomeNuovoConto = $('#inputNomeConto').val();
+            if (nomeNuovoConto.length > 3) {
+                var conto = {
+                    nome: nomeNuovoConto,
+                    utente: user,
+                    saldoDisponibile: 0,
+                    saldoUtile: 0
+                };
+                conto = JSON.stringify(conto);
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    timeout: 1000,
+                    url: '/profilo/conti',
+                    data: { conto },
+                    success: (data) => {
+                        if (data == 'ok') {
+                            $('#btnAggiungiConto').addClass('disabled');
+                            $('#inputNomeConto').addClass('is-valid');
+                            listaConti();
+                        } else alert('Si è verificato un problema con il server.\nPerfavore riprovare.');
+                    },
+                    error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+                });
+            } else {
+                $('#inputNomeConto').addClass('is-invalid');
+            }
+        }
+
+        // Modifica
+        $(".btn-image-edit").click(function(event) {
+            $('input').removeClass('is-valid');
+            $('input').removeClass('is-invalid');
+            var idBtn = event.target.id;
+            idConto = '';
+            for (var i = 2; i < idBtn.length; i++) {
+                idConto += idBtn.charAt(i);
+            }
+            var nomeNuovoConto = $(`#ci-${idConto}`).val();
+            if (nomeNuovoConto.length > 3) {
+                nome = nomeNuovoConto;
+                $.ajax({
+                    cache: false,
+                    type: 'PUT',
+                    timeout: 1000,
+                    url: '/profilo/conti',
+                    data: { nome, idConto },
+                    success: (data) => {
+                        if (data != null) {
+                            $('#ci-' + idConto).addClass('is-valid');
+                        } else alert('Si è verificato un problema con il server.\nPerfavore riprovare.');
+                    },
+                    error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+                });
+            } else {
+                $('#ci-' + idConto).addClass('is-invalid');
+            }
+        });
+
+        // Elimina
+        $(".btn-image-delete").click(function(event) {
+            var idBtn = event.target.id;
+            idConto = '';
+            for (var i = 2; i < idBtn.length; i++) {
+                idConto += idBtn.charAt(i);
+            }
+            if (confirm('Sei davvero sicuro di volere eliminare questo conto.\nNon potrai più tornare indiatro, procedere?')) {
+                $.ajax({
+                    cache: false,
+                    type: 'DELETE',
+                    timeout: 1000,
+                    url: '/profilo/conti' + '?idConto=' + idConto,
+                    success: (msg) => {
+                        if (msg == 'ok') {
+                            listaConti();
+                        } else { alert('Si è verificato un problema con il server.\nLa persona non è stata eliminata.\nPerfavore riprovare.'); }
+                    },
+                    error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+                });
+            }
+        });
+
     }
 
     ////////////      PROFILO      ////////////

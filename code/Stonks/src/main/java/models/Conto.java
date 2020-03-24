@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,21 +18,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "conto")
 public class Conto {
 
-	public Conto(Integer id, String nome, List<Fattura> fatture, Integer idFatture, List<Pagamento> pagamenti,
-			Integer idPagamenti, float saldoDisponibile, float saldoUtile, Integer utente) {
+	public Conto(String nome, float saldoDisponibile, float saldoUtile, Integer utente) {
 		super();
-		this.id = id;
 		this.nome = nome;
-		this.fatture = fatture;
-		this.idFatture = idFatture;
-		this.pagamenti = pagamenti;
-		this.idPagamenti = idPagamenti;
 		this.saldoDisponibile = saldoDisponibile;
 		this.saldoUtile = saldoUtile;
 		this.utente = utente;
 	}
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	@JsonProperty("id")
 	private Integer id;
 
@@ -71,6 +69,9 @@ public class Conto {
 	@Column(name = "utente_id")
 	@JsonProperty("utente")
 	private Integer utente;
+	
+	@Transient
+	private boolean eliminabile = false;
 
 	public Integer getIdFatture() {
 		return idFatture;
@@ -142,6 +143,14 @@ public class Conto {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public boolean isEliminabile() {
+		return eliminabile;
+	}
+
+	public void setEliminabile(boolean eliminabile) {
+		this.eliminabile = eliminabile;
 	}
 
 }

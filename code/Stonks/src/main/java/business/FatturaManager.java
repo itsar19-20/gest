@@ -12,9 +12,6 @@ import utils.JPAUtil;
 
 public class FatturaManager {
 
-	// protected static EntityManager em =
-	// JPAUtil.getInstance().getEmf().createEntityManager();
-
 	public static Persona getPesonaById(Integer id) {
 		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		Persona p = em.find(Persona.class, id);
@@ -104,12 +101,27 @@ public class FatturaManager {
 		return output;
 	}
 
-	public static List<Fattura> getListByPersonaId(Integer id) {
+	public static List<Fattura> getListByPersona(Persona p) {
 		try {
 			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 			List<Fattura> list = em
-					.createQuery("SELECT x FROM Fattura x WHERE x.persona=:id")
-					.setParameter("id", id)
+					.createQuery("SELECT x FROM Fattura x WHERE x.persona=:p")
+					.setParameter("p", p)
+					.getResultList();
+			em.close();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static List<Fattura> getListByConto(Conto conto) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Fattura> list = em
+					.createQuery("SELECT x FROM Fattura x WHERE x.conto=:c")
+					.setParameter("c", conto)
 					.getResultList();
 			em.close();
 			return list;
