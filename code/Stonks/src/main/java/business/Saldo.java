@@ -19,6 +19,7 @@ public class Saldo {
 					totale.s += f.getLordo();
 				}
 			}
+			conto.setSaldoUtile(totale.s);
 			break;
 		case disponibile:
 			for (Pagamento p : conto.getPagamenti()) {
@@ -26,6 +27,7 @@ public class Saldo {
 					totale.s += p.getGiaPagato();
 				}
 			}
+			conto.setSaldoDisponibile(totale.s);
 			break;
 		}
 		return totale;
