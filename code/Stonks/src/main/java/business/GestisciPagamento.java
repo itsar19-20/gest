@@ -40,7 +40,6 @@ public class GestisciPagamento {
 		//JPALuke.persistPagamento(p);
 		p=segnalaPagamento(p,valoreEntrata,emTemp);
 		return p;
-		
 	}
 	
 	public static void modificaPagamento(Pagamento pagamento,float nuovoImporto,EntityManager em) {
