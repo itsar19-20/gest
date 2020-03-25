@@ -24,9 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "fattura")
 public class Fattura {
 
-	public Fattura() {
-		// TODO Auto-generated constructor stub
-	}
+	public Fattura() { }
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +35,10 @@ public class Fattura {
 	@Column(name = "data")
 	@JsonProperty("data")
 	private Date data;
+	
+	@Column(name = "anno")
+	@JsonProperty("anno")
+	private Integer anno;
 
 	@Column(name = "scadenza")
 	@JsonProperty("scadenza")
@@ -232,6 +234,14 @@ public class Fattura {
 
 	public void setNotaDiCredito(boolean notaDiCredito) {
 		this.notaDiCredito = notaDiCredito;
+	}
+
+	public Integer getAnno() {
+		return anno;
+	}
+
+	public void setAnno(Integer anno) {
+		this.anno = anno;
 	}
 
 }

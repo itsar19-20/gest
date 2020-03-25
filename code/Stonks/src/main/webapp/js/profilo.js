@@ -270,15 +270,26 @@ $(() => {
         c.forEach(i => {
             numeroConti++;
             $('#conti-lista').append(`
-                <li id="cli-${i.id}" class="list-group-item form-inline">
-                    <input id="ci-${i.id}" type="text" class="form-control" value="${i.nome}">
-                    <div class="invalid-feedback">Llunghezza minima 4 caratteri.</div>
-                    <button id="ce${i.id}" class="btn btn-warning float-right btn-image btn-image-edit"></button>
+                <li id="cli-${i.id}" class="list-group-item">
+                    <div class="form-row">
+                        <input id="ci-${i.id}" type="text" class="form-control col" value="${i.nome}">
+                        <div class="invalid-feedback">Lunghezza minima 4 caratteri.</div>
+                        <dic class="col">
+                            <button id="ce${i.id}" class="btn btn-warning float-right btn-image btn-image-edit edit-nome"></button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <input id="cip-${i.id}" type="text" class="form-control col" value="${i.prefisso}" placeholder="Prefisso numero fattura">
+                        <div class="invalid-feedback">Questo campo non può essere vuoto.</div>
+                        <dic class="col">
+                            <button id="cep${i.id}" class="btn btn-warning float-right btn-image btn-image-edit edit-prefisso"></button>
+                        </div>
+                    </div>
                 </li>
             `);
             if (i.eliminabile == true) {
                 $(`#cli-${i.id}`).append(`
-                    <button id="cd${i.id}" class="btn btn-danger float-right btn-persone-elimena btn-image btn-image-delete"></button>
+                    <button id="cd${i.id}" class="btn btn-danger btn-conto-elimena btn-image btn-image-delete float-right"></button>
                 `);
             }
         });
@@ -329,7 +340,7 @@ $(() => {
         }
 
         // Modifica
-        $(".btn-image-edit").click(function(event) {
+        $(".edit-nome").click(function(event) {
             $('input').removeClass('is-valid');
             $('input').removeClass('is-invalid');
             var idBtn = event.target.id;
@@ -338,6 +349,7 @@ $(() => {
                 idConto += idBtn.charAt(i);
             }
             var nomeNuovoConto = $(`#ci-${idConto}`).val();
+            var put = 'mp,e;'
             if (nomeNuovoConto.length > 3) {
                 nome = nomeNuovoConto;
                 $.ajax({
@@ -345,7 +357,7 @@ $(() => {
                     type: 'PUT',
                     timeout: 1000,
                     url: '/profilo/conti',
-                    data: { nome, idConto },
+                    data: { nome, put, idConto },
                     success: (data) => {
                         if (data != null) {
                             $('#ci-' + idConto).addClass('is-valid');
@@ -356,6 +368,39 @@ $(() => {
             } else {
                 $('#ci-' + idConto).addClass('is-invalid');
             }
+        });
+
+        // Modifica prefisso
+        $(".edit-prefisso").click(function(event) {
+            $('input').removeClass('is-valid');
+            $('input').removeClass('is-invalid');
+            var idBtn = event.target.id;
+            idConto = '';
+            for (var i = 3; i < idBtn.length; i++) {
+                idConto += idBtn.charAt(i);
+            }
+            var prefisso = $('#cip-' + idConto).val();
+            if (prefisso.length > 0) {
+                var put = 'prefisso';
+                $.ajax({
+                    cache: false,
+                    type: 'PUT',
+                    timeout: 1000,
+                    url: '/profilo/conti',
+                    data: { idConto, put, prefisso },
+                    success: (msg) => {
+                        if (msg == 'ok') {
+                            $('#cip-' + idConto).addClass('is-valid');
+                        } else if (msg == 'no') {
+                            alert('Non è possibile modificare il prefisso,\nperchè già in uso quest\'anno.')
+                        } else {
+                            alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); 
+                        }
+                    },
+                    error: () => { alert('Si è verificato un problema con il server.\nPerfavore riprovare.'); }
+                });
+            } else 
+                $('#cip-' + idConto).addClass('is-invalid');
         });
 
         // Elimina
@@ -409,6 +454,7 @@ $(() => {
         $('#profilo-cambia-nome-utente').click(() => { cambiaNomeUtente(); });
         $('#profilo-cambia-password').click(() => { cambiaPassword(); });
         $('#profilo-cambia-dati-anagrafici').click(() => { cambiaDatiAnagrafici(); });
+        $('#btn-prefisso').click(() => { cambiaPrefisso(); });
     }
 
     function cambiaNomeUtente() {

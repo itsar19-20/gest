@@ -1,5 +1,6 @@
 package business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -113,6 +114,27 @@ public class ContoManager {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static boolean setPrefisso(Conto c, String prefisso) {
+		try {
+			Integer anno = new Date().getYear();
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Fattura> list = em
+					.createQuery("SELECT x FROM Fattura x WHERE x.conto.id=:id AND x.anno=:anno")
+					.setParameter("id", c.getId())
+					.setParameter("anno", anno)
+					.getResultList();
+			em.close();
+			if (list.isEmpty()) {
+				c.setPrefisso(prefisso);
+				update(c);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

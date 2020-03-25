@@ -34,6 +34,8 @@ public class Conto {
 
 	@JsonProperty("nome")
 	private String nome;
+	
+	private String prefisso;
 
 	public Conto() {
 
@@ -151,6 +153,14 @@ public class Conto {
 
 	public void setEliminabile(boolean eliminabile) {
 		this.eliminabile = eliminabile;
+	}
+
+	public String getPrefisso() {
+		return prefisso;
+	}
+
+	public void setPrefisso(String prefisso) {
+		this.prefisso = prefisso;
 	}
 
 }

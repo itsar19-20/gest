@@ -56,8 +56,15 @@ public class ProfiloConti extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String output = null;
 		Conto c = ContoManager.getById(Integer.valueOf(request.getParameter("idConto")));
-		c.setNome(request.getParameter("nome"));
-		if (ContoManager.update(c)) output = "ok";
+		if (request.getParameter("put").contentEquals("nome")) {
+			c.setNome(request.getParameter("nome"));
+			if (ContoManager.update(c)) output = "ok";
+		} else if (request.getParameter("put").contentEquals("prefisso")) {
+			if (ContoManager.setPrefisso(c, request.getParameter("prefisso")))
+				output = "ok";
+			else output = "no";
+		}
+		
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().append(output);
 		God.seesEverythings(request, response, output);

@@ -24,51 +24,22 @@ import utils.DataBase;
 import utils.God;
 import utils.JsonUtil;
 
-/**
- * Servlet implementation class FatturaCreaController
- */
 @WebServlet("/fattura/salva")
 public class FatturaSalvaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public FatturaSalvaController() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public FatturaSalvaController() { super(); }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		ObjectMapper om = new ObjectMapper();
-
-		// intercetto la stringa json con dell'oggeto fattura
-		String fatturaJsonString = request.getParameter("fattura");
-		// creo l'oggetto fattura
-		Fattura f = om.readValue(JsonUtil.getJsonFromAnObject(fatturaJsonString), Fattura.class);
-		// la fattura è gia stata pagata?
+		Fattura f = om.readValue(JsonUtil.getJsonFromAnObject(request.getParameter("fattura")), Fattura.class);
 		if (f.getScadenza() == 0)
 			f.setPagata(true);
 		else
 			f.setPagata(false);
-
-		// lo salvo nel database
-		DataBase.create(f);
+		FatturaManager.add(f);
 
 		// dichiaro una stringa contenente una lista oggetti di tipo articolo in json
 		String articoliJsonString = request.getParameter("articoli");
@@ -76,8 +47,7 @@ public class FatturaSalvaController extends HttpServlet {
 		// oggetti
 
 		// converto la stringa json in degli oggetti veri e propri
-		TypeReference<List<Articolo>> listType = new TypeReference<List<Articolo>>() {
-		};
+		TypeReference<List<Articolo>> listType = new TypeReference<List<Articolo>>() {};
 		List<Articolo> articoli = om.readValue(JsonUtil.getJsonFromAnObjectOfObjects(articoliJsonString), listType);
 		for (Articolo a : articoli) {
 			// colleggo il singolo articolo alla rispettiva fattura

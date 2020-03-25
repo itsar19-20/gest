@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import business.FatturaManager;
+import business.UserManager;
 import models.User;
 import utils.DataBase;
 import utils.God;
