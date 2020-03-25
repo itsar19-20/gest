@@ -191,5 +191,20 @@ public class FatturaManager {
 		}
 		return null;
 	}
+	
+	public static Fattura getLastByUserId(Integer userId) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			Fattura f = (Fattura) em
+					.createQuery("SELECT max(x) FROM Fattura x WHERE x.conto.utente=:id ")
+					.setParameter("id", userId)
+					.getSingleResult();
+			em.close();
+			return f;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

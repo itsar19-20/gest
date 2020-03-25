@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,12 +17,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.FatturaManager;
+import business.GestisciPagamento;
 import models.Articolo;
 import models.Conto;
 import models.Fattura;
 import models.Persona;
+import models.User;
 import utils.DataBase;
 import utils.God;
+import utils.JPAUtil;
 import utils.JsonUtil;
 
 @WebServlet("/fattura/salva")
@@ -35,11 +39,20 @@ public class FatturaSalvaController extends HttpServlet {
 
 		ObjectMapper om = new ObjectMapper();
 		Fattura f = om.readValue(JsonUtil.getJsonFromAnObject(request.getParameter("fattura")), Fattura.class);
-		if (f.getScadenza() == 0)
-			f.setPagata(true);
-		else
-			f.setPagata(false);
+
 		FatturaManager.add(f);
+		
+		if (f.getScadenza() == 0) {
+			try {
+				EntityManager em_1 = JPAUtil.getInstance().getEmf().createEntityManager(), 
+						em_2 = JPAUtil.getInstance().getEmf().createEntityManager();
+				GestisciPagamento.addNewPagamento(FatturaManager.getLastByUserId(f.getConto().getUtente()).getId(), f.getLordo(), em_1, em_2);
+				em_1.close();
+				em_2.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		// dichiaro una stringa contenente una lista oggetti di tipo articolo in json
 		String articoliJsonString = request.getParameter("articoli");
