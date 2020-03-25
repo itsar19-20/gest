@@ -7,29 +7,29 @@ import models.Pagamento;
 
 public class Saldo {
 	
-	float s=0;
+
 
 	@SuppressWarnings("null")
-	public static Saldo saldo(Conto conto, Date data, TipoSaldo tipoSaldo) {
-		Saldo totale = null;
+	public static float saldo(Conto conto, Date data, TipoSaldo tipoSaldo) {
+		float s=0;
 		switch (tipoSaldo) {
 		case utile:
 			for (Fattura f : conto.getFatture()) {
 				if (f.getData().getTime() <= data.getTime()) {
-					totale.s += f.getLordo();
+					s += f.getLordo();
 				}
 			}
-			conto.setSaldoUtile(totale.s);
+			conto.setSaldoUtile(s);
 			break;
 		case disponibile:
 			for (Pagamento p : conto.getPagamenti()) {
 				if (p.getDataPagamento().getTime() <= data.getTime()) {
-					totale.s += p.getGiaPagato();
+					s += p.getGiaPagato();
 				}
 			}
-			conto.setSaldoDisponibile(totale.s);
+			conto.setSaldoDisponibile(s);
 			break;
 		}
-		return totale;
+		return s;
 	}
 }
