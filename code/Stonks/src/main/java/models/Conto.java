@@ -14,6 +14,8 @@ import javax.persistence.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import business.FatturaManager;
+
 @Entity
 @Table(name = "conto")
 public class Conto {
@@ -84,6 +86,7 @@ public class Conto {
 	}
 
 	public List<Pagamento> getPagamenti() {
+		
 		return pagamenti;
 	}
 
@@ -132,6 +135,7 @@ public class Conto {
 	}
 
 	public List<Fattura> getFatture() {
+		FatturaManager.getListByConto(this);
 		return fatture;
 	}
 
