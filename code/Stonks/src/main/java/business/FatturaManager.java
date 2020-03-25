@@ -1,5 +1,6 @@
 package business;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,7 +53,6 @@ public class FatturaManager {
 			em.close();
 			return l;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -69,7 +69,6 @@ public class FatturaManager {
 			em.close();
 			return lc;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -125,6 +124,68 @@ public class FatturaManager {
 					.getResultList();
 			em.close();
 			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Fattura setAnno(Fattura f) {
+		try {
+			f.setAnno(f.getData().getYear());
+			return f;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static Fattura setNumeroFattura(Fattura f) {
+		try {
+			Integer anno = new Date().getYear();
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			List<Fattura> list = em
+					.createQuery("SELECT x FROM Fattura x WHERE x.conto.id=:id AND x.anno=:anno")
+					.setParameter("id", f.getConto().getId())
+					.setParameter("anno", anno)
+					.getResultList();
+			em.close();
+			int num = 1;
+			for (Fattura fattura : list) { num++; }
+			f.setNumeroFattura(f.getConto().getPrefisso() + num);
+			return f;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static boolean add(Fattura f) {
+		try {
+			f = setAnno(f);
+			f = setNumeroFattura(f);
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			em.getTransaction().begin();
+			em.persist(f);
+			em.getTransaction().commit();
+			em.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private static Integer getUserId(Fattura f) {
+		try {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			Integer contoId = f.getConto().getId();
+			Integer id = (Integer) em
+					.createQuery("SELECT x.utente FROM Conto x WHERE x.id=:contoId ")
+					.setParameter("contoId", contoId)
+					.getSingleResult();
+			em.close();
+			return id;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
