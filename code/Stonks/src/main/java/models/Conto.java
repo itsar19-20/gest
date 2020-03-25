@@ -135,7 +135,7 @@ public class Conto {
 	}
 
 	public List<Fattura> getFatture() {
-		FatturaManager.getListByConto(this);
+		fatture = FatturaManager.getListByConto(this);
 		return fatture;
 	}
 
