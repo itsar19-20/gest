@@ -30,6 +30,7 @@ public class Saldo {
 			conto.setSaldoDisponibile(s);
 			break;
 		}
+		ContoManager.update(conto);
 		return s;
 	}
 }
