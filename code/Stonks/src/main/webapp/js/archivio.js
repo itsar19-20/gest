@@ -83,7 +83,7 @@ $(() => {
                 invoice.articolo.forEach(element => {
                 $('#tbl-articles').append(`<tr>
                     <td class="col-descrizione">${element.descrizione}</td>
-                    <td>${'€ ' + element.quantita}</td>
+                    <td>${element.quantita}</td>
                     <td>${'€ ' + element.prezzo}</td>
                     <td>${'€ ' + element.parziale}</td>
                 </tr>`)

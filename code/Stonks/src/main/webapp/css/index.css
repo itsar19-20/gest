@@ -93,3 +93,24 @@ h3 {
 	background-position: center center;
 	position: relative;
 }
+
+#contenitore-grafici {
+    border: .25rem solid gold;
+    height: 70%;
+    padding: 1rem;
+}
+.finti-grafici {
+    height: 75%;
+    width: 30%;
+    float: left;
+    margin-top: 10%;
+}
+#finto-grafico-1 { border: .25rem solid red; }
+#finto-grafico-2 { margin-left: 5%; margin-right: 5%; border: .25rem solid green; }
+#finto-grafico-3 { border: .25rem solid blue; }
+#contenitore-bottoni { height: 10%; }
+.btn-big {
+    height: 90%;
+    width: 15%;
+    margin: 1% .5%;
+}

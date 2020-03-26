@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import business.FatturaManager;
 import business.GestisciPagamento;
+import business.Saldo;
+import business.TipoSaldo;
 import models.Articolo;
 import models.Conto;
 import models.Fattura;
@@ -52,6 +54,12 @@ public class FatturaSalvaController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		try {
+			Saldo.saldo(f.getConto(), new Date(), TipoSaldo.utile);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		// dichiaro una stringa contenente una lista oggetti di tipo articolo in json
