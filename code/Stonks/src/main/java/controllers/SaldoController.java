@@ -43,15 +43,8 @@ public class SaldoController extends HttpServlet {
     	List<Conto> contitutti = ManageConto.getConti(userId);
     	response.setContentType("application/json;charset=utf-8");
     	response.getWriter().append(new ObjectMapper().writeValueAsString(contitutti));
-    	
-    	
-    	/*
-    	String contoStr = request.getParameter("conto");
-    	TipoSaldo tS = null;
-		Conto c = (Conto) DataBase.getObjectById("c", Integer.parseInt(contoStr));
-    	Date date = new Date();
-    	response = (HttpServletResponse) Saldo.saldo(c, date, tS);
-    	God.seesEverythings(request, response, null);*/
 	}
+    
+    
 
 }
