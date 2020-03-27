@@ -24,6 +24,30 @@ $(document).ready( function () {
 				let myContext=myCanvas.getContext("2d");
 				myContext.clearRect(0, 0, myCanvas.width, myCanvas.height);
 				
+				pagamenti.forEach(p => {
+					var dataP=new Date(p.fattura.data).toLocaleDateString();
+					p.fattura.data=dataP;
+					
+					if(p.fattura.eUnaFatturaCliente==true){
+						p.fattura.eUnaFatturaCliente="entrata";
+					}else{
+						p.fattura.eUnaFatturaCliente="uscita";
+					}
+
+					if(p.pagato){
+						p.pagato="sì";
+					}else{
+						p.pagato="no";
+					}
+			
+					var lordoStringa= parseFloat(p.fattura.lordo).toFixed(2);
+					 lordoStringa+=" €";
+					 p.fattura.lordo=lordoStringa;
+
+					var giaPagato1= parseFloat(p.giaPagato).toFixed(2);
+					giaPagato1+=" €";
+					p.giaPagato=giaPagato1;
+				});
 
 
 
@@ -34,12 +58,13 @@ $(document).ready( function () {
 					
 					columns: [
 						{ title: 'Numero fattura:',data: 'fattura.numeroFattura'},
-						{ title: 'Data', data: 'fattura.data'},
+						{ title: 'Data fattura', data: 'fattura.data'},
 						{ title: 'Scadenza: ', data: 'fattura.scadenza'},
 						{ title: 'Lordo',data: 'fattura.lordo'},
 						{ title: 'Tipo', data: 'fattura.eUnaFatturaCliente'},
 						{ title:  'GiaPagato', data:'giaPagato'},
-						{ title:  'Completato', data:'pagato'}
+						{ title:  'Completato', data:'pagato'},
+						
 					   
 					]
 				});
