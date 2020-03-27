@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import business.FatturaManager;
+import utils.JPALuke;
+import utils.JPAUtil;
 
 @Entity
 @Table(name = "conto")
@@ -86,7 +89,7 @@ public class Conto {
 	}
 
 	public List<Pagamento> getPagamenti() {
-		
+		pagamenti = JPALuke.searchPagamentiConto(id, (EntityManager) JPAUtil.getInstance());
 		return pagamenti;
 	}
 
