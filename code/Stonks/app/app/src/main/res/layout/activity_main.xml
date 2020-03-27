@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <TextView
         android:id="@+id/textView4"
@@ -23,17 +23,18 @@
         android:text="test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToInvoice" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonToFatturaActivity" />
 
     <Button
-        android:id="@+id/buttonToInvoice"
+        android:id="@+id/buttonToFatturaActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="fattura prova"
+        android:text="fattura"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/colorAccent" />
 
     <Button
         android:id="@+id/btnScadenziario"

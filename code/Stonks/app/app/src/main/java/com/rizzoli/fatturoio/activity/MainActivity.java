@@ -11,13 +11,18 @@ import com.rizzoli.fatturoio.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button buttonToTestActivity, btnScadenziario, btnToFatturaActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonToTestActivity = findViewById(R.id.buttonToTestActivity);
-        Button btnScadenziario=findViewById(R.id.btnScadenziario);
+        buttonToTestActivity = findViewById(R.id.buttonToTestActivity);
+        btnScadenziario=findViewById(R.id.btnScadenziario);
+        btnToFatturaActivity = findViewById(R.id.buttonToFatturaActivity);
+
+        btnToFatturaActivity.setOnClickListener(v -> startFatturaActivity());
 
         buttonToTestActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,5 +40,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void startFatturaActivity() {
+        startActivity(new Intent(MainActivity.this, FatturaActivity.class));
+        finish();
     }
 }

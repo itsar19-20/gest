@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.TestVolleyActivity"></activity>
+        <activity android:name=".activity.FatturaActivity"></activity>
+        <activity android:name=".activity.TestVolleyActivity" />
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,7 +25,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestRetrofitActivity" />
-        <activity android:name=".activity.TestInvoiceActivity" />
         <activity android:name=".activity.MainActivity" />
     </application>
 
