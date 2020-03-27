@@ -55,6 +55,7 @@ public class JPALuke {
 	public static void aggiornaGiaPagato(Pagamento p, float valoreEntrata, EntityManager em) {
 		// EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
 		p.setGiaPagato(p.getGiaPagato() + valoreEntrata);
+		p.setDataPagamento(new Date());
 
 		em.getTransaction().begin();
 		em.merge(p);
@@ -64,11 +65,11 @@ public class JPALuke {
 	}
 
 	public static void setCompletato(Pagamento p, EntityManager em) {
-		// EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
-		Date dataPagamento = new Date();
+		
+	
 		p.setGiaPagato(p.getFattura().getLordo());
 		p.setPagato(true);
-		p.setDataPagamento(dataPagamento);
+		p.setDataPagamento(new Date());
 		p.getFattura().setPagata(true);
 
 		em.getTransaction().begin();
@@ -114,6 +115,14 @@ public class JPALuke {
 		TypedQuery<Pagamento> query = em
 				.createQuery("SELECT pa FROM Pagamento pa where pa.fattura.conto.utente=:idPersona", Pagamento.class);
 		query.setParameter("idPersona", idPersona);
+		List<Pagamento> listaPagamento = query.getResultList();
+		return listaPagamento;
+	}
+	
+	public static List<Pagamento> searchPagamentiConto(Integer idConto, EntityManager em) {
+		TypedQuery<Pagamento> query = em
+				.createQuery("SELECT pa FROM Pagamento pa where pa.fattura.conto.id=:idConto", Pagamento.class);
+		query.setParameter("idConto", idConto);
 		List<Pagamento> listaPagamento = query.getResultList();
 		return listaPagamento;
 	}

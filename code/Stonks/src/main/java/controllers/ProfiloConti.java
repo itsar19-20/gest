@@ -76,7 +76,7 @@ public class ProfiloConti extends HttpServlet {
 		Conto c = ContoManager.getById(id);
 		String output = null;
 		if (ContoManager.delate(c)) output = "ok";
-		else output = "Il conto non è stato eliminato";
+		else output = "Il conto non ï¿½ stato eliminato";
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().append(output);
 		God.seesEverythings(request, response, output);
