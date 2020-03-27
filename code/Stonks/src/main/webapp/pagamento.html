@@ -18,29 +18,59 @@
 </head>
 <body>
   <header></header>
-  <br><br><br><br>
+  
 
 
+<main>
+  <div id="immagine">
+    <a href="homepage.html">
+        <img id="img-fatturo" class="mb-4" src="images/fatturoIO.png" alt="" width="15%" height="15%">
+    </a>
+</div>
+<!--
 
+-->
+
+</ul>
 
     <div id="idDiv">
         
-            
-                <label> Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></label>
-                
-                <br>
-            
-                <label>Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></label>
+              <table id="idTable">
+                <tr>
+                  
+               <!--<p id="p1"> Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></p>--> 
+                <ul id="esLista"class="list-group">
+                  <li class="list-group-item" id="l2">
+                    Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span>
+                  </li>
+                  <li class="list-group-item" id="l1">
+                    Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span>
+                  </li>
                  
+                </tr>
+                <!--<tr id="t2">
+                <p id="p2">Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></p>
+                </tr>-->
             
-            	
-                <label>Inserisci importo: </label>
+                <tr>
+                  <td>
+               <p id="idScritta"> Inserisci importo: </p>
+              </td>
+              <td> 
+              
+              
+                <div id="divImporto">
                 <input type="number" class="form-control text-primary" id="inputImporto" name="nuovoImporto"/>
               <!--  <td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="inputImporto" name="nuovoImporto"/></td>  -->
-            
-            
+            </div>
+              </td>
+            </tr>
+            <tr>
+              <div id="divBtn">
                 <button class="btn btn-primary" id="btnPagamento"> paga </button>
-            
+              </div>
+              </tr>
+              </table>
             
         </div>
         
@@ -73,7 +103,7 @@
     </div>
   
 
-
+      </main>
     <footer></footer>
 
 
@@ -85,7 +115,7 @@
         <!-- DataTable -->
         <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
-    <script scr="./js/index.js"></script>
+    <script src="./js/index.js"></script>
     <script src="./js/cercaPagamento.js"></script>
     <script src="./js/eseguiPagamento.js"></script>
     
