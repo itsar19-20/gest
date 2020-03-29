@@ -2,7 +2,7 @@ package com.rizzoli.fatturoio.serverDatabaseModel;
 
 import com.google.gson.annotations.SerializedName;
 
-class Persona {
+public class Persona {
 
     @SerializedName("id")
     private Integer _id;

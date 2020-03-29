@@ -1,6 +1,6 @@
 package com.rizzoli.fatturoio.serverDatabaseModel;
 
-public class Utente extends Users {
+public class Utente extends User {
 
     private String metodoDiRegistrazione;
 

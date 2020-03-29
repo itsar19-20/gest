@@ -2,7 +2,7 @@ package com.rizzoli.fatturoio.serverDatabaseModel;
 
 import java.util.Date;
 
-public class Users extends Persona {
+public class User extends Persona {
 
     private String username, password;
     private Date dataOraUltimoLogin;

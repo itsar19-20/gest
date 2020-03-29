@@ -20,13 +20,11 @@ public class VolleyUtils {
     private static RequestQueue queue = null;
     private static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy MM dd")
-            /*
             .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
                 public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
                     return new Date(jsonElement.getAsString());
                 }
             })
-            */
             .setLenient()
             .create();
 

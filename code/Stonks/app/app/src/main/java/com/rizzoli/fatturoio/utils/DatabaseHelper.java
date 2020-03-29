@@ -8,28 +8,36 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String
             DATABASE_NAME = "localDatabase.db",
 
             CREATE_TABLE_FATTURA = "CREATE TABLE fattura ("
             		+ "_id integer primary key autoincrement, "
             		+ "data text not null, "
+					+ "anno integer not null, "
             		+ "scadenza integer not null, "
-            		// + "e_una_fattura_cliente boolean not null, "
+            		+ "eUnaFatturaCliente integer not null, "
             		+ "persona integer not null, "
-            		+ "numero_fattura text not null, "
+					+ "nota text not null, "
+            		+ "numeroFattura text not null, "
             		+ "iva float not null, "
             		+ "lordo float not null, "
-            		// + "pagata boolean not null, "
-            		+ "conto integer not null",
+            		+ "pagata integer not null, "
+					+ "notaDiCredito integer not null, "
+					+ "conto integer not null, "
+					+ "FOREIGN KEY (persona) REFERENCES persona (_id),"
+					+ "FOREIGN KEY (conto) REFERENCES conto (_id)"
+					+ ")",
             CREATE_TABLE_ARTICOLO = "CREATE TABLE articolo ("
             		+ "_id integer primary key autoincrement, "
             		+ "descrizione text not null, "
             		+ "quantita float not null, "
             		+ "prezzo float not null, "
             		+ "parziale float not null, "
-            		+ "fattura integer not null)",
+            		+ "fattura integer not null,"
+					+ "FOREIGN KEY (fattura) REFERENCES fattura (_id)"
+					+ ")",
             CREATE_TABLE_PERSONA = "CREATE TABLE persona ("
             		+ "_id integer primary key autoincrement, "
             		+ "nome text not null, "
@@ -38,12 +46,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             		+ "mail text not null, "
             		+ "indirizzo text not null, "
             		+ "telefono text not null, "
-            		+ "autore integer not null)",
+            		+ "autore integer not null,"
+					+ "eliminabile integer NOT NULL"
+					+ ")",
             CREATE_TABLE_USER = "CREATE TABLE user ( "
                     + "_id integer primary key autoincrement,"
                     + "username text not null, "
                     + "password text not null,"
-                    + "dataOraUltimoLogin text not null)";
+                    + "dataOraUltimoLogin text not null,"
+					+ "FOREIGN KEY (_id) REFERENCES persona (_id)"
+					+ ")",
+			CREATE_TABLE_CONTO = "CREATE TABLE conto ("
+					+ "_id integer PRIMARY KEY AUTOINCREMENT,"
+					+ "nome texit NOT NULL,"
+					+ "prefisso text NOT NULL,"
+					+ "saldoDisponibile float NOT NULL,"
+					+ "saldoContabile float NOT NULL,"
+					+ "utente integer NOT NULL,"
+					+ "FOREIGN KEY (utente) REFERENCES user (_id)"
+					+ ")";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_ARTICOLO);
         db.execSQL(CREATE_TABLE_PERSONA);
         db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_CONTO);
     }
 
     @Override
@@ -63,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS articolo");
         db.execSQL("DROP TABLE IF EXISTS persona");
         db.execSQL("DROP TABLE IF EXISTS user");
+        db.execSQL("DROP TABLE IF EXISTS conto");
         onCreate(db);
     }
 }

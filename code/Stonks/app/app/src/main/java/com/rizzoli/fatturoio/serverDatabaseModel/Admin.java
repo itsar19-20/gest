@@ -1,6 +1,6 @@
 package com.rizzoli.fatturoio.serverDatabaseModel;
 
-public class Admin extends Users {
+public class Admin extends User {
 
     public String codiceAdmin;
 

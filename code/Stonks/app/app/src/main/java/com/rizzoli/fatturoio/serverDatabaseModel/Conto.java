@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class Conto {
+public class Conto {
 
     public Conto() {}
 
