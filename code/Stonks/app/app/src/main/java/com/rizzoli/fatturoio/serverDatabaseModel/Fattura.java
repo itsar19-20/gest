@@ -10,7 +10,9 @@ public class Fattura {
     @SerializedName("id")
     private Integer _id;
 
-    private Date data;
+    private String data;
+    private Integer anno;
+
     private Integer scadenza;
 
     @SerializedName("e_una_fattura_cliente")
@@ -23,9 +25,8 @@ public class Fattura {
     private float iva;
     private float lordo;
     private boolean pagata;
+    private boolean notaDiCredito;
     private Conto conto;
-
-
 
     public Integer get_id() {
         return _id;
@@ -35,11 +36,11 @@ public class Fattura {
         this._id = _id;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -59,28 +60,12 @@ public class Fattura {
         this.eUnaFatturaCliente = eUnaFatturaCliente;
     }
 
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
-
     public String getNota() {
         return nota;
     }
 
     public void setNota(String nota) {
         this.nota = nota;
-    }
-
-    public List<Articolo> getArticoli() {
-        return articoli;
-    }
-
-    public void setArticoli(List<Articolo> articoli) {
-        this.articoli = articoli;
     }
 
     public String getNumeroFattura() {
@@ -115,6 +100,38 @@ public class Fattura {
         this.pagata = pagata;
     }
 
+    public Integer getAnno() {
+        return anno;
+    }
+
+    public void setAnno(Integer anno) {
+        this.anno = anno;
+    }
+
+    public boolean isNotaDiCredito() {
+        return notaDiCredito;
+    }
+
+    public void setNotaDiCredito(boolean notaDiCredito) {
+        this.notaDiCredito = notaDiCredito;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public List<Articolo> getArticoli() {
+        return articoli;
+    }
+
+    public void setArticoli(List<Articolo> articoli) {
+        this.articoli = articoli;
+    }
+
     public Conto getConto() {
         return conto;
     }
@@ -123,4 +140,23 @@ public class Fattura {
         this.conto = conto;
     }
 
+    @Override
+    public String toString() {
+        return "Fattura{" +
+                "_id=" + _id +
+                ", data='" + data + '\'' +
+                ", anno=" + anno +
+                ", scadenza=" + scadenza +
+                ", eUnaFatturaCliente=" + eUnaFatturaCliente +
+                ", persona=" + persona +
+                ", nota='" + nota + '\'' +
+                ", articoli=" + articoli +
+                ", numeroFattura='" + numeroFattura + '\'' +
+                ", iva=" + iva +
+                ", lordo=" + lordo +
+                ", pagata=" + pagata +
+                ", notaDiCredito=" + notaDiCredito +
+                ", conto=" + conto +
+                '}';
+    }
 }

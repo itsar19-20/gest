@@ -24,12 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnToFatturaActivity.setOnClickListener(v -> startFatturaActivity());
 
-        buttonToTestActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TestVolleyActivity.class));
-                finish();
-            }
+        buttonToTestActivity.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, TestVolleyActivity.class));
+            finish();
         });
 
         btnScadenziario.setOnClickListener(new View.OnClickListener() {

@@ -9,6 +9,7 @@ class Persona {
 
     private String nome, cognome, pIVA, mail, indirizzo, telefono;
     private Integer autore;
+    private boolean eliminabile;
 
     public Integer get_id() {
         return _id;
@@ -72,5 +73,28 @@ class Persona {
 
     public void setAutore(Integer autore) {
         this.autore = autore;
+    }
+
+    public boolean isEliminabile() {
+        return eliminabile;
+    }
+
+    public void setEliminabile(boolean eliminabile) {
+        this.eliminabile = eliminabile;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "_id=" + _id +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", pIVA='" + pIVA + '\'' +
+                ", mail='" + mail + '\'' +
+                ", indirizzo='" + indirizzo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", autore=" + autore +
+                ", eliminabile=" + eliminabile +
+                '}';
     }
 }

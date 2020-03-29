@@ -6,12 +6,14 @@ import java.util.List;
 
 class Conto {
 
+    public Conto() {}
+
     @SerializedName("id")
     private Integer _id;
 
-    private String nome;
-    private List<Fattura> fatture;
-    private List<Pagamento> pagamenti;
+    private String nome, prefisso;
+    // private List<Fattura> fatture;
+    // private List<Pagamento> pagamenti;
     private float saldoDisponibile, saldoUtile;
     private Integer utente;
 
@@ -29,22 +31,6 @@ class Conto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public List<Fattura> getFatture() {
-        return fatture;
-    }
-
-    public void setFatture(List<Fattura> fatture) {
-        this.fatture = fatture;
-    }
-
-    public List<Pagamento> getPagamenti() {
-        return pagamenti;
-    }
-
-    public void setPagamenti(List<Pagamento> pagamenti) {
-        this.pagamenti = pagamenti;
     }
 
     public float getSaldoDisponibile() {
@@ -69,5 +55,25 @@ class Conto {
 
     public void setUtente(Integer utente) {
         this.utente = utente;
+    }
+
+    public String getPrefisso() {
+        return prefisso;
+    }
+
+    public void setPrefisso(String prefisso) {
+        this.prefisso = prefisso;
+    }
+
+    @Override
+    public String toString() {
+        return "Conto{" +
+                "_id=" + _id +
+                ", nome='" + nome + '\'' +
+                ", prefisso='" + prefisso + '\'' +
+                ", saldoDisponibile=" + saldoDisponibile +
+                ", saldoUtile=" + saldoUtile +
+                ", utente=" + utente +
+                '}';
     }
 }

@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 class Articolo {
 
-    @SerializedName("id")
+    public Articolo() {}
+
+    @SerializedName("idArticolo")
     private Integer _id;
 
     private String descrizione;
@@ -69,5 +71,18 @@ class Articolo {
 
     public void setFattura(Fattura fattura) {
         this.fattura = fattura;
+    }
+
+    @Override
+    public String toString() {
+        return "Articolo{" +
+                "_id=" + _id +
+                ", descrizione='" + descrizione + '\'' +
+                ", quantita=" + quantita +
+                ", prezzo=" + prezzo +
+                ", parziale=" + parziale +
+                ", iva=" + iva +
+                ", fattura=" + fattura +
+                '}';
     }
 }
