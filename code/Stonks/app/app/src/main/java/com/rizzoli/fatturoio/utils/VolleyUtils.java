@@ -16,15 +16,18 @@ import java.util.Date;
 
 public class VolleyUtils {
 
+                            // IP4 server Albi -> http://192.168.1.122:8080/
     private final static String BASE_URL = "http://192.168.1.122:8080/";
     private static RequestQueue queue = null;
     private static Gson gson = new GsonBuilder()
+            /*
             .setDateFormat("yyyy MM dd")
             .registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
                 public Date deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
                     return new Date(jsonElement.getAsString());
                 }
             })
+            */
             .setLenient()
             .create();
 

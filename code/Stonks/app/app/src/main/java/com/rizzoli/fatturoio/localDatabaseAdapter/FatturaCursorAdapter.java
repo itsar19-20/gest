@@ -9,6 +9,7 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.rizzoli.fatturoio.R;
+import com.rizzoli.fatturoio.business.Converter;
 
 public class FatturaCursorAdapter extends CursorAdapter {
 
@@ -28,14 +29,19 @@ public class FatturaCursorAdapter extends CursorAdapter {
         FatturaDatabaseAdapter fatturaDatabaseAdapter = new FatturaDatabaseAdapter(context);
         TextView numeroFattura = view.findViewById(R.id.li_tv_numero_fattura);
         numeroFattura.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(7))));
+
         TextView data = view.findViewById(R.id.li_tv_data_fattura);
-        data.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(1))));
+        data.setText(Converter.data(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(1)))));
+
         TextView fornitoreCliente = view.findViewById(R.id.li_tv_fornitore_cliente);
         fornitoreCliente.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(4))));
+
         TextView persona = view.findViewById(R.id.li_tv_persona);
         persona.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(5))));
+
         TextView conto = view.findViewById(R.id.li_tv_conto);
         conto.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(12))));
+
         TextView lordo = view.findViewById(R.id.li_tv_lordo);
         lordo.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(9))));
     }
