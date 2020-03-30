@@ -10,22 +10,12 @@ public class Fattura {
     @SerializedName("id")
     private Integer _id;
 
-    private String data;
-    private Integer anno;
-
-    private Integer scadenza;
-
-    @SerializedName("e_una_fattura_cliente")
-    private boolean eUnaFatturaCliente;
-
+    private String data, nota, numeroFattura;
+    private Integer anno, scadenza;
+    private boolean eUnaFatturaCliente, pagata, notaDiCredito;
     private Persona persona;
-    private String nota;
     private List<Articolo> articoli;
-    private String numeroFattura;
-    private float iva;
-    private float lordo;
-    private boolean pagata;
-    private boolean notaDiCredito;
+    private float iva, lordo;
     private Conto conto;
 
     public Integer get_id() {

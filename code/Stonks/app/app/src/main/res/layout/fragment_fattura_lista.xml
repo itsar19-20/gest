@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView_f1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fragment lista"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ListView
         android:id="@+id/listView_fatture"
         android:layout_width="match_parent"

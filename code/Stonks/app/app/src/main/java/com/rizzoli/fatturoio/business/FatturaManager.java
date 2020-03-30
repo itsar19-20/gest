@@ -1,108 +1,115 @@
 package com.rizzoli.fatturoio.business;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.rizzoli.fatturoio.R;
-import com.rizzoli.fatturoio.activity.FatturaActivity;
-import com.rizzoli.fatturoio.activity.FragmentFatturaLista;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaCursorAdapter;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaDatabaseAdapter;
 import com.rizzoli.fatturoio.serverDatabaseModel.Fattura;
-import com.rizzoli.fatturoio.serverDatabaseModel.Persona;
-import com.rizzoli.fatturoio.serverDatabaseModel.User;
 import com.rizzoli.fatturoio.utils.VolleyUtils;
 
 public class FatturaManager {
 
     private static FatturaDatabaseAdapter databaseAdapter;
-    private static boolean puoiProcedere = false;
+    private static FatturaCursorAdapter cursorAdapter;
+    private static Cursor cursor;
+    private static Fattura[] invoices;
+    private static Context context;
+    private static View view;
 
-    // x richedo le fatture al server
-    // x converto la stringa json in oggetti
-    // x controllo di non aver già quelle fatture salvate nel telefono
-    // x modifico ogni oggetto
-    // x lo salvo nel database locale
-    // aggiorno la list view prendendo gli elementi dal database locale
+    public static void setContext(Context context) { FatturaManager.context = context; }
+    public static void setView(View view) { FatturaManager.view = view; }
 
-    private static Fattura[] fatture = null;
-
-    public static Fattura[] getFatture() { return fatture; }
-
-    public static void syncFatture(Context context, View view) {
-        makeTheRequestToTheServer(context);
-        int num = 0;
-        while (!puoiProcedere) {
-            Log.e("AAA", String.valueOf(num++));
-            if (puoiProcedere) break;
-        }
-        databaseAdapter = new FatturaDatabaseAdapter(context);
-        putValuesIntoLocalDatabase();
-        refreshListView(view, context);
+    public static void syncInvoices(Context context, View view) {
+        try {
+            setContext(context);
+            setView(view);
+            makeTheRequestToTheServer();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private static void refreshListView(View view, Context context) {
-        ListView listView = view.findViewById(R.id.listView_fatture);
-        listView.setAdapter(new FatturaCursorAdapter(context, databaseAdapter.fetchAll()));
+    public static void loadInvoices(Context context, View view) {
+        try {
+            setContext(context);
+            setView(view);
+            refreshListView();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
-    private static void putValuesIntoLocalDatabase() {
-        databaseAdapter.open();
-        Integer max = databaseAdapter.getMaxId();
-        for (Fattura f : fatture) {
-            if (f.get_id() > max) {
-                databaseAdapter.create(
-                        f.get_id(),
-                        f.getData(),
-                        f.getAnno(),
-                        f.getScadenza(),
-                        f.iseUnaFatturaCliente() ? 1 : 0,
-                        f.getPersona().get_id(),
-                        f.getNota(),
-                        f.getNumeroFattura(),
-                        f.getIva(),
-                        f.getLordo(),
-                        f.isPagata() ? 1 : 0,
-                        f.isNotaDiCredito() ? 1 : 0,
-                        f.getConto().get_id()
-                );
-            }
-        }
-        databaseAdapter.close();
-    }
-
-    private static void makeTheRequestToTheServer(Context context) {
+    private static void makeTheRequestToTheServer() {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 VolleyUtils.url("archivio/getAllMineInvoices?user=8"),
                 response -> {
                     String str = "\n";
                     try {
-                        fatture = VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
-                        for (Fattura f : fatture) { str += String.valueOf(f.get_id()) + "\n\n"; }
-                        // textView.setText(str);
-                        Log.e("SERVLET_RESPONSE", "try");
-                        Log.e("SERVLET_RESPONSE", response);
-                        Log.e("SERVLET_RESPONSE", str);
-                        puoiProcedere = true;
+                        invoices = VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
+                        for (Fattura f : invoices) { str += String.valueOf(f.get_id()) + "\n\n"; }
+                        Log.e("AAA", response);
+                        putValuesIntoLocalDatabase();
                     } catch (Exception e) {
-                        // textView.setText("//////////////////////////////////////////////");
-                        Log.e("SERVLET_RESPONSE", "catch");
-                        Log.e("SERVLET_RESPONSE", response);
-                        Log.e("SERVLET_RESPONSE", e.toString());
+                        e.printStackTrace();
+                        Toast.makeText(context, "impossibile risolvere la risposta del sever", Toast.LENGTH_LONG).show();
                     }
                 },
                 error -> {
-                    Log.e("ERROR_REQUEST", error.toString());
-                    // textView.setText("ERROR_REQUEST" + error.toString());
+                    error.printStackTrace();
+                    Toast.makeText(context, "impossibile contattare il sever", Toast.LENGTH_LONG).show();
                 }
         );
-        // VolleyUtils.getRequestQueueInstance(((FatturaActivity)getActivity())).add(request);
         VolleyUtils.getRequestQueueInstance(context).add(request);
     }
 
+    private static void putValuesIntoLocalDatabase() {
+        try {
+            databaseAdapter = new FatturaDatabaseAdapter(context);
+            databaseAdapter.open();
+            Integer max = databaseAdapter.getMaxId();
+            int num = 0;
+            for (Fattura f : invoices) {
+                if (f.get_id() > max) {
+                    Log.e("AAA", String.valueOf(f.iseUnaFatturaCliente()));
+                    databaseAdapter.create(
+                            f.get_id(),
+                            f.getData(),
+                            f.getAnno(),
+                            f.getScadenza(),
+                            f.iseUnaFatturaCliente() ? 1 : 0,
+                            f.getPersona().get_id(),
+                            f.getNota(),
+                            f.getNumeroFattura(),
+                            f.getIva(),
+                            f.getLordo(),
+                            f.isPagata() ? 1 : 0,
+                            f.isNotaDiCredito() ? 1 : 0,
+                            f.getConto().get_id()
+                    );
+                    num++;
+                }
+            }
+            if (num > 0) Toast.makeText(context, num + " nuove fatture", Toast.LENGTH_LONG).show();
+            else Toast.makeText(context, "non ci sono nuove fatture", Toast.LENGTH_LONG).show();
+            databaseAdapter.close();
+            refreshListView();
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
+    private static void refreshListView() {
+        try {
+            databaseAdapter = new FatturaDatabaseAdapter(context);
+            databaseAdapter.open();
+            cursor = databaseAdapter.fetchAll();
+            cursorAdapter = new FatturaCursorAdapter(context, cursor);
+            ListView listView = view.findViewById(R.id.listView_fatture);
+            listView.setAdapter(cursorAdapter);
+            databaseAdapter.close();
+        } catch (Exception e) { e.printStackTrace(); }
+    }
 }
