@@ -27,6 +27,16 @@ $(() => {
 
     }
 
+    if(window.location.href.indexOf("pagamento")<=0){
+        localStorage.removeItem("settimanaStorage");
+    }
+
+    if(window.location.href.indexOf("pagamentoMod")<=0){
+    localStorage.removeItem("pagamentoModifica");
+}
+
+
+    
 
     //  load the header
     $.ajax({
