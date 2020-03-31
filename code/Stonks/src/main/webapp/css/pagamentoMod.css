@@ -1,0 +1,66 @@
+#idDiv2{
+    position: relative;
+    left:30%;
+}
+
+#l1{
+    background-color: yellow;
+    border-width: 2px;
+    border-color:white;
+
+}
+#l2{
+    background-color: yellow;
+    border-width: 2px;
+    border-color:white;
+}
+#l3{
+    background-color: yellow;
+    border-width: 2px;
+    border-color:white;
+}
+#l4{
+    background-color: yellow;   
+    border-width: 2px;
+    border-color:white;
+}
+
+#inputImporto{
+    position:relative;
+    right:20%;
+    top:30px;
+
+}
+
+
+
+#scrittaImporto{
+position:relative;
+right:50%;
+top: 40px;  
+
+
+}
+#btnModifica{
+    position:relative;
+    left:40%;
+    top:30px;
+
+
+}
+
+#scrittaCancella{
+    position:relative;
+    top:70px;
+    left:10%;
+
+
+}
+
+#btnCancella{
+    position:relative;
+    top:60px;
+    left:20%;
+
+
+}

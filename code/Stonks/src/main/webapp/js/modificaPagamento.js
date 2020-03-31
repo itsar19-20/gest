@@ -1,20 +1,23 @@
 $(document).ready( function () {
     var pagamentoObj=JSON.parse( localStorage.getItem("pagamentoModifica"));
     console.log(pagamentoObj.giaPagato);
-    localStorage.removeItem("pagamentoModifica");
+    //localStorage.removeItem("pagamentoModifica");
  
-    $('#numeroFattura').text(pagamentoObj.fattura.numeroFattura);
+    $('#numeroFattura').text(" "+pagamentoObj.fattura.numeroFattura);
+
+    var dataP=new Date(pagamentoObj.dataPagamento).toLocaleDateString();
+    $('#dataPagamento').text(" "+dataP);
 
     var giaPagatoParse=parseFloat(pagamentoObj.giaPagato).toFixed(2);
 
-    $('#idGiaPagato').text(giaPagatoParse);
+    $('#idGiaPagato').text(" "+giaPagatoParse+" €");
     var isCompletato;
     if(pagamentoObj.pagato==true){
         isCompletato="sì";
     }else{
         isCompletato="no";
     }
-    $('#completato').text(isCompletato);
+    $('#completato').text(" "+isCompletato);
 
     $('#btnModifica').click(function(){
       var imput=   parseFloat($('#inputImporto').val()).toFixed(2);

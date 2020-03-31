@@ -1,39 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
+  
 <meta charset="utf-8">
-<title>Modifica pagamento</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="menu di prova per la creazione e la visione delle fatture">
+<meta name="author" content="Alberto Sormani">
+<meta name="generator" content="invoice menu v0.1">
+
+<title>Fatturo.io</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!-- data tables css -->
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> 
+
 <link href="/css/index.css" rel="stylesheet" type="text/css">
+<link href="/css/pagamentoMod.css" rel="stylesheet" type="text/css">
 </head>
 <body>
  
     <header></header>
-    <br><br><br><br>
+    <main>
 
+        <div id="immagine">
+            <a href="homepage.html">
+                <img id="img-fatturo" class="mb-4" src="images/fatturoIO.png" alt="" width="15%" height="15%">
+            </a>
+        </div>
+
+
+       
 
     <div id="idDiv">
         <table id="modificaPagamento">
             <tr>
-                <td>Pagamento della fattura:<span id="numeroFattura" ></span></td>
-                <td></td>
+                <ul id="esLista" class="list-group">
+                    <li class="list-group-item" id="l1">
+                    Pagamento della fattura:<span id="numeroFattura"></span>
+                    </li>
+                    <li class="list-group-item" id="l2">
+                        Importo gia inserito: <span id="idGiaPagato"></span>
+                    </li>
+                    <li class="list-group-item" id="l3">
+                        Data pagamento: <span id="dataPagamento"></span>
+                    </li>
+                    <li class="list-group-item" id="l4">
+                        Completato: <span id="completato"></span>
+                    </li>
+
+                </ul>
             </tr>
-            <tr>
-                <td>Importo gia inserito: <span id="idGiaPagato" ></span></td>
-                <td>Data pagamento<span id="dataPagamento"></span></td>
-                <td>Completato:<span id="completato"></span></td>
-                 
-            </tr>
+            </table>  
+            </div>
+            <div id="idDiv2">
+
+            <table id="table2">
             <tr>	
-                <td>Modifica importo: </td>
+                <td><p id="scrittaImporto">Modifica importo:</p></td>
                 <td><input type="number" id="inputImporto" name="nuovoImporto" class="form-control text-primary"/></td>
-               
-            </tr>
-            <tr>
                 <td><button id="btnModifica" class="btn btn-primary"> modifica </button></td>
             </tr>
             <tr>
-                <td>Cancella pagamento</td>
+                <td><p id="scrittaCancella">Cancella pagamento</p></td>
                 <td><button id="btnCancella" class="btn btn-warning">cancella</button></td> 
             </tr>
             </table>
@@ -68,6 +95,7 @@
               </div>
             </div>
 
+    <main>
            
           
             <footer></footer>

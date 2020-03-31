@@ -51,7 +51,7 @@ public class GestisciPagamento {
 			} else if(nuovoImporto<pagamento.getFattura().getLordo() && pagamento.isPagato()==true) {
 			pagamento.setPagato(false);
 			pagamento.getFattura().setPagata(false);
-			pagamento.setDataPagamento(null);
+			pagamento.setDataPagamento(new Date());	
 			pagamento.setGiaPagato(nuovoImporto);
 			
 			}else {

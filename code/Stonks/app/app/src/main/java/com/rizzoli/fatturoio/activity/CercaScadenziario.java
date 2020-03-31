@@ -3,6 +3,7 @@ package com.rizzoli.fatturoio.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +15,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.rizzoli.fatturoio.R;
+import com.rizzoli.fatturoio.serverDatabaseModel.Fattura;
+import com.rizzoli.fatturoio.serverDatabaseModel.TTTesttt;
+import com.rizzoli.fatturoio.utils.VolleyUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -37,6 +46,7 @@ public class CercaScadenziario extends AppCompatActivity {
 
     Integer radioSelezione=0;  // 0=entrambe 1=entrata 2=uscita
     Integer valSuccessivo=null;
+    String str="aaaaa";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +130,39 @@ public class CercaScadenziario extends AppCompatActivity {
                     Toast.makeText(CercaScadenziario.this,"niente "+radioSelezione, Toast.LENGTH_SHORT).show();
                 }
                 // fare la nuova activity
+
+
+                StringRequest request =new StringRequest(
+
+                        Request.Method.GET,
+                        // Imposto i paramenti "alfa", "bravo", "charlie" con i valori delle EditText
+                        VolleyUtils.url("scadenza?user=58&numMesi=null&numSettimane=null&entrataUscita=null"),
+
+                        response -> {
+                            Toast.makeText(CercaScadenziario.this, "prima di try", Toast.LENGTH_SHORT).show();
+                            try {
+                                // Converto la risposta in un oggetto di tipo "TTTesttt" grazie alla libreria Gson
+                                Fattura[] fatture=VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
+                                for (Fattura f:fatture){str+=String.valueOf(f.get_id())+"\n\n"; }
+
+                                Toast.makeText(CercaScadenziario.this, "dopo di try", Toast.LENGTH_SHORT).show();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Toast.makeText(CercaScadenziario.this, "nel catch", Toast.LENGTH_SHORT).show();
+
+                            }
+                            Log.e("SERVLET_RESPONSE", response.toString());
+                        },
+                        error -> {
+                            Toast.makeText(CercaScadenziario.this, "errore", Toast.LENGTH_SHORT).show();
+
+                        }
+                );
+                VolleyUtils.getRequestQueueInstance(CercaScadenziario.this).add(request);
+
+
+
             }
 
         });
@@ -144,6 +187,9 @@ public class CercaScadenziario extends AppCompatActivity {
 
         }
         Toast.makeText(CercaScadenziario.this, "button selezionato " + radioSelezione.toString(), Toast.LENGTH_SHORT).show();
+
+    }
+    public void getQuery() {
 
     }
 
