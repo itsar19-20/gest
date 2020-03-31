@@ -46,7 +46,8 @@ public class CercaScadenziario extends AppCompatActivity {
 
     Integer radioSelezione=0;  // 0=entrambe 1=entrata 2=uscita
     Integer valSuccessivo=null;
-    String str="aaaaa";
+
+    String radioStringa="null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +86,7 @@ public class CercaScadenziario extends AppCompatActivity {
 
                 } else {
                     String resultStringaMese = stringaMese + " " + arrMesi.get(position);
-                    Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
                     textMesi.setText(resultStringaMese);
                     valSuccessivo=Integer.parseInt(arrMesi.get(position));
 
@@ -106,7 +107,7 @@ public class CercaScadenziario extends AppCompatActivity {
 
                 }else {
                     String resultStringaSettimana = stringaSettimana + " " + arrMesi.get(position);
-                    Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
                     textSettimane.setText(resultStringaSettimana);
                     valSuccessivo=Integer.parseInt(arrMesi.get(position));
                 }
@@ -121,45 +122,22 @@ public class CercaScadenziario extends AppCompatActivity {
             public void onClick(View v){
                 String sMese=textMesi.getText().toString();
                 String sSettimana=textSettimane.getText().toString();
+
                 if(sMese.length()>=17){
-                    Toast.makeText(CercaScadenziario.this,"mesi : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+
+
+                    searchFatture(valSuccessivo.toString(),"null",radioStringa);
+
 
                 }else if(sSettimana.length()>=22){
-                    Toast.makeText(CercaScadenziario.this,"settimane : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+
+                    searchFatture("null",valSuccessivo.toString(),radioStringa);
                 }else{
-                    Toast.makeText(CercaScadenziario.this,"niente "+radioSelezione, Toast.LENGTH_SHORT).show();
+                    searchFatture("null","null",radioStringa);
                 }
                 // fare la nuova activity
 
-
-                StringRequest request =new StringRequest(
-
-                        Request.Method.GET,
-                        // Imposto i paramenti "alfa", "bravo", "charlie" con i valori delle EditText
-                        VolleyUtils.url("scadenza?user=58&numMesi=null&numSettimane=null&entrataUscita=null"),
-
-                        response -> {
-                            Toast.makeText(CercaScadenziario.this, "prima di try", Toast.LENGTH_SHORT).show();
-                            try {
-                                // Converto la risposta in un oggetto di tipo "TTTesttt" grazie alla libreria Gson
-                                Fattura[] fatture=VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
-                                for (Fattura f:fatture){str+=String.valueOf(f.get_id())+"\n\n"; }
-
-                                Toast.makeText(CercaScadenziario.this, "dopo di try", Toast.LENGTH_SHORT).show();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(CercaScadenziario.this, "nel catch", Toast.LENGTH_SHORT).show();
-
-                            }
-                            Log.e("SERVLET_RESPONSE", response.toString());
-                        },
-                        error -> {
-                            Toast.makeText(CercaScadenziario.this, "errore", Toast.LENGTH_SHORT).show();
-
-                        }
-                );
-                VolleyUtils.getRequestQueueInstance(CercaScadenziario.this).add(request);
+                //searchFatture();
 
 
 
@@ -175,21 +153,52 @@ public class CercaScadenziario extends AppCompatActivity {
         switch(radioId){
             case R.id.btnEntrambe:
                 radioSelezione = 0;
+                radioStringa="null";
                 break;
 
             case R.id.btnEntrata:
                 radioSelezione=1;
+                radioStringa="true";
                 break;
 
             case R.id.btnUscita:
                 radioSelezione=2;
+                radioStringa="false";
                 break;
 
         }
-        Toast.makeText(CercaScadenziario.this, "button selezionato " + radioSelezione.toString(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(CercaScadenziario.this, "button selezionato " + radioSelezione.toString(), Toast.LENGTH_SHORT).show();
 
     }
-    public void getQuery() {
+    public void searchFatture(String mesi ,String settimane, String radioButton) {
+        StringRequest request =new StringRequest(
+
+                Request.Method.GET,
+
+                //VolleyUtils.url("scadenza?user=58&numMesi=null&numSettimane=null&entrataUscita=null"),
+                VolleyUtils.url("scadenza?user=58&numMesi="+mesi+"&numSettimane="+settimane+"&entrataUscita="+radioButton),
+
+                response -> {
+                   // Toast.makeText(CercaScadenziario.this, "prima di try", Toast.LENGTH_SHORT).show();
+                    try {
+
+                        Fattura[] fatture=VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
+                       // for (Fattura f:fatture){str+=String.valueOf(f.get_id())+"\n\n"; }
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(CercaScadenziario.this, "errore nel catch", Toast.LENGTH_SHORT).show();
+
+                    }
+                    Log.e("SERVLET_RESPONSE", response.toString());
+                },
+                error -> {
+                    Toast.makeText(CercaScadenziario.this, "errore", Toast.LENGTH_SHORT).show();
+
+                }
+        );
+        VolleyUtils.getRequestQueueInstance(CercaScadenziario.this).add(request);
 
     }
 
