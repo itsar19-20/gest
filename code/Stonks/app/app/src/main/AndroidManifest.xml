@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".activity.TestRetrofitActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.CercaScadenziario" />
     </application>
 
 </manifest>
