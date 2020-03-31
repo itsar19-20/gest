@@ -29,7 +29,8 @@ public class FatturaDatabaseAdapter {
             KEY_LORDO = "lordo",
             KEY_PAGATA = "pagata",
             KEY_NOTA_DI_CREITO = "notaDiCredito",
-            KEY_CONTO = "conto";
+            KEY_CONTO = "conto",
+            KEY_NUMERO_ARTICOLI = "numeroArticoli";
 
     public FatturaDatabaseAdapter(Context context) { this.context = context; }
 
@@ -49,7 +50,7 @@ public class FatturaDatabaseAdapter {
 
     private ContentValues createContentValues(Integer _id, String data, Integer anno, Integer scadenza, Integer eUnaFatturaCliente,
                                         Integer persona, String nota, String numeroFattura, float iva, float lordo,
-                                        Integer pagata, Integer notaDiCredito, Integer conto) {
+                                        Integer pagata, Integer notaDiCredito, Integer conto, Integer numeroArticoli) {
         ContentValues values = new ContentValues();
         values.put(KEY_ID, _id);
         values.put(KEY_DATA, data);
@@ -64,20 +65,21 @@ public class FatturaDatabaseAdapter {
         values.put(KEY_PAGATA, pagata);
         values.put(KEY_NOTA_DI_CREITO, notaDiCredito);
         values.put(KEY_CONTO, conto);
+        values.put(KEY_NUMERO_ARTICOLI, numeroArticoli);
         return values;
     }
 
     public long create (Integer _id, String data, Integer anno, Integer scadenza, Integer eUnaFatturaCliente,
                         Integer persona, String nota, String numeroFattura, float iva, float lordo,
-                        Integer pagata, Integer notaDiCredito, Integer conto) {
+                        Integer pagata, Integer notaDiCredito, Integer conto, Integer numeroArticoli) {
         ContentValues values = createContentValues(_id, data, anno, scadenza, eUnaFatturaCliente,
-                persona, nota, numeroFattura, iva, lordo, pagata, notaDiCredito, conto);
+                persona, nota, numeroFattura, iva, lordo, pagata, notaDiCredito, conto, numeroArticoli);
         return database.insertOrThrow(TABLE_FATTURA, null, values);
     }
 
     public Cursor fetchAll() {
         return database.query(TABLE_FATTURA, new String[] {KEY_ID, KEY_DATA, KEY_ANNO, KEY_SCADENZA, KEY_E_UNA_FATTURA_CLIENTE,
-        KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA, KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO},
+        KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA, KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO, KEY_NUMERO_ARTICOLI},
                 null, null, null, null, KEY_ID + " DESC");
     }
 
@@ -95,6 +97,8 @@ public class FatturaDatabaseAdapter {
         } catch (Exception e) { e.printStackTrace(); }
         return false;
     }
+
+    public static String getTableFattura() { return TABLE_FATTURA; }
 
     public static String getKeyId() {
         return KEY_ID;
@@ -147,4 +151,6 @@ public class FatturaDatabaseAdapter {
     public static String getKeyConto() {
         return KEY_CONTO;
     }
+
+    public static String getKeyNumeroArticoli() { return  KEY_NUMERO_ARTICOLI; }
 }

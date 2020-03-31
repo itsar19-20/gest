@@ -2,7 +2,7 @@ package com.rizzoli.fatturoio.serverDatabaseModel;
 
 import com.google.gson.annotations.SerializedName;
 
-class Articolo {
+public class Articolo {
 
     public Articolo() {}
 

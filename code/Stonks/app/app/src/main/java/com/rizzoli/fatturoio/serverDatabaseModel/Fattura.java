@@ -14,7 +14,7 @@ public class Fattura {
     private Integer anno, scadenza;
     private boolean eUnaFatturaCliente, pagata, notaDiCredito;
     private Persona persona;
-    private List<Articolo> articoli;
+    private Articolo[] articoli;
     private float iva, lordo;
     private Conto conto;
 
@@ -114,11 +114,11 @@ public class Fattura {
         this.persona = persona;
     }
 
-    public List<Articolo> getArticoli() {
+    public Articolo[] getArticoli() {
         return articoli;
     }
 
-    public void setArticoli(List<Articolo> articoli) {
+    public void setArticoli(Articolo[] articoli) {
         this.articoli = articoli;
     }
 

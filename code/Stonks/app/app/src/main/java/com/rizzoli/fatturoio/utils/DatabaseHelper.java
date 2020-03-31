@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             		+ "pagata integer not null, "
 					+ "notaDiCredito integer not null, "
 					+ "conto integer not null, "
+					+ "numeroArticoli integer NOT NULL, "
 					+ "FOREIGN KEY (persona) REFERENCES persona (_id),"
 					+ "FOREIGN KEY (conto) REFERENCES conto (_id)"
 					+ ")",

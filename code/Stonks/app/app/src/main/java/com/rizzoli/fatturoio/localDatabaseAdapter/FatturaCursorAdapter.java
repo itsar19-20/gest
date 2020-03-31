@@ -1,7 +1,9 @@
 package com.rizzoli.fatturoio.localDatabaseAdapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +39,14 @@ public class FatturaCursorAdapter extends CursorAdapter {
 
         // tipo fattura
         String tipo = cursor.getString(cursor.getColumnIndex(cursor.getColumnName(4)));
-        if (tipo.contentEquals("1")) tipo = "cliente";
-        else tipo = "fornitore";
         TextView fornitoreCliente = view.findViewById(R.id.li_tv_fornitore_cliente);
-        fornitoreCliente.setText(tipo);
+        if (tipo.contentEquals("1")) {
+            fornitoreCliente.setText("cliente");
+            fornitoreCliente.setTextColor(Color.GREEN);
+        } else {
+            fornitoreCliente.setText("fornitore");
+            fornitoreCliente.setTextColor(Color.RED);
+        }
 
         //persona
         Integer personaId = cursor.getInt(cursor.getColumnIndex(cursor.getColumnName(5)));
@@ -63,6 +69,21 @@ public class FatturaCursorAdapter extends CursorAdapter {
         // lordo
         TextView lordo = view.findViewById(R.id.li_tv_lordo);
         lordo.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(9))));
+
+        // numero articoli
+        TextView numArt = view.findViewById(R.id.li_tv_numero_articoli);
+        numArt.setText(cursor.getString(cursor.getColumnIndex(FatturaDatabaseAdapter.getKeyNumeroArticoli())));
+
+        // pagata
+        String statoPagamento = cursor.getString(cursor.getColumnIndex(FatturaDatabaseAdapter.getKeyPagata()));
+        TextView pagata = view.findViewById(R.id.li_tv_pagata);
+        if (statoPagamento.contentEquals("1")) {
+            pagata.setText("pagata");
+            pagata.setTextColor(Color.GREEN);
+        } else {
+            pagata.setText("da pagare");
+            pagata.setTextColor(Color.RED);
+        }
     }
 
 }

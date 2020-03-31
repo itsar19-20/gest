@@ -2,7 +2,6 @@ package com.rizzoli.fatturoio.business;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -12,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.rizzoli.fatturoio.R;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaCursorAdapter;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaDatabaseAdapter;
+import com.rizzoli.fatturoio.serverDatabaseModel.Articolo;
 import com.rizzoli.fatturoio.serverDatabaseModel.Fattura;
 import com.rizzoli.fatturoio.utils.VolleyUtils;
 
@@ -74,6 +74,9 @@ public class FatturaManager {
             int num = 0;
             for (Fattura f : invoices) {
                 if (f.get_id() > max) {
+                    Integer numArticoli = 0;
+                    Articolo[] articoli = f.getArticoli();
+                    for (Articolo a : articoli) { numArticoli++; }
                     databaseAdapter.create(
                             f.get_id(),
                             f.getData(),
@@ -87,7 +90,8 @@ public class FatturaManager {
                             f.getLordo(),
                             f.isPagata() ? 1 : 0,
                             f.isNotaDiCredito() ? 1 : 0,
-                            f.getConto().get_id()
+                            f.getConto().get_id(),
+                            numArticoli
                     );
                     num++;
                 }
