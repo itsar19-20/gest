@@ -77,6 +77,14 @@ public class FatturaDatabaseAdapter {
         return database.insertOrThrow(TABLE_FATTURA, null, values);
     }
 
+    public boolean update (Integer _id, String data, Integer anno, Integer scadenza, Integer eUnaFatturaCliente,
+                        Integer persona, String nota, String numeroFattura, float iva, float lordo,
+                        Integer pagata, Integer notaDiCredito, Integer conto, Integer numeroArticoli) {
+        ContentValues values = createContentValues(_id, data, anno, scadenza, eUnaFatturaCliente,
+                persona, nota, numeroFattura, iva, lordo, pagata, notaDiCredito, conto, numeroArticoli);
+        return database.update(TABLE_FATTURA, values, KEY_ID + "=" + _id, null) > 0;
+    }
+
     public Cursor fetchAll() {
         return database.query(TABLE_FATTURA, new String[] {KEY_ID, KEY_DATA, KEY_ANNO, KEY_SCADENZA, KEY_E_UNA_FATTURA_CLIENTE,
         KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA, KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO, KEY_NUMERO_ARTICOLI},

@@ -34,4 +34,9 @@ public class FatturaActivity extends AppCompatActivity {
         mViewPager.setCurrentItem(fragmentNumber);
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }

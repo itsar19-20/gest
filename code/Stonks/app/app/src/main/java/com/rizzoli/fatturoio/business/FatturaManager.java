@@ -73,10 +73,10 @@ public class FatturaManager {
             Integer max = databaseAdapter.getMaxId();
             int num = 0;
             for (Fattura f : invoices) {
-                if (f.get_id() > max) {
-                    Integer numArticoli = 0;
-                    Articolo[] articoli = f.getArticoli();
-                    for (Articolo a : articoli) { numArticoli++; }
+                Integer numArticoli = 0;
+                Articolo[] articoli = f.getArticoli();
+                for (Articolo a : articoli) { numArticoli++; }
+                if (!databaseAdapter.exist(f.get_id())) {
                     databaseAdapter.create(
                             f.get_id(),
                             f.getData(),
@@ -94,9 +94,27 @@ public class FatturaManager {
                             numArticoli
                     );
                     num++;
+                } else {
+                    databaseAdapter.update(
+                            f.get_id(),
+                            f.getData(),
+                            f.getAnno(),
+                            f.getScadenza(),
+                            f.iseUnaFatturaCliente() ? 1 : 0,
+                            f.getPersona().get_id(),
+                            f.getNota(),
+                            f.getNumeroFattura(),
+                            f.getIva(),
+                            f.getLordo(),
+                            f.isPagata() ? 1 : 0,
+                            f.isNotaDiCredito() ? 1 : 0,
+                            f.getConto().get_id(),
+                            numArticoli
+                    );
                 }
                 ContoManager.syncConto(f.getConto(), context);
                 PersonaManager.syncPersona(f.getPersona(), context);
+                // sync articoli
             }
             if (num > 0) Toast.makeText(context, num + " nuove fatture", Toast.LENGTH_LONG).show();
             else Toast.makeText(context, "non ci sono nuove fatture", Toast.LENGTH_LONG).show();

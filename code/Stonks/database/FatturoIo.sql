@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versione server:              10.4.8-MariaDB - mariadb.org binary distribution
--- S.O. server:                  Win64
--- HeidiSQL Versione:            10.2.0.5599
+-- Server version:               10.4.11-MariaDB - Source distribution
+-- Server OS:                    Linux
+-- HeidiSQL Version:             10.3.0.5771
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,12 +12,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dump della struttura del database stonks
+-- Dumping database structure for stonks
 DROP DATABASE IF EXISTS `stonks`;
 CREATE DATABASE IF NOT EXISTS `stonks` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `stonks`;
 
--- Dump della struttura di tabella stonks.admin
+-- Dumping structure for table stonks.admin
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `codiceAdmin` int(11) DEFAULT NULL,
@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   CONSTRAINT `FKcw6wu58wd86r5yw55wrxf6870` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.admin: ~0 rows (circa)
+-- Dumping data for table stonks.admin: ~0 rows (approximately)
 DELETE FROM `admin`;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
 INSERT INTO `admin` (`codiceAdmin`, `id`) VALUES
 	(123456, 3);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.articolo
+-- Dumping structure for table stonks.articolo
 DROP TABLE IF EXISTS `articolo`;
 CREATE TABLE IF NOT EXISTS `articolo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS `articolo` (
   PRIMARY KEY (`id`),
   KEY `FK3xjhmi8adpqswu288f0eeqdwb` (`fattura_id`),
   CONSTRAINT `FK3xjhmi8adpqswu288f0eeqdwb` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.articolo: ~32 rows (circa)
+-- Dumping data for table stonks.articolo: ~33 rows (approximately)
 DELETE FROM `articolo`;
 /*!40000 ALTER TABLE `articolo` DISABLE KEYS */;
 INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `parziale`, `fattura_id`) VALUES
@@ -84,10 +84,14 @@ INSERT INTO `articolo` (`id`, `descrizione`, `prezzo`, `iva`, `quantita`, `parzi
 	(137, '', 564, 0.22, 1, 564, 183),
 	(138, '', 300, 0.22, 1, 300, 184),
 	(139, '', 100, 0.22, 1, 100, 185),
-	(140, '', 111, 0.22, 1, 111, 186);
+	(140, '', 111, 0.22, 1, 111, 186),
+	(141, 'Pizza Margherita', 4, 0.22, 2, 8, 187),
+	(142, 'Patatine fritte', 2.5, 0.22, 1, 2.5, 187),
+	(143, 'Ali di pollo', 1.5, 0.22, 4, 6, 187),
+	(144, 'Birra', 2, 0.22, 2, 4, 187);
 /*!40000 ALTER TABLE `articolo` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.conto
+-- Dumping structure for table stonks.conto
 DROP TABLE IF EXISTS `conto`;
 CREATE TABLE IF NOT EXISTS `conto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -101,13 +105,13 @@ CREATE TABLE IF NOT EXISTS `conto` (
   CONSTRAINT `FK_conto_user` FOREIGN KEY (`utente_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.conto: ~8 rows (circa)
+-- Dumping data for table stonks.conto: ~8 rows (approximately)
 DELETE FROM `conto`;
 /*!40000 ALTER TABLE `conto` DISABLE KEYS */;
 INSERT INTO `conto` (`id`, `nome`, `prefisso`, `saldoDisponibile`, `saldoUtile`, `utente_id`) VALUES
 	(1, 'pippo', 'Fat-', 103.5, 123.3, 4),
 	(2, 'tanto', 'Fat-', 3000, 5000, 1),
-	(3, 'Sormaflex', 'AS-', 10000, 24451.8, 8),
+	(3, 'Sormaflex', 'AS-', 10000, 24472.2, 8),
 	(4, 'Naranja', 'N.', 2500, 2500, 8),
 	(5, 'Pippo', 'Fat-', 645165, 645165, 58),
 	(6, 'Pluto', 'Fat-', 654, 645465, 58),
@@ -115,7 +119,7 @@ INSERT INTO `conto` (`id`, `nome`, `prefisso`, `saldoDisponibile`, `saldoUtile`,
 	(15, 'Eatery', 'latte', 0, 0, 8);
 /*!40000 ALTER TABLE `conto` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.fattura
+-- Dumping structure for table stonks.fattura
 DROP TABLE IF EXISTS `fattura`;
 CREATE TABLE IF NOT EXISTS `fattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -131,9 +135,9 @@ CREATE TABLE IF NOT EXISTS `fattura` (
   `conto_id` int(11) NOT NULL,
   `notaDiCredito` bit(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.fattura: ~22 rows (circa)
+-- Dumping data for table stonks.fattura: ~22 rows (approximately)
 DELETE FROM `fattura`;
 /*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
 INSERT INTO `fattura` (`id`, `data`, `anno`, `scadenza`, `e_una_fattura_cliente`, `persona_id`, `nota`, `numero_fattura`, `lordo`, `pagata`, `conto_id`, `notaDiCredito`) VALUES
@@ -148,7 +152,7 @@ INSERT INTO `fattura` (`id`, `data`, `anno`, `scadenza`, `e_una_fattura_cliente`
 	(173, '2020-03-25', 120, 0, b'1', 128, '', 'AS-9', 0, b'1', 3, b'0'),
 	(174, '2020-03-25', 120, 60, b'1', 128, '', 'AS-10', 0, b'1', 3, b'0'),
 	(175, '2020-03-25', 120, 0, b'1', 128, '', 'AS-11', 2108, b'1', 3, b'0'),
-	(176, '2020-03-25', 120, 0, b'1', 128, '', 'AS-12', 102, b'1', 3, b'0'),
+	(176, '2020-03-25', 120, 0, b'1', 128, '', 'AS-12', 102, b'1', 3, b'1'),
 	(177, '2020-03-25', 120, 0, b'1', 128, '', 'AS-13', 3852, b'1', 3, b'0'),
 	(178, '2020-03-25', 120, 0, b'1', 128, '', 'AS-14', 2712, b'1', 3, b'0'),
 	(179, '2020-03-25', 120, 0, b'1', 128, '', 'AS-15', 6170, b'1', 3, b'0'),
@@ -158,10 +162,11 @@ INSERT INTO `fattura` (`id`, `data`, `anno`, `scadenza`, `e_una_fattura_cliente`
 	(183, '2020-03-25', 120, 0, b'1', 128, '', 'AS-19', 564, b'1', 3, b'0'),
 	(184, '2020-03-25', 120, 0, b'1', 128, '', 'AS-20', 300, b'1', 3, b'0'),
 	(185, '2020-03-25', 120, 0, b'1', 128, '', 'AS-21', 100, b'1', 3, b'0'),
-	(186, '2020-03-25', 120, 0, b'1', 128, '', 'AS-22', 111, b'1', 3, b'0');
+	(186, '2020-03-25', 120, 0, b'1', 128, '', 'AS-22', 111, b'1', 3, b'0'),
+	(187, '2020-03-30', 120, 30, b'1', 9, 'Cena da asporto', 'AS-23', 20.5, b'0', 3, b'0');
 /*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.jesu
+-- Dumping structure for table stonks.jesu
 DROP TABLE IF EXISTS `jesu`;
 CREATE TABLE IF NOT EXISTS `jesu` (
   `id` int(50) NOT NULL AUTO_INCREMENT,
@@ -202,9 +207,9 @@ CREATE TABLE IF NOT EXISTS `jesu` (
   `responseToString` varchar(500) DEFAULT NULL,
   `numberOfCharactersInTheResponseString` int(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5361 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5379 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.jesu: ~4.237 rows (circa)
+-- Dumping data for table stonks.jesu: ~5.244 rows (approximately)
 DELETE FROM `jesu`;
 /*!40000 ALTER TABLE `jesu` DISABLE KEYS */;
 INSERT INTO `jesu` (`id`, `date`, `authType`, `characterEncoding`, `contentType`, `contextPath`, `localAddr`, `localName`, `method`, `pathInfo`, `pathTranslated`, `protocol`, `queryString`, `remoteAddr`, `remoteHost`, `remoteUser`, `requestSessionId`, `requestURI`, `scheme`, `serverName`, `servletPath`, `requestToString`, `contentLength`, `localPort`, `remotePort`, `serverPort`, `requestHashCode`, `attributeNames`, `requestClass`, `cookies`, `responseBufferSize`, `responseCharacterEncoding`, `responseContentType`, `responseStatus`, `responseHashCode`, `responseToString`, `numberOfCharactersInTheResponseString`) VALUES
@@ -5561,10 +5566,28 @@ INSERT INTO `jesu` (`id`, `date`, `authType`, `characterEncoding`, `contentType`
 	(5357, '2020-03-25', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=0&numSettimane=&entrataUscita=null&user=8', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, 'u90fgmjoxn9v1uwm5dcjo3vdx', '/scadenza', 'http', 'localhost', '/scadenza', 'Request(GET //localhost:8080/scadenza?numMesi=0&numSettimane=&entrataUscita=null&user=8)@4f05beae', -1, 8080, 61744, 8080, 1325776558, 'java.util.Collections$3@dab5c4b', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@ec31642', 32768, 'utf-8', 'application/json', 200, 14797878, 'HTTP/1.1 200 \r\nContent-Type: application/json\r\n\r\n', 1497),
 	(5358, '2020-03-25', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'numMesi=0&numSettimane=&entrataUscita=null&user=8', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, 'u90fgmjoxn9v1uwm5dcjo3vdx', '/scadenza', 'http', 'localhost', '/scadenza', 'Request(GET //localhost:8080/scadenza?numMesi=0&numSettimane=&entrataUscita=null&user=8)@4f05beae', -1, 8080, 61744, 8080, 1325776558, 'java.util.Collections$3@78a1cd1a', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@ec31642', 32768, 'utf-8', 'application/json', 200, 14797878, 'HTTP/1.1 200 \r\nContent-Type: application/json\r\n\r\n', 1497),
 	(5359, '2020-03-25', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'userID=8', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, 'u90fgmjoxn9v1uwm5dcjo3vdx', '/allPagamenti', 'http', 'localhost', '/allPagamenti', 'Request(GET //localhost:8080/allPagamenti?userID=8)@4f05beae', -1, 8080, 61744, 8080, 1325776558, 'java.util.Collections$3@1324d117', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@ec31642', 32768, 'utf-8', 'application/json', 200, 14797878, 'HTTP/1.1 200 \r\nContent-Type: application/json\r\n\r\n', 8041),
-	(5360, '2020-03-27', NULL, NULL, NULL, '', '192.168.1.122', '192.168.1.122', 'GET', NULL, NULL, 'HTTP/1.1', 'listaNotifica=5&user=8', '192.168.1.71', '192.168.1.71', NULL, NULL, '/notifica', 'http', '192.168.1.122', '/notifica', 'Request(GET //192.168.1.122:8080/notifica?listaNotifica=5&user=8)@69726218', -1, 8080, 48486, 8080, 1769103896, 'java.util.Collections$3@3cc038b6', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 1894139234, 'HTTP/1.1 200 \r\nContent-Type: application/json\r\n\r\n', 2);
+	(5360, '2020-03-27', NULL, NULL, NULL, '', '192.168.1.122', '192.168.1.122', 'GET', NULL, NULL, 'HTTP/1.1', 'listaNotifica=5&user=8', '192.168.1.71', '192.168.1.71', NULL, NULL, '/notifica', 'http', '192.168.1.122', '/notifica', 'Request(GET //192.168.1.122:8080/notifica?listaNotifica=5&user=8)@69726218', -1, 8080, 48486, 8080, 1769103896, 'java.util.Collections$3@3cc038b6', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 1894139234, 'HTTP/1.1 200 \r\nContent-Type: application/json\r\n\r\n', 2),
+	(5361, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e5ecdd1', 22, 8080, 37046, 8080, 1046400465, 'java.util.Collections$3@2402c27d', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 1865542055, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(5362, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e5ecdd1', 24, 8080, 37046, 8080, 1046400465, 'java.util.Collections$3@41e4a2e2', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 1865542055, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(5363, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e5ecdd1', 23, 8080, 37046, 8080, 1046400465, 'java.util.Collections$3@68f06508', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1865542055, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', NULL),
+	(5364, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e9f9664', 22, 8080, 37064, 8080, 1050646116, 'java.util.Collections$3@456aec74', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 596909545, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(5365, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e9f9664', 24, 8080, 37064, 8080, 1050646116, 'java.util.Collections$3@54c6dd28', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 596909545, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', NULL),
+	(5366, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/crea', 'http', 'localhost', '/fattura/crea', 'Request(POST //localhost:8080/fattura/crea)@3e9f9664', 23, 8080, 37064, 8080, 1050646116, 'java.util.Collections$3@622e945f', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 596909545, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', NULL),
+	(5367, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/fattura/salva', 'http', 'localhost', '/fattura/salva', 'Request(POST //localhost:8080/fattura/salva)@484e839', 1179, 8080, 37076, 8080, 75819065, 'java.util.Collections$3@72e85db7', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'iso-8859-1', NULL, 200, 1943192570, 'HTTP/1.1 200 \n\r\n', NULL),
+	(5368, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/archivio/getAllMineInvoices', 'http', 'localhost', '/archivio/getAllMineInvoices', 'Request(GET //localhost:8080/archivio/getAllMineInvoices?user=8)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@2e93f072', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 20298),
+	(5369, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'id=176&_=1585583483789', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/archivio/SingleInvoice', 'http', 'localhost', '/archivio/SingleInvoice', 'Request(GET //localhost:8080/archivio/SingleInvoice?id=176&_=1585583483789)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@7c719bb7', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 755),
+	(5370, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'PUT', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/archivio/SingleInvoice', 'http', 'localhost', '/archivio/SingleInvoice', 'Request(PUT //localhost:8080/archivio/SingleInvoice)@4f76f00d', 6, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@c814fb2', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'iso-8859-1', NULL, 200, 1470227183, 'HTTP/1.1 200 \n\r\n', NULL),
+	(5371, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'id=187&_=1585583483790', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/archivio/SingleInvoice', 'http', 'localhost', '/archivio/SingleInvoice', 'Request(GET //localhost:8080/archivio/SingleInvoice?id=187&_=1585583483790)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@70324d0c', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 1369),
+	(5372, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8&_=1585583547242', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/profilo/persone', 'http', 'localhost', '/profilo/persone', 'Request(GET //localhost:8080/profilo/persone?user=8&_=1585583547242)@4fe9f952', -1, 8080, 37120, 8080, 1340733778, 'java.util.Collections$3@7618c7ae', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 347529644, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 1360),
+	(5373, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8&idPersona=131&_=1585583547243', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/profilo/persone', 'http', 'localhost', '/profilo/persone', 'Request(GET //localhost:8080/profilo/persone?user=8&idPersona=131&_=1585583547243)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@13ff6857', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 171),
+	(5374, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8&idPersona=134&_=1585583547244', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/profilo/persone', 'http', 'localhost', '/profilo/persone', 'Request(GET //localhost:8080/profilo/persone?user=8&idPersona=134&_=1585583547244)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@1adfbfbd', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 207),
+	(5375, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8&_=1585583547245', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/profilo/conti', 'http', 'localhost', '/profilo/conti', 'Request(GET //localhost:8080/profilo/conti?user=8&_=1585583547245)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@76136da3', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', 533),
+	(5376, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'user=8&_=1585583547246', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/profilo/profilo', 'http', 'localhost', '/profilo/profilo', 'Request(GET //localhost:8080/profilo/profilo?user=8&_=1585583547246)@4f76f00d', -1, 8080, 37112, 8080, 1333194765, 'java.util.Collections$3@29c3de99', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json;charset=utf-8', 200, 1470227183, 'HTTP/1.1 200 \nContent-Type: application/json;charset=utf-8\r\n\r\n', NULL),
+	(5377, '2020-03-30', NULL, 'utf-8', 'application/x-www-form-urlencoded; charset=UTF-8', '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'POST', NULL, NULL, 'HTTP/1.1', NULL, '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, NULL, '/login', 'http', 'localhost', '/login', 'Request(POST //localhost:8080/login)@88c971f', 26, 8080, 37136, 8080, 143431455, 'java.util.Collections$3@cd28f24', 'class org.eclipse.jetty.server.Request', 'null', 32768, 'utf-8', 'application/json', 200, 886436426, 'HTTP/1.1 200 \nSet-Cookie: JSESSIONID=1g08ggtw9hgup17dn4ys6kq9j6;Path=/\r\nExpires: Thu, 01 Jan 1970 00:00:00 GMT\r\nContent-Type: application/json\r\n\r\n', 214),
+	(5378, '2020-03-30', NULL, NULL, NULL, '', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', 'GET', NULL, NULL, 'HTTP/1.1', 'listaNotifica=5&user=8', '0:0:0:0:0:0:0:1', '0:0:0:0:0:0:0:1', NULL, '1g08ggtw9hgup17dn4ys6kq9j6', '/notifica', 'http', 'localhost', '/notifica', 'Request(GET //localhost:8080/notifica?listaNotifica=5&user=8)@88c971f', -1, 8080, 37136, 8080, 143431455, 'java.util.Collections$3@5a77c01b', 'class org.eclipse.jetty.server.Request', '[Ljavax.servlet.http.Cookie;@78ca915c', 32768, 'utf-8', 'application/json', 200, 886436426, 'HTTP/1.1 200 \nContent-Type: application/json\r\n\r\n', 2);
 /*!40000 ALTER TABLE `jesu` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.metodo_di_pagamento
+-- Dumping structure for table stonks.metodo_di_pagamento
 DROP TABLE IF EXISTS `metodo_di_pagamento`;
 CREATE TABLE IF NOT EXISTS `metodo_di_pagamento` (
   `id` varchar(255) NOT NULL,
@@ -5573,14 +5596,14 @@ CREATE TABLE IF NOT EXISTS `metodo_di_pagamento` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.metodo_di_pagamento: ~0 rows (circa)
+-- Dumping data for table stonks.metodo_di_pagamento: ~0 rows (approximately)
 DELETE FROM `metodo_di_pagamento`;
 /*!40000 ALTER TABLE `metodo_di_pagamento` DISABLE KEYS */;
 INSERT INTO `metodo_di_pagamento` (`id`, `destinazione`, `nome`) VALUES
 	('m1', 'destinazione1', 'metodo1');
 /*!40000 ALTER TABLE `metodo_di_pagamento` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.oldfattura
+-- Dumping structure for table stonks.oldfattura
 DROP TABLE IF EXISTS `oldfattura`;
 CREATE TABLE IF NOT EXISTS `oldfattura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -5601,12 +5624,12 @@ CREATE TABLE IF NOT EXISTS `oldfattura` (
   KEY `FKmb9vx00a7hlubj1eo14fki1j5` (`mittente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.oldfattura: ~0 rows (circa)
+-- Dumping data for table stonks.oldfattura: ~0 rows (approximately)
 DELETE FROM `oldfattura`;
 /*!40000 ALTER TABLE `oldfattura` DISABLE KEYS */;
 /*!40000 ALTER TABLE `oldfattura` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.pagamento
+-- Dumping structure for table stonks.pagamento
 DROP TABLE IF EXISTS `pagamento`;
 CREATE TABLE IF NOT EXISTS `pagamento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -5619,7 +5642,7 @@ CREATE TABLE IF NOT EXISTS `pagamento` (
   CONSTRAINT `FKoshl8ca41ee2jcc7bgfnv3lvo` FOREIGN KEY (`fattura_id`) REFERENCES `fattura` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.pagamento: ~9 rows (circa)
+-- Dumping data for table stonks.pagamento: ~10 rows (approximately)
 DELETE FROM `pagamento`;
 /*!40000 ALTER TABLE `pagamento` DISABLE KEYS */;
 INSERT INTO `pagamento` (`id`, `dataPagamento`, `giaPagato`, `pagato`, `fattura_id`) VALUES
@@ -5635,7 +5658,7 @@ INSERT INTO `pagamento` (`id`, `dataPagamento`, `giaPagato`, `pagato`, `fattura_
 	(27, '2020-03-25', 111, b'1', 186);
 /*!40000 ALTER TABLE `pagamento` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.persona
+-- Dumping structure for table stonks.persona
 DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -5651,7 +5674,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
   CONSTRAINT `FK_persona_persona` FOREIGN KEY (`autore`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.persona: ~17 rows (circa)
+-- Dumping data for table stonks.persona: ~17 rows (approximately)
 DELETE FROM `persona`;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
 INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `telefono`, `autore`) VALUES
@@ -5665,16 +5688,16 @@ INSERT INTO `persona` (`id`, `nome`, `cognome`, `indirizzo`, `mail`, `pIVA`, `te
 	(9, 'Mickey', 'Mouse', 'Disneyland', 'mm@disney.com', '1234567890', 'aifon', 8),
 	(47, 'Giorgio', 'Nesci', 'Monza', 'gn@info.it', '', '456486456', 8),
 	(49, 'Giacomo', 'Poretti', '', '', '', '', 8),
-	(58, 'Luca', 'Donà', 'via da qua', 'mail@realmente.esistente', NULL, '645456156', NULL),
+	(58, 'Luca', 'DonÃ ', 'via da qua', 'mail@realmente.esistente', NULL, '645456156', NULL),
 	(59, 'ciccio', 'pasticco', '', 'emai', '', '666', 58),
 	(128, 'Andrea', 'Accorinti', 'Sesto San Gionvanni', 'a.andre@itsrizzoli.com', 'IT 8797641230', '2135647890', 8),
 	(131, 'Alex', 'Rusei', 'Romania', 'r.alex@itsrizzoli.it', 'IT 231748956', '3225489741', 8),
 	(134, 'Matteo', 'Conti', 'Domodossola (non la fermata della metro!)', 'c.matte@itsrizzoli.it', 'IT 034697581', '201659847', 8),
 	(139, 'Alex', 'Di Crmine', 'Roma', 'dc.alex@itsrizzoli.it', 'IT 7893540621', '32651479', 8),
-	(153, 'Daniela', 'De Pascali', 'di giù', 'dp.dani@itsrizzoli.it', 'IT 7895461320', '231475896', 8);
+	(153, 'Daniela', 'De Pascali', 'di giÃ¹', 'dp.dani@itsrizzoli.it', 'IT 7895461320', '231475896', 8);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.user
+-- Dumping structure for table stonks.user
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
@@ -5685,18 +5708,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   CONSTRAINT `FKfyoya0v2f2ecp7sl83vnfl0lq` FOREIGN KEY (`id`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.user: ~5 rows (circa)
+-- Dumping data for table stonks.user: ~5 rows (approximately)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `password`, `dataOraUltimoLogin`) VALUES
 	(1, 'UserPippo2', '789456123', '2020-03-23 00:34:26'),
 	(3, 'AdminUser', 'admin_pass', NULL),
 	(4, 'UserPippo2u', 'Pippo123u', NULL),
-	(8, 'albi', '123', '2020-03-25 17:22:34'),
+	(8, 'albi', '123', '2020-03-30 17:54:03'),
 	(58, 'luca', 'pippo123', '2020-02-14 16:52:47');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
--- Dump della struttura di tabella stonks.utente
+-- Dumping structure for table stonks.utente
 DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
   `metodoDiRegistrazione` varchar(255) DEFAULT NULL,
@@ -5705,7 +5728,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
   CONSTRAINT `FKprrorkdeifpg2wxymqtnhxsqy` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dump dei dati della tabella stonks.utente: ~0 rows (circa)
+-- Dumping data for table stonks.utente: ~0 rows (approximately)
 DELETE FROM `utente`;
 /*!40000 ALTER TABLE `utente` DISABLE KEYS */;
 INSERT INTO `utente` (`metodoDiRegistrazione`, `id`) VALUES
