@@ -26,22 +26,41 @@ public class FatturaCursorAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        FatturaDatabaseAdapter fatturaDatabaseAdapter = new FatturaDatabaseAdapter(context);
+
+        // numero fattura
         TextView numeroFattura = view.findViewById(R.id.li_tv_numero_fattura);
         numeroFattura.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(7))));
 
+        // data
         TextView data = view.findViewById(R.id.li_tv_data_fattura);
         data.setText(Converter.data(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(1)))));
 
+        // tipo fattura
+        String tipo = cursor.getString(cursor.getColumnIndex(cursor.getColumnName(4)));
+        if (tipo.contentEquals("1")) tipo = "cliente";
+        else tipo = "fornitore";
         TextView fornitoreCliente = view.findViewById(R.id.li_tv_fornitore_cliente);
-        fornitoreCliente.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(4))));
+        fornitoreCliente.setText(tipo);
 
+        //persona
+        Integer personaId = cursor.getInt(cursor.getColumnIndex(cursor.getColumnName(5)));
+        PeronaDatabaseAdapter peronaDatabaseAdapter = new PeronaDatabaseAdapter(context);
+        peronaDatabaseAdapter.open();
+        String personaNomeCognome = peronaDatabaseAdapter.getNomeCognome(personaId);
+        peronaDatabaseAdapter.close();
         TextView persona = view.findViewById(R.id.li_tv_persona);
-        persona.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(5))));
+        persona.setText(personaNomeCognome);
 
+        // conto
+        Integer contoId = Integer.valueOf(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(12))));
+        ContoDatabaseAdapter contoDatabaseAdapter = new ContoDatabaseAdapter(context);
+        contoDatabaseAdapter.open();
+        String contoNome = contoDatabaseAdapter.getNome(contoId);
+        contoDatabaseAdapter.close();
         TextView conto = view.findViewById(R.id.li_tv_conto);
-        conto.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(12))));
+        conto.setText(contoNome);
 
+        // lordo
         TextView lordo = view.findViewById(R.id.li_tv_lordo);
         lordo.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(9))));
     }

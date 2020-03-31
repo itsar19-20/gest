@@ -77,7 +77,8 @@ public class FatturaDatabaseAdapter {
 
     public Cursor fetchAll() {
         return database.query(TABLE_FATTURA, new String[] {KEY_ID, KEY_DATA, KEY_ANNO, KEY_SCADENZA, KEY_E_UNA_FATTURA_CLIENTE,
-        KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA, KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO}, null, null, null, null,null);
+        KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA, KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO},
+                null, null, null, null, KEY_ID + " DESC");
     }
 
     public Integer getMaxId() {
@@ -87,20 +88,12 @@ public class FatturaDatabaseAdapter {
         return max;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    public SQLiteDatabase getDatabase() {
-        return database;
-    }
-
-    public DatabaseHelper getDbHelper() {
-        return dbHelper;
-    }
-
-    public static String getTableFattura() {
-        return TABLE_FATTURA;
+    public boolean exist(Integer _id) {
+        try {
+            Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FATTURA + " WHERE " + KEY_ID + "=" + _id, new String[]{});
+            if (cursor.moveToFirst()) return true;
+        } catch (Exception e) { e.printStackTrace(); }
+        return false;
     }
 
     public static String getKeyId() {

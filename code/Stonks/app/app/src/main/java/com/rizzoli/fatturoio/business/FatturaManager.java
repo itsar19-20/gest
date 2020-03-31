@@ -52,7 +52,6 @@ public class FatturaManager {
                     try {
                         invoices = VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
                         for (Fattura f : invoices) { str += String.valueOf(f.get_id()) + "\n\n"; }
-                        Log.e("AAA", response);
                         putValuesIntoLocalDatabase();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -75,7 +74,6 @@ public class FatturaManager {
             int num = 0;
             for (Fattura f : invoices) {
                 if (f.get_id() > max) {
-                    Log.e("AAA", String.valueOf(f.iseUnaFatturaCliente()));
                     databaseAdapter.create(
                             f.get_id(),
                             f.getData(),
@@ -93,6 +91,8 @@ public class FatturaManager {
                     );
                     num++;
                 }
+                ContoManager.syncConto(f.getConto(), context);
+                PersonaManager.syncPersona(f.getPersona(), context);
             }
             if (num > 0) Toast.makeText(context, num + " nuove fatture", Toast.LENGTH_LONG).show();
             else Toast.makeText(context, "non ci sono nuove fatture", Toast.LENGTH_LONG).show();
