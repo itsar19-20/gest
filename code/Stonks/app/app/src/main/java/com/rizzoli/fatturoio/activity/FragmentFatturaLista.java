@@ -38,13 +38,4 @@ public class FragmentFatturaLista extends Fragment {
         ((FatturaActivity)getActivity()).setViewPager(1);
     }
 
-    /*
-    // Torna alla home
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(getContext(), MainActivity.class));
-        finish();
-    }
-    */
-
 }

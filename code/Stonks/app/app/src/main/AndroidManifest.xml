@@ -13,20 +13,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.FatturaActivity" />
-        <activity android:name=".activity.TestVolleyActivity" />
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestRetrofitActivity" />
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.FatturaActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.CercaScadenziario" />
+        <activity android:name=".activity.TestVolleyActivity" />
+        <activity android:name=".activity.TestRetrofitActivity" />
     </application>
 
 </manifest>

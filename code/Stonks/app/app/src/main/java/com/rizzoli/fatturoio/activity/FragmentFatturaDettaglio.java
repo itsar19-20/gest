@@ -15,17 +15,10 @@ import com.rizzoli.fatturoio.R;
 
 public class FragmentFatturaDettaglio extends Fragment {
 
-    private TextView textView;
-    private Button button;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fattura_dettaglio, container, false);
-        textView = view.findViewById(R.id.textView_f2);
-        button = view.findViewById(R.id.btn_f2);
-
-        button.setOnClickListener(v -> goToFragmentFatturaLista());
 
         return view;
     }
@@ -33,14 +26,5 @@ public class FragmentFatturaDettaglio extends Fragment {
     private void goToFragmentFatturaLista() {
         ((FatturaActivity)getActivity()).setViewPager(0);
     }
-
-    /*
-    // Torna alla home
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(getContext(), MainActivity.class));
-        finish();
-    }
-    */
 
 }
