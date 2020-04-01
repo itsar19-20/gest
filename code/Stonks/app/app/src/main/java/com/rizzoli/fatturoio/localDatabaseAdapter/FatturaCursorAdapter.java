@@ -1,7 +1,6 @@
 package com.rizzoli.fatturoio.localDatabaseAdapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.view.LayoutInflater;

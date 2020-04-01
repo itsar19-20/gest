@@ -18,18 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_torna_alla_lista_fatture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@android:color/darker_gray"
-        app:backgroundTint="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fab_emetti_nota_di_credito"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
     <LinearLayout
         android:id="@+id/d_ll_primo_blocco"
         android:layout_width="match_parent"
@@ -151,7 +139,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/d_ll_ultimo_blocco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d_ll_primo_blocco">
@@ -214,7 +201,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginEnd="4dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -233,7 +221,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginStart="4dp">
 
             <TextView
                 android:layout_width="match_parent"

@@ -15,7 +15,7 @@ public class Articolo {
         prezzo,
         parziale,
         iva;
-    private Fattura fattura;
+    private Integer fattura;
 
     public Integer get_id() {
         return _id;
@@ -65,11 +65,11 @@ public class Articolo {
         this.iva = iva;
     }
 
-    public Fattura getFattura() {
+    public Integer getFattura() {
         return fattura;
     }
 
-    public void setFattura(Fattura fattura) {
+    public void setFattura(Integer fattura) {
         this.fattura = fattura;
     }
 

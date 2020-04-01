@@ -9,6 +9,11 @@ public class GlobalState extends Application {
     // Qui salviamo le variabili che saranno accessibili da tutte le altre classi
     private String test;
     private User user;
+    private static Integer fatturaDettaglioId;
+
+    public static Integer getFatturaDettaglioId() { return fatturaDettaglioId; }
+
+    public static void setFatturaDettaglioId(Integer fatturaDettaglioId) { GlobalState.fatturaDettaglioId = fatturaDettaglioId; }
 
     public User getUser() {
         return user;

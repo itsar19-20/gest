@@ -8,9 +8,10 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.rizzoli.fatturoio.R;
+import com.rizzoli.fatturoio.GlobalState;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaCursorAdapter;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaDatabaseAdapter;
+import com.rizzoli.fatturoio.localDatabaseAdapter.PeronaDatabaseAdapter;
 import com.rizzoli.fatturoio.serverDatabaseModel.Articolo;
 import com.rizzoli.fatturoio.serverDatabaseModel.Fattura;
 import com.rizzoli.fatturoio.utils.VolleyUtils;
@@ -23,22 +24,26 @@ public class FatturaManager {
     private static Fattura[] invoices;
     private static Context context;
     private static View view;
+    private static ListView listViewFatture;
 
     public static void setContext(Context context) { FatturaManager.context = context; }
     public static void setView(View view) { FatturaManager.view = view; }
+    public static void setListViewFatture(ListView listView) { FatturaManager.listViewFatture = listView; }
 
-    public static void syncInvoices(Context context, View view) {
+    public static void syncInvoices(Context context, View view, ListView listView) {
         try {
             setContext(context);
             setView(view);
+            setListViewFatture(listView);
             makeTheRequestToTheServer();
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    public static void loadInvoices(Context context, View view) {
+    public static void loadInvoices(Context context, View view, ListView listView) {
         try {
             setContext(context);
             setView(view);
+            setListViewFatture(listView);
             refreshListView();
         } catch (Exception e) { e.printStackTrace(); }
     }
@@ -70,7 +75,6 @@ public class FatturaManager {
         try {
             databaseAdapter = new FatturaDatabaseAdapter(context);
             databaseAdapter.open();
-            Integer max = databaseAdapter.getMaxId();
             int num = 0;
             for (Fattura f : invoices) {
                 Integer numArticoli = 0;
@@ -93,6 +97,7 @@ public class FatturaManager {
                             f.getConto().get_id(),
                             numArticoli
                     );
+                    ArticoloManager.create(f.getArticoli(), f.get_id(), context);
                     num++;
                 } else {
                     databaseAdapter.update(
@@ -114,7 +119,6 @@ public class FatturaManager {
                 }
                 ContoManager.syncConto(f.getConto(), context);
                 PersonaManager.syncPersona(f.getPersona(), context);
-                // sync articoli
             }
             if (num > 0) Toast.makeText(context, num + " nuove fatture", Toast.LENGTH_LONG).show();
             else Toast.makeText(context, "non ci sono nuove fatture", Toast.LENGTH_LONG).show();
@@ -129,9 +133,17 @@ public class FatturaManager {
             databaseAdapter.open();
             cursor = databaseAdapter.fetchAll();
             cursorAdapter = new FatturaCursorAdapter(context, cursor);
-            ListView listView = view.findViewById(R.id.listView_fatture);
-            listView.setAdapter(cursorAdapter);
+            listViewFatture.setAdapter(cursorAdapter);
             databaseAdapter.close();
         } catch (Exception e) { e.printStackTrace(); }
     }
+
+    public static Integer takeId(int position) {
+        try {
+            cursor.moveToPosition(position);
+            return cursor.getInt(cursor.getColumnIndex(databaseAdapter.getKeyId()));
+        } catch (Exception e) { e.printStackTrace(); }
+        return null;
+    }
+
 }

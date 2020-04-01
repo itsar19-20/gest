@@ -91,6 +91,14 @@ public class FatturaDatabaseAdapter {
                 null, null, null, null, KEY_ID + " DESC");
     }
 
+    public Cursor fetchById(Integer fatturaDettaglioId) {
+        Cursor myCursor = database.query(true, TABLE_FATTURA, new String[] {
+                        KEY_CONTO, KEY_NUMERO_FATTURA, KEY_E_UNA_FATTURA_CLIENTE, KEY_PERSONA, KEY_DATA, KEY_SCADENZA, KEY_NOTA, KEY_LORDO, KEY_IVA },
+                KEY_ID + " like '%" + fatturaDettaglioId + "%'",
+                null, null, null, null, null);
+        return myCursor;
+    }
+
     public Integer getMaxId() {
         Cursor cursor = database.rawQuery("SELECT max(" + KEY_ID + ") FROM " + TABLE_FATTURA, new String[] {});
         Integer max = 0;
