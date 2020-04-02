@@ -28,6 +28,7 @@
         <activity android:name=".activity.FatturaActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.CercaScadenziario" />
+        <activity android:name=".activity.MostraScadenziario" />
         <activity android:name=".activity.TestVolleyActivity" />
         <activity android:name=".activity.TestRetrofitActivity" />
     </application>
