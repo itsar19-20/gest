@@ -46,8 +46,9 @@ public class CercaScadenziario extends AppCompatActivity {
     Button cerca;
 
     Integer radioSelezione=0;  // 0=entrambe 1=entrata 2=uscita
+    String stringaRadio="null";
     Integer valSuccessivo=null;
-    String str="aaaaa";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,19 +130,19 @@ public class CercaScadenziario extends AppCompatActivity {
                     Toast.makeText(CercaScadenziario.this,"mesi : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
                     i.putExtra("mese",valSuccessivo.toString());
                     i.putExtra("settimana","null");
-                    i.putExtra("radio",radioSelezione);
+                    i.putExtra("radio",stringaRadio);
 
 
                 }else if(sSettimana.length()>=22){
                     Toast.makeText(CercaScadenziario.this,"settimane : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
                     i.putExtra("mese","null");
                     i.putExtra("settimana",valSuccessivo.toString());
-                    i.putExtra("radio",radioSelezione);
+                    i.putExtra("radio",stringaRadio);
                 }else{
                     Toast.makeText(CercaScadenziario.this,"niente "+radioSelezione, Toast.LENGTH_SHORT).show();
                     i.putExtra("mese","null");
                     i.putExtra("settimana","null");
-                    i.putExtra("radio",radioSelezione);
+                    i.putExtra("radio",stringaRadio);
                 }
                 // fare la nuova activity
                 startActivity(i);
@@ -161,14 +162,17 @@ public class CercaScadenziario extends AppCompatActivity {
         switch(radioId){
             case R.id.btnEntrambe:
                 radioSelezione = 0;
+                stringaRadio="null";
                 break;
 
             case R.id.btnEntrata:
                 radioSelezione=1;
+                stringaRadio="true";
                 break;
 
             case R.id.btnUscita:
                 radioSelezione=2;
+                stringaRadio="false";
                 break;
 
         }

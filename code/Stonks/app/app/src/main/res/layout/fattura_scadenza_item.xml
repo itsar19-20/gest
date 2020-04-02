@@ -8,29 +8,34 @@
         android:id="@+id/numeroFattura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="numeroFattura" />
 
     <TextView
         android:id="@+id/scadenzaFattura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="scadenzaFattura" />
 
     <TextView
         android:id="@+id/lordoFattura"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="lordoFattura" />
 
     <TextView
         android:id="@+id/entrataUscita"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="entrataUscita" />
 
     <TextView
         android:id="@+id/pagata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
         android:text="pagata" />
 </LinearLayout>
