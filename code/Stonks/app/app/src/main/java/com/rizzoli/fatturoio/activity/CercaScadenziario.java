@@ -2,6 +2,7 @@ package com.rizzoli.fatturoio.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -121,45 +122,30 @@ public class CercaScadenziario extends AppCompatActivity {
             public void onClick(View v){
                 String sMese=textMesi.getText().toString();
                 String sSettimana=textSettimane.getText().toString();
+                Intent i=new Intent(CercaScadenziario.this,MostraScadenziario.class);
+
+
                 if(sMese.length()>=17){
                     Toast.makeText(CercaScadenziario.this,"mesi : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+                    i.putExtra("mese",valSuccessivo.toString());
+                    i.putExtra("settimana","null");
+                    i.putExtra("radio",radioSelezione);
+
 
                 }else if(sSettimana.length()>=22){
                     Toast.makeText(CercaScadenziario.this,"settimane : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+                    i.putExtra("mese","null");
+                    i.putExtra("settimana",valSuccessivo.toString());
+                    i.putExtra("radio",radioSelezione);
                 }else{
                     Toast.makeText(CercaScadenziario.this,"niente "+radioSelezione, Toast.LENGTH_SHORT).show();
+                    i.putExtra("mese","null");
+                    i.putExtra("settimana","null");
+                    i.putExtra("radio",radioSelezione);
                 }
                 // fare la nuova activity
-
-
-                StringRequest request =new StringRequest(
-
-                        Request.Method.GET,
-                        // Imposto i paramenti "alfa", "bravo", "charlie" con i valori delle EditText
-                        VolleyUtils.url("scadenza?user=58&numMesi=null&numSettimane=null&entrataUscita=null"),
-
-                        response -> {
-                            Toast.makeText(CercaScadenziario.this, "prima di try", Toast.LENGTH_SHORT).show();
-                            try {
-                                // Converto la risposta in un oggetto di tipo "TTTesttt" grazie alla libreria Gson
-                                Fattura[] fatture=VolleyUtils.getGsonInstance().fromJson(response, Fattura[].class);
-                                for (Fattura f:fatture){str+=String.valueOf(f.get_id())+"\n\n"; }
-
-                                Toast.makeText(CercaScadenziario.this, "dopo di try", Toast.LENGTH_SHORT).show();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(CercaScadenziario.this, "nel catch", Toast.LENGTH_SHORT).show();
-
-                            }
-                            Log.e("SERVLET_RESPONSE", response.toString());
-                        },
-                        error -> {
-                            Toast.makeText(CercaScadenziario.this, "errore", Toast.LENGTH_SHORT).show();
-
-                        }
-                );
-                VolleyUtils.getRequestQueueInstance(CercaScadenziario.this).add(request);
+                startActivity(i);
+                finish();
 
 
 
