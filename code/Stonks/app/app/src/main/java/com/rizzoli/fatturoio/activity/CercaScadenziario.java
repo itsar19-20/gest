@@ -87,7 +87,7 @@ public class CercaScadenziario extends AppCompatActivity {
 
                 } else {
                     String resultStringaMese = stringaMese + " " + arrMesi.get(position);
-                    Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
+
                     textMesi.setText(resultStringaMese);
                     valSuccessivo=Integer.parseInt(arrMesi.get(position));
 
@@ -108,7 +108,7 @@ public class CercaScadenziario extends AppCompatActivity {
 
                 }else {
                     String resultStringaSettimana = stringaSettimana + " " + arrMesi.get(position);
-                    Toast.makeText(CercaScadenziario.this, arrMesi.get(position), Toast.LENGTH_SHORT).show();
+
                     textSettimane.setText(resultStringaSettimana);
                     valSuccessivo=Integer.parseInt(arrMesi.get(position));
                 }
@@ -127,19 +127,19 @@ public class CercaScadenziario extends AppCompatActivity {
 
 
                 if(sMese.length()>=17){
-                    Toast.makeText(CercaScadenziario.this,"mesi : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+
                     i.putExtra("mese",valSuccessivo.toString());
                     i.putExtra("settimana","null");
                     i.putExtra("radio",stringaRadio);
 
 
                 }else if(sSettimana.length()>=22){
-                    Toast.makeText(CercaScadenziario.this,"settimane : "+valSuccessivo.toString()+" "+radioSelezione, Toast.LENGTH_SHORT).show();
+
                     i.putExtra("mese","null");
                     i.putExtra("settimana",valSuccessivo.toString());
                     i.putExtra("radio",stringaRadio);
                 }else{
-                    Toast.makeText(CercaScadenziario.this,"niente "+radioSelezione, Toast.LENGTH_SHORT).show();
+
                     i.putExtra("mese","null");
                     i.putExtra("settimana","null");
                     i.putExtra("radio",stringaRadio);
@@ -176,7 +176,7 @@ public class CercaScadenziario extends AppCompatActivity {
                 break;
 
         }
-        Toast.makeText(CercaScadenziario.this, "button selezionato " + radioSelezione.toString(), Toast.LENGTH_SHORT).show();
+       
 
     }
     public void getQuery() {

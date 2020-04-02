@@ -53,14 +53,14 @@ public class FatturaScadenzaAdapter extends BaseAdapter {
         TextView  pagata=(TextView) itemView.findViewById(R.id.pagata);
         Fattura selectedFattura=fatture.get(position);
 
-        numeroFattura.setText(selectedFattura.getNumeroFattura());
-        scadenzaFattura.setText(String.valueOf(selectedFattura.getScadenza()));
-        String stringaLordo= String.valueOf(selectedFattura.getLordo());
+        numeroFattura.setText("Numero Fattura: "+selectedFattura.getNumeroFattura());
+        scadenzaFattura.setText("Scadenza: "+ String.valueOf(selectedFattura.getScadenza()));
+        String stringaLordo="Lordo: "+ String.valueOf(selectedFattura.getLordo());
         lordoFattura.setText(stringaLordo);
 
-        entrataUscita.setText( String.valueOf(selectedFattura.iseUnaFatturaCliente()));
-        pagata.setText(String.valueOf(selectedFattura.isPagata()));
-        numeroFattura.setText(selectedFattura.getNumeroFattura());
+        entrataUscita.setText("Fattura Cliente:  "+ String.valueOf(selectedFattura.iseUnaFatturaCliente()));
+        pagata.setText("E' pagata: "+ String.valueOf(selectedFattura.isPagata()));
+      //  numeroFattura.setText(selectedFattura.getNumeroFattura());
 
 
         return itemView;
