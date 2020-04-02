@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/numeroFattura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="numeroFattura" />
+
+    <TextView
+        android:id="@+id/scadenzaFattura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="scadenzaFattura" />
+
+    <TextView
+        android:id="@+id/lordoFattura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="lordoFattura" />
+
+    <TextView
+        android:id="@+id/entrataUscita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="entrataUscita" />
+
+    <TextView
+        android:id="@+id/pagata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pagata" />
+</LinearLayout>
