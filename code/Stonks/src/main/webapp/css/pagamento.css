@@ -1,3 +1,4 @@
+/*
 #idDiv{
     position: relative;
         width: 100%;
@@ -7,25 +8,66 @@
         text-align: center;
     }
 
-#divImporto{
-    position:relative;
-    width:100%;
-    left: 180%;
-    bottom:10px;
-}
+*/
 
-#idScritta{
-    position:relative;
-    left: 300%;
+#divInput{
 
-}
-
-#divBtn{
-    position: relative;
-    top:100px;
+    
+    
+    margin-top: 30px;
     
 }
 
+#divImporto{
+    display: flex;
+    
+    width:25%;
+    
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+#inputImporto{
+
+    border-style:solid;
+    text-align:center;
+    
+}
+
+#idScritta{
+
+    text-align: center;
+
+}
+
+#labelEuro{
+    background-color: gold;
+    font-size: 25px;
+    width:37px;
+    height:37px;
+    
+
+
+}
+/*
+#scrittaImporto{
+    
+
+
+}
+*/
+
+
+
+#divBtn{
+    margin-top: 30px;
+    
+    
+}
+#btnPagamento{
+    width: 10%;
+
+}
 
 
 #l1{

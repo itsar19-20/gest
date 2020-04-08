@@ -3,7 +3,9 @@ $(document).ready( function () {
 	// rimuovo dal local storage visto che la fattura è in fatturaObj
 	//localStorage.removeItem('fatturaDaPagare');
   
-        $('#fatturaDaPagare').text(fatturaObj.numeroFattura);
+		$('#fatturaDaPagare').text(fatturaObj.numeroFattura);
+		
+	
         
         
         $(()=>{

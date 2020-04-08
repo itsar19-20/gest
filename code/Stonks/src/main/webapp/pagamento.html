@@ -31,13 +31,13 @@
 
 -->
 
-</ul>
 
-    <div id="idDiv">
+
+    
         
-              <table id="idTable">
-                <tr>
-                  
+              
+               
+                  <div id="idDiv">
                <!--<p id="p1"> Fattura selezionata:<span id="fatturaDaPagare" name="fattura"></span></p>--> 
                 <ul id="esLista"class="list-group">
                   <li class="list-group-item" id="l2">
@@ -47,30 +47,25 @@
                     Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span>
                   </li>
                  
-                </tr>
-                <!--<tr id="t2">
-                <p id="p2">Importo gia inserito: <span id="idGiaPagato" name="giaPagato"></span></p>
-                </tr>-->
-            
-                <tr>
-                  <td>
-               <p id="idScritta"> Inserisci importo: </p>
-              </td>
-              <td> 
+                </div>
+               
+             <div id="divInput">
+               <div id="scrittaImporto">
+                <label class="label" id="idScritta"> Inserisci importo </label>
+               </div>
               
+               <div class="input-group mb-3" id="divImporto">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="txtEuro">€</span>
+                </div>
+                <input type="text" class="form-control"  placeholder="0,00" id="inputImporto" name="nuovoImporto">
+              </div>
               
-                <div id="divImporto">
-                <input type="number" class="form-control text-primary" id="inputImporto" name="nuovoImporto"/>
-              <!--  <td><input size ="8" maxlength="15" style="background-color:yellow;" type="number" id="inputImporto" name="nuovoImporto"/></td>  -->
-            </div>
-              </td>
-            </tr>
-            <tr>
               <div id="divBtn">
                 <button class="btn btn-primary" id="btnPagamento"> paga </button>
               </div>
-              </tr>
-              </table>
+              
+              
             
         </div>
         

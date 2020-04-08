@@ -1,4 +1,132 @@
 $(document).ready( function () {
+    var inputImporto=$("#inputImporto");
+    var listCorrect=["0","1","2","3","4","5","6","7","8","9",","];
+    var virgolaPos="niente";
+    var dopoVirgola="";
+    var primaVirgola="";
+    
+/*
+
+    $('#inputImporto').on('keypress',function(e){
+        console.log("premuto key: ");
+        console.log(e.key);
+        console.log(this.val());
+
+    });
+    
+
+*/
+/*
+imputImporto.on('click',function(e){
+    console.log("cliccato");
+
+})
+*/
+
+
+inputImporto.on('keypress',function(e){
+   
+    
+    //console.log(e);
+    
+    var stringaImp=inputImporto.val().toString();
+        
+    
+
+    if(e.key===","&& !stringaImp.includes(",")){
+
+
+
+        virgolaPos=e.delegateTarget.selectionStart;
+        var tmp=stringaImp.substring(virgolaPos);
+        if(tmp.length>=3){
+            virgolaPos="niente";
+            e.preventDefault();
+        }
+
+        
+    }else if(!stringaImp.includes(",")){
+        virgolaPos="niente";
+
+    }else if(stringaImp.includes(",")){
+        virgolaPos=stringaImp.indexOf(",");
+    }
+   
+    
+    //console.log("virgola a: ");
+    //console.log(virgolaPos);
+    if(!listCorrect.includes(e.key)){
+
+        
+        
+        e.preventDefault();
+    }else if(e.key===","&& stringaImp.includes(",")){
+        
+        e.preventDefault();
+    }else if(e.delegateTarget.selectionStart===0 && (e.key==="0"||e.key==",")){
+        e.preventDefault();
+    }
+
+    
+    
+    if(virgolaPos!="niente"){
+        //console.log("pass control 1");
+        if(e.delegateTarget.selectionStart-virgolaPos>=3){
+            e.preventDefault();
+        }
+    }
+    if(virgolaPos==="niente"){
+        dopoVirgola="";
+    }
+    if(listCorrect.includes(e.key) && e.key!=","){
+        if(virgolaPos!="niente"){
+            dopoVirgola=stringaImp.substring(virgolaPos+1);
+            //console.log(dopoVirgola);
+            if(e.delegateTarget.selectionStart>virgolaPos && dopoVirgola.length===2){
+                e.preventDefault();
+
+            }
+        }
+        
+    }
+    /*
+    inputImporto.on('keydown', function(e) {
+        var str=inputImporto.val().toString();
+        console.log(str);
+        str=str.replace('.','');
+        console.log(str);
+        var noVirgola=str;
+        var siVirgola="";
+        
+        
+        if(str.includes(",")){
+            var vPos=str.indexOf(",");
+             noVirgola=str.substring(0,vPos);
+             siVirgola=str.substring(vPos);
+            // console.log(siVirgola);
+            // console.log(noVirgola);
+        }
+        
+
+        
+        
+        
+        
+      });
+      
+
+    /*
+    dopoVirgola= stringaImp.substring(0,virgolaPos);
+    if(dopoVirgola.length==3 && e.delegateTarget.selectionStart<virgolaPos){
+
+    }
+*/
+
+    
+   
+
+});
+
  
     $('#btnPagamento').click(function(){
         var value=  parseFloat($('#inputImporto').val()).toFixed(2);
@@ -41,10 +169,6 @@ $(document).ready( function () {
                 }
             }
             
-            //value= ParseFloat(value).toFixed(2);
-            //pagamento.giaPagato=ParseFloat(pagamento.giaPagato).toFixed(2);
-
-
             if(pagamento.pagato==true){
                 pagamento.pagato="sì";
             }else{
