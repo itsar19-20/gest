@@ -2,6 +2,7 @@ package com.rizzoli.fatturoio.business;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.rizzoli.fatturoio.GlobalState;
+import com.rizzoli.fatturoio.activity.FragmentFatturaDettaglio;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaCursorAdapter;
 import com.rizzoli.fatturoio.localDatabaseAdapter.FatturaDatabaseAdapter;
 import com.rizzoli.fatturoio.localDatabaseAdapter.PeronaDatabaseAdapter;
@@ -146,4 +148,50 @@ public class FatturaManager {
         return null;
     }
 
+    public static void emettiNotaDiCredito() {
+        Log.e("NDC", "click");
+        StringRequest request = new StringRequest(
+                Request.Method.PUT,
+                VolleyUtils.url("archivio/SingleInvoice?id=" + GlobalState.getFatturaDettaglioId()),
+                response -> {
+                    String str = "\n";
+                    try {
+                        databaseAdapter = new FatturaDatabaseAdapter(context);
+                        databaseAdapter.open();
+                        Cursor c = databaseAdapter.fetchById(GlobalState.getFatturaDettaglioId());
+                        if (c.moveToFirst()) {
+                            if (databaseAdapter.update(
+                                    c.getInt(c.getColumnIndex(c.getColumnName(0))),
+                                    c.getString(c.getColumnIndex(c.getColumnName(1))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(2))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(3))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(4))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(5))),
+                                    c.getString(c.getColumnIndex(c.getColumnName(6))),
+                                    c.getString(c.getColumnIndex(c.getColumnName(7))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(8))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(9))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(10))),
+                                    1,
+                                    c.getInt(c.getColumnIndex(c.getColumnName(12))),
+                                    c.getInt(c.getColumnIndex(c.getColumnName(13)))
+                            ))
+                                Toast.makeText(context, "Emissione compiuta", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(context, "Emissone fallita", Toast.LENGTH_LONG).show();
+                        }
+                        databaseAdapter.close();
+                        FragmentFatturaDettaglio.trueNDC();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(context, "impossibile risolvere la risposta del sever", Toast.LENGTH_LONG).show();
+                    }
+                },
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(context, "impossibile contattare il sever", Toast.LENGTH_LONG).show();
+                }
+        );
+        VolleyUtils.getRequestQueueInstance(context).add(request);
+    }
 }

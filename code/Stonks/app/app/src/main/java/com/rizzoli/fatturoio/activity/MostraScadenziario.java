@@ -94,4 +94,10 @@ public class MostraScadenziario extends AppCompatActivity {
         VolleyUtils.getRequestQueueInstance(MostraScadenziario.this).add(request);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, CercaScadenziario.class));
+        finish();
+    }
 }

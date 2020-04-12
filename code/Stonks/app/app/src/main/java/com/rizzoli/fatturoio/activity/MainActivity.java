@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rizzoli.fatturoio.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonToTestActivity, btnScadenziario, btnToFatturaActivity;
+    private Button buttonToTestActivity;
+    private FloatingActionButton btnProfilo, btnArchivio, btnScadenziario, btnConti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,28 +22,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonToTestActivity = findViewById(R.id.buttonToTestActivity);
-        btnScadenziario=findViewById(R.id.btnScadenziario);
-        btnToFatturaActivity = findViewById(R.id.buttonToFatturaActivity);
-
-        btnToFatturaActivity.setOnClickListener(v -> startFatturaActivity());
+        btnProfilo = findViewById(R.id.fab_profilo);
+        btnArchivio = findViewById(R.id.fab_archivio);
+        btnScadenziario = findViewById(R.id.fab_scadenziario);
+        btnConti = findViewById(R.id.fab_conti);
 
         buttonToTestActivity.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, TestVolleyActivity.class));
             finish();
         });
-
-        btnScadenziario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, CercaScadenziario.class));
-                finish();
-            }
+        btnProfilo.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ProfiloActivity.class));
+            finish();
+        });
+        btnArchivio.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, FatturaActivity.class));
+            finish();
+        });
+        btnScadenziario.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, CercaScadenziario.class));
+            finish();
+        });
+        btnConti.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ContiActivity.class));
+            finish();
         });
 
-    }
-
-    private void startFatturaActivity() {
-        startActivity(new Intent(MainActivity.this, FatturaActivity.class));
-        finish();
     }
 }

@@ -176,13 +176,16 @@ public class CercaScadenziario extends AppCompatActivity {
                 break;
 
         }
-       
 
     }
     public void getQuery() {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }
 

@@ -15,20 +15,25 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.FatturaActivity"
+        <activity
+            android:name=".activity.FatturaActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.CercaScadenziario" />
         <activity android:name=".activity.MostraScadenziario" />
+        <activity android:name=".activity.ContiActivity" />
+        <activity android:name=".activity.ProfiloActivity" />
         <activity android:name=".activity.TestVolleyActivity" />
         <activity android:name=".activity.TestRetrofitActivity" />
     </application>

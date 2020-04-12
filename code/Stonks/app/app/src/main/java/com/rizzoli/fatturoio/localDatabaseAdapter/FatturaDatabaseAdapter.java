@@ -93,7 +93,8 @@ public class FatturaDatabaseAdapter {
 
     public Cursor fetchById(Integer fatturaDettaglioId) {
         Cursor myCursor = database.query(true, TABLE_FATTURA, new String[] {
-                        KEY_CONTO, KEY_NUMERO_FATTURA, KEY_E_UNA_FATTURA_CLIENTE, KEY_PERSONA, KEY_DATA, KEY_SCADENZA, KEY_NOTA, KEY_LORDO, KEY_IVA },
+                        KEY_ID, KEY_DATA, KEY_ANNO, KEY_SCADENZA, KEY_E_UNA_FATTURA_CLIENTE, KEY_PERSONA, KEY_NOTA, KEY_NUMERO_FATTURA,
+                        KEY_IVA, KEY_LORDO, KEY_PAGATA, KEY_NOTA_DI_CREITO, KEY_CONTO, KEY_NUMERO_ARTICOLI },
                 KEY_ID + " like '%" + fatturaDettaglioId + "%'",
                 null, null, null, null, null);
         return myCursor;
