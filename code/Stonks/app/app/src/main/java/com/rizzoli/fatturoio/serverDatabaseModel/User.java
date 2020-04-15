@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class User extends Persona {
 
-    private String username, password;
-    private Date dataOraUltimoLogin;
+    private String username, password, dataOraUltimoLogin;
 
     public String getUsername() {
         return username;
@@ -23,11 +22,11 @@ public class User extends Persona {
         this.password = password;
     }
 
-    public Date getDataOraUltimoLogin() {
+    public String getDataOraUltimoLogin() {
         return dataOraUltimoLogin;
     }
 
-    public void setDataOraUltimoLogin(Date dataOraUltimoLogin) {
+    public void setDataOraUltimoLogin(String dataOraUltimoLogin) {
         this.dataOraUltimoLogin = dataOraUltimoLogin;
     }
 }

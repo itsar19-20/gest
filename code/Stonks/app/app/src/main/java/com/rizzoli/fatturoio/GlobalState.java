@@ -7,20 +7,27 @@ import com.rizzoli.fatturoio.serverDatabaseModel.User;
 public class GlobalState extends Application {
 
     // Qui salviamo le variabili che saranno accessibili da tutte le altre classi
-    private String test;
-    private User user;
-    private static Integer fatturaDettaglioId;
+    private static String test, userName;
+    private static Integer userId, fatturaDettaglioId;
 
     public static Integer getFatturaDettaglioId() { return fatturaDettaglioId; }
 
     public static void setFatturaDettaglioId(Integer fatturaDettaglioId) { GlobalState.fatturaDettaglioId = fatturaDettaglioId; }
 
-    public User getUser() {
-        return user;
+    public static String getUserName() {
+        return userName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public static void setUserName(String userName) {
+        GlobalState.userName = userName;
+    }
+
+    public static Integer getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(Integer userId) {
+        GlobalState.userId = userId;
     }
 
     public String getTest() {

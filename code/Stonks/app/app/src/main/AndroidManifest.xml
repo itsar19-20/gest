@@ -24,16 +24,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.FatturaActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.CercaScadenziario" />
         <activity android:name=".activity.MostraScadenziario" />
         <activity android:name=".activity.ContiActivity" />
-        <activity android:name=".activity.ProfiloActivity" />
+        <activity
+            android:name=".activity.ProfiloActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.TestVolleyActivity" />
         <activity android:name=".activity.TestRetrofitActivity" />
     </application>

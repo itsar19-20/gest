@@ -1,10 +1,14 @@
 package com.rizzoli.fatturoio.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,9 +59,21 @@ public class FragmentFatturaDettaglio extends Fragment {
         context = ((FatturaActivity)getActivity());
         this.view = view;
 
-        fabNDC.setOnClickListener(v -> FatturaManager.emettiNotaDiCredito());
+        fabNDC.setOnClickListener(v -> areYouSure(view));
 
         return view;
+    }
+
+    private void areYouSure(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Nota di credito")
+                .setMessage("Vuoi emettere una nota di credito per questa fattura?")
+                .setPositiveButton("ok", (dialog, which) -> FatturaManager.emettiNotaDiCredito())
+                .setNegativeButton("no", (dialog, which) -> {
+                    // ...
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     protected static void refreshListaArticoli(int position) {

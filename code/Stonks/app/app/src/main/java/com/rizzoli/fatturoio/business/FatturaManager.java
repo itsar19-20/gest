@@ -53,7 +53,7 @@ public class FatturaManager {
     private static void makeTheRequestToTheServer() {
         StringRequest request = new StringRequest(
                 Request.Method.GET,
-                VolleyUtils.url("archivio/getAllMineInvoices?user=8"),
+                VolleyUtils.url("archivio/getAllMineInvoices?user=" + GlobalState.getUserId()),
                 response -> {
                     String str = "\n";
                     try {

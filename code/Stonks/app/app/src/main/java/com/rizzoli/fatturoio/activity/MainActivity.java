@@ -7,14 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.rizzoli.fatturoio.GlobalState;
 import com.rizzoli.fatturoio.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button buttonToTestActivity;
     private FloatingActionButton btnProfilo, btnArchivio, btnScadenziario, btnConti;
+    private TextView tvCiaoUtente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         btnArchivio = findViewById(R.id.fab_archivio);
         btnScadenziario = findViewById(R.id.fab_scadenziario);
         btnConti = findViewById(R.id.fab_conti);
+        tvCiaoUtente = findViewById(R.id.textView_ciao_utente);
+
+        tvCiaoUtente.setText("Ciao " + GlobalState.getUserName() + "!");
 
         buttonToTestActivity.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, TestVolleyActivity.class));
