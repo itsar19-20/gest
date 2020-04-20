@@ -126,4 +126,38 @@ public class JPALuke {
 		List<Pagamento> listaPagamento = query.getResultList();
 		return listaPagamento;
 	}
+	
+	public static Persona searchPersona(String partitaIVA) {
+		Persona persona=null;
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		TypedQuery<Persona> query = em.createQuery("SELECT p FROM Persona p WHERE p.pIVA = :partitaIVA",
+				Persona.class);
+		query.setParameter("partitaIVA", partitaIVA);
+		try {
+		 persona=query.getSingleResult();
+		}catch(Exception e) {
+			
+		}
+		em.close();
+		
+		return persona;
+	}
+	public static Conto searchConto(Integer idConto) {
+		Conto conto=null;
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		TypedQuery<Conto> query = em.createQuery("SELECT c FROM Conto c WHERE c.id = :idConto",
+				Conto.class);
+		query.setParameter("idConto", idConto);
+		try {
+		 conto=query.getSingleResult();
+		}catch(Exception e) {
+			
+		}
+		em.close();
+		
+		return conto;
+		
+		
+	}
+	
 }
