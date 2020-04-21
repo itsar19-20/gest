@@ -18,6 +18,36 @@ getXMLFile("./fattura1.xml",function(xml){
 */
 
 $(document).ready( function () {
+    var user = JSON.parse(localStorage.getItem('user')  );
+    user = user.id;
+    var whatIWant='conti'
+
+    var contoList=document.getElementById("input-conto");
+
+    //contoList.options[meseList.selectedIndex].value;
+
+
+    $.ajax({
+        url: '/fattura/crea',
+        method: 'post',
+        data: {user, whatIWant}
+    })
+    .done((lista) => {
+        //var select = document.getElementById("input-conto");
+        lista.forEach(element => {
+        //localStorage.setItem(`conto-${element.id}`, JSON.stringify(element));
+            var option = document.createElement("option");
+            option.value = `${element.id}`;
+            option.text = `${element.nome}`;
+            contoList.add(option);
+        
+        });
+    
+    });
+
+
+
+
 
     $("#btnLoad").on("click",function(){
         var inputFile=document.getElementById("myXML");
@@ -39,14 +69,16 @@ $(document).ready( function () {
 
             }
             stringaFile=stringaFile.replace(/[^\x00-\x7F]/g, "");
-            console.log(stringaFile);
+            //console.log(stringaFile);
+
+            console.log(contoList.options[contoList.selectedIndex].value);
             
             var user = JSON.parse(localStorage.getItem('user')  );
             user = user.id;
 
-            var conto=$("#textConto").val();
+            //var conto=$("#textConto").val();
             
-
+            
             
             $.ajax({
                 url: './leggiXML',
@@ -54,19 +86,22 @@ $(document).ready( function () {
                 data: { 
                         fileXML: stringaFile,
                         idUser: user,
-                        idConto: conto
+                        idConto: contoList.options[contoList.selectedIndex].value
 
                     }
              });
+             
 
         }
         fr.readAsText(file);
 
         
-        /*
+
+        
+        
         
 
-*/
+
     });
 
 
