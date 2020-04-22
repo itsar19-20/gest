@@ -21,7 +21,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import business.Registrati;
 import business.Saldo;
+import models.User;
 import utils.God;
+import utils.JPALuke;
 import utils.JPAUtil;
 
 @WebServlet("/registrati")
@@ -47,16 +49,38 @@ public class RegistratiController extends HttpServlet {
 		String password = request.getParameter("password");
 		String metodoDiRegistrazione = request.getParameter("metodoDiRegistrazione");
 		
-		if (nome == null || cognome == null || pIVA == null || mail == null || indirizzo == null
-				|| telefono == null || username == null || password == null) {
-			doGet(request, response);
-			response.sendError(400, "Inserire tutti i campi !!");
-			response.getWriter().append("alert('Inserire tutti i campi !!')");
-			return;
+		
+		if(JPALuke.isNewUsername(username)) {
+			EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+			Registrati r = new Registrati(nome, cognome, pIVA, mail, indirizzo, telefono, username, password, metodoDiRegistrazione,em);
+			
+			User user=r.getUtente();
+			
+			
+			
+			ObjectMapper om = new ObjectMapper();
+			response.setContentType("application/json");
+			response.getWriter().append(om.writeValueAsString(user));
+			God.seesEverythings(request, response, om.writeValueAsString(user));
+			em.close();
+			
+			
+		}else {
+			
+			response.getWriter().append("giaUsato");
+			God.seesEverythings(request, response,"giaUsato");
 		}
-		Registrati r = new Registrati(nome, cognome, pIVA, mail, indirizzo, telefono, username, password, metodoDiRegistrazione);
-		response = (HttpServletResponse) r;
-		God.seesEverythings(request, response, null);
+		
+		
+		
+		
+		
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
 	}
 	
 }

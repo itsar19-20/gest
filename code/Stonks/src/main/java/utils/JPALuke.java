@@ -13,6 +13,7 @@ import models.Conto;
 import models.Fattura;
 import models.Pagamento;
 import models.Persona;
+import models.User;
 import models.Utente;
 
 public class JPALuke {
@@ -158,6 +159,27 @@ public class JPALuke {
 		return conto;
 		
 		
+	}
+	
+	public static boolean isNewUsername(String username) {
+		User user=null;
+		boolean isNew=true;
+		EntityManager em = JPAUtil.getInstance().getEmf().createEntityManager();
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username",
+				User.class);
+		query.setParameter("username", username);
+		try {
+		 user=query.getSingleResult();
+		}catch(Exception e) {
+			
+		}
+		em.close();
+		if(user!=null) {
+			isNew=false;
+		}else {
+			isNew=true;
+		}
+		return isNew;
 	}
 	
 }

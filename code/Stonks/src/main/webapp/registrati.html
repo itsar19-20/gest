@@ -90,6 +90,35 @@
 
         </div>
 
+
+        <div class="modal fade" id="modalRegistrazione">
+          <div class="modal-dialog">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Registrazione avvenuta con successo</h4>
+                <button type="button" id="btnChiudi" onclick="toIndex()" class="close">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                
+                
+              
+          </div>
+                
+                
+             
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="toIndex()" data-dismiss="modal">Close</button>
+              </div>
+              </div>
+            </div>
+          </div>
+
         <footer></footer>
           
         <!-- Bootstrap -->  
@@ -105,6 +134,13 @@
 
         <!-- my js file -->
         <script src="js/index.js"></script>
+        <script src="js/registrati.js"></script>
+
+        <script>
+          function toIndex(){
+            location.href="/";
+          }
+        </script>
 
     </main>
     </body>
