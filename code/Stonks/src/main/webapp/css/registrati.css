@@ -1,28 +1,46 @@
 #immagine{
+    /*
     position: absolute;
     display: block;
+    
+    
     top: 25px;
     width: 384px;
     height: 125px;
     left: 40.355%;
     right: 40%;
+
+    */
+    
 }
 
 #img-fatturo{
+    /*
     position: absolute;
     display: block;
+    
+    
     left: 129.5px;
     width: 125px;
     height: 125px;
+    */
 }
 
 .form-signin{
+    /*
     position: absolute;
     display: block;
+    
+    
     width: 384px;
     top: 200px;
     left: 40.355%;
     right: 40%;
+    */
+    width:40%;
+    margin-right: auto;
+    margin-left: auto;
+    
 }
 
 #Registrazione{
@@ -30,11 +48,14 @@
 }
 
 #btnRegistrati{
-    position: relative;
+    
+    /*
     display: block;
+    
     background-color: green;
     width: 70%;
     left: 15%;
+    */
 }
 
 #btnRegistrati:hover{
