@@ -39,7 +39,8 @@ public class LeggiXML extends HttpServlet {
 		//Integer idUser=58;
 		Integer idConto=Integer.parseInt(contoStringa);
 		
-		System.out.println(stringaXML);
+		//System.out.println(stringaXML);
+		
 		File myObj=new File("filename.xml");
 		
 		 try {

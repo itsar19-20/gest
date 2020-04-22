@@ -53,8 +53,15 @@ $(document).ready( function () {
         var inputFile=document.getElementById("myXML");
         var files=inputFile.files;
         var file=files[0];
-        //console.log(file);
+       // console.log(file);
+        //console.log(file.name);
+        //console.log(file.type);
         var stringaFile="vuoto";
+
+        if(file.type==="text/xml"){
+            console.log("file ok");
+        
+
         var fr=new FileReader();
         fr.onload=function(){
              stringaFile =this.result;
@@ -97,7 +104,9 @@ $(document).ready( function () {
 
         
 
-        
+    }else{
+        alert("formato file non valido");
+    }
         
         
 
